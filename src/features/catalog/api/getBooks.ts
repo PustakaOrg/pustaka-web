@@ -4,5 +4,5 @@ import { PaginatedResponse } from "~/types/responses";
 import { BookListParams } from "../types/BookListParams";
 
 export const getBooks = (params?: BookListParams) => {
-	return api.get<PaginatedResponse<Book>>("api/books/", { params });
+	return api.get<PaginatedResponse<Book>>("api/books/", { params: params as Record<string,string> });
 };

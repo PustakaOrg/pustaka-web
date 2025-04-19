@@ -35,28 +35,29 @@ const SearchBar = ({onSearchSubmit}:SearchBarProps) => {
 						className="w-full pl-9 pr-4"
             name="q"
 					/>
+          <button hidden type="submit">Test</button>
           </form>
 				</div>
 
-				<div className="flex items-center gap-2">
-					<Select defaultValue="relevance">
-						<SelectTrigger className="w-[180px]">
-							<SelectValue placeholder="Sort by" />
-						</SelectTrigger>
-						<SelectContent>
-							<SelectItem value="relevance">Relevance</SelectItem>
-							<SelectItem value="newest">Newest</SelectItem>
-							<SelectItem value="oldest">Oldest</SelectItem>
-							<SelectItem value="title-asc">Title: A-Z</SelectItem>
-							<SelectItem value="title-desc">Title: Z-A</SelectItem>
-							<SelectItem value="rating">Highest Rated</SelectItem>
-						</SelectContent>
-					</Select>
-					<Button variant="outline" size="icon">
-						<Filter className="h-4 w-4" />
-						<span className="sr-only">Filter</span>
-					</Button>
-				</div>
+				{/* <div className="flex items-center gap-2"> */}
+				{/* 	<Select defaultValue="relevance"> */}
+				{/* 		<SelectTrigger className="w-[180px]"> */}
+				{/* 			<SelectValue placeholder="Sort by" /> */}
+				{/* 		</SelectTrigger> */}
+				{/* 		<SelectContent> */}
+				{/* 			<SelectItem value="relevance">Relevance</SelectItem> */}
+				{/* 			<SelectItem value="newest">Newest</SelectItem> */}
+				{/* 			<SelectItem value="oldest">Oldest</SelectItem> */}
+				{/* 			<SelectItem value="title-asc">Title: A-Z</SelectItem> */}
+				{/* 			<SelectItem value="title-desc">Title: Z-A</SelectItem> */}
+				{/* 			<SelectItem value="rating">Highest Rated</SelectItem> */}
+				{/* 		</SelectContent> */}
+				{/* 	</Select> */}
+				{/* 	<Button variant="outline" size="icon"> */}
+				{/* 		<Filter className="h-4 w-4" /> */}
+				{/* 		<span className="sr-only">Filter</span> */}
+				{/* 	</Button> */}
+				{/* </div> */}
 			</div>
 		</>
 	);
