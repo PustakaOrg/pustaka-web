@@ -6,21 +6,13 @@ import SearchBar from "~/features/catalog/components/SearchBar";
 import SideFilter from "~/features/catalog/components/SideFilter";
 import useBookList from "~/features/catalog/hooks/useBookList";
 import { BookListParams } from "~/features/catalog/types/BookListParams";
-
-const defaultBookListParams = (bookParam: BookListParams) => {
-	return Object.fromEntries(
-		Object.entries(bookParam).filter(
-			([_, value]) =>
-				value !== undefined && !(Array.isArray(value) && value.length === 0),
-		),
-	) as BookListParams;
-};
+import { defaultParams } from "~/shared/utils/functions";
 
 const CatalogPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const { bookList, isPending } = useBookList(
-		defaultBookListParams({
+		defaultParams<BookListParams>({
 			q: searchParams.get("q") ?? undefined,
 			available: searchParams.has("available") ? "true" : undefined,
 			category: searchParams.getAll("category"),
@@ -49,7 +41,9 @@ const CatalogPage = () => {
 		const categories = formData.keys();
 
 		setSearchParams((prev) => {
-			prev.set("available", String(available));
+			if (available) prev.set("available", String(available));
+			else prev.delete("available");
+
 			// prev.set("publish_year", String(published_year));
 			while (prev.has("category")) {
 				prev.delete("category");
@@ -63,7 +57,7 @@ const CatalogPage = () => {
 	}, []);
 
 	return (
-		<main className="flex" >
+		<main className="flex">
 			<div className="px-4 py-6 md:px-6 grow ">
 				<SearchBar onSearchSubmit={handleSearchSubmit} />
 
@@ -76,7 +70,11 @@ const CatalogPage = () => {
 					<div className="grow">
 						<section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 							{isPending && <p>Loading...</p>}
-              {bookList && bookList.count === 0 && <p className="col-span-full text-center">No Books Found find Another One</p>}
+							{bookList && bookList.count === 0 && (
+								<p className="col-span-full text-center">
+									No Books Found find Another One
+								</p>
+							)}
 							{bookList && !isPending && (
 								<BookCardList books={bookList.results} />
 							)}
