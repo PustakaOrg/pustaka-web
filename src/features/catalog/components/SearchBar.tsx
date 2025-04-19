@@ -1,4 +1,5 @@
 import { Filter, Search } from "lucide-react";
+import { FormEvent } from "react";
 import { Button } from "~/shared/components/ui/button";
 import { Input } from "~/shared/components/ui/input";
 import {
@@ -9,7 +10,11 @@ import {
 	SelectValue,
 } from "~/shared/components/ui/select";
 
-const SearchBar = () => {
+interface SearchBarProps{
+  onSearchSubmit?: (e: FormEvent<HTMLFormElement>) => void
+}
+
+const SearchBar = ({onSearchSubmit}:SearchBarProps) => {
 	return (
 		<>
 			<div className="mb-6">
@@ -22,12 +27,15 @@ const SearchBar = () => {
 			{/* Search and Filter Bar */}
 			<div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-end">
 				<div className="relative w-full">
+        <form onSubmit={onSearchSubmit}>
 					<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
 					<Input
 						type="text"
 						placeholder="Search by title, author, or ISBN..."
 						className="w-full pl-9 pr-4"
+            name="q"
 					/>
+          </form>
 				</div>
 
 				<div className="flex items-center gap-2">
