@@ -1,7 +1,7 @@
 import { api } from "../../../shared/utils/api";
 
 export type LoginData = {
-	username: string;
+	email: string;
 	password: string;
 };
 

@@ -6,7 +6,7 @@ import { ThemeProvider } from "~/shared/components/theme";
 const Providers = ({ children }: React.PropsWithChildren) => {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ThemeProvider>{children}</ThemeProvider>
+			<ThemeProvider defaultTheme="light">{children}</ThemeProvider>
 		</QueryClientProvider>
 	);
 };
