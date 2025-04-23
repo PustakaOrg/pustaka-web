@@ -5,9 +5,9 @@ import Cookies from "js-cookie";
 const useLogin = (onSuccess?: () => void) => {
 	const {
 		data: loginData,
-		isPending: isLoginPending,
-		isError: isLoginError,
-		error: loginError,
+		isPending,
+		isError,
+		error,
 		mutate: login,
 	} = useMutation({
 		mutationFn: (data: LoginData) => postLogin(data),
@@ -17,7 +17,7 @@ const useLogin = (onSuccess?: () => void) => {
 			if (onSuccess) onSuccess();
 		},
 	});
-	return { loginData, isLoginPending, isLoginError, loginError, login };
+	return { loginData, isPending, isError, error, login };
 };
 
 export default useLogin;
