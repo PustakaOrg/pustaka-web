@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 interface ApiErrorResponse {
 	detail: string;
-  code: string
+	code: string;
 	[key: string]: unknown;
 }
 
@@ -74,11 +74,13 @@ export class ApiClient {
 					...responseData,
 				};
 
-				throw new ApiError(
+				const error = new ApiError(
 					errorResponse.detail,
 					response.status,
 					errorResponse,
 				);
+
+				throw error;
 			}
 
 			return responseData;
@@ -90,7 +92,7 @@ export class ApiClient {
 			const errorResponse: ApiErrorResponse = {
 				detail:
 					error instanceof Error ? error.message : "Unknown error occurred",
-        code: "unknown"
+				code: "unknown",
 			};
 
 			throw new ApiError(errorResponse.detail, 500, errorResponse);
