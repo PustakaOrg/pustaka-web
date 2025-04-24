@@ -14,7 +14,7 @@ const LoginForm = () => {
 		navigate(state?.path || "/dashboard");
 	};
 
-  // TODO: ERROR Handle
+	// TODO: ERROR Handle
 	const { isPending, isError, error, login } = useLogin(onSuccess);
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -31,53 +31,34 @@ const LoginForm = () => {
 	}, []);
 
 	return (
-		<form onSubmit={handleSubmit} className="flex flex-col gap-y-2 w-full">
-			<div className="flex flex-col gap-y-1">
-				<Label htmlFor="email">Email</Label>
-				<Input
-					id="email"
-					name="email"
-					placeholder="Your email"
-					type="email"
-					required
-					disabled={isPending}
-				/>
+		<form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
+			<div className="flex flex-col items-center gap-2 text-center">
+				<h1 className="text-2xl font-bold">Login to your account</h1>
+				<p className="text-balance text-sm text-muted-foreground">
+					Enter your email below to login to your account
+				</p>
 			</div>
-			<div className="flex flex-col gap-y-1">
-				<Label htmlFor="password">Password</Label>
-				<div className="relative flex items-center">
-					<Input
-						id="password"
-						name="password"
-						placeholder="Your Password"
-						type={showPassword ? "text" : "password"}
-						required
-						disabled={isPending}
-					/>
-					{showPassword ? (
-						<EyeOffIcon
-							className="absolute right-3"
-							onClick={() => setShowPassword((prev) => !prev)}
-						/>
-					) : (
-						<EyeIcon
-							className="absolute right-3"
-							onClick={() => setShowPassword((prev) => !prev)}
-						/>
-					)}
+			<div className="grid gap-6">
+				<div className="grid gap-2">
+					<Label htmlFor="email">Email</Label>
+					<Input id="email" type="email" name="email" placeholder="m@example.com" required />
 				</div>
+				<div className="grid gap-2">
+					<div className="flex items-center">
+						<Label htmlFor="password">Password</Label>
+						<a
+							href="#"
+							className="ml-auto text-sm underline-offset-4 hover:underline"
+						>
+							Forgot your password?
+						</a>
+					</div>
+					<Input id="password" type="password" name="password" required />
+				</div>
+				<Button type="submit" className="w-full">
+					Login
+				</Button>
 			</div>
-			<Button
-				size={"lg"}
-				className="w-full font-semibold mt-3"
-				type="submit"
-				disabled={isPending}
-			>
-				{isPending && (
-					<LoaderCircleIcon strokeWidth={4} className="animate-spin" />
-				)}
-				Log In
-			</Button>
 		</form>
 	);
 };

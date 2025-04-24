@@ -8,6 +8,7 @@ export const RequireAuth = ({ children }: { children: React.ReactNode }) => {
 
 	if (isPending) {
 		return (
+      // TODO: Loading Page
 			<main className="h-full w-full bg-background grid place-items-center">
 				<p>Loading</p>
 			</main>
