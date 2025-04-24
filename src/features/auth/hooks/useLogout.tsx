@@ -4,19 +4,16 @@ import { useNavigate } from "react-router";
 
 const useLogout = () => {
 	const navigate = useNavigate();
-	const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
-	const logout = async () => {
-		await queryClient.invalidateQueries({
-			queryKey: ["profile"],
-		});
+	const logout = () => {
 		Cookies.remove("access");
 		Cookies.remove("refresh");
-
-		navigate("/");
+    queryClient.removeQueries({queryKey: ["profile"]})
+		navigate("/", { replace: true });
 	};
 
-	return logout
+	return logout;
 };
 
 export default useLogout;

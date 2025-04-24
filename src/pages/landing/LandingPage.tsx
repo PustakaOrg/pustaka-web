@@ -8,7 +8,7 @@ const LandingPage = () => {
 		<main className="flex-1">
 			<HeroSection />
 			<FeaturesSection />
-      <CollectionsSection /> 
+			<CollectionsSection />
 			<CTASection />
 		</main>
 	);

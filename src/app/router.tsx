@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import { RequireAuth } from "~/features/auth/components/RequireAuth";
 import CatalogPage from "~/pages/CatalogPage";
 import DashboardHomePage from "~/pages/dashboard/DashboardHomePage";
 import LandingLayout from "~/pages/landing/LandingLayout";
@@ -14,7 +15,14 @@ const Router = () => {
 					<Route path="/catalog" element={<CatalogPage />} />
 				</Route>
 				<Route path="/login" element={<LoginPage />} />
-				<Route path="/dashboard" element={<DashboardHomePage />} />
+				<Route
+					path="/dashboard"
+					element={
+						<RequireAuth>
+							<DashboardHomePage />
+						</RequireAuth>
+					}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);

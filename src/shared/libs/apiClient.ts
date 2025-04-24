@@ -6,6 +6,10 @@ interface ApiErrorResponse {
 	[key: string]: unknown;
 }
 
+const defaultHeaders = {
+
+}
+
 export class ApiError extends Error {
 	constructor(
 		public message: string,
@@ -55,7 +59,8 @@ export class ApiClient {
 				: "";
 
 			const sessionToken = Cookies.get("access");
-			if (sessionToken) this.addTokenHeader(sessionToken);
+			if (sessionToken) this.defaultHeaders.Authorization = `Bearer ${sessionToken}` 
+      else this.defaultHeaders.Authorization = "" 
 
 			const response = await fetch(this.baseUrl + url + queryParams, {
 				method,
