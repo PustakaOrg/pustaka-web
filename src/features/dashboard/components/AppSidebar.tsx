@@ -3,6 +3,7 @@ import {
 	BookOpen,
 	Calendar,
 	FileText,
+	GalleryVerticalEnd,
 	LayoutDashboardIcon,
 	Library,
 	SettingsIcon,
@@ -20,14 +21,28 @@ import {
 import NavUser from "./NavUser";
 import NavMain from "./NavMain";
 import NavSecondary from "./NavSecondary";
+import useProfile from "~/features/auth/hooks/useProfile";
+import {
+	isAdminObject,
+	isLibrarianObject,
+	isMemberObject,
+} from "~/features/auth/utils/util";
 
+// TODO: Fine & Payment
 const nav = {
-	user: {
-		name: "shadcn",
-		email: "m@example.com",
-		avatar: "/avatars/shadcn.jpg",
-	},
-	navMain: [
+	navMember: [
+		{
+			title: "Dashboard",
+			url: "/dashboard",
+			icon: LayoutDashboardIcon,
+		},
+		{
+			title: "My Loans",
+			url: "/dashboard/loans",
+			icon: BookOpen,
+		},
+	],
+	navLibrarian: [
 		{
 			title: "Dashboard",
 			url: "/dashboard",
@@ -59,7 +74,7 @@ const nav = {
 			icon: FileText,
 		},
 	],
-	navSecondary: [
+	navAdmin: [
 		{
 			title: "Settings",
 			url: "/dashboard/settings",
@@ -69,6 +84,7 @@ const nav = {
 };
 
 const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
+	const { profile } = useProfile();
 	return (
 		<Sidebar collapsible="offcanvas" {...props}>
 			<SidebarHeader>
@@ -78,21 +94,50 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
 							asChild
 							className="data-[slot=sidebar-menu-button]:!p-1.5"
 						>
-							<a href="#">
-								<ArrowUpCircleIcon className="h-5 w-5" />
-								<span className="text-base font-semibold">Acme Inc.</span>
+							<a href="/" className="flex items-center gap-2 font-semibold">
+								<div className="flex h-6 w-6 items-center justify-center rounded-sm bg-primary text-primary-foreground">
+									<GalleryVerticalEnd className="size-4" />
+								</div>
+								Pustaka.
 							</a>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={nav.navMain} />
-				{/* <NavDocuments items={data.documents} /> */}
-				<NavSecondary items={nav.navSecondary} className="mt-auto" />
+				{isMemberObject(profile) && <NavMain items={nav.navMember} />}
+				{isLibrarianObject(profile) && <NavMain items={nav.navLibrarian} />}
+				{isAdminObject(profile) && (
+					<>
+						<NavMain items={nav.navLibrarian} />
+						<NavSecondary items={nav.navAdmin} className="mt-auto" />
+					</>
+				)}
 			</SidebarContent>
 			<SidebarFooter>
-				<NavUser user={nav.user} />
+				{isAdminObject(profile) && (
+					<NavUser
+						user={{ name: profile.fullname, email: profile.email, avatar: "" }}
+					/>
+				)}
+				{isMemberObject(profile) && (
+					<NavUser
+						user={{
+							name: profile.account.fullname,
+							email: profile.account.email,
+							avatar: profile.profile_picture,
+						}}
+					/>
+				)}
+				{isLibrarianObject(profile) && (
+					<NavUser
+						user={{
+							name: profile.account.fullname,
+							email: profile.account.email,
+							avatar: "",
+						}}
+					/>
+				)}
 			</SidebarFooter>
 		</Sidebar>
 	);
