@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import { RequireAuth } from "~/features/auth/components/RequireAuth";
+import DashboardLayout from "~/features/dashboard/components/SidebarLayout";
 import CatalogPage from "~/pages/CatalogPage";
 import DashboardHomePage from "~/pages/dashboard/DashboardHomePage";
 import LandingLayout from "~/pages/landing/LandingLayout";
@@ -19,10 +20,12 @@ const Router = () => {
 					path="/dashboard"
 					element={
 						<RequireAuth>
-							<DashboardHomePage />
+							<DashboardLayout />
 						</RequireAuth>
 					}
-				/>
+				>
+					<Route index element={<DashboardHomePage />} />
+				</Route>
 			</Routes>
 		</BrowserRouter>
 	);
