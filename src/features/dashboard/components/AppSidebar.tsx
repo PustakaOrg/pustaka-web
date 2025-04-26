@@ -27,6 +27,7 @@ import {
 	isLibrarianObject,
 	isMemberObject,
 } from "~/features/auth/utils/util";
+import { Link } from "react-router";
 
 // TODO: Fine & Payment
 const nav = {
@@ -94,12 +95,12 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
 							asChild
 							className="data-[slot=sidebar-menu-button]:!p-1.5"
 						>
-							<a href="/" className="flex items-center gap-2 font-semibold">
+							<Link to="/" className="flex items-center gap-2 font-semibold">
 								<div className="flex h-6 w-6 items-center justify-center rounded-sm bg-primary text-primary-foreground">
 									<GalleryVerticalEnd className="size-4" />
 								</div>
 								Pustaka.
-							</a>
+							</Link>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>

@@ -9,6 +9,7 @@ import {
 	CardTitle,
 } from "~/shared/components/ui/card";
 import { Button } from "~/shared/components/ui/button";
+import ContentHeader from "../ContentHeader";
 
 const stats = [
 	{ title: "Total Books", icon: Book },
@@ -18,15 +19,13 @@ const stats = [
 ];
 
 const LibrarianHomeContent = () => {
-	const { data, isPending, isError, error } = useDashboardHomeLibrarianData();
+	const { data, isPending } = useDashboardHomeLibrarianData();
 	return (
-		<div className="flex flex-col gap-6">
-			<header>
-				<h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-				<p className="text-muted-foreground">
-					Welcome back to your library management system.
-				</p>
-			</header>
+		<>
+			<ContentHeader
+				title="Dashboard"
+				subtitle="Welcome back to your library management system."
+			/>
 
 			{/* Stats */}
 			<section className="grid gap-4 grid-cols-2 lg:grid-cols-4">
@@ -77,7 +76,7 @@ const LibrarianHomeContent = () => {
 					</CardContent>
 				</Card>
 			</section>
-		</div>
+		</>
 	);
 };
 

@@ -1,7 +1,5 @@
-import { LucideIcon, MailIcon, PlusCircleIcon } from "lucide-react";
-import React from "react";
-import { Link, NavLink, useLocation } from "react-router";
-import { Button } from "~/shared/components/ui/button";
+import { LucideIcon } from "lucide-react";
+import { Link, useLocation } from "react-router";
 import {
 	SidebarGroup,
 	SidebarGroupContent,
@@ -27,9 +25,18 @@ const NavMain = ({
 					{items.map((item) => (
 						<SidebarMenuItem key={item.title}>
 							<Link to={item.url}>
-								<SidebarMenuButton isActive={location.pathname == item.url} tooltip={item.title}>
-									{item.icon && <item.icon />}
-									<span>{item.title}</span>
+								<SidebarMenuButton
+									isActive={location.pathname == item.url}
+									tooltip={item.title}
+								>
+									{item.icon && (
+										<item.icon
+											className="
+                    text-primary
+                    "
+										/>
+									)}
+									<span className="font-medium">{item.title}</span>
 								</SidebarMenuButton>
 							</Link>
 						</SidebarMenuItem>

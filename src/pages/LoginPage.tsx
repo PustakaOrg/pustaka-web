@@ -8,6 +8,7 @@ const LoginPage = () => {
 	const navigate = useNavigate();
 	const { profile } = useProfile();
 	useEffect(() => {
+    console.log("Profile", profile)
 		if (profile !== undefined) {
 			navigate("/dashboard");
 		}

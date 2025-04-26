@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import RequireAdminOrLibrarian from "~/features/auth/components/RequireAdminOrLibrarian";
 import { RequireAuth } from "~/features/auth/components/RequireAuth";
 import DashboardLayout from "~/features/dashboard/components/SidebarLayout";
 import CatalogPage from "~/pages/CatalogPage";
+import DashboardBookPage from "~/pages/dashboard/books/DashboardBookPage";
 import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
 import LandingLayout from "~/pages/landing/LandingLayout";
 import LandingPage from "~/pages/landing/LandingPage";
@@ -25,6 +27,14 @@ const Router = () => {
 					}
 				>
 					<Route index element={<DashboardHomePage />} />
+					<Route
+						path="/dashboard/books"
+						element={
+							<RequireAdminOrLibrarian>
+								<DashboardBookPage />
+							</RequireAdminOrLibrarian>
+						}
+					/>
 				</Route>
 			</Routes>
 		</BrowserRouter>
