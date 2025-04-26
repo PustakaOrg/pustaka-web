@@ -10,5 +10,5 @@ type LoginResponse = {
 	refresh: string;
 };
 export const postLogin = (data: LoginData) => {
-	return api.post<LoginResponse>("api/login/", data);
+	return api.post<LoginResponse>("login/", data);
 };

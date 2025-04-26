@@ -1,5 +1,5 @@
 import { api } from "~/shared/utils/api";
 
 export const getProfile = () => {
-	return api.get("api/profile/");
+	return api.get("profile/");
 };
