@@ -7,6 +7,7 @@ import DashboardBookPage from "~/pages/dashboard/books/DashboardBookPage";
 import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
 import DashboardLoanPage from "~/pages/dashboard/loans/DashboardLoanPage";
 import DashboardMemberPage from "~/pages/dashboard/members/DashboardMemberPage";
+import DashboardReservationPage from "~/pages/dashboard/reservations/DashboardReservationPage";
 import LandingLayout from "~/pages/landing/LandingLayout";
 import LandingPage from "~/pages/landing/LandingPage";
 import LoginPage from "~/pages/LoginPage";
@@ -50,6 +51,14 @@ const Router = () => {
 						element={
 							<RequireAdminOrLibrarian>
 								<DashboardLoanPage />
+							</RequireAdminOrLibrarian>
+						}
+					/>
+					<Route
+						path="/dashboard/reservations"
+						element={
+							<RequireAdminOrLibrarian>
+								<DashboardReservationPage />
 							</RequireAdminOrLibrarian>
 						}
 					/>
