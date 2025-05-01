@@ -18,17 +18,13 @@ import {
 	DropdownMenuTrigger,
 } from "~/shared/components/ui/dropdown-menu";
 import { TableCell, TableRow } from "~/shared/components/ui/table";
+import { formatDate } from "~/shared/utils/functions";
 import { Loan } from "~/types/entities/Loan";
 
 interface LoanTableRowProps {
 	loan: Loan;
 }
 
-const formatDate = (isoString: string) => {
-	const date = new Date(isoString);
-
-	return date.toLocaleDateString("en-ID");
-};
 
 const LoanTableRow = ({ loan }: LoanTableRowProps) => {
 	return (

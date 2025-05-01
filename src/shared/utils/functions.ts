@@ -6,3 +6,9 @@ export const defaultParams = <T extends object>(bookParam: T) => {
 		),
 	) as T;
 };
+
+export const formatDate = (isoString: string) => {
+	const date = new Date(isoString);
+
+	return date.toLocaleDateString("en-ID");
+};
