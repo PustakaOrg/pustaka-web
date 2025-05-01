@@ -5,6 +5,7 @@ import DashboardLayout from "~/features/dashboard/components/SidebarLayout";
 import CatalogPage from "~/pages/CatalogPage";
 import DashboardBookPage from "~/pages/dashboard/books/DashboardBookPage";
 import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
+import DashboardLoanPage from "~/pages/dashboard/loans/DashboardLoanPage";
 import DashboardMemberPage from "~/pages/dashboard/members/DashboardMemberPage";
 import LandingLayout from "~/pages/landing/LandingLayout";
 import LandingPage from "~/pages/landing/LandingPage";
@@ -41,6 +42,14 @@ const Router = () => {
 						element={
 							<RequireAdminOrLibrarian>
 								<DashboardMemberPage />
+							</RequireAdminOrLibrarian>
+						}
+					/>
+					<Route
+						path="/dashboard/loans"
+						element={
+							<RequireAdminOrLibrarian>
+								<DashboardLoanPage />
 							</RequireAdminOrLibrarian>
 						}
 					/>
