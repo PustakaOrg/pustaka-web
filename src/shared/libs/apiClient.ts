@@ -6,9 +6,7 @@ interface ApiErrorResponse {
 	[key: string]: unknown;
 }
 
-const defaultHeaders = {
-
-}
+const defaultHeaders = {};
 
 export class ApiError extends Error {
 	constructor(
@@ -33,9 +31,9 @@ export class ApiClient {
 	constructor(baseUrl: string, defaultHeaders: Record<string, string> = {}) {
 		this.baseUrl = baseUrl;
 		this.defaultHeaders = {
-			"Access-Control-Allow-Origin": "*",
-			"Access-Control-Allow-Headers": "X-Requested-With",
-			"Content-Type": "application/json",
+			// "Access-Control-Allow-Origin": "*",
+			// "Access-Control-Allow-Headers": "X-Requested-With",
+			// "Content-Type": "application/json",
 			...defaultHeaders,
 		};
 	}
@@ -46,6 +44,7 @@ export class ApiClient {
 			Authorization: `Bearer ${token}`,
 		};
 	}
+
 
 	private async request<T>(
 		method: string,
@@ -59,8 +58,17 @@ export class ApiClient {
 				: "";
 
 			const sessionToken = Cookies.get("access");
-			if (sessionToken) this.defaultHeaders.Authorization = `Bearer ${sessionToken}` 
-      else this.defaultHeaders.Authorization = "" 
+			if (sessionToken)
+				this.defaultHeaders.Authorization = `Bearer ${sessionToken}`;
+			else this.defaultHeaders.Authorization = "";
+
+      let body = undefined
+      if (data instanceof FormData){
+        body = data
+      }else {
+        body = JSON.stringify(data)
+        this.defaultHeaders["Content-Type"] = "application/json" 
+      }
 
 			const response = await fetch(this.baseUrl + url + queryParams, {
 				method,
@@ -68,7 +76,7 @@ export class ApiClient {
 					...this.defaultHeaders,
 					...options.headers,
 				},
-				body: data ? JSON.stringify(data) : undefined,
+				body: body
 			});
 
 			const responseData = await response.json();
@@ -113,6 +121,7 @@ export class ApiClient {
 		data: unknown,
 		options?: RequestOptions,
 	): Promise<T> {
+    if(data instanceof FormData) return this.requestWithFormData<T>("POST", url,data,options)
 		return this.request<T>("POST", url, data, options);
 	}
 
