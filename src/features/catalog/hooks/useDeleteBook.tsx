@@ -1,27 +1,25 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postBook } from "../api/postBook";
+import { deleteBook as deleteBookApi } from "../api/deleteBook";
 
-const useAddBook = () => {
+const useDeleteBook = (bookId: string) => {
 	const {
-		data: newBook,
 		isPending,
 		isError,
 		error,
-		mutate: addBook,
+		mutate: deleteBook,
 	} = useMutation({
-		mutationKey: ["add-book"],
-		mutationFn: (data: FormData) => postBook(data),
+		mutationKey: ["delete-book", bookId],
+		mutationFn: () => deleteBookApi(bookId),
 	});
-
 	const queryClient = useQueryClient();
 	queryClient.invalidateQueries({ queryKey: ["books"] });
 	return {
-		newBook,
+		// newBook,
 		isPending,
 		isError,
 		error,
-		addBook,
+		deleteBook,
 	};
 };
 
-export default useAddBook;
+export default useDeleteBook;

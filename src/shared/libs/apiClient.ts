@@ -45,7 +45,6 @@ export class ApiClient {
 		};
 	}
 
-
 	private async request<T>(
 		method: string,
 		url: string,
@@ -57,18 +56,18 @@ export class ApiClient {
 				? "?" + new URLSearchParams(options.params).toString()
 				: "";
 
+			let body = undefined;
+			if (data instanceof FormData) {
+				body = data;
+				this.defaultHeaders = { ...defaultHeaders };
+			} else {
+				body = JSON.stringify(data);
+				this.defaultHeaders["Content-Type"] = "application/json";
+			}
 			const sessionToken = Cookies.get("access");
 			if (sessionToken)
 				this.defaultHeaders.Authorization = `Bearer ${sessionToken}`;
 			else this.defaultHeaders.Authorization = "";
-
-      let body = undefined
-      if (data instanceof FormData){
-        body = data
-      }else {
-        body = JSON.stringify(data)
-        this.defaultHeaders["Content-Type"] = "application/json" 
-      }
 
 			const response = await fetch(this.baseUrl + url + queryParams, {
 				method,
@@ -76,7 +75,7 @@ export class ApiClient {
 					...this.defaultHeaders,
 					...options.headers,
 				},
-				body: body
+				body: body,
 			});
 
 			const responseData = await response.json();
