@@ -13,6 +13,7 @@ import {
 
 import { defaultParams } from "~/shared/utils/functions";
 import BooksTable from "~/features/catalog/components/BooksTable";
+import AddBookDialog from "~/features/auth/components/AddBookDialog";
 
 const DashboardBookPage = () => {
 	const [searchParams] = useSearchParams();
@@ -31,6 +32,8 @@ const DashboardBookPage = () => {
 				title="Books"
 				subtitle="Manage your library's book collection."
 			/>
+
+      <AddBookDialog />
 
 			<Card>
 				<CardHeader className="">

@@ -121,7 +121,6 @@ export class ApiClient {
 		data: unknown,
 		options?: RequestOptions,
 	): Promise<T> {
-    if(data instanceof FormData) return this.requestWithFormData<T>("POST", url,data,options)
 		return this.request<T>("POST", url, data, options);
 	}
 
