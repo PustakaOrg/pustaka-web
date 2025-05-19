@@ -84,13 +84,13 @@ const NavUser = ({
 								Account
 							</DropdownMenuItem>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={logout}>
-							<LogOutIcon />
+						<DropdownMenuItem onClick={logout} className="cursor-pointer hover:bg-destructive text-destructive ">
+							<LogOutIcon className="text-destructive"/>
 							Log out
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
-			</SidebarMenuItem>
+			</SidebarMenuItem>	
 		</SidebarMenu>
 	);
 };

@@ -9,7 +9,7 @@ const LandingPage = () => {
 			<HeroSection />
 			<FeaturesSection />
 			<CollectionsSection />
-			<CTASection />
+			{/* <CTASection /> */}
 		</main>
 	);
 };

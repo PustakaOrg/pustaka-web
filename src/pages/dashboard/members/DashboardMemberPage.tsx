@@ -11,6 +11,7 @@ import {
 
 import useMemberList from "~/features/member/hooks/useMemberList";
 import MemberTable from "~/features/member/components/MemberTable";
+import { Button } from "~/shared/components/ui/button";
 
 const DashboardMemberPage = () => {
 	const [searchParams] = useSearchParams();
@@ -26,7 +27,10 @@ const DashboardMemberPage = () => {
 
 			<Card>
 				<CardHeader className="">
-					<CardTitle>Members</CardTitle>
+					<CardTitle className="flex flex-row items-center justify-between">Members
+					<Button>Add Member</Button>
+					</CardTitle>
+					
 					<CardDescription>
 						{memberList?.results.length} members found
 					</CardDescription>

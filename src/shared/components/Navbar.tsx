@@ -1,4 +1,4 @@
-import { BookOpen } from "lucide-react";
+import { BookOpen, User, UserRound, } from "lucide-react";
 import Navlinks from "./Navlinks";
 import { Link } from "react-router";
 import { Button } from "./ui/button";
@@ -15,14 +15,16 @@ const Navbar = () => {
 					<Navlinks />
 				</nav>
 				<div className="flex items-center gap-4">
-					<Link
+					{/* <Link
 						to="/login"
-						className="text-sm font-medium hover:underline underline-offset-4 hidden sm:inline-flex"
+						className="text-md font-medium hover:underline underline-offset-4 hidden sm:inline-flex"
 					>
 						Sign In
-					</Link>
+					</Link> */}
 					<Button asChild>
-						<Link to={"/dashboard"}>Get Started</Link>
+						<Link className="text-md font-medium" to={"/login"}>
+							<UserRound className="h-6 w-6" />
+						Login</Link>
 					</Button>
 				</div>
 			</div>

@@ -26,8 +26,8 @@ const Navlinks = () => {
 			to={des.to}
 			className={({ isActive }) =>
 				isActive
-					? "text-sm font-medium underline underline-offset-4"
-					: "text-sm font-medium hover:underline underline-offset-4"
+					? "text-xl font-medium text-primary underline bg-transparent underline-offset-4"
+					: "text-xl font-medium hover:text-primary bg-transparent underline-offset-4"
 			}
 		>
 			{des.name}

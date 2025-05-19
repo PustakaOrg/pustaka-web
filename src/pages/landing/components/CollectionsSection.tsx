@@ -51,7 +51,7 @@ const CollectionsSection = () => {
 					].map((collection, index) => (
 						<div
 							key={index}
-							className="group relative overflow-hidden rounded-lg border"
+							className="group relative overflow-hidden rounded-lg border "
 						>
 							<img
 								src={collection.image || "/placeholder.svg"}
@@ -69,7 +69,7 @@ const CollectionsSection = () => {
 					))}
 				</div>
 				<div className="flex justify-center">
-					<Button variant="outline" className="gap-1">
+					<Button variant="outline" className="cursor-pointer gap-1 duration-300 ease-in-out hover:scale-105">
 						View All Collections
 						<ArrowRight className="h-4 w-4" />
 					</Button>

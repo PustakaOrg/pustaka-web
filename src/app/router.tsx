@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import RequireAdminOrLibrarian from "~/features/auth/components/RequireAdminOrLibrarian";
 import { RequireAuth } from "~/features/auth/components/RequireAuth";
 import DashboardLayout from "~/features/dashboard/components/SidebarLayout";
+import AboutPage from "~/pages/AboutPage";
 import CatalogPage from "~/pages/CatalogPage";
 import DashboardBookPage from "~/pages/dashboard/books/DashboardBookPage";
 import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
@@ -19,6 +20,7 @@ const Router = () => {
 				<Route path="/" element={<LandingLayout />}>
 					<Route index element={<LandingPage />} />
 					<Route path="/catalog" element={<CatalogPage />} />
+					<Route path="/about" element={<AboutPage />} />
 				</Route>
 				<Route path="/login" element={<LoginPage />} />
 				<Route
