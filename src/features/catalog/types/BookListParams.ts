@@ -5,4 +5,6 @@ export type BookListParams = Partial<{
 	publisher: string;
 	publish_year: string;
 	available: string;
+  limit: number,
+  offset: number
 }>;

@@ -6,17 +6,26 @@ import SearchBar from "~/features/catalog/components/SearchBar";
 import SideFilter from "~/features/catalog/components/SideFilter";
 import useBookList from "~/features/catalog/hooks/useBookList";
 import { BookListParams } from "~/features/catalog/types/BookListParams";
+import { Pagination } from "~/shared/components/Pagination";
 import { defaultParams } from "~/shared/utils/functions";
 
 const CatalogPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
+	const bookListParams = {
+		q: searchParams.get("q") ?? undefined,
+		available: searchParams.has("available") ? "true" : undefined,
+		category: searchParams.getAll("category"),
+		limit: searchParams.get("limit")
+			? Number(searchParams.get("limit"))
+			: 8,
+		offset: searchParams.get("offset")
+			? Number(searchParams.get("offset"))
+			: undefined,
+	};
+
 	const { bookList, isPending } = useBookList(
-		defaultParams<BookListParams>({
-			q: searchParams.get("q") ?? undefined,
-			available: searchParams.has("available") ? "true" : undefined,
-			category: searchParams.getAll("category"),
-		}),
+		defaultParams<BookListParams>(bookListParams),
 	);
 
 	const handleSearchSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
@@ -26,6 +35,14 @@ const CatalogPage = () => {
 
 		setSearchParams((prev) => {
 			prev.set("q", String(q));
+			return prev;
+		});
+	}, []);
+
+	const handleOffsetChange = useCallback((newOffset: number) => {
+		setSearchParams((prev) => {
+			prev.set("offset", String(newOffset));
+
 			return prev;
 		});
 	}, []);
@@ -75,32 +92,21 @@ const CatalogPage = () => {
 									No Books Found find Another One
 								</p>
 							)}
-							{bookList && !isPending && (
+							{bookList && !isPending && (bookList.results.length > 0) && (
 								<BookCardList books={bookList.results} />
 							)}
 						</section>
 
-						{/* Pagination */}
-						{/* <section className="mt-8 flex items-center justify-center space-x-2"> */}
-						{/* 	<Button variant="outline" size="icon"> */}
-						{/* 		<ChevronLeft className="h-4 w-4" /> */}
-						{/* 		<span className="sr-only">Previous page</span> */}
-						{/* 	</Button> */}
-						{/* 	{[1, 2, 3, 4, 5].map((page) => ( */}
-						{/* 		<Button */}
-						{/* 			key={page} */}
-						{/* 			variant={page === 1 ? "default" : "outline"} */}
-						{/* 			size="icon" */}
-						{/* 			className="h-8 w-8" */}
-						{/* 		> */}
-						{/* 			{page} */}
-						{/* 		</Button> */}
-						{/* 	))} */}
-						{/* 	<Button variant="outline" size="icon"> */}
-						{/* 		<ChevronRight className="h-4 w-4" /> */}
-						{/* 		<span className="sr-only">Next page</span> */}
-						{/* 	</Button> */}
-						{/* </section> */}
+						{bookList && (
+							<section className="mt-8 flex items-center justify-center space-x-2">
+								<Pagination
+									totalCount={bookList.count}
+									limit={bookListParams.limit}
+									offset={bookListParams.offset ?? 0}
+									onOffsetChange={handleOffsetChange}
+								/>
+							</section>
+						)}
 					</div>
 				</div>
 			</div>

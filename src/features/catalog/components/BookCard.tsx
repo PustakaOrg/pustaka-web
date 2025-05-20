@@ -8,6 +8,8 @@ interface BookCardProps {
 	book: Book;
 }
 
+// TODO: Bug book author, category
+
 const BookCard = ({ book }: BookCardProps) => {
 	return (
 		<Card className="overflow-hidden">
@@ -27,9 +29,9 @@ const BookCard = ({ book }: BookCardProps) => {
 			</div>
 			<CardContent className="p-4">
 				<h3 className="font-semibold line-clamp-1">{book.title}</h3>
-				<p className="text-sm text-muted-foreground">{book.author}</p>
+				{/* <p className="text-sm text-muted-foreground">{book.author}</p> */}
 				<div className="mt-2 flex items-center justify-between">
-					<Badge variant="outline">{book.category}</Badge>
+					{/* <Badge variant="outline">{book.category}</Badge> */}
 				</div>
 			</CardContent>
 			<CardFooter className="p-4 pt-0 flex justify-between">
