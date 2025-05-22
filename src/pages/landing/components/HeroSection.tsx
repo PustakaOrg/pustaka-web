@@ -9,7 +9,7 @@ const HeroSection = () => {
       className="relative w-full py-12 md:py-24 lg:py-32 bg-cover bg-center text-white"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0, 0, 0, 0.4), rgba(125, 125, 125, 0.63)), url('https://cdn.prod.website-files.com/604a97c70aee09eed25ce991/61897a35583a9b51db018d3e_MartinPublicSeating-97560-Importance-School-Library-blogbanner1.jpg')",
+          "linear-gradient(rgba(0, 0, 0, 0.4), rgba(125, 125, 125, 0.63)), url(/background-hero.jpg)",
       }}
     >
       <div className="container px-4 md:px-6">
