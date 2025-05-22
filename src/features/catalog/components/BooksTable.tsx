@@ -9,16 +9,19 @@ import BookTableHeader from "./BookTableHeader";
 import BookRow from "./BookRow";
 import { Book } from "lucide-react";
 import { Book as BookEntity } from "~/types/entities/Book";
+import React from "react";
+import useDeleteBook from "../hooks/useDeleteBook";
 
-const BooksTable = ({
+const BooksTable = React.memo(({
 	bookList,
 }: { bookList: PaginatedResponse<BookEntity> }) => {
+  const {deleteBook} = useDeleteBook()
 	return (
 		<Table>
 			<BookTableHeader />
 			<TableBody>
 				{bookList && bookList.results.length > 0 ? (
-					bookList.results.map((book) => <BookRow key={book.id} book={book} />)
+					bookList.results.map((book) => <BookRow key={book.id} book={book} deleteBook={deleteBook} />)
 				) : (
 					<TableRow>
 						<TableCell colSpan={6} className="text-center py-8">
@@ -35,6 +38,6 @@ const BooksTable = ({
 			</TableBody>
 		</Table>
 	);
-};
+});
 
 export default BooksTable;

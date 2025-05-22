@@ -10,10 +10,13 @@ import { Book } from "~/types/entities/Book";
 import { Badge } from "~/shared/components/ui/badge";
 import { Button } from "~/shared/components/ui/button";
 import { BookOpen, Edit, MoreHorizontal, Trash2 } from "lucide-react";
-import useDeleteBook from "../hooks/useDeleteBook";
 
-const BookRow = ({ book }: { book: Book }) => {
-  const {deleteBook} = useDeleteBook(book.id)
+interface BookRowProps {
+  book: Book
+  deleteBook: (bookId: string) => void
+}
+
+const BookRow = ({ book, deleteBook }: BookRowProps) => {
 	return (
 		<TableRow >
 			<TableCell>
@@ -61,7 +64,7 @@ const BookRow = ({ book }: { book: Book }) => {
 							Issue Book
 						</DropdownMenuItem>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={()=>{deleteBook()}} className="text-destructive">
+						<DropdownMenuItem onClick={()=>{deleteBook(book.id)}} className="text-destructive">
 							<Trash2 className="mr-2 h-4 w-4" />
 							Delete Book
 						</DropdownMenuItem>
