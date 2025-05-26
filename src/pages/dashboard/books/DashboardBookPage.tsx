@@ -33,14 +33,17 @@ const DashboardBookPage = () => {
 				subtitle="Manage your library's book collection."
 			/>
 
-      <AddBookDialog />
-
 			<Card>
-				<CardHeader className="">
-					<CardTitle>Book Catalog</CardTitle>
-					<CardDescription>
-						{bookList?.results.length} books found
-					</CardDescription>
+				<CardHeader className="flex justify-between">
+					<div>
+						<CardTitle>Book Catalog</CardTitle>
+						<CardDescription>
+							{bookList?.results.length} books found
+						</CardDescription>
+					</div>
+					<div>
+						<AddBookDialog />
+					</div>
 				</CardHeader>
 				<CardContent className="">
 					{bookList && <BooksTable bookList={bookList} />}

@@ -9,6 +9,7 @@ import BookForm from "./BookForm";
 import { FormEvent, useCallback, useEffect } from "react";
 import useAddBook from "~/features/catalog/hooks/useAddBook";
 import { Book } from "~/types/entities/Book";
+import { Plus } from "lucide-react";
 
 const AddBookDialog = () => {
 	const { isPending, isError, error, addBook } = useAddBook();
@@ -21,10 +22,13 @@ const AddBookDialog = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button> Test Addbook</Button>
+				<Button>
+					<Plus />
+					Addbook
+				</Button>
 			</DialogTrigger>
 			<DialogContent className="md:min-w-2xl max-h-[98vh] overflow-y-auto">
-      <BookForm handleSubmit={handleSubmit} />
+				<BookForm handleSubmit={handleSubmit} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>
 		</Dialog>
