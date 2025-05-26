@@ -14,9 +14,10 @@ import { BookOpen, Edit, MoreHorizontal, Trash2 } from "lucide-react";
 interface BookRowProps {
   book: Book
   deleteBook: (bookId: string) => void
+  openEditDialog: (book: Book)=> void
 }
 
-const BookRow = ({ book, deleteBook }: BookRowProps) => {
+const BookRow = ({ book, deleteBook, openEditDialog }: BookRowProps) => {
 	return (
 		<TableRow >
 			<TableCell>
@@ -55,7 +56,7 @@ const BookRow = ({ book, deleteBook }: BookRowProps) => {
 							<BookOpen className="mr-2 h-4 w-4" />
 							View Details
 						</DropdownMenuItem>
-						<DropdownMenuItem>
+						<DropdownMenuItem onClick={() => openEditDialog(book)}>
 							<Edit className="mr-2 h-4 w-4" />
 							Edit Book
 						</DropdownMenuItem>

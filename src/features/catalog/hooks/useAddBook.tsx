@@ -11,10 +11,13 @@ const useAddBook = () => {
 	} = useMutation({
 		mutationKey: ["add-book"],
 		mutationFn: (data: FormData) => postBook(data),
+		onSuccess: () => {
+      console.log("onSuccess")
+			const queryClient = useQueryClient();
+			queryClient.invalidateQueries({ queryKey: ["books"] });
+		},
 	});
 
-	const queryClient = useQueryClient();
-	queryClient.invalidateQueries({ queryKey: ["books"] });
 	return {
 		newBook,
 		isPending,

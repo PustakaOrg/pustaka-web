@@ -13,7 +13,7 @@ import {
 
 import { defaultParams } from "~/shared/utils/functions";
 import BooksTable from "~/features/catalog/components/BooksTable";
-import AddBookDialog from "~/features/auth/components/AddBookDialog";
+import AddBookDialog from "~/features/catalog/components/AddBookDialog";
 
 const DashboardBookPage = () => {
 	const [searchParams] = useSearchParams();

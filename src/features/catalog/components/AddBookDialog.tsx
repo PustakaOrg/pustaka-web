@@ -8,27 +8,23 @@ import {
 import BookForm from "./BookForm";
 import { FormEvent, useCallback, useEffect } from "react";
 import useAddBook from "~/features/catalog/hooks/useAddBook";
+import { Book } from "~/types/entities/Book";
 
 const AddBookDialog = () => {
 	const { isPending, isError, error, addBook } = useAddBook();
 	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		addBook(form);
 	}, []);
 
-  useEffect(()=>{
-    console.log("Pending", isPending)
-    console.log("isError", isError)
-    console.log("error", error)
-  } ,[isPending,isError,error])
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button> Test Addbook</Button>
 			</DialogTrigger>
-			<DialogContent>
-				<BookForm handleSubmit={handleSubmit} />
+			<DialogContent className="md:min-w-2xl max-h-[98vh] overflow-y-auto">
+      <BookForm handleSubmit={handleSubmit} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>
 		</Dialog>

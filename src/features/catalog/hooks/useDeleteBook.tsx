@@ -10,9 +10,11 @@ const useDeleteBook = () => {
 	} = useMutation({
 		mutationKey: ["delete-book"],
 		mutationFn: (bookId: string) => deleteBookApi(bookId),
+		onSuccess: () => {
+			const queryClient = useQueryClient();
+			queryClient.invalidateQueries({ queryKey: ["books"] });
+		},
 	});
-	const queryClient = useQueryClient();
-	queryClient.invalidateQueries({ queryKey: ["books"] });
 	return {
 		// newBook,
 		isPending,

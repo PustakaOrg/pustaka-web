@@ -1,0 +1,337 @@
+import { Plus, Upload, X } from "lucide-react";
+import { FormEvent, useRef, useState } from "react";
+import { Badge } from "~/shared/components/ui/badge";
+import { Button } from "~/shared/components/ui/button";
+import { Input } from "~/shared/components/ui/input";
+import { Label } from "~/shared/components/ui/label";
+import { Book } from "~/types/entities/Book";
+
+interface BookFormProps {
+	defaultValues?: Book;
+	handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+}
+
+const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
+	const [imagePreview, setImagePreview] = useState<string | null>(
+		defaultValues?.img || null,
+	);
+	const [categories, setCategories] = useState<string[]>(
+		defaultValues?.category || [],
+	);
+	const [newCategory, setNewCategory] = useState("");
+
+	const [isDragOver, setIsDragOver] = useState(false);
+	const fileInputRef = useRef<HTMLInputElement>(null);
+
+	const handleDragOver = (e: React.DragEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+	};
+
+	const handleDragEnter = (e: React.DragEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragOver(true);
+	};
+
+	const handleDragLeave = (e: React.DragEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		// Only set isDragOver to false if we're leaving the drop zone entirely
+		if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+			setIsDragOver(false);
+		}
+	};
+
+	const handleDrop = (e: React.DragEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsDragOver(false);
+
+		const files = e.dataTransfer.files;
+		if (files && files.length > 0) {
+			const file = files[0];
+			if (file.type.startsWith("image/")) {
+				processImageFile(file);
+			}
+		}
+	};
+
+	const processImageFile = (file: File) => {
+		// Check file size (10MB limit)
+		if (file.size > 10 * 1024 * 1024) {
+			alert("File size must be less than 10MB");
+			return;
+		}
+
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			setImagePreview(reader.result as string);
+		};
+		reader.readAsDataURL(file);
+
+		// Update the file input
+		if (fileInputRef.current) {
+			const dataTransfer = new DataTransfer();
+			dataTransfer.items.add(file);
+			fileInputRef.current.files = dataTransfer.files;
+		}
+	};
+
+	const removeImage = () => {
+		setImagePreview(null);
+		if (fileInputRef.current) {
+			fileInputRef.current.value = "";
+		}
+	};
+
+	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			processImageFile(file);
+		}
+	};
+
+	const addCategory = () => {
+		if (newCategory.trim() && !categories.includes(newCategory.trim())) {
+			setCategories([...categories, newCategory.trim()]);
+			setNewCategory("");
+		}
+	};
+
+	const removeCategory = (categoryToRemove: string) => {
+		setCategories(categories.filter((cat) => cat !== categoryToRemove));
+	};
+
+	const handleKeyPress = (e: React.KeyboardEvent) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			addCategory();
+		}
+	};
+
+	return (
+		//
+		<form onSubmit={handleSubmit} className="space-y-6">
+			<p className="text-lg font-semibold">{defaultValues?.title ? "Edit Book" : "Add New Book"}</p>
+
+
+			{/* Cover Image Field */}
+			<div className="space-y-2">
+				<Label htmlFor="image" className="text-sm font-medium">
+					Cover Image *
+				</Label>
+				<div className="space-y-4">
+					{/* Drag & Drop Zone */}
+					<div
+						className={`relative border-2 border-dashed rounded-lg p-6 transition-all duration-200 ${
+							isDragOver
+								? "border-primary bg-primary/5 scale-[1.02]"
+								: "border-muted-foreground/25 hover:border-muted-foreground/50"
+						}`}
+						onDragOver={handleDragOver}
+						onDragEnter={handleDragEnter}
+						onDragLeave={handleDragLeave}
+						onDrop={handleDrop}
+					>
+						<input
+							ref={fileInputRef}
+							id="image"
+							name="img"
+							type="file"
+							accept="image/*"
+							onChange={handleImageChange}
+							className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+							required={!defaultValues?.img && !imagePreview}
+						/>
+
+						<div className="text-center">
+							{imagePreview ? (
+								<div className="space-y-4">
+									<div className="relative inline-block">
+										<img
+											src={imagePreview || "/placeholder.svg"}
+											alt="Book cover preview"
+											className="h-48 w-auto object-contain rounded-lg border border-border shadow-sm mx-auto"
+										/>
+										<button
+											type="button"
+											onClick={removeImage}
+											className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 shadow-md hover:bg-destructive/90 transition-colors"
+										>
+											<X className="h-4 w-4" />
+										</button>
+									</div>
+									<div className="text-sm text-muted-foreground">
+										<p className="font-medium">Image uploaded successfully!</p>
+										<p>Click here or drag a new image to replace</p>
+									</div>
+								</div>
+							) : (
+								<div className="space-y-4">
+									<div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center">
+										<Upload
+											className={`h-8 w-8 transition-colors ${
+												isDragOver ? "text-primary" : "text-muted-foreground"
+											}`}
+										/>
+									</div>
+									<div className="space-y-2">
+										<p
+											className={`text-lg font-medium transition-colors ${
+												isDragOver ? "text-primary" : "text-foreground"
+											}`}
+										>
+											{isDragOver
+												? "Drop your image here"
+												: "Upload book cover"}
+										</p>
+										<p className="text-sm text-muted-foreground">
+											Drag and drop an image here, or click to browse
+										</p>
+										<p className="text-xs text-muted-foreground">
+											Supports: JPG, PNG, GIF (Max 10MB)
+										</p>
+									</div>
+								</div>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			{/* Title Field */}
+			<div className="space-y-2">
+				<Label htmlFor="title" className="text-sm font-medium">
+					Title *
+				</Label>
+				<Input
+					id="title"
+					name="title"
+					defaultValue={defaultValues?.title}
+					placeholder="Enter book title"
+					className="w-full"
+					required
+				/>
+			</div>
+
+			{/* ISBN Field */}
+			<div className="space-y-2">
+				<Label htmlFor="isbn" className="text-sm font-medium">
+					ISBN *
+				</Label>
+				<Input
+					id="isbn"
+					name="isbn"
+					defaultValue={defaultValues?.isbn}
+					placeholder="Enter ISBN number"
+					className="w-full"
+					required
+				/>
+			</div>
+
+			{/* Pages and Publish Year Row */}
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+				<div className="space-y-2">
+					<Label htmlFor="pages" className="text-sm font-medium">
+						Pages *
+					</Label>
+					<Input
+						id="pages"
+						name="pages"
+						type="number"
+						min="1"
+						defaultValue={defaultValues?.pages}
+						placeholder="Number of pages"
+						className="w-full"
+						required
+					/>
+				</div>
+
+				<div className="space-y-2">
+					<Label htmlFor="publish_year" className="text-sm font-medium">
+						Publish Year *
+					</Label>
+					<Input
+						id="publish_year"
+						name="publish_year"
+						type="number"
+						min="1000"
+						max={new Date().getFullYear()}
+						defaultValue={defaultValues?.publish_year}
+						placeholder="Publication year"
+						className="w-full"
+						required
+					/>
+				</div>
+			</div>
+
+			{/* Categories Field */}
+			<div className="space-y-2">
+				<Label htmlFor="category" className="text-sm font-medium">
+					Categories
+				</Label>
+				<div className="space-y-3">
+					<div className="flex gap-2">
+						<Input
+							id="category"
+							value={newCategory}
+							onChange={(e) => setNewCategory(e.target.value)}
+							onKeyPress={handleKeyPress}
+							placeholder="Add a category"
+							className="flex-1"
+						/>
+						<Button
+							type="button"
+							onClick={addCategory}
+							size="sm"
+							variant="outline"
+							className="px-3"
+						>
+							<Plus className="h-4 w-4" />
+						</Button>
+					</div>
+
+					{categories.length > 0 && (
+						<div className="flex flex-wrap gap-2">
+							{categories.map((cat) => (
+								<Badge
+									key={cat}
+									variant="secondary"
+									className="flex items-center gap-1 px-3 py-1"
+								>
+									{cat}
+									<button
+										type="button"
+										onClick={() => removeCategory(cat)}
+										className="ml-1 rounded-full p-0.5 hover:bg-destructive hover:text-destructive-foreground transition-colors"
+									>
+										<X className="h-3 w-3" />
+										<span className="sr-only">Remove {cat}</span>
+									</button>
+								</Badge>
+							))}
+						</div>
+					)}
+				</div>
+
+				{/* Hidden input to submit categories */}
+				<input
+					type="hidden"
+					name="categories"
+					value={JSON.stringify(categories)}
+				/>
+			</div>
+
+			{/* Submit Button */}
+			<div className="pt-4">
+				<Button type="submit" className="w-full" size="lg">
+					{defaultValues?.title ? "Update Book" : "Add Book"}
+				</Button>
+			</div>
+		</form>
+	);
+};
+
+export default BookForm;
