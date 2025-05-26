@@ -2,6 +2,7 @@ import {
 	Dialog,
 	DialogContent,
 	DialogFooter,
+    DialogTitle,
 } from "~/shared/components/ui/dialog";
 import BookForm from "./BookForm";
 import { FormEvent, useCallback, useEffect } from "react";
@@ -26,6 +27,7 @@ const UpdateBookDialog = ({book,isOpen,onOpenChange}:UpdateBookDialogProps) => {
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="md:min-w-2xl max-h-[98vh] overflow-y-auto">
+      <DialogTitle>Edit Book</DialogTitle>
 				<BookForm handleSubmit={handleSubmit} defaultValues={book} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

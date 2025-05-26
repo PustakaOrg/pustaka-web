@@ -1,7 +1,7 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Book } from "~/types/entities/Book";
 
-const useUpdateBookDialog = () => {
+const useBookDialog = () => {
   const [book, setBook] = useState<Book | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,4 +18,4 @@ const useUpdateBookDialog = () => {
   return { isOpen, book, openDialog, closeDialog };
 }
 
-export default useUpdateBookDialog
+export default useBookDialog

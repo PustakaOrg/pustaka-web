@@ -15,9 +15,10 @@ interface BookRowProps {
   book: Book
   deleteBook: (bookId: string) => void
   openEditDialog: (book: Book)=> void
+  openDetailDialog: (book:Book)=>void
 }
 
-const BookRow = ({ book, deleteBook, openEditDialog }: BookRowProps) => {
+const BookRow = ({ book, deleteBook, openEditDialog , openDetailDialog}: BookRowProps) => {
 	return (
 		<TableRow >
 			<TableCell>
@@ -52,11 +53,16 @@ const BookRow = ({ book, deleteBook, openEditDialog }: BookRowProps) => {
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
-						<DropdownMenuItem>
+						<DropdownMenuItem onClick={()=>{
+              console.log("CLICK")
+              openDetailDialog(book)
+            }}>
 							<BookOpen className="mr-2 h-4 w-4" />
 							View Details
 						</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => openEditDialog(book)}>
+						<DropdownMenuItem onClick={() => {
+              console.log("HEEEY")
+              openEditDialog(book)}}>
 							<Edit className="mr-2 h-4 w-4" />
 							Edit Book
 						</DropdownMenuItem>

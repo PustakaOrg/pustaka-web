@@ -113,8 +113,6 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 	return (
 		//
 		<form onSubmit={handleSubmit} className="space-y-6">
-			<p className="text-lg font-semibold">{defaultValues?.title ? "Edit Book" : "Add New Book"}</p>
-
 
 			{/* Cover Image Field */}
 			<div className="space-y-2">
