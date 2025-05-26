@@ -1,3 +1,8 @@
+import { Author } from "./Author";
+import { Category } from "./Category";
+import { Publisher } from "./Publisher";
+import { Shelf } from "./Shelf";
+
 export type Book = {
 	id: string;
 	title: string;
@@ -7,8 +12,8 @@ export type Book = {
 	publish_year: number;
 	stock: number;
 	available_stock: number;
-	shelf: string | null;
-	category: string[];
-	author: string | null;
-	publisher: string | null;
+	shelf: Shelf | null;
+	category: Category[] | [];
+	author: Author | null;
+	publisher: Publisher | null;
 };
