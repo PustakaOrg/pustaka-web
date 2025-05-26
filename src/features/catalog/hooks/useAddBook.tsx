@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postBook } from "../api/postBook";
 
 const useAddBook = () => {
+  const queryClient = useQueryClient();
 	const {
 		data: newBook,
 		isPending,
@@ -13,8 +14,7 @@ const useAddBook = () => {
 		mutationFn: (data: FormData) => postBook(data),
 		onSuccess: () => {
       console.log("onSuccess")
-			const queryClient = useQueryClient();
-			queryClient.invalidateQueries({ queryKey: ["books"] });
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 

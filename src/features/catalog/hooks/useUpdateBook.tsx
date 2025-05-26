@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchBook } from "../api/patchBook";
 
 const useUpdateBook = () => {
+  const queryClient = useQueryClient();
 	const {
 		data: updatedBook,
 		isPending,
@@ -13,8 +14,7 @@ const useUpdateBook = () => {
 		mutationFn: ({ bookId, data }: { bookId: string; data: FormData }) =>
 			patchBook(bookId, data),
 		onSuccess: () => {
-			const queryClient = useQueryClient();
-			queryClient.invalidateQueries({ queryKey: ["books"] });
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 

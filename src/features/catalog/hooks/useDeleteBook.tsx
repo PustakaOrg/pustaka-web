@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteBook as deleteBookApi } from "../api/deleteBook";
 
 const useDeleteBook = () => {
+  const queryClient = useQueryClient();
 	const {
 		isPending,
 		isError,
@@ -11,12 +12,10 @@ const useDeleteBook = () => {
 		mutationKey: ["delete-book"],
 		mutationFn: (bookId: string) => deleteBookApi(bookId),
 		onSuccess: () => {
-			const queryClient = useQueryClient();
-			queryClient.invalidateQueries({ queryKey: ["books"] });
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 	return {
-		// newBook,
 		isPending,
 		isError,
 		error,
