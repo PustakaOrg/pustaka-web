@@ -18,6 +18,7 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 	const [imagePreview, setImagePreview] = useState<string | null>(
 		defaultValues?.img || null,
 	);
+  const [imgChanged, setImageChanged] = useState(false)
 	const [categories, setCategories] = useState<string[]>(
 		defaultValues ? defaultValues.category.map((cat) => cat.id) : [],
 	);
@@ -93,6 +94,7 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 	};
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setImageChanged(true)
 		const file = e.target.files?.[0];
 		if (file) {
 			processImageFile(file);
@@ -129,7 +131,7 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 						<input
 							ref={fileInputRef}
 							id="image"
-							name="img"
+							name={imgChanged ? "img" : undefined}
 							type="file"
 							accept="image/*"
 							onChange={handleImageChange}
