@@ -21,8 +21,10 @@ import {
 	ColumnVisibility,
 	defaultColumnVisibility,
 } from "~/features/catalog/types/BookColumnVisibility";
-import { useCallback, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { Pagination } from "~/shared/components/Pagination";
+import { Input } from "~/shared/components/ui/input";
+import { Search } from "lucide-react";
 
 const DashboardBookPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState<ColumnVisibility>(
@@ -78,6 +80,17 @@ const DashboardBookPage = () => {
 		});
 	}, []);
 
+	const handleSearchSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+		const q = formData.get("q");
+
+		setSearchParams((prev) => {
+			prev.set("q", String(q));
+			return prev;
+		});
+	}, []);
+
 	const handleSelectAll = (checked: boolean) => {
 		if (checked) {
 			setSelectedBooks(bookList!.results.map((book) => book.id));
@@ -123,6 +136,20 @@ const DashboardBookPage = () => {
 				</CardHeader>
 				<CardContent className="space-y-2">
 					<div className="flex items-center  gap-2 justify-end">
+						<div className="relative">
+							<form onSubmit={handleSearchSubmit}>
+								<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+								<Input
+									type="text"
+									placeholder="Search title, or ISBN..."
+									className="w-full pl-9 pr-4"
+									name="q"
+								/>
+								<button hidden type="submit">
+									Test
+								</button>
+							</form>
+						</div>
 						<BookColumnVisibilityControls
 							columnVisibility={columnVisibility}
 							onToggleColumn={toggleColumn}
