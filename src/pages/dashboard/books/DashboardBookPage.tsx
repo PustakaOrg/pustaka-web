@@ -7,6 +7,7 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "~/shared/components/ui/card";
@@ -20,7 +21,8 @@ import {
 	ColumnVisibility,
 	defaultColumnVisibility,
 } from "~/features/catalog/types/BookColumnVisibility";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { Pagination } from "~/shared/components/Pagination";
 
 const DashboardBookPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState<ColumnVisibility>(
@@ -28,14 +30,20 @@ const DashboardBookPage = () => {
 	);
 
 	const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
-	const [searchParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const bookListParams = {
+		q: searchParams.get("q") ?? undefined,
+		available: searchParams.has("available") ? "true" : undefined,
+		category: searchParams.getAll("category"),
+		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
+		offset: searchParams.get("offset")
+			? Number(searchParams.get("offset"))
+			: undefined,
+	};
 
 	const { bookList, isPending } = useBookList(
-		defaultParams<BookListParams>({
-			q: searchParams.get("q") ?? undefined,
-			available: searchParams.has("available") ? "true" : undefined,
-			category: searchParams.getAll("category"),
-		}),
+		defaultParams<BookListParams>(bookListParams),
 	);
 
 	const toggleColumn = (column: keyof ColumnVisibility) => {
@@ -63,6 +71,12 @@ const DashboardBookPage = () => {
 			shelf: false,
 		});
 	};
+	const handleOffsetChange = useCallback((newOffset: number) => {
+		setSearchParams((prev) => {
+			prev.set("offset", String(newOffset));
+			return prev;
+		});
+	}, []);
 
 	const handleSelectAll = (checked: boolean) => {
 		if (checked) {
@@ -107,8 +121,8 @@ const DashboardBookPage = () => {
 						<AddBookDialog />
 					</div>
 				</CardHeader>
-				<CardContent className="">
-					<div className="flex items-center justify-end">
+				<CardContent className="space-y-2">
+					<div className="flex items-center  gap-2 justify-end">
 						<BookColumnVisibilityControls
 							columnVisibility={columnVisibility}
 							onToggleColumn={toggleColumn}
@@ -127,11 +141,22 @@ const DashboardBookPage = () => {
 						<BooksTable
 							bookList={bookList}
 							columnVisibility={columnVisibility}
-              selectedBooks={selectedBooks}
-              handleSelectBook={handleSelectBook}
-              handleSelectAll={handleSelectAll}
+							selectedBooks={selectedBooks}
+							handleSelectBook={handleSelectBook}
+							handleSelectAll={handleSelectAll}
 						/>
 					)}
+
+					<CardFooter className="flex items-center justify-center mt-8">
+						{bookList && (
+							<Pagination
+								totalCount={bookList.count}
+								limit={bookListParams.limit}
+								offset={bookListParams.offset ?? 0}
+								onOffsetChange={handleOffsetChange}
+							/>
+						)}
+					</CardFooter>
 				</CardContent>
 			</Card>
 		</main>
