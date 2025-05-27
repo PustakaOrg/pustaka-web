@@ -8,58 +8,37 @@ import { PaginatedResponse } from "~/types/responses";
 import BookTableHeader from "./BookTableHeader";
 import { Book as BookIcon } from "lucide-react";
 import { Book, Book as BookEntity } from "~/types/entities/Book";
-import React, { useCallback, useState } from "react";
-import useDeleteBook from "../../hooks/useDeleteBook";
+import React from "react";
 import UpdateBookDialog from "../UpdateBookDialog";
 import useBookDialog from "../../hooks/useBookDialog";
 import { BookDetailDialog } from "../BookDetailDialog";
-import {
-	ColumnVisibility,
-	defaultColumnVisibility,
-} from "../../types/BookColumnVisibility";
-import BookColumnVisibilityControls from "./BookColumnVisibilityControls";
-import BookBulkActionBar from "./BookBulkActionBar";
+import { ColumnVisibility } from "../../types/BookColumnVisibility";
 import BookTableRow from "./BookTableRow";
 import DeleteBookAlertDialog from "../DeleteBookAlertDialog";
 
+interface BooksTableProps {
+	columnVisibility: ColumnVisibility;
+	bookList: PaginatedResponse<BookEntity>;
+	selectedBooks: string[];
+	handleSelectAll: (checked: boolean) => void;
+	handleSelectBook: (bookId: string, checked: boolean) => void;
+}
+
 const BooksTable = React.memo(
-	({ bookList }: { bookList: PaginatedResponse<BookEntity> }) => {
-		const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
-		const [columnVisibility, setColumnVisibility] = useState<ColumnVisibility>(
-			defaultColumnVisibility,
-		);
-
-		const toggleColumn = (column: keyof ColumnVisibility) => {
-			setColumnVisibility((prev) => ({
-				...prev,
-				[column]: !prev[column],
-			}));
-		};
-
-		const resetColumns = () => {
-			setColumnVisibility(defaultColumnVisibility);
-		};
-
-		const hideAllColumns = () => {
-			setColumnVisibility({
-				image: false,
-				title: false,
-				isbn: false,
-				author: false,
-				publisher: false,
-				categories: false,
-				pages: false,
-				year: false,
-				stock: false,
-				shelf: false,
-			});
-		};
+	({
+		bookList,
+		columnVisibility,
+		selectedBooks,
+		handleSelectAll,
+		handleSelectBook,
+	}: BooksTableProps) => {
 		const {
 			book: updateBook,
 			isOpen: editDialogOpen,
 			openDialog: openEditDialog,
 			closeDialog: closeEditDialog,
 		} = useBookDialog();
+
 		const {
 			book: bookDetail,
 			isOpen: bookDetailOpen,
@@ -73,30 +52,6 @@ const BooksTable = React.memo(
 			closeDialog: closeDeleteBook,
 			openDialog: openBookDeleteDialog,
 		} = useBookDialog();
-
-		const handleSelectAll = (checked: boolean) => {
-			if (checked) {
-				setSelectedBooks(bookList.results.map((book) => book.id));
-			} else {
-				setSelectedBooks([]);
-			}
-		};
-
-		const handleSelectBook = (bookId: string, checked: boolean) => {
-			if (checked) {
-				setSelectedBooks((prev) => [...prev, bookId]);
-			} else {
-				setSelectedBooks((prev) => prev.filter((id) => id !== bookId));
-			}
-		};
-
-		const handleBulkDelete = () => {
-			setSelectedBooks([]);
-		};
-
-		const handleBulkExport = () => {
-			console.log("Bulk export books:", selectedBooks);
-		};
 
 		const handleRowAction = (action: string, book: Book) => {
 			if (action === "view") {
@@ -120,22 +75,7 @@ const BooksTable = React.memo(
 			selectedBooks.length < bookList.results.length;
 
 		return (
-			<div className="space-y-4">
-				<div className="flex items-center justify-end">
-					<BookColumnVisibilityControls
-						columnVisibility={columnVisibility}
-						onToggleColumn={toggleColumn}
-						onResetColumns={resetColumns}
-						onHideAllColumns={hideAllColumns}
-					/>
-				</div>
-
-				<BookBulkActionBar
-					selectedCount={selectedBooks.length}
-					onBulkExport={handleBulkExport}
-					onBulkDelete={handleBulkDelete}
-				/>
-
+			<div>
 				<div className="border rounded-lg overflow-clip">
 					<Table>
 						<BookTableHeader
