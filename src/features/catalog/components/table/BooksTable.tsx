@@ -6,18 +6,17 @@ import {
 } from "~/shared/components/ui/table";
 import { PaginatedResponse } from "~/types/responses";
 import BookTableHeader from "./BookTableHeader";
-import BookRow from "./BookRow";
 import { Book as BookIcon } from "lucide-react";
 import { Book, Book as BookEntity } from "~/types/entities/Book";
 import React, { useCallback, useState } from "react";
-import useDeleteBook from "../hooks/useDeleteBook";
-import UpdateBookDialog from "./UpdateBookDialog";
-import useBookDialog from "../hooks/useBookDialog";
-import { BookDetailDialog } from "./BookDetailDialog";
+import useDeleteBook from "../../hooks/useDeleteBook";
+import UpdateBookDialog from "../UpdateBookDialog";
+import useBookDialog from "../../hooks/useBookDialog";
+import { BookDetailDialog } from "../BookDetailDialog";
 import {
 	ColumnVisibility,
 	defaultColumnVisibility,
-} from "../types/BookColumnVisibility";
+} from "../../types/BookColumnVisibility";
 import BookColumnVisibilityControls from "./BookColumnVisibilityControls";
 import BookBulkActionBar from "./BookBulkActionBar";
 import BookTableRow from "./BookTableRow";

@@ -1,8 +1,8 @@
-import { ColumnVisibility } from "../types/BookColumnVisibility";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "~/shared/components/ui/dropdown-menu";
 import { Button } from "~/shared/components/ui/button";
 import { ChevronDown, Settings2 } from "lucide-react";
 import { Checkbox } from "~/shared/components/ui/checkbox";
+import { ColumnVisibility } from "../../types/BookColumnVisibility";
 
 interface BookColumnVisibilityControlsProps {
 	columnVisibility: ColumnVisibility;

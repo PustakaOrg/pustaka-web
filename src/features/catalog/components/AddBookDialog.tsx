@@ -3,6 +3,7 @@ import {
 	Dialog,
 	DialogContent,
 	DialogFooter,
+	DialogTitle,
 	DialogTrigger,
 } from "~/shared/components/ui/dialog";
 import BookForm from "./BookForm";
@@ -28,6 +29,7 @@ const AddBookDialog = () => {
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="md:min-w-2xl max-h-[98vh] overflow-y-auto">
+      <DialogTitle>Add New Book</DialogTitle>
 				<BookForm handleSubmit={handleSubmit} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

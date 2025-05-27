@@ -1,5 +1,5 @@
 import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
-import { ColumnVisibility } from "../types/BookColumnVisibility";
+import { ColumnVisibility } from '../../types/BookColumnVisibility'
 import { Checkbox } from "~/shared/components/ui/checkbox";
 
 interface BooksTableHeaderProps {

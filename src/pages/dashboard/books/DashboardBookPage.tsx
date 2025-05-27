@@ -12,7 +12,7 @@ import {
 } from "~/shared/components/ui/card";
 
 import { defaultParams } from "~/shared/utils/functions";
-import BooksTable from "~/features/catalog/components/BooksTable";
+import BooksTable from "~/features/catalog/components/table/BooksTable";
 import AddBookDialog from "~/features/catalog/components/AddBookDialog";
 
 const DashboardBookPage = () => {

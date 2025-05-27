@@ -1,5 +1,5 @@
 import { Book } from '~/types/entities/Book'
-import { ColumnVisibility } from '../types/BookColumnVisibility'
+import { ColumnVisibility } from '../../types/BookColumnVisibility'
 import { TableRow,TableCell } from '~/shared/components/ui/table'
 import BookRowActionDropdown from './BookRowActionDropdown'
 import { Checkbox } from '~/shared/components/ui/checkbox'

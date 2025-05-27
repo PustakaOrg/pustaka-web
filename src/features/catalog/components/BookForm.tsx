@@ -1,10 +1,15 @@
 import { Plus, Upload, X } from "lucide-react";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { Badge } from "~/shared/components/ui/badge";
 import { Button } from "~/shared/components/ui/button";
 import { Input } from "~/shared/components/ui/input";
 import { Label } from "~/shared/components/ui/label";
 import { Book } from "~/types/entities/Book";
+import { Category } from "~/types/entities/Category";
+import AuthorCombobox from "./AuthorCombobox";
+import ShelfCombobox from "./ShelfCombobox";
+import CategoryCombobox from "./CategoryCombobox";
+import PublisherCombobox from "./PublisherCombobox";
 
 interface BookFormProps {
 	defaultValues?: Book;
@@ -16,9 +21,13 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 		defaultValues?.img || null,
 	);
 	const [categories, setCategories] = useState<string[]>(
-		defaultValues?.category || [],
+		defaultValues ? defaultValues.category.map((cat) => cat.id) : [],
 	);
-	const [newCategory, setNewCategory] = useState("");
+
+  const [author, setAuthor] = useState<string>(defaultValues ? defaultValues.author!.id : "" )
+  const [publisher, setPublisher] = useState<string>(defaultValues ? defaultValues.publisher!.id : "" )
+  const [shelf, setShelf] = useState<string>(defaultValues ? defaultValues.shelf!.id : "" )
+
 
 	const [isDragOver, setIsDragOver] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -92,28 +101,15 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 		}
 	};
 
-	const addCategory = () => {
-		if (newCategory.trim() && !categories.includes(newCategory.trim())) {
-			setCategories([...categories, newCategory.trim()]);
-			setNewCategory("");
-		}
-	};
-
-	const removeCategory = (categoryToRemove: string) => {
-		setCategories(categories.filter((cat) => cat !== categoryToRemove));
-	};
-
-	const handleKeyPress = (e: React.KeyboardEvent) => {
-		if (e.key === "Enter") {
-			e.preventDefault();
-			addCategory();
-		}
-	};
+  useEffect( ()=>{
+    console.log("Author: " + author)
+    console.log("Shelf: " + shelf)
+    console.log("categories: " + categories)
+  },[author,categories,shelf] )
 
 	return (
 		//
 		<form onSubmit={handleSubmit} className="space-y-6">
-
 			{/* Cover Image Field */}
 			<div className="space-y-2">
 				<Label htmlFor="image" className="text-sm font-medium">
@@ -198,7 +194,6 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 				</div>
 			</div>
 
-
 			{/* Title Field */}
 			<div className="space-y-2">
 				<Label htmlFor="title" className="text-sm font-medium">
@@ -264,62 +259,44 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 					/>
 				</div>
 			</div>
-
-			{/* Categories Field */}
+			{/* Title Field */}
 			<div className="space-y-2">
-				<Label htmlFor="category" className="text-sm font-medium">
-					Categories
+				<Label htmlFor="author" className="text-sm font-medium">
+					Author *
 				</Label>
-				<div className="space-y-3">
-					<div className="flex gap-2">
-						<Input
-							id="category"
-							value={newCategory}
-							onChange={(e) => setNewCategory(e.target.value)}
-							onKeyPress={handleKeyPress}
-							placeholder="Add a category"
-							className="flex-1"
-						/>
-						<Button
-							type="button"
-							onClick={addCategory}
-							size="sm"
-							variant="outline"
-							className="px-3"
-						>
-							<Plus className="h-4 w-4" />
-						</Button>
-					</div>
+				<AuthorCombobox  author={author} setAuthor={setAuthor}/>
+        <input hidden name="author" value={author}  readOnly/>
+			</div>
 
-					{categories.length > 0 && (
-						<div className="flex flex-wrap gap-2">
-							{categories.map((cat) => (
-								<Badge
-									key={cat}
-									variant="secondary"
-									className="flex items-center gap-1 px-3 py-1"
-								>
-									{cat}
-									<button
-										type="button"
-										onClick={() => removeCategory(cat)}
-										className="ml-1 rounded-full p-0.5 hover:bg-destructive hover:text-destructive-foreground transition-colors"
-									>
-										<X className="h-3 w-3" />
-										<span className="sr-only">Remove {cat}</span>
-									</button>
-								</Badge>
-							))}
-						</div>
-					)}
-				</div>
+		{/* Title Field */}
+			<div className="space-y-2">
+				<Label htmlFor="author" className="text-sm font-medium">
+					Publisher *
+				</Label>
+				<PublisherCombobox  publisher={publisher} setPublisher={setPublisher}/>
+        <input hidden name="publisher" value={publisher}  readOnly/>
+			</div>
 
-				{/* Hidden input to submit categories */}
-				<input
-					type="hidden"
-					name="categories"
-					value={JSON.stringify(categories)}
-				/>
+			{/* Title Field */}
+			<div className="space-y-2">
+				<Label htmlFor="author" className="text-sm font-medium">
+					Shelf *
+				</Label>
+				<ShelfCombobox shelf={ shelf} setShelf={setShelf}/>
+        <input hidden name="shelf" value={shelf} readOnly />
+			</div>
+
+			{/* Title Field */}
+			<div className="space-y-2">
+				<Label htmlFor="author" className="text-sm font-medium">
+					Category *
+				</Label>
+				<CategoryCombobox categories={categories} setCategories={setCategories}/>
+        {
+          categories.map(cat => (
+            <input hidden name="category" value={cat} readOnly/>
+          ))
+        }
 			</div>
 
 			{/* Submit Button */}
