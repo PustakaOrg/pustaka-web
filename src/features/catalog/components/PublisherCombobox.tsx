@@ -15,24 +15,7 @@ import {
 	PopoverTrigger,
 } from "~/shared/components/ui/popover";
 import { cn } from "~/shared/libs/ui";
-
-const publishersChoice = [
-	{
-		id: "d3ffcd79-19f1-4d5e-a974-fdad19866cf4",
-		name: "Some",
-		city: "Name",
-	},
-	{
-		id: "886edb98-dda5-412d-92a9-880a9976fa51",
-		name: "Test2",
-		city: "Hey",
-	},
-	{
-		id: "4a4acc5e-e605-4f18-827c-d2095f82ab67",
-		name: "Some Name",
-		city: "some city",
-	},
-];
+import useAllPublisher from "../hooks/useAllPublisher";
 
 interface PublisherComboboxProps {
 	publisher: string;
@@ -44,7 +27,10 @@ const PublisherCombobox = ({
 	setPublisher,
 }: PublisherComboboxProps) => {
 	const [open, setOpen] = useState(false);
-  const publisherV =  publishersChoice.find((publisherc) => publisherc.id === publisher)
+	const { publishers: publishersChoice, isPending } = useAllPublisher();
+	const publisherV = publishersChoice?.find(
+		(publisherc) => publisherc.id === publisher,
+	);
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -56,8 +42,8 @@ const PublisherCombobox = ({
 					className="w-full justify-between text-muted-foreground"
 				>
 					{publisher
-						?  `${publisherV!.name} - ${publisherV!.city}`
-						: "Select author..."}
+						? `${publisherV!.name} - ${publisherV!.city}`
+						: "Select publisher..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
@@ -67,24 +53,31 @@ const PublisherCombobox = ({
 					<CommandList>
 						<CommandEmpty>No Publisher founds</CommandEmpty>
 						<CommandGroup>
-							{publishersChoice.map((publisherc) => (
-								<CommandItem
-									key={publisherc.id}
-									value={publisherc.id}
-									onSelect={(currentValue) => {
-										setPublisher(currentValue == publisher ? "" : currentValue);
-										setOpen(false);
-									}}
-								>
-									{publisherc.name} - {publisherc.city}
-									<Check
-										className={cn(
-											"ml-auto",
-											publisher === publisherc.id ? "opacity-100" : "opacity-0",
-										)}
-									/>
-								</CommandItem>
-							))}
+							{publishersChoice &&
+								publishersChoice.map((publisherc) => (
+									<CommandItem
+										key={publisherc.id}
+										value={publisherc.id}
+										keywords={[publisherc.name, publisherc.city]}
+										onSelect={(currentValue) => {
+											setPublisher(
+												currentValue == publisher ? "" : currentValue,
+											);
+											setOpen(false);
+										}}
+									>
+										{publisherc.name} - {publisherc.city}
+										<Check
+											className={cn(
+												"ml-auto",
+												publisher === publisherc.id
+													? "opacity-100"
+													: "opacity-0",
+											)}
+										/>
+									</CommandItem>
+								))}
+							{isPending && <p>Loading...</p>}
 						</CommandGroup>
 					</CommandList>
 				</Command>

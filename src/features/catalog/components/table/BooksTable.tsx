@@ -67,10 +67,6 @@ const BooksTable = React.memo(
 			openDialog: openBookDetailDialog,
 		} = useBookDialog();
 
-		const handleDeleteBook = useCallback((bookId: string) => {
-			deleteBook(bookId);
-		}, []);
-
 		const handleSelectAll = (checked: boolean) => {
 			if (checked) {
 				setSelectedBooks(bookList.results.map((book) => book.id));
@@ -96,7 +92,6 @@ const BooksTable = React.memo(
 		};
 
 		const handleRowAction = (action: string, book: Book) => {
-			console.log(`${action} book:`, book);
 			if (action === "view") {
 				openBookDetailDialog(book);
 			}

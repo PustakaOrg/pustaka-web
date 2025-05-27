@@ -16,29 +16,19 @@ import {
 	PopoverTrigger,
 } from "~/shared/components/ui/popover";
 import { cn } from "~/shared/libs/ui";
-
-const categoriesChoice = [
-	{
-		id: "b4b8f807-fc93-40c1-b63f-6092d5c0fafa",
-		name: "Fiction",
-	},
-	{
-		id: "62d8e76b-dc8e-478b-9911-e03867e505e9",
-		name: "Self-Development",
-	},
-	{
-		id: "a8d6433e-ba24-44d6-ab5f-d0b99b4b3a9a",
-		name: "Finnancial",
-	},
-];
+import useAllCategory from "../hooks/useAllCategory";
 
 interface CategoryComboboxProps {
-  categories: string[]
-  setCategories: React.Dispatch<React.SetStateAction<string[]>>
+	categories: string[];
+	setCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const CategoryCombobox = ({categories,setCategories}:CategoryComboboxProps) => {
+const CategoryCombobox = ({
+	categories,
+	setCategories,
+}: CategoryComboboxProps) => {
 	const [open, setOpen] = useState(false);
+	const { categories: categoriesChoice, isPending } = useAllCategory();
 
 	const handleSetValue = (val: string) => {
 		if (categories.includes(val)) {
@@ -61,11 +51,8 @@ const CategoryCombobox = ({categories,setCategories}:CategoryComboboxProps) => {
 					<div className="flex gap-2 justify-start">
 						{categories?.length
 							? categories.map((val, i) => (
-									<Badge
-										key={i}
-                    variant={"secondary"}
-									>
-										{categoriesChoice.find((framework) => framework.id === val)?.name}
+									<Badge key={i} variant={"secondary"}>
+										{categoriesChoice?.find((cat) => cat.id === val)?.name}
 									</Badge>
 								))
 							: "Select categories..."}
@@ -74,29 +61,35 @@ const CategoryCombobox = ({categories,setCategories}:CategoryComboboxProps) => {
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="p-0">
-				<Command>
-					<CommandInput placeholder="Search author" />
+				<Command
+				>
+					<CommandInput placeholder="Search category" />
 					<CommandList>
-						<CommandEmpty>No author founds</CommandEmpty>
+						<CommandEmpty>No category founds</CommandEmpty>
 						<CommandGroup>
-							{categoriesChoice.map((category) => (
-								<CommandItem
-									key={category.id}
-									value={category.id}
-									onSelect={(currentValue) => {
-										handleSetValue(currentValue);
-										setOpen(false);
-									}}
-								>
-									{category.name}
-									<Check
-										className={cn(
-											"ml-auto",
-											categories.includes(category.id) ? "opacity-100" : "opacity-0",
-										)}
-									/>
-								</CommandItem>
-							))}
+							{categoriesChoice &&
+								categoriesChoice.map((category) => (
+									<CommandItem
+										key={category.id}
+										value={category.id}
+                    keywords={[category.name]}
+										onSelect={(currentValue) => {
+											handleSetValue(currentValue);
+											setOpen(false);
+										}}
+									>
+										{category.name}
+										<Check
+											className={cn(
+												"ml-auto",
+												categories.includes(category.id)
+													? "opacity-100"
+													: "opacity-0",
+											)}
+										/>
+									</CommandItem>
+								))}
+							{isPending && <p>Loading...</p>}
 						</CommandGroup>
 					</CommandList>
 				</Command>

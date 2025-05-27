@@ -1,11 +1,9 @@
 import { Plus, Upload, X } from "lucide-react";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { Badge } from "~/shared/components/ui/badge";
 import { Button } from "~/shared/components/ui/button";
 import { Input } from "~/shared/components/ui/input";
 import { Label } from "~/shared/components/ui/label";
 import { Book } from "~/types/entities/Book";
-import { Category } from "~/types/entities/Category";
 import AuthorCombobox from "./AuthorCombobox";
 import ShelfCombobox from "./ShelfCombobox";
 import CategoryCombobox from "./CategoryCombobox";
@@ -109,7 +107,7 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 
 	return (
 		//
-		<form onSubmit={handleSubmit} className="space-y-6">
+		<form onSubmit={handleSubmit} className="space-y-4">
 			{/* Cover Image Field */}
 			<div className="space-y-2">
 				<Label htmlFor="image" className="text-sm font-medium">

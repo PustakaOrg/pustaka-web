@@ -15,21 +15,8 @@ import {
 	PopoverTrigger,
 } from "~/shared/components/ui/popover";
 import { cn } from "~/shared/libs/ui";
+import useAllShelf from "../hooks/useAllShelf";
 
-const shelvesChoice = [
-	{
-		id: "fb4a81d3-96e9-44cf-8b2a-aa1c6f001ae1",
-		code: "123",
-	},
-	{
-		id: "128a5f8e-85d5-4b49-8df1-c89c990bc339",
-		code: "E12",
-	},
-	{
-		id: "3c6479d3-5ce0-460f-a50d-c2c3ac8dacb0",
-		code: "B09",
-	},
-];
 
 interface ShelfComboboxProps {
 	shelf: string;
@@ -38,6 +25,7 @@ interface ShelfComboboxProps {
 
 const ShelfCombobox = ({setShelf,shelf}:ShelfComboboxProps) => {
 	const [open, setOpen] = useState(false);
+  const {shelf: shelvesChoice, isPending} = useAllShelf()
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -49,7 +37,7 @@ const ShelfCombobox = ({setShelf,shelf}:ShelfComboboxProps) => {
 					className="w-full justify-between text-muted-foreground"
 				>
 					{shelf
-						? shelvesChoice.find((shelfc) => shelfc.id === shelf)?.code
+						? shelvesChoice?.find((shelfc) => shelfc.id === shelf)?.code
 						: "Select shelf..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
@@ -60,10 +48,11 @@ const ShelfCombobox = ({setShelf,shelf}:ShelfComboboxProps) => {
 					<CommandList>
 						<CommandEmpty>No author founds</CommandEmpty>
 						<CommandGroup>
-							{shelvesChoice.map((shelfc) => (
+							{shelvesChoice && shelvesChoice.map((shelfc) => (
 								<CommandItem
 									key={shelfc.id}
 									value={shelfc.id}
+                  keywords={[shelfc.code]}
 									onSelect={(currentValue) => {
 										setShelf(currentValue == shelf ? "" : currentValue);
                     setOpen(false)
@@ -78,6 +67,9 @@ const ShelfCombobox = ({setShelf,shelf}:ShelfComboboxProps) => {
 									/>
 								</CommandItem>
 							))}
+              {isPending && (
+                <p>Loading...</p>
+              )}
 						</CommandGroup>
 					</CommandList>
 				</Command>
