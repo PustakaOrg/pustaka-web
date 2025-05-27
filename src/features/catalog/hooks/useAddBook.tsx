@@ -13,7 +13,6 @@ const useAddBook = () => {
 		mutationKey: ["add-book"],
 		mutationFn: (data: FormData) => postBook(data),
 		onSuccess: () => {
-      console.log("onSuccess")
 			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});

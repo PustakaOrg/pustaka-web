@@ -101,12 +101,6 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 		}
 	};
 
-  useEffect( ()=>{
-    console.log("Author: " + author)
-    console.log("Shelf: " + shelf)
-    console.log("categories: " + categories)
-  },[author,categories,shelf] )
-
 	return (
 		//
 		<form onSubmit={handleSubmit} className="space-y-4">

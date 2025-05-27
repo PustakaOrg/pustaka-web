@@ -108,7 +108,6 @@ const BooksTable = React.memo(
 			}
 
 			if (action === "delete") {
-				console.log("DELETE BOOk");
 				openBookDeleteDialog(book);
 			}
 		};

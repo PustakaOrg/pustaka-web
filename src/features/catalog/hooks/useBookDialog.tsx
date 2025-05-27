@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback,  useState } from "react";
 import { Book } from "~/types/entities/Book";
 
 const useBookDialog = () => {
