@@ -20,10 +20,10 @@ import {
 import BookColumnVisibilityControls from "./BookColumnVisibilityControls";
 import BookBulkActionBar from "./BookBulkActionBar";
 import BookTableRow from "./BookTableRow";
+import DeleteBookAlertDialog from "../DeleteBookAlertDialog";
 
 const BooksTable = React.memo(
 	({ bookList }: { bookList: PaginatedResponse<BookEntity> }) => {
-		const { deleteBook } = useDeleteBook();
 		const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
 		const [columnVisibility, setColumnVisibility] = useState<ColumnVisibility>(
 			defaultColumnVisibility,
@@ -67,6 +67,13 @@ const BooksTable = React.memo(
 			openDialog: openBookDetailDialog,
 		} = useBookDialog();
 
+		const {
+			book: bookDelete,
+			isOpen: bookDeleteOpen,
+			closeDialog: closeDeleteBook,
+			openDialog: openBookDeleteDialog,
+		} = useBookDialog();
+
 		const handleSelectAll = (checked: boolean) => {
 			if (checked) {
 				setSelectedBooks(bookList.results.map((book) => book.id));
@@ -101,6 +108,8 @@ const BooksTable = React.memo(
 			}
 
 			if (action === "delete") {
+				console.log("DELETE BOOk");
+				openBookDeleteDialog(book);
 			}
 		};
 
@@ -176,6 +185,13 @@ const BooksTable = React.memo(
 							book={bookDetail}
 							onOpenChange={closeBookDetail}
 							open={bookDetailOpen}
+						/>
+					)}
+					{bookDelete && (
+						<DeleteBookAlertDialog
+							book={bookDelete}
+							onOpenChange={closeDeleteBook}
+							isOpen={bookDeleteOpen}
 						/>
 					)}
 				</div>
