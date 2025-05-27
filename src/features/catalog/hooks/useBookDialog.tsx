@@ -12,7 +12,6 @@ const useBookDialog = () => {
 
   const closeDialog = useCallback(() => {
     setIsOpen(false);
-    setBook(null);
   }, []);
 
   return { isOpen, book, openDialog, closeDialog };
