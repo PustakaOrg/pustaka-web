@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postLoan } from "../api/postLoan";
+import { postLoan, PostLoanPayload } from "../api/postLoan";
 
 const useAddLoan = () => {
+	const queryClient = useQueryClient();
 	const {
 		data: newLoan,
 		isPending,
@@ -10,18 +11,19 @@ const useAddLoan = () => {
 		mutate: addLoan,
 	} = useMutation({
 		mutationKey: ["add-loan"],
-		mutationFn: (data: FormData) => postLoan(data),
+		mutationFn: (data: PostLoanPayload) => postLoan(data),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["loans"] });
+			queryClient.invalidateQueries({ queryKey: ["books"] });
+		},
 	});
 
-	const queryClient = useQueryClient();
-	queryClient.invalidateQueries({ queryKey: ["loans"] });
-	queryClient.invalidateQueries({ queryKey: ["books"] });
 	return {
 		newBook: newLoan,
 		isPending,
 		isError,
 		error,
-		addBook: addLoan,
+		addLoan,
 	};
 };
 

@@ -15,8 +15,9 @@ import {
 	PopoverTrigger,
 } from "~/shared/components/ui/popover";
 import { cn } from "~/shared/libs/ui";
-import useSearchBook from "../hooks/useSearchBook";
+import useSearchAvailableBook from "../hooks/useSearchBook";
 import useBookDetail from "../hooks/useBookDetail";
+import { CommandLoading } from "cmdk";
 
 interface BookComboboxProps {
 	book: string;
@@ -25,7 +26,7 @@ interface BookComboboxProps {
 
 const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 	const [search, setSearch] = useState("");
-	const { bookList: authorsChoice, isPending } = useSearchBook(search);
+	const { bookList: authorsChoice, isPending } = useSearchAvailableBook(search);
 	const { bookDetail, isPending: bookDetailPending } = useBookDetail(book);
 	const [open, setOpen] = useState(false);
 
@@ -40,6 +41,7 @@ const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 				>
 					{book && bookDetail && <p>{bookDetail.title}</p>}
           {!book && "Select book"}
+          {bookDetailPending && "Loading..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
@@ -51,7 +53,7 @@ const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 						placeholder="Search book or"
 					/>
 					<CommandList>
-						<CommandEmpty>No author founds</CommandEmpty>
+						<CommandEmpty>No available book founds</CommandEmpty>
 						<CommandGroup>
 							{authorsChoice &&
 								authorsChoice.results.map((authorc) => (
@@ -73,8 +75,8 @@ const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 										/>
 									</CommandItem>
 								))}
-							{isPending && <p>Loading...</p>}
 						</CommandGroup>
+            {isPending && <CommandLoading>Loading...</CommandLoading>}
 					</CommandList>
 				</Command>
 			</PopoverContent>

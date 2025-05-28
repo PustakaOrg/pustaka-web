@@ -2,7 +2,7 @@ import { Book } from "./Book";
 import { Librarian } from "./Librarian";
 import { Member } from "./Member";
 
-type LoanStatus = "active" | "returned" | "overdue" | "lost" | "done"
+export type LoanStatus = "active" | "returned" | "overdue" | "lost" | "done"
 
 export type Loan = {
 	id: string;

@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { getLoans } from "../api/getLoans";
+import { getLoans, LoanListParams } from "../api/getLoans";
+import { LoanStatus } from "~/types/entities/Loan";
 
-const useLoanList = () => {
+
+const useLoanList = (params?: LoanListParams) => {
 	const {
 		data: loanList,
 		isPending,
 		isError,
 		error,
 	} = useQuery({
-		queryKey: ["loans"],
-		queryFn: getLoans,
+		queryKey: ["loans",params],
+		queryFn: ()=> getLoans(params),
 	});
 	return {
 		loanList,

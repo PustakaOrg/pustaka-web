@@ -1,7 +1,14 @@
-import { api } from "~/shared/utils/api"
-import { Member } from "~/types/entities/Member"
-import { PaginatedResponse } from "~/types/responses"
+import { type } from "os";
+import { api } from "~/shared/utils/api";
+import { Member } from "~/types/entities/Member";
+import { PaginatedResponse } from "~/types/responses";
 
-export const getMembers = ()=> {
-  return api.get<PaginatedResponse<Member>>("members/")
-}
+type MemberListParams = Partial<{
+	q: string;
+}>;
+
+export const getMembers = (params?: MemberListParams) => {
+	return api.get<PaginatedResponse<Member>>("members/", {
+		params: params as Record<string, string>,
+	});
+};

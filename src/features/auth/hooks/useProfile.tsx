@@ -19,6 +19,7 @@ const useProfile = () => {
 		queryKey: ["profile"],
 		queryFn: () => getProfile(),
 		retry: false,
+    staleTime: Infinity
 	});
 
 	if (isMemberObject(profile)) {
