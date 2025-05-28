@@ -18,6 +18,7 @@ import { cn } from "~/shared/libs/ui";
 import { CommandLoading } from "cmdk";
 import useSearchMember from "../hooks/useSearchMember";
 import useMemberDetail from "../hooks/useMemberDetail";
+import MemberListItem from "~/shared/components/MemberListItem";
 
 interface MemberComboboxProps {
 	member: string;
@@ -30,7 +31,8 @@ const MemberCombobox = ({
 }: MemberComboboxProps) => {
 	const [search, setSearch] = useState("");
 	const { memberList: membersChoice, isPending } = useSearchMember(search);
-	const { memberDetail, isPending: memberDetailPending } = useMemberDetail(member);
+	const { memberDetail, isPending: memberDetailPending } =
+		useMemberDetail(member);
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -58,30 +60,35 @@ const MemberCombobox = ({
 					<CommandList>
 						<CommandEmpty>No available book founds</CommandEmpty>
 						<CommandGroup>
-						{membersChoice &&
-							membersChoice.results.map((authorc) => (
-								<CommandItem
-									key={authorc.id}
-									value={authorc.id}
-									keywords={[
-										authorc.id,
-										authorc.account.fullname,
-										authorc.nis,
-									]}
-									onSelect={(currentValue) => {
-										setMember(currentValue == member ? "" : currentValue);
-										setOpen(false);
-									}}
-								>
-									{authorc.account.fullname}
-									<Check
-										className={cn(
-											"ml-auto",
-											member === authorc.id ? "opacity-100" : "opacity-0",
-										)}
-									/>
-								</CommandItem>
-							))}
+							{membersChoice &&
+								membersChoice.results.map((memberc) => (
+									<CommandItem
+										key={memberc.id}
+										value={memberc.id}
+										keywords={[
+											memberc.id,
+											memberc.account.fullname,
+											memberc.nis,
+										]}
+										onSelect={(currentValue) => {
+											setMember(currentValue == member ? "" : currentValue);
+											setOpen(false);
+										}}
+										className="flex justify-between"
+									>
+										<div>
+											<MemberListItem member={memberc} />
+										</div>
+										<div>
+											<Check
+												className={cn(
+													"ml-auto",
+													member === memberc.id ? "opacity-100" : "opacity-0",
+												)}
+											/>
+										</div>
+									</CommandItem>
+								))}
 						</CommandGroup>
 						{isPending && <CommandLoading>Loading...</CommandLoading>}
 					</CommandList>
