@@ -18,6 +18,7 @@ import { cn } from "~/shared/libs/ui";
 import useSearchAvailableBook from "../hooks/useSearchBook";
 import useBookDetail from "../hooks/useBookDetail";
 import { CommandLoading } from "cmdk";
+import BookListItem from "./BookListItem";
 
 interface BookComboboxProps {
 	book: string;
@@ -40,8 +41,8 @@ const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 					className="w-full justify-between text-muted-foreground"
 				>
 					{book && bookDetail && <p>{bookDetail.title}</p>}
-          {!book && "Select book"}
-          {bookDetailPending && "Loading..."}
+					{!book && "Select book"}
+					{bookDetailPending && "Loading..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
@@ -56,27 +57,32 @@ const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 						<CommandEmpty>No available book founds</CommandEmpty>
 						<CommandGroup>
 							{authorsChoice &&
-								authorsChoice.results.map((authorc) => (
+								authorsChoice.results.map((bookc) => (
 									<CommandItem
-										key={authorc.id}
-										value={authorc.id}
-										keywords={[authorc.title, authorc.isbn]}
+										key={bookc.id}
+										value={bookc.id}
+										keywords={[bookc.title, bookc.isbn]}
 										onSelect={(currentValue) => {
 											setBook(currentValue == book ? "" : currentValue);
 											setOpen(false);
 										}}
+										className="flex justify-between"
 									>
-										{authorc.title}
-										<Check
-											className={cn(
-												"ml-auto",
-												book === authorc.id ? "opacity-100" : "opacity-0",
-											)}
-										/>
+										<div>
+											<BookListItem book={bookc} />
+										</div>
+										<div>
+											<Check
+												className={cn(
+													"ml-auto",
+													book === bookc.id ? "opacity-100" : "opacity-0",
+												)}
+											/>
+										</div>
 									</CommandItem>
 								))}
 						</CommandGroup>
-            {isPending && <CommandLoading>Loading...</CommandLoading>}
+						{isPending && <CommandLoading>Loading...</CommandLoading>}
 					</CommandList>
 				</Command>
 			</PopoverContent>
