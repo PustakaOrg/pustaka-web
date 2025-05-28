@@ -1,9 +1,9 @@
 import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
-import { ColumnVisibility } from '../../types/BookColumnVisibility'
+import { BookColumnVisibility } from '../../types/BookColumnVisibility'
 import { Checkbox } from "~/shared/components/ui/checkbox";
 
 interface BooksTableHeaderProps {
-  columnVisibility: ColumnVisibility
+  columnVisibility: BookColumnVisibility
   isAllSelected: boolean
   isIndeterminate: boolean
   onSelectAll: (checked: boolean) => void

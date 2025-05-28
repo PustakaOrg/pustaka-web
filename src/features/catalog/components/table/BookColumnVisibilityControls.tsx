@@ -2,11 +2,11 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Button } from "~/shared/components/ui/button";
 import { ChevronDown, Settings2 } from "lucide-react";
 import { Checkbox } from "~/shared/components/ui/checkbox";
-import { ColumnVisibility } from "../../types/BookColumnVisibility";
+import { BookColumnVisibility } from "../../types/BookColumnVisibility";
 
 interface BookColumnVisibilityControlsProps {
-	columnVisibility: ColumnVisibility;
-	onToggleColumn: (column: keyof ColumnVisibility) => void;
+	columnVisibility: BookColumnVisibility;
+	onToggleColumn: (column: keyof BookColumnVisibility) => void;
 	onResetColumns: () => void;
 	onHideAllColumns: () => void;
 }

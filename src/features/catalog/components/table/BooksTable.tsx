@@ -12,13 +12,13 @@ import React from "react";
 import UpdateBookDialog from "../UpdateBookDialog";
 import useBookDialog from "../../hooks/useBookDialog";
 import { BookDetailDialog } from "../BookDetailDialog";
-import { ColumnVisibility } from "../../types/BookColumnVisibility";
+import { BookColumnVisibility } from "../../types/BookColumnVisibility";
 import BookTableRow from "./BookTableRow";
 import DeleteBookAlertDialog from "../DeleteBookAlertDialog";
 
 interface BooksTableProps {
-	columnVisibility: ColumnVisibility;
-	bookList: PaginatedResponse<BookEntity>;
+  bookList: PaginatedResponse<BookEntity>;
+	columnVisibility: BookColumnVisibility;
 	selectedBooks: string[];
 	handleSelectAll: (checked: boolean) => void;
 	handleSelectBook: (bookId: string, checked: boolean) => void;
@@ -76,7 +76,6 @@ const BooksTable = React.memo(
 
 		return (
 			<div>
-				<div className="border rounded-lg overflow-clip">
 					<Table>
 						<BookTableHeader
 							columnVisibility={columnVisibility}
@@ -133,7 +132,6 @@ const BooksTable = React.memo(
 							isOpen={bookDeleteOpen}
 						/>
 					)}
-				</div>
 			</div>
 		);
 	},

@@ -1,4 +1,4 @@
-export interface ColumnVisibility {
+export interface BookColumnVisibility {
   image: boolean
   title: boolean
   isbn: boolean
@@ -11,7 +11,7 @@ export interface ColumnVisibility {
   shelf: boolean
 }
 
-export const defaultColumnVisibility: ColumnVisibility = {
+export const defaultColumnVisibility: BookColumnVisibility = {
   image: true,
   title: true,
   isbn: true,

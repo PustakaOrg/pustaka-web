@@ -1,12 +1,12 @@
 import { Book } from '~/types/entities/Book'
-import { ColumnVisibility } from '../../types/BookColumnVisibility'
+import { BookColumnVisibility } from '../../types/BookColumnVisibility'
 import { TableRow,TableCell } from '~/shared/components/ui/table'
 import BookRowActionDropdown from './BookRowActionDropdown'
 import { Checkbox } from '~/shared/components/ui/checkbox'
 import { Badge } from '~/shared/components/ui/badge'
 interface BookTableRowProps {
   book: Book
-  columnVisibility: ColumnVisibility
+  columnVisibility: BookColumnVisibility
   isSelected: boolean
   onSelect: (bookId: string, checked: boolean) => void
   onAction: (action: string, book: Book) => void

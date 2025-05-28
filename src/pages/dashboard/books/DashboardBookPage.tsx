@@ -18,7 +18,7 @@ import AddBookDialog from "~/features/catalog/components/AddBookDialog";
 import BookColumnVisibilityControls from "~/features/catalog/components/table/BookColumnVisibilityControls";
 import BookBulkActionBar from "~/features/catalog/components/table/BookBulkActionBar";
 import {
-	ColumnVisibility,
+	BookColumnVisibility,
 	defaultColumnVisibility,
 } from "~/features/catalog/types/BookColumnVisibility";
 import { FormEvent, useCallback, useState } from "react";
@@ -27,7 +27,7 @@ import { Input } from "~/shared/components/ui/input";
 import { Search } from "lucide-react";
 
 const DashboardBookPage = () => {
-	const [columnVisibility, setColumnVisibility] = useState<ColumnVisibility>(
+	const [columnVisibility, setColumnVisibility] = useState<BookColumnVisibility>(
 		defaultColumnVisibility,
 	);
 
@@ -48,7 +48,7 @@ const DashboardBookPage = () => {
 		defaultParams<BookListParams>(bookListParams),
 	);
 
-	const toggleColumn = (column: keyof ColumnVisibility) => {
+	const toggleColumn = (column: keyof BookColumnVisibility) => {
 		setColumnVisibility((prev) => ({
 			...prev,
 			[column]: !prev[column],
@@ -143,6 +143,7 @@ const DashboardBookPage = () => {
 									type="text"
 									placeholder="Search title, or ISBN..."
 									className="w-full pl-9 pr-4"
+                  defaultValue={searchParams.get("?") ?? undefined}
 									name="q"
 								/>
 								<button hidden type="submit">

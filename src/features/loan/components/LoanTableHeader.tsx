@@ -1,19 +1,47 @@
-import React from 'react'
-import { TableHead, TableHeader, TableRow } from '~/shared/components/ui/table'
+import React from "react";
+import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
+import { LoanColumnVisibility } from "../type/LoanColumnVisibility";
+import { Checkbox } from "~/shared/components/ui/checkbox";
 
-const LoanTableHeader = () => {
-  return (
-			<TableHeader>
-				<TableRow>
-					<TableHead>Borrower</TableHead>
-					<TableHead>Book</TableHead>
-					<TableHead className="hidden md:table-cell">Issue Date</TableHead>
-					<TableHead>Due Date</TableHead>
-					<TableHead>Status</TableHead>
-					<TableHead className="text-right">Actions</TableHead>
-				</TableRow>
-			</TableHeader>
-  )
+interface LoanTableHeaderProps {
+	columnVisibility: LoanColumnVisibility;
+	isAllSelected: boolean;
+	isIndeterminate: boolean;
+	onSelectAll: (checked: boolean) => void;
 }
 
-export default LoanTableHeader
+const LoanTableHeader = ({
+	columnVisibility,
+	isAllSelected,
+	isIndeterminate,
+	onSelectAll,
+}: LoanTableHeaderProps) => {
+	return (
+		<TableHeader>
+			<TableRow className="bg-secondary hover:bg-secondary">
+				<TableHead className="w-12">
+					<Checkbox
+						checked={isAllSelected}
+						onCheckedChange={onSelectAll}
+						aria-label="Select all books"
+						{...(isIndeterminate && { "data-state": "indeterminate" })}
+					/>
+				</TableHead>
+
+				{columnVisibility.borrower && <TableHead>Borrower</TableHead>}
+				{columnVisibility.book && <TableHead>Book</TableHead>}
+				{columnVisibility.loan_date && <TableHead>Issue Date</TableHead>}
+				{columnVisibility.return_date && <TableHead>Due Date</TableHead>}
+				{columnVisibility.status && <TableHead>Status</TableHead>}
+				{columnVisibility.approved_by && <TableHead>Approved By</TableHead>}
+				{columnVisibility.return_procced_by && (
+					<TableHead>Return Proceed By</TableHead>
+				)}
+
+				<TableHead className="text-right">Actions</TableHead>
+			</TableRow>
+		</TableHeader>
+	);
+};
+
+export default LoanTableHeader;
