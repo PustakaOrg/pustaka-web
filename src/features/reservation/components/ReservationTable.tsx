@@ -28,11 +28,17 @@ const ReservationTable = ({
 	const { profile } = useProfile();
 	const { updateReservation } = useUpdateReservationStatus();
 	const handelRowAction = (action: string, reservation: Reservation) => {
-		if (action == "mark-ready") {
-			if (profile && isLibrarianObject(profile)) {
+		if (profile && isLibrarianObject(profile)) {
+			if (action == "mark-ready") {
 				updateReservation({
 					reservationId: reservation.id,
 					payload: { status: "ready", accepted_by: profile.id },
+				});
+			}
+			if (action == "cancel") {
+				updateReservation({
+					reservationId: reservation.id,
+					payload: { status: "canceled", accepted_by: null },
 				});
 			}
 		}

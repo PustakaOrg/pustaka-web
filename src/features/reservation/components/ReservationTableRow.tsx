@@ -1,33 +1,16 @@
 import { TableCell, TableRow } from "~/shared/components/ui/table";
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "~/shared/components/ui/dropdown-menu";
-
-import {
 	Avatar,
 	AvatarFallback,
 	AvatarImage,
 } from "~/shared/components/ui/avatar";
 import { Reservation } from "~/types/entities/Reservation";
-import {
-	BookOpen,
-	Calendar,
-	CheckCircle2,
-	Clock,
-	Mail,
-	MoreHorizontal,
-	Trash2,
-	XCircle,
-} from "lucide-react";
-import { Button } from "~/shared/components/ui/button";
+import { BookOpen, CheckCircle2, Clock, XCircle } from "lucide-react";
 import { formatDate } from "~/shared/utils/functions";
 import { Badge } from "~/shared/components/ui/badge";
 import { ReservationColumnVisibility } from "../type/ReservationColumnVisibility";
 import { Checkbox } from "~/shared/components/ui/checkbox";
+import ReservationRowAction from "./ReservationRowAction";
 
 interface ReservationTableRowProps {
 	reservation: Reservation;
@@ -153,62 +136,7 @@ const ReservationTableRow = ({
 			)}
 
 			<TableCell className="text-right">
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="ghost" size="icon">
-							<MoreHorizontal className="h-4 w-4" />
-							<span className="sr-only">Actions</span>
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuItem>
-							<Calendar className="mr-2 h-4 w-4" />
-							View Details
-						</DropdownMenuItem>
-						{reservation.status === "pending" && (
-							<DropdownMenuItem
-								onClick={() => {
-									onAction("mark-ready", reservation);
-								}}
-							>
-								<CheckCircle2 className="mr-2 h-4 w-4" />
-								Mark as Ready
-							</DropdownMenuItem>
-						)}
-						{reservation.status === "ready" && (
-							<DropdownMenuItem
-								onClick={() => {
-									onAction("covert-loan", reservation);
-								}}
-							>
-								<BookOpen className="mr-2 h-4 w-4" />
-								Convert to Loan
-							</DropdownMenuItem>
-						)}
-						{(reservation.status === "pending" ||
-							reservation.status === "ready") && (
-							<>
-								<DropdownMenuItem>
-									<Mail className="mr-2 h-4 w-4" />
-									Send Notification
-								</DropdownMenuItem>
-								<DropdownMenuItem
-									onClick={() => {
-										onAction("cancel", reservation);
-									}}
-								>
-									<XCircle className="mr-2 h-4 w-4" />
-									Cancel Reservation
-								</DropdownMenuItem>
-							</>
-						)}
-						<DropdownMenuSeparator />
-						<DropdownMenuItem className="text-destructive">
-							<Trash2 className="mr-2 h-4 w-4" />
-							Delete Record
-						</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<ReservationRowAction reservation={reservation} onAction={onAction} />
 			</TableCell>
 		</TableRow>
 	);

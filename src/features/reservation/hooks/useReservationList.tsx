@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { getReservation } from "../api/getReservations";
+import { ReservationListParams } from "../type/ReservationListParams";
 
-const useReservationList = () => {
+const useReservationList = (params?: ReservationListParams) => {
 	const {
 		data: reservationList,
 		isPending,
 		isError,
 		error,
 	} = useQuery({
-		queryKey: ["reservations"],
-		queryFn: getReservation,
+		queryKey: ["reservations", params],
+		queryFn: () => getReservation(params),
 	});
 	return { reservationList, isPending, isError, error };
 };

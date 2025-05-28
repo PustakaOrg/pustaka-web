@@ -1,4 +1,3 @@
-import { count } from "console";
 import { Checkbox } from "~/shared/components/ui/checkbox";
 import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
 import { ReservationColumnVisibility } from "../type/ReservationColumnVisibility";
@@ -18,7 +17,7 @@ const ReservationTableHeader = ({
 }: ReservationTableHeaderProps) => {
 	return (
 		<TableHeader>
-			<TableRow>
+			<TableRow className="bg-secondary hover:bg-secondary">
 				<TableHead className="w-12">
 					<Checkbox
 						checked={isAllSelected}

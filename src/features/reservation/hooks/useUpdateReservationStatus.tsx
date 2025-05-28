@@ -20,9 +20,12 @@ const useUpdateReservationStatus = () => {
 		}: { reservationId: string; payload: PatchReservationPayload }) =>
 			patchReservation(reservationId, payload),
 		onSuccess: () => {
-			queryClient.refetchQueries({ queryKey: ["resevations"] });
+			queryClient.invalidateQueries({ queryKey: ["reservations"] });
 			queryClient.invalidateQueries({ queryKey: ["books"] });
 			queryClient.invalidateQueries({ queryKey: ["search-books"] });
+		},
+		onSettled(data, error, variables, context) {
+			queryClient.refetchQueries({ queryKey: ["resevations"] });
 		},
 	});
 
