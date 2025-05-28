@@ -1,8 +1,6 @@
 import { useCallback, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
-import LoanTable from "~/features/loan/components/LoanTable";
-import useLoanList from "~/features/loan/hooks/useLoanList";
 import ReservationTable from "~/features/reservation/components/ReservationTable";
 import useReservationList from "~/features/reservation/hooks/useReservationList";
 import {

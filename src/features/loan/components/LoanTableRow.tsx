@@ -1,9 +1,4 @@
 import { AlertCircle, BookOpen, CheckCircle2 } from "lucide-react";
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-} from "~/shared/components/ui/avatar";
 import { Badge } from "~/shared/components/ui/badge";
 
 import { TableCell, TableRow } from "~/shared/components/ui/table";
@@ -12,6 +7,7 @@ import { Loan } from "~/types/entities/Loan";
 import LoanRowAction from "./LoanRowAction";
 import { LoanColumnVisibility } from "../type/LoanColumnVisibility";
 import { Checkbox } from "~/shared/components/ui/checkbox";
+import MemberListItem from "~/features/member/components/MemberListItem";
 
 interface LoanTableRowProps {
 	loan: Loan;
@@ -39,23 +35,7 @@ const LoanTableRow = ({
 			</TableCell>
 			{columnVisibility.borrower && (
 				<TableCell>
-					<div className="flex items-center gap-3">
-						<Avatar className="h-8 w-8 hidden sm:flex">
-							<AvatarImage
-								src={loan.borrower.profile_picture}
-								alt={loan.borrower.account.fullname}
-							/>
-							<AvatarFallback>
-								{loan.borrower.account.fullname.charAt(0)}
-							</AvatarFallback>
-						</Avatar>
-						<div>
-							<p className="font-medium">{loan.borrower.account.fullname}</p>
-							<p className="text-xs text-muted-foreground hidden md:block">
-								{loan.borrower.account.email}
-							</p>
-						</div>
-					</div>
+					<MemberListItem member={loan.borrower} />
 				</TableCell>
 			)}
 			{columnVisibility.book && (
@@ -109,7 +89,11 @@ const LoanTableRow = ({
 				</TableCell>
 			)}
 
-			{columnVisibility.approved_by && <TableCell>{loan.approved_by ? loan.approved_by.account.fullname : "-"}</TableCell>}
+			{columnVisibility.approved_by && (
+				<TableCell>
+					{loan.approved_by ? loan.approved_by.account.fullname : "-"}
+				</TableCell>
+			)}
 			{columnVisibility.return_procced_by && (
 				<TableCell>Return Proceed By</TableCell>
 			)}

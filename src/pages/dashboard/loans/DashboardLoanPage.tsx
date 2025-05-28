@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
 import { LoanListParams } from "~/features/loan/api/getLoans";
@@ -9,10 +9,12 @@ import {
 	defaultLoanColumnVisibility,
 	LoanColumnVisibility,
 } from "~/features/loan/type/LoanColumnVisibility";
+import { Pagination } from "~/shared/components/Pagination";
 import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "~/shared/components/ui/card";
@@ -23,6 +25,11 @@ const DashboardLoanPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const loanListParams = {
 		status: searchParams.get("status") ?? undefined,
+
+		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
+		offset: searchParams.get("offset")
+			? Number(searchParams.get("offset"))
+			: undefined,
 	};
 
 	const [columnVisibility, setColumnVisibility] =
@@ -55,6 +62,13 @@ const DashboardLoanPage = () => {
 			return prev;
 		});
 	};
+
+	const handleOffsetChange = useCallback((newOffset: number) => {
+		setSearchParams((prev) => {
+			prev.set("offset", String(newOffset));
+			return prev;
+		});
+	}, []);
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Loans" subtitle="Manage book loans and returns." />
@@ -96,6 +110,17 @@ const DashboardLoanPage = () => {
 							handleSelectLoan={handleSelectLoan}
 							handleSelectAll={handleSelectAll}
 						/>
+					)}
+
+					{loanList && (
+						<CardFooter className="flex items-center justify-center">
+							<Pagination
+								totalCount={loanList.count}
+								limit={loanListParams.limit}
+								offset={loanListParams.offset ?? 0}
+								onOffsetChange={handleOffsetChange}
+							/>
+						</CardFooter>
 					)}
 				</CardContent>
 			</Card>
