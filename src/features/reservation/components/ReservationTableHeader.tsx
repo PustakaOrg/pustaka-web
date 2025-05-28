@@ -1,14 +1,40 @@
+import { count } from "console";
+import { Checkbox } from "~/shared/components/ui/checkbox";
 import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
+import { ReservationColumnVisibility } from "../type/ReservationColumnVisibility";
 
-const ReservationTableHeader = () => {
+interface ReservationTableHeaderProps {
+	columnVisibility: ReservationColumnVisibility;
+	isAllSelected: boolean;
+	isIndeterminate: boolean;
+	onSelectAll: (checked: boolean) => void;
+}
+
+const ReservationTableHeader = ({
+	columnVisibility,
+	isAllSelected,
+	isIndeterminate,
+	onSelectAll,
+}: ReservationTableHeaderProps) => {
 	return (
 		<TableHeader>
 			<TableRow>
-				<TableHead>Member</TableHead>
-				<TableHead>Book</TableHead>
-				<TableHead className="hidden md:table-cell">Reserved On</TableHead>
-				<TableHead>Pickup By</TableHead>
-				<TableHead>Status</TableHead>
+				<TableHead className="w-12">
+					<Checkbox
+						checked={isAllSelected}
+						onCheckedChange={onSelectAll}
+						aria-label="Select all books"
+						{...(isIndeterminate && { "data-state": "indeterminate" })}
+					/>
+				</TableHead>
+				{columnVisibility.reservant && <TableHead>Member</TableHead>}
+				{columnVisibility.book && <TableHead>Book</TableHead>}
+				{columnVisibility.reservation_date && (
+					<TableHead className="hidden md:table-cell">Reserved On</TableHead>
+				)}
+				{columnVisibility.pickup_date && <TableHead>Pickup By</TableHead>}
+				{columnVisibility.status && <TableHead>Status</TableHead>}
+				{columnVisibility.accepted_by && <TableHead>Accepted By</TableHead>}
 				<TableHead className="text-right">Actions</TableHead>
 			</TableRow>
 		</TableHeader>

@@ -26,84 +26,132 @@ import {
 import { Button } from "~/shared/components/ui/button";
 import { formatDate } from "~/shared/utils/functions";
 import { Badge } from "~/shared/components/ui/badge";
+import { ReservationColumnVisibility } from "../type/ReservationColumnVisibility";
+import { Checkbox } from "~/shared/components/ui/checkbox";
 
 interface ReservationTableRowProps {
 	reservation: Reservation;
+
+	onAction: (action: string, reservation: Reservation) => void;
+	columnVisibility: ReservationColumnVisibility;
+	isSelected: boolean;
+	onSelect: (reservationId: string, checked: boolean) => void;
 }
 
-const ReservationTableRow = ({ reservation }: ReservationTableRowProps) => {
+const ReservationTableRow = ({
+	reservation,
+	onAction,
+	columnVisibility,
+	isSelected,
+	onSelect,
+}: ReservationTableRowProps) => {
 	return (
-		<TableRow key={reservation.id}>
+		<TableRow>
 			<TableCell>
-				<div className="flex items-center gap-3">
-					<Avatar className="h-8 w-8 hidden sm:flex">
-						<AvatarImage
-							src={reservation.reservant.profile_picture}
-							alt={reservation.reservant.account.fullname}
-						/>
-						<AvatarFallback>
-							{reservation.reservant.account.fullname.charAt(0)}
-						</AvatarFallback>
-					</Avatar>
-					<div>
-						<p className="font-medium">
-							{reservation.reservant.account.fullname}
-						</p>
-						<p className="text-xs text-muted-foreground hidden md:block">
-							{reservation.reservant.account.email}
-						</p>
-					</div>
-				</div>
-			</TableCell>
-			<TableCell>
-				<div className="flex items-center gap-3">
-					<img
-						src={reservation.book.img || "/placeholder.svg"}
-						alt={reservation.book.title}
-						width={32}
-						height={48}
-						className="rounded border hidden sm:block"
-					/>
-					<div>
-						<p className="font-medium line-clamp-1">{reservation.book.title}</p>
-						<p className="text-xs text-muted-foreground">
-							{reservation.book.author?.fullname}
-						</p>
-					</div>
-				</div>
-			</TableCell>
-			<TableCell className="hidden md:table-cell">
-				{formatDate(reservation.reservation_date)}
-			</TableCell>
-			<TableCell>
-				{reservation.pickup_date ? formatDate(reservation.pickup_date) : "N/A"}
-			</TableCell>
-			<TableCell>
-				<Badge
-					variant={
-						reservation.status === "pending"
-							? "outline"
-							: reservation.status === "ready"
-								? "default"
-								: reservation.status === "completed"
-									? "secondary"
-									: "destructive"
+				<Checkbox
+					checked={isSelected}
+					onCheckedChange={(checked) =>
+						onSelect(reservation.id, checked as boolean)
 					}
-				>
-					<div className="flex items-center gap-1">
-						{reservation.status === "pending" ? (
-							<Clock className="h-3 w-3" />
-						) : reservation.status === "ready" ? (
-							<CheckCircle2 className="h-3 w-3" />
-						) : reservation.status === "completed" ? (
-							<BookOpen className="h-3 w-3" />
-						) : (
-							<XCircle className="h-3 w-3" />
-						)}
-						<span className="capitalize">{reservation.status}</span>
-					</div>
-				</Badge>
+					aria-label={`Select ${reservation.id}`}
+				/>
 			</TableCell>
+
+			{columnVisibility.reservant && (
+				<TableCell>
+					<div className="flex items-center gap-3">
+						<Avatar className="h-8 w-8 hidden sm:flex">
+							<AvatarImage
+								src={reservation.reservant.profile_picture}
+								alt={reservation.reservant.account.fullname}
+							/>
+							<AvatarFallback>
+								{reservation.reservant.account.fullname.charAt(0)}
+							</AvatarFallback>
+						</Avatar>
+						<div>
+							<p className="font-medium">
+								{reservation.reservant.account.fullname}
+							</p>
+							<p className="text-xs text-muted-foreground hidden md:block">
+								{reservation.reservant.account.email}
+							</p>
+						</div>
+					</div>
+				</TableCell>
+			)}
+			{columnVisibility.book && (
+				<TableCell>
+					<div className="flex items-center gap-3">
+						<img
+							src={reservation.book.img || "/placeholder.svg"}
+							alt={reservation.book.title}
+							width={32}
+							height={48}
+							className="rounded border hidden sm:block"
+						/>
+						<div>
+							<p className="font-medium line-clamp-1">
+								{reservation.book.title}
+							</p>
+							<p className="text-xs text-muted-foreground">
+								{reservation.book.author?.fullname}
+							</p>
+						</div>
+					</div>
+				</TableCell>
+			)}
+			{columnVisibility.reservation_date && (
+				<TableCell className="hidden md:table-cell">
+					{formatDate(reservation.reservation_date)}
+				</TableCell>
+			)}
+
+			{columnVisibility.pickup_date && (
+				<TableCell>
+					{reservation.pickup_date
+						? formatDate(reservation.pickup_date)
+						: "N/A"}
+				</TableCell>
+			)}
+
+			{columnVisibility.status && (
+				<TableCell>
+					<Badge
+						variant={
+							reservation.status === "pending"
+								? "outline"
+								: reservation.status === "ready"
+									? "default"
+									: reservation.status === "completed"
+										? "secondary"
+										: "destructive"
+						}
+					>
+						<div className="flex items-center gap-1">
+							{reservation.status === "pending" ? (
+								<Clock className="h-3 w-3" />
+							) : reservation.status === "ready" ? (
+								<CheckCircle2 className="h-3 w-3" />
+							) : reservation.status === "completed" ? (
+								<BookOpen className="h-3 w-3" />
+							) : (
+								<XCircle className="h-3 w-3" />
+							)}
+							<span className="capitalize">{reservation.status}</span>
+						</div>
+					</Badge>
+				</TableCell>
+			)}
+
+			{columnVisibility.accepted_by && (
+				<TableCell>
+					{reservation.accepted_by
+						? reservation.accepted_by.account.fullname
+						: "-"}
+				</TableCell>
+			)}
+
 			<TableCell className="text-right">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -118,13 +166,21 @@ const ReservationTableRow = ({ reservation }: ReservationTableRowProps) => {
 							View Details
 						</DropdownMenuItem>
 						{reservation.status === "pending" && (
-							<DropdownMenuItem>
+							<DropdownMenuItem
+								onClick={() => {
+									onAction("mark-ready", reservation);
+								}}
+							>
 								<CheckCircle2 className="mr-2 h-4 w-4" />
 								Mark as Ready
 							</DropdownMenuItem>
 						)}
 						{reservation.status === "ready" && (
-							<DropdownMenuItem>
+							<DropdownMenuItem
+								onClick={() => {
+									onAction("covert-loan", reservation);
+								}}
+							>
 								<BookOpen className="mr-2 h-4 w-4" />
 								Convert to Loan
 							</DropdownMenuItem>
@@ -136,7 +192,11 @@ const ReservationTableRow = ({ reservation }: ReservationTableRowProps) => {
 									<Mail className="mr-2 h-4 w-4" />
 									Send Notification
 								</DropdownMenuItem>
-								<DropdownMenuItem>
+								<DropdownMenuItem
+									onClick={() => {
+										onAction("cancel", reservation);
+									}}
+								>
 									<XCircle className="mr-2 h-4 w-4" />
 									Cancel Reservation
 								</DropdownMenuItem>
