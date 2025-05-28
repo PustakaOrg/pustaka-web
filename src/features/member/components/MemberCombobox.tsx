@@ -18,7 +18,7 @@ import { cn } from "~/shared/libs/ui";
 import { CommandLoading } from "cmdk";
 import useSearchMember from "../hooks/useSearchMember";
 import useMemberDetail from "../hooks/useMemberDetail";
-import MemberListItem from "~/shared/components/MemberListItem";
+import MemberListItem from "./MemberListItem";
 
 interface MemberComboboxProps {
 	member: string;

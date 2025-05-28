@@ -1,7 +1,11 @@
 import { Member } from "~/types/entities/Member";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+} from "~/shared/components/ui/avatar";
 
-const MemberListItem = ( {member} : {member: Member}) => {
+const MemberListItem = ({ member }: { member: Member }) => {
 	return (
 		<div className="flex items-center gap-3">
 			<Avatar className="h-8 w-8 hidden sm:flex">
