@@ -98,7 +98,7 @@ const BooksTable = React.memo(
 								))
 							) : (
 								<TableRow>
-									<TableCell colSpan={6} className="text-center py-8">
+									<TableCell colSpan={12} className="text-center py-8">
 										<div className="flex flex-col items-center gap-2">
 											<BookIcon className="h-8 w-8 text-muted-foreground" />
 											<p className="text-muted-foreground">No books found</p>
