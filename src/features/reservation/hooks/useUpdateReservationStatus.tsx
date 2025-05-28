@@ -15,13 +15,12 @@ const useUpdateReservationStatus = () => {
 	} = useMutation({
 		mutationKey: ["update-reservation"],
 		mutationFn: ({
-			loanId: reservationId,
+			reservationId: reservationId,
 			payload,
-		}: { loanId: string; payload: PatchReservationPayload }) =>
+		}: { reservationId: string; payload: PatchReservationPayload }) =>
 			patchReservation(reservationId, payload),
 		onSuccess: () => {
 			queryClient.refetchQueries({ queryKey: ["resevations"] });
-			queryClient.invalidateQueries({ queryKey: ["loans"] });
 			queryClient.invalidateQueries({ queryKey: ["books"] });
 			queryClient.invalidateQueries({ queryKey: ["search-books"] });
 		},

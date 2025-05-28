@@ -3,6 +3,7 @@ import { Reservation, ReservationStatus } from "~/types/entities/Reservation";
 
 export interface PatchReservationPayload {
 	status: ReservationStatus;
+  accepted_by: string
 }
 
 export const patchReservation = (

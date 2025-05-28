@@ -7,11 +7,12 @@ import { Reservation } from "~/types/entities/Reservation";
 import useProfile from "~/features/auth/hooks/useProfile";
 import { isLibrarianObject } from "~/features/auth/utils/util";
 import useUpdateReservationStatus from "../hooks/useUpdateReservationStatus";
+import { ReservationColumnVisibility } from "../type/ReservationColumnVisibility";
 
 interface ReservationTableProps {
 	reservationList: PaginatedResponse<Reservation>;
 
-	columnVisibility: LoanColumnVisibility;
+	columnVisibility: ReservationColumnVisibility;
 	selectedReservations: string[];
 	handleSelectAll: (checked: boolean) => void;
 	handleSelectReservation: (reservationId: string, checked: boolean) => void;
@@ -24,14 +25,14 @@ const ReservationTable = ({
 	handleSelectAll,
 	handleSelectReservation,
 }: ReservationTableProps) => {
+	const { profile } = useProfile();
+	const { updateReservation } = useUpdateReservationStatus();
 	const handelRowAction = (action: string, reservation: Reservation) => {
-		const { profile } = useProfile();
-		const { updateReservation } = useUpdateReservationStatus();
 		if (action == "mark-ready") {
 			if (profile && isLibrarianObject(profile)) {
 				updateReservation({
 					reservationId: reservation.id,
-					payload: { status: "ready" },
+					payload: { status: "ready", accepted_by: profile.id },
 				});
 			}
 		}
