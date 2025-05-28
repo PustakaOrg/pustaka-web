@@ -5,6 +5,9 @@ import { Loan } from "~/types/entities/Loan";
 import LoanTableRow from "./LoanTableRow";
 import LoanNotFoundTableRow from "./LoanNotFoundTableRow";
 import { LoanColumnVisibility } from "../type/LoanColumnVisibility";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject } from "~/features/auth/utils/util";
+import useUpdateLoanStatus from "../hooks/useUpdateLoanStatus";
 
 interface LoanTableProps {
 	loanList: PaginatedResponse<Loan>;
@@ -22,7 +25,18 @@ const LoanTable = ({
 	handleSelectAll,
 	handleSelectLoan,
 }: LoanTableProps) => {
-	const handelRowAction = (action: string, loan: Loan) => {};
+	const { profile } = useProfile();
+	const { updateLoan } = useUpdateLoanStatus();
+	const handelRowAction = (action: string, loan: Loan) => {
+		if (action == "mark-returned") {
+			if (profile && isLibrarianObject(profile)) {
+				updateLoan({
+					loanId: loan.id,
+					payload: { status: "returned", return_proceed_by: profile.id },
+				});
+			}
+		}
+	};
 
 	const isAllSelected =
 		selectedLoans.length === loanList.results.length &&

@@ -109,7 +109,7 @@ const LoanTableRow = ({
 				</TableCell>
 			)}
 
-			{columnVisibility.approved_by && <TableCell>Approved By</TableCell>}
+			{columnVisibility.approved_by && <TableCell>{loan.approved_by ? loan.approved_by.account.fullname : "-"}</TableCell>}
 			{columnVisibility.return_procced_by && (
 				<TableCell>Return Proceed By</TableCell>
 			)}

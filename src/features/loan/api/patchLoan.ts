@@ -1,6 +1,11 @@
-import { api } from "~/shared/utils/api"
-import { Loan } from "~/types/entities/Loan"
+import { api } from "~/shared/utils/api";
+import { Loan, LoanStatus } from "~/types/entities/Loan";
 
-export const patchLoan = (loanId: string,form: FormData) => {
-  return api.patch<Loan>(`loans/${loanId}/`,form)
-} 
+export interface PatchLoanPayload {
+	return_proceed_by: string;
+	status: LoanStatus;
+}
+
+export const patchLoan = (loanId: string, payload: PatchLoanPayload) => {
+	return api.patch<Loan>(`loans/${loanId}/`, payload);
+};
