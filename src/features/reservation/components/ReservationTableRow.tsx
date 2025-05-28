@@ -14,7 +14,6 @@ import {
 } from "~/shared/components/ui/avatar";
 import { Reservation } from "~/types/entities/Reservation";
 import {
-	Badge,
 	BookOpen,
 	Calendar,
 	CheckCircle2,
@@ -26,6 +25,7 @@ import {
 } from "lucide-react";
 import { Button } from "~/shared/components/ui/button";
 import { formatDate } from "~/shared/utils/functions";
+import { Badge } from "~/shared/components/ui/badge";
 
 interface ReservationTableRowProps {
 	reservation: Reservation;
@@ -67,7 +67,7 @@ const ReservationTableRow = ({ reservation }: ReservationTableRowProps) => {
 					<div>
 						<p className="font-medium line-clamp-1">{reservation.book.title}</p>
 						<p className="text-xs text-muted-foreground">
-							{reservation.book.author}
+							{reservation.book.author?.fullname}
 						</p>
 					</div>
 				</div>
@@ -80,12 +80,11 @@ const ReservationTableRow = ({ reservation }: ReservationTableRowProps) => {
 			</TableCell>
 			<TableCell>
 				<Badge
-					// @ts-ignore
 					variant={
 						reservation.status === "pending"
 							? "outline"
 							: reservation.status === "ready"
-								? "success"
+								? "default"
 								: reservation.status === "completed"
 									? "secondary"
 									: "destructive"
