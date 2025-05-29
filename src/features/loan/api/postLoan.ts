@@ -1,5 +1,5 @@
 import { api } from "~/shared/utils/api";
-import { Loan } from "~/types/entities/Loan";
+import { Loan, LoanStatus } from "~/types/entities/Loan";
 
 export interface PostLoanPayload {
 	loan_date: string;
@@ -7,6 +7,7 @@ export interface PostLoanPayload {
 	borrower: string;
 	book: string;
 	approved_by: string;
+  status? : LoanStatus
 }
 
 export const postLoan = (payload: PostLoanPayload) => {

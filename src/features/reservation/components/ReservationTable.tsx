@@ -8,6 +8,9 @@ import useProfile from "~/features/auth/hooks/useProfile";
 import { isLibrarianObject } from "~/features/auth/utils/util";
 import useUpdateReservationStatus from "../hooks/useUpdateReservationStatus";
 import { ReservationColumnVisibility } from "../type/ReservationColumnVisibility";
+import useAddLoan from "~/features/loan/hooks/useAddLoan";
+import { PostLoanPayload } from "~/features/loan/api/postLoan";
+import { addDays, format } from "date-fns";
 
 interface ReservationTableProps {
 	reservationList: PaginatedResponse<Reservation>;
@@ -27,6 +30,7 @@ const ReservationTable = ({
 }: ReservationTableProps) => {
 	const { profile } = useProfile();
 	const { updateReservation } = useUpdateReservationStatus();
+	const { addLoan } = useAddLoan();
 	const handelRowAction = (action: string, reservation: Reservation) => {
 		if (profile && isLibrarianObject(profile)) {
 			if (action == "mark-ready") {
@@ -40,6 +44,25 @@ const ReservationTable = ({
 					reservationId: reservation.id,
 					payload: { status: "canceled", accepted_by: null },
 				});
+			}
+			if (action == "covert-loan") {
+				updateReservation({
+					reservationId: reservation.id,
+					payload: { status: "completed" },
+				});
+				const today = new Date();
+				const addLoanPayload: PostLoanPayload = {
+					book: reservation.book.id,
+					borrower: reservation.reservant.id,
+					approved_by: profile.id,
+					loan_date: format(today, "yyyy-MM-dd"),
+					return_date: format(
+						addDays(today, reservation.day_to_loan),
+						"yyyy-MM-dd",
+					),
+					status: "active",
+				};
+        addLoan(addLoanPayload)
 			}
 		}
 	};
