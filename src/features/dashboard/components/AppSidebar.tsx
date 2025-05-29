@@ -8,6 +8,7 @@ import {
 	Library,
 	SettingsIcon,
 	Users,
+    Users2,
 } from "lucide-react";
 import {
 	Sidebar,
@@ -28,6 +29,7 @@ import {
 	isMemberObject,
 } from "~/features/auth/utils/util";
 import { Link } from "react-router";
+import { title } from "process";
 
 // TODO: Fine & Payment
 const nav = {
@@ -69,19 +71,28 @@ const nav = {
 			url: "/dashboard/reservations",
 			icon: Calendar,
 		},
-		{
-			title: "Reports",
-			url: "/dashboard/reports",
-			icon: FileText,
-		},
+		// {
+		// 	title: "Reports",
+		// 	url: "/dashboard/reports",
+		// 	icon: FileText,
+		// },
 	],
-	navAdmin: [
-		{
-			title: "Settings",
-			url: "/dashboard/settings",
-			icon: SettingsIcon,
-		},
-	],
+	navAdmin: {
+    main: [
+      {
+        title: "Librarians",
+        url: "/dashboard/librarians",
+        icon: Users2
+      }
+    ],
+		secondary: [
+			{
+				title: "Settings",
+				url: "/dashboard/settings",
+				icon: SettingsIcon,
+			},
+		],
+	},
 };
 
 const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
@@ -110,8 +121,8 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
 				{isLibrarianObject(profile) && <NavMain items={nav.navLibrarian} />}
 				{isAdminObject(profile) && (
 					<>
-						<NavMain items={nav.navLibrarian} />
-						<NavSecondary items={nav.navAdmin} className="mt-auto" />
+						<NavMain items={[...nav.navLibrarian, ...nav.navAdmin.main]} />
+						<NavSecondary items={nav.navAdmin.secondary} className="mt-auto" />
 					</>
 				)}
 			</SidebarContent>

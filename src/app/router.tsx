@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import RequireAdmin from "~/features/auth/components/RequireAdmin";
 import RequireAdminOrLibrarian from "~/features/auth/components/RequireAdminOrLibrarian";
 import { RequireAuth } from "~/features/auth/components/RequireAuth";
 import DashboardLayout from "~/features/dashboard/components/SidebarLayout";
@@ -6,6 +7,7 @@ import AboutPage from "~/pages/AboutPage";
 import CatalogPage from "~/pages/CatalogPage";
 import DashboardBookPage from "~/pages/dashboard/books/DashboardBookPage";
 import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
+import DashboardLibrarianPage from "~/pages/dashboard/librarians/DashboardLibrarianPage";
 import DashboardLoanPage from "~/pages/dashboard/loans/DashboardLoanPage";
 import DashboardMemberPage from "~/pages/dashboard/members/DashboardMemberPage";
 import DashboardReservationPage from "~/pages/dashboard/reservations/DashboardReservationPage";
@@ -38,6 +40,15 @@ const Router = () => {
 							<RequireAdminOrLibrarian>
 								<DashboardBookPage />
 							</RequireAdminOrLibrarian>
+						}
+					/>
+
+					<Route
+						path="/dashboard/librarians"
+						element={
+							<RequireAdmin>
+								<DashboardLibrarianPage />
+							</RequireAdmin>
 						}
 					/>
 					<Route

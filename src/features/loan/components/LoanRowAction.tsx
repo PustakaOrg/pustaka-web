@@ -1,4 +1,11 @@
-import { Book, CheckCircle2, MoreHorizontal, RefreshCw, Trash2 } from "lucide-react";
+import {
+	Book,
+	CheckCircle2,
+	MoreHorizontal,
+	RefreshCw,
+	Trash2,
+    XCircle,
+} from "lucide-react";
 import { Button } from "~/shared/components/ui/button";
 import {
 	DropdownMenu,
@@ -6,13 +13,13 @@ import {
 	DropdownMenuContent,
 	DropdownMenuSeparator,
 	DropdownMenuItem,
-    DropdownMenuLabel,
+	DropdownMenuLabel,
 } from "~/shared/components/ui/dropdown-menu";
 import { Loan } from "~/types/entities/Loan";
 
 interface LoanRowActionProps {
 	loan: Loan;
-	onAction: (action: string, loan:Loan) => void;
+	onAction: (action: string, loan: Loan) => void;
 }
 
 const LoanRowAction = ({ loan, onAction }: LoanRowActionProps) => {
@@ -26,15 +33,34 @@ const LoanRowAction = ({ loan, onAction }: LoanRowActionProps) => {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
 				<DropdownMenuLabel>Actions</DropdownMenuLabel>
-				<DropdownMenuItem onClick={()=>{onAction("view-detail", loan)}}>
+				<DropdownMenuItem
+					onClick={() => {
+						onAction("view-detail", loan);
+					}}
+				>
 					<Book className="mr-2 h-4 w-4" />
 					View Details
 				</DropdownMenuItem>
 				{loan.status === "active" && (
-						<DropdownMenuItem onClick={() => {onAction("mark-returned", loan)}}>
+					<>
+						<DropdownMenuItem
+							onClick={() => {
+								onAction("mark-returned", loan);
+							}}
+						>
 							<CheckCircle2 className="mr-2 h-4 w-4" />
 							Mark as Returned
 						</DropdownMenuItem>
+
+						<DropdownMenuItem
+							onClick={() => {
+								onAction("mark-lost", loan);
+							}}
+						>
+							<XCircle className="mr-2 h-4 w-4" />
+							Mark as Lost
+						</DropdownMenuItem>
+					</>
 				)}
 			</DropdownMenuContent>
 		</DropdownMenu>

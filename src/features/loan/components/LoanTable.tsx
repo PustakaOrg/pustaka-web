@@ -42,6 +42,15 @@ const LoanTable = ({
 					payload: { status: "returned", return_proceed_by: profile.id },
 				});
 			}
+
+
+			if (action == "mark-lost") {
+				updateLoan({
+					loanId: loan.id,
+					payload: { status: "lost", return_proceed_by: profile.id },
+				});
+			}
+
 		}
 	};
 
