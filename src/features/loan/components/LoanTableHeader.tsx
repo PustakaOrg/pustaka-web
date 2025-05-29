@@ -1,4 +1,3 @@
-import React from "react";
 import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
 import { LoanColumnVisibility } from "../type/LoanColumnVisibility";
 import { Checkbox } from "~/shared/components/ui/checkbox";
@@ -30,8 +29,8 @@ const LoanTableHeader = ({
 
 				{columnVisibility.borrower && <TableHead>Borrower</TableHead>}
 				{columnVisibility.book && <TableHead>Book</TableHead>}
-				{columnVisibility.loan_date && <TableHead>Issue Date</TableHead>}
-				{columnVisibility.return_date && <TableHead>Due Date</TableHead>}
+				{columnVisibility.loan_date && <TableHead>Loan Date</TableHead>}
+				{columnVisibility.return_date && <TableHead>Return Date</TableHead>}
 				{columnVisibility.status && <TableHead>Status</TableHead>}
 				{columnVisibility.approved_by && <TableHead>Approved By</TableHead>}
 				{columnVisibility.return_procced_by && (

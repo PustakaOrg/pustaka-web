@@ -8,6 +8,7 @@ import LoanRowAction from "./LoanRowAction";
 import { LoanColumnVisibility } from "../type/LoanColumnVisibility";
 import { Checkbox } from "~/shared/components/ui/checkbox";
 import MemberListItem from "~/features/member/components/MemberListItem";
+import LoanStatusBadge from "./LoanStatusBadge";
 
 interface LoanTableRowProps {
 	loan: Loan;
@@ -65,27 +66,7 @@ const LoanTableRow = ({
 			)}
 			{columnVisibility.status && (
 				<TableCell>
-					<Badge
-						// @ts-ignore
-						variant={
-							loan.status === "active"
-								? "outline"
-								: loan.status === "overdue"
-									? "destructive"
-									: "success"
-						}
-					>
-						<div className="flex items-center gap-1">
-							{loan.status === "active" ? (
-								<BookOpen className="h-3 w-3" />
-							) : loan.status === "overdue" ? (
-								<AlertCircle className="h-3 w-3" />
-							) : (
-								<CheckCircle2 className="h-3 w-3" />
-							)}
-							<span className="capitalize">{loan.status}</span>
-						</div>
-					</Badge>
+        <LoanStatusBadge status={loan.status} />
 				</TableCell>
 			)}
 

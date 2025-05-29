@@ -8,6 +8,8 @@ import { LoanColumnVisibility } from "../type/LoanColumnVisibility";
 import useProfile from "~/features/auth/hooks/useProfile";
 import { isLibrarianObject } from "~/features/auth/utils/util";
 import useUpdateLoanStatus from "../hooks/useUpdateLoanStatus";
+import useLoanDialog from "../hooks/useLoanDialog";
+import LoanDetailDialog from "./LoanDetailDialog";
 
 interface LoanTableProps {
 	loanList: PaginatedResponse<Loan>;
@@ -27,9 +29,14 @@ const LoanTable = ({
 }: LoanTableProps) => {
 	const { profile } = useProfile();
 	const { updateLoan } = useUpdateLoanStatus();
+	const { loan, isOpen, closeDialog, openDialog } = useLoanDialog();
 	const handelRowAction = (action: string, loan: Loan) => {
-		if (action == "mark-returned") {
-			if (profile && isLibrarianObject(profile)) {
+		if (action == "view-detail") {
+			openDialog(loan);
+		}
+
+		if (profile && isLibrarianObject(profile)) {
+			if (action == "mark-returned") {
 				updateLoan({
 					loanId: loan.id,
 					payload: { status: "returned", return_proceed_by: profile.id },
@@ -45,29 +52,38 @@ const LoanTable = ({
 		selectedLoans.length > 0 && selectedLoans.length < loanList.results.length;
 
 	return (
-		<Table>
-			<LoanTableHeader
-				columnVisibility={columnVisibility}
-				onSelectAll={handleSelectAll}
-				isIndeterminate={isIndeterminate}
-				isAllSelected={isAllSelected}
-			/>
-			<TableBody>
-				{loanList &&
-					loanList.results.length > 0 &&
-					loanList.results.map((loan) => (
-						<LoanTableRow
-							key={loan.id}
-							loan={loan}
-							onAction={handelRowAction}
-							columnVisibility={columnVisibility}
-							isSelected={selectedLoans.includes(loan.id)}
-							onSelect={handleSelectLoan}
-						/>
-					))}
-				{loanList && loanList.results.length == 0 && <LoanNotFoundTableRow />}
-			</TableBody>
-		</Table>
+		<div>
+			<Table>
+				<LoanTableHeader
+					columnVisibility={columnVisibility}
+					onSelectAll={handleSelectAll}
+					isIndeterminate={isIndeterminate}
+					isAllSelected={isAllSelected}
+				/>
+				<TableBody>
+					{loanList &&
+						loanList.results.length > 0 &&
+						loanList.results.map((loan) => (
+							<LoanTableRow
+								key={loan.id}
+								loan={loan}
+								onAction={handelRowAction}
+								columnVisibility={columnVisibility}
+								isSelected={selectedLoans.includes(loan.id)}
+								onSelect={handleSelectLoan}
+							/>
+						))}
+					{loanList && loanList.results.length == 0 && <LoanNotFoundTableRow />}
+				</TableBody>
+			</Table>
+			{loan && (
+				<LoanDetailDialog
+					loan={loan}
+					open={isOpen}
+					onOpenChange={closeDialog}
+				/>
+			)}
+		</div>
 	);
 };
 
