@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
 import { LibrarianListParams } from "~/features/librarian/api/getLibrarians";
+import AddLibrarianDialog from "~/features/librarian/components/AddLibrarianDialog";
 import LibrarianTable from "~/features/librarian/components/LibrarianTable";
 import useLibrarianList from "~/features/librarian/hooks/useLibrarianList";
 import {
@@ -64,13 +65,16 @@ const DashboardLibrarianPage = () => {
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Librarians" subtitle="Manage librarians" />
 			<Card>
-				<CardHeader>
+				<CardHeader className="flex justify-between">
 					<div>
 						<CardTitle>Librarians</CardTitle>
 						<CardDescription>
 							{librarianList?.results.length} books found
 						</CardDescription>
 					</div>
+          <div>
+          <AddLibrarianDialog />
+          </div>
 				</CardHeader>
 				<CardContent className="space-y-2">
 					{librarianList && (
