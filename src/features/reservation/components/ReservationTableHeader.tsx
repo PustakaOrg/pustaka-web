@@ -32,6 +32,7 @@ const ReservationTableHeader = ({
 					<TableHead className="hidden md:table-cell">Reserved On</TableHead>
 				)}
 				{columnVisibility.pickup_date && <TableHead>Pickup By</TableHead>}
+				{columnVisibility.day_to_loan && <TableHead>Day to Loan</TableHead>}
 				{columnVisibility.status && <TableHead>Status</TableHead>}
 				{columnVisibility.accepted_by && <TableHead>Accepted By</TableHead>}
 				<TableHead className="text-right">Actions</TableHead>

@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
+import AddReservationDialog from "~/features/reservation/components/AddReservationDialog";
 import ReservationTable from "~/features/reservation/components/ReservationTable";
 import useReservationList from "~/features/reservation/hooks/useReservationList";
 import {
@@ -63,11 +64,17 @@ const DashboardReservationPage = () => {
 			<ContentHeader title="Reservation" subtitle="Manage book reservations." />
 
 			<Card>
-				<CardHeader className="">
-					<CardTitle>Reservations</CardTitle>
-					<CardDescription>
-						{reservationList?.results.length ?? 0} reservations found
-					</CardDescription>
+				<CardHeader className="flex justify-between">
+					<div>
+						<CardTitle>Reservations</CardTitle>
+						<CardDescription>
+							{reservationList?.results.length ?? 0} reservations found
+						</CardDescription>
+					</div>
+          <div>
+          <AddReservationDialog />
+
+          </div>
 				</CardHeader>
 				<CardContent className="">
 					{reservationList && (

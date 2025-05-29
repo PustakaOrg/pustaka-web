@@ -98,6 +98,13 @@ const ReservationTableRow = ({
 				</TableCell>
 			)}
 
+
+			{columnVisibility.day_to_loan && (
+				<TableCell>
+        {reservation.day_to_loan}
+				</TableCell>
+			)}
+
 			{columnVisibility.status && (
 				<TableCell>
 					<Badge
