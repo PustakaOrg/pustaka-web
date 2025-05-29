@@ -1,17 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postLibrarian, PostLibrarianPayload } from "../api/postLibrarian";
+import { patchLibrarian, PatchLibrarianPayload } from "../api/patchLibrarian";
 
-const useAddLibrarian = () => {
+const useUpdateLibrarian = () => {
 	const queryClient = useQueryClient();
 	const {
 		data: newLibrarian,
 		isPending,
 		isError,
 		error,
-    mutate: addLibrarian
+		mutate: updateLibrarian,
 	} = useMutation({
-		mutationKey: ["add-librarian"],
-		mutationFn: (data: PostLibrarianPayload) => postLibrarian(data),
+		mutationKey: ["update-librarian"],
+		mutationFn: ({ id, data }: { id: string; data: PatchLibrarianPayload }) =>
+			patchLibrarian(id, data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["librarians"] });
 		},
@@ -21,8 +22,8 @@ const useAddLibrarian = () => {
 		isPending,
 		isError,
 		error,
-    addLibrarian
+		updateLibrarian,
 	};
 };
 
-export default useAddLibrarian;
+export default useUpdateLibrarian;

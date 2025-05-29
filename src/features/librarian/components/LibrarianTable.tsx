@@ -6,6 +6,8 @@ import LibrarianTableHeader from "./LibrarianTableHeader";
 import { LibrarianColumnVisibility } from "../type/LibrarianColumnVisibility";
 import LibrarianNotFoundTableRow from "./LibrarianNotFoundTableRow";
 import LibrarianTableRow from "./LibrarianTableRow";
+import useLibrarianDialog from "../hooks/useLibrarianDialog";
+import UpdateLibrarianDialog from "./UpdateLibrarianDialog";
 
 interface LibrarianTableProps {
 	librarianList: PaginatedResponse<Librarian>;
@@ -24,11 +26,13 @@ const LibrarianTable = React.memo(
 		handleSelectAll,
 		handleSelectLibrarian,
 	}: LibrarianTableProps) => {
+		const { librarian, isOpen, closeDialog, openDialog } = useLibrarianDialog();
 		const handleRowAction = (action: string, librarian: Librarian) => {
 			if (action === "view-detail") {
 			}
 
 			if (action === "edit") {
+        openDialog(librarian);
 			}
 
 			if (action === "delete") {
@@ -68,6 +72,13 @@ const LibrarianTable = React.memo(
 						)}
 					</TableBody>
 				</Table>
+        {librarian && (
+          <UpdateLibrarianDialog
+          isOpen={isOpen}
+          librarian={librarian}
+          onOpenChange={closeDialog}
+          />
+        )}
 			</div>
 		);
 	},
