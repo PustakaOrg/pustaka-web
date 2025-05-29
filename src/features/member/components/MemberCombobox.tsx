@@ -14,7 +14,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "~/shared/components/ui/popover";
-import { cn } from "~/shared/libs/ui";
+import { cn, popoverSameWidth } from "~/shared/libs/ui";
 import { CommandLoading } from "cmdk";
 import useSearchMember from "../hooks/useSearchMember";
 import useMemberDetail from "../hooks/useMemberDetail";
@@ -50,7 +50,7 @@ const MemberCombobox = ({
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="p-0">
+			<PopoverContent className="p-0" style={popoverSameWidth}>
 				<Command>
 					<CommandInput
 						value={search}

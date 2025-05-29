@@ -14,7 +14,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "~/shared/components/ui/popover";
-import { cn } from "~/shared/libs/ui";
+import { cn, popoverSameWidth } from "~/shared/libs/ui";
 import useSearchAvailableBook from "../hooks/useSearchBook";
 import useBookDetail from "../hooks/useBookDetail";
 import { CommandLoading } from "cmdk";
@@ -46,7 +46,7 @@ const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="p-0">
+			<PopoverContent className="p-0" style={popoverSameWidth}>
 				<Command>
 					<CommandInput
 						value={search}

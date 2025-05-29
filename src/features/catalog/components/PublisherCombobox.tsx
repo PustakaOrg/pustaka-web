@@ -14,7 +14,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "~/shared/components/ui/popover";
-import { cn } from "~/shared/libs/ui";
+import { cn, popoverSameWidth } from "~/shared/libs/ui";
 import useAllPublisher from "../hooks/useAllPublisher";
 
 interface PublisherComboboxProps {
@@ -47,7 +47,7 @@ const PublisherCombobox = ({
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="p-0">
+			<PopoverContent className="p-0" style={popoverSameWidth}>
 				<Command>
 					<CommandInput placeholder="Search author" />
 					<CommandList>

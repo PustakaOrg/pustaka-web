@@ -15,7 +15,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "~/shared/components/ui/popover";
-import { cn } from "~/shared/libs/ui";
+import { cn, popoverSameWidth } from "~/shared/libs/ui";
 import useAllCategory from "../hooks/useAllCategory";
 
 interface CategoryComboboxProps {
@@ -60,7 +60,7 @@ const CategoryCombobox = ({
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="p-0">
+			<PopoverContent className="p-0" style={popoverSameWidth}>
 				<Command
 				>
 					<CommandInput placeholder="Search category" />
