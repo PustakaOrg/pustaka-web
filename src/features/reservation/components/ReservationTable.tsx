@@ -11,6 +11,8 @@ import { ReservationColumnVisibility } from "../type/ReservationColumnVisibility
 import useAddLoan from "~/features/loan/hooks/useAddLoan";
 import { PostLoanPayload } from "~/features/loan/api/postLoan";
 import { addDays, format } from "date-fns";
+import useReservationDialog from "../hooks/useReservationDialog";
+import ReservationDetailDialog from "./ReservationDetailDialog";
 
 interface ReservationTableProps {
 	reservationList: PaginatedResponse<Reservation>;
@@ -31,7 +33,12 @@ const ReservationTable = ({
 	const { profile } = useProfile();
 	const { updateReservation } = useUpdateReservationStatus();
 	const { addLoan } = useAddLoan();
+	const { reservation, isOpen, openDialog, closeDialog } =
+		useReservationDialog();
 	const handelRowAction = (action: string, reservation: Reservation) => {
+		if (action == "view-detail") {
+			openDialog(reservation);
+		}
 		if (profile && isLibrarianObject(profile)) {
 			if (action == "mark-ready") {
 				updateReservation({
@@ -62,7 +69,7 @@ const ReservationTable = ({
 					),
 					status: "active",
 				};
-        addLoan(addLoanPayload)
+				addLoan(addLoanPayload);
 			}
 		}
 	};
@@ -73,31 +80,40 @@ const ReservationTable = ({
 		selectedReservations.length > 0 &&
 		selectedReservations.length < reservationList.results.length;
 	return (
-		<Table>
-			<ReservationTableHeader
-				columnVisibility={columnVisibility}
-				onSelectAll={handleSelectAll}
-				isIndeterminate={isIndeterminate}
-				isAllSelected={isAllSelected}
-			/>
-			<TableBody>
-				{reservationList &&
-					reservationList.results.length > 0 &&
-					reservationList.results.map((reservation) => (
-						<ReservationTableRow
-							key={reservation.id}
-							reservation={reservation}
-							onAction={handelRowAction}
-							columnVisibility={columnVisibility}
-							isSelected={selectedReservations.includes(reservation.id)}
-							onSelect={handleSelectReservation}
-						/>
-					))}
-				{reservationList && reservationList.results.length == 0 && (
-					<ReservationNotFoundTableRow />
-				)}
-			</TableBody>
-		</Table>
+		<div>
+			<Table>
+				<ReservationTableHeader
+					columnVisibility={columnVisibility}
+					onSelectAll={handleSelectAll}
+					isIndeterminate={isIndeterminate}
+					isAllSelected={isAllSelected}
+				/>
+				<TableBody>
+					{reservationList &&
+						reservationList.results.length > 0 &&
+						reservationList.results.map((reservation) => (
+							<ReservationTableRow
+								key={reservation.id}
+								reservation={reservation}
+								onAction={handelRowAction}
+								columnVisibility={columnVisibility}
+								isSelected={selectedReservations.includes(reservation.id)}
+								onSelect={handleSelectReservation}
+							/>
+						))}
+					{reservationList && reservationList.results.length == 0 && (
+						<ReservationNotFoundTableRow />
+					)}
+				</TableBody>
+			</Table>
+			{reservation && (
+				<ReservationDetailDialog
+					reservation={reservation}
+					onOpenChange={closeDialog}
+					open={isOpen}
+				/>
+			)}
+		</div>
 	);
 };
 

@@ -1,4 +1,13 @@
-import { BookOpen, Calendar, CheckCircle2, Mail, MoreHorizontal, Trash2, XCircle } from "lucide-react";
+import {
+	BookOpen,
+	Calendar,
+	CheckCircle2,
+	Mail,
+	MoreHorizontal,
+	Trash2,
+	X,
+	XCircle,
+} from "lucide-react";
 import { Button } from "~/shared/components/ui/button";
 import {
 	DropdownMenu,
@@ -27,7 +36,7 @@ const ReservationRowAction = ({
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={()=>{onAction("view-detail",reservation)}}>
 					<Calendar className="mr-2 h-4 w-4" />
 					View Details
 				</DropdownMenuItem>
@@ -41,16 +50,28 @@ const ReservationRowAction = ({
 						Mark as Ready
 					</DropdownMenuItem>
 				)}
-				{reservation.status === "ready" && (
-					<DropdownMenuItem
-						onClick={() => {
-							onAction("covert-loan", reservation);
-						}}
-					>
-						<BookOpen className="mr-2 h-4 w-4" />
-						Convert to Loan
-					</DropdownMenuItem>
-				)}
+
+				{reservation.status === "ready" &&
+					reservation.book.available_stock > 0 && (
+						<DropdownMenuItem
+							onClick={() => {
+								onAction("covert-loan", reservation);
+							}}
+						>
+							<BookOpen className="mr-2 h-4 w-4" />
+							Convert to Loan
+						</DropdownMenuItem>
+					)}
+
+				{reservation.status === "ready" &&
+					reservation.book.available_stock == 0 && (
+						<>
+							<DropdownMenuItem disabled>
+								<X className="mr-2 h-4 w-4" />
+								Book is out of stock
+							</DropdownMenuItem>
+						</>
+					)}
 				{(reservation.status === "pending" ||
 					reservation.status === "ready") && (
 					<>
