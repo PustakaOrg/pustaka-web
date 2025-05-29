@@ -1,8 +1,6 @@
 export interface BookColumnVisibility {
-  image: boolean
-  title: boolean
+  book: boolean
   isbn: boolean
-  author: boolean
   publisher: boolean
   categories: boolean
   pages: boolean
@@ -12,10 +10,8 @@ export interface BookColumnVisibility {
 }
 
 export const defaultColumnVisibility: BookColumnVisibility = {
-  image: true,
-  title: true,
+  book: true,
   isbn: true,
-  author: true,
   publisher: true,
   categories: true,
   pages: true,

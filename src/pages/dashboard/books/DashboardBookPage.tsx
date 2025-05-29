@@ -61,10 +61,8 @@ const DashboardBookPage = () => {
 
 	const hideAllColumns = () => {
 		setColumnVisibility({
-			image: false,
-			title: false,
+			book: false,
 			isbn: false,
-			author: false,
 			publisher: false,
 			categories: false,
 			pages: false,

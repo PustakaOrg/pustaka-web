@@ -1,8 +1,16 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "~/shared/components/ui/dropdown-menu";
+import {
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "~/shared/components/ui/dropdown-menu";
 import { Button } from "~/shared/components/ui/button";
 import { ChevronDown, Settings2 } from "lucide-react";
-import { Checkbox } from "~/shared/components/ui/checkbox";
 import { BookColumnVisibility } from "../../types/BookColumnVisibility";
+import { Checkbox } from "~/shared/components/ui/checkbox";
 
 interface BookColumnVisibilityControlsProps {
 	columnVisibility: BookColumnVisibility;
@@ -18,10 +26,8 @@ const BookColumnVisibilityControls = ({
 	onHideAllColumns,
 }: BookColumnVisibilityControlsProps) => {
 	const columns = [
-		{ key: "image" as const, label: "Image" },
-		{ key: "title" as const, label: "Title" },
+		{ key: "book" as const, label: "Book" },
 		{ key: "isbn" as const, label: "ISBN" },
-		{ key: "author" as const, label: "Author" },
 		{ key: "publisher" as const, label: "Publisher" },
 		{ key: "categories" as const, label: "Categories" },
 		{ key: "pages" as const, label: "Pages" },
@@ -44,17 +50,13 @@ const BookColumnVisibilityControls = ({
 				<DropdownMenuSeparator />
 
 				{columns.map((column) => (
-					<DropdownMenuItem
+					<DropdownMenuCheckboxItem
 						key={column.key}
 						onClick={() => onToggleColumn(column.key)}
+						checked={columnVisibility[column.key]}
 					>
-						<Checkbox
-							checked={columnVisibility[column.key]}
-							className="mr-2"
-							// readOnly
-						/>
 						{column.label}
-					</DropdownMenuItem>
+					</DropdownMenuCheckboxItem>
 				))}
 
 				<DropdownMenuSeparator />
