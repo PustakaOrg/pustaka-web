@@ -6,6 +6,7 @@ import DashboardLayout from "~/features/dashboard/components/SidebarLayout";
 import AboutPage from "~/pages/AboutPage";
 import CatalogPage from "~/pages/CatalogPage";
 import DashboardBookPage from "~/pages/dashboard/books/DashboardBookPage";
+import DashboardFinesPage from "~/pages/dashboard/fines/DashboardFinesPage";
 import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
 import DashboardLibrarianPage from "~/pages/dashboard/librarians/DashboardLibrarianPage";
 import DashboardLoanPage from "~/pages/dashboard/loans/DashboardLoanPage";
@@ -49,6 +50,14 @@ const Router = () => {
 							<RequireAdmin>
 								<DashboardLibrarianPage />
 							</RequireAdmin>
+						}
+					/>
+					<Route
+						path="/dashboard/fines"
+						element={
+							<RequireAdminOrLibrarian>
+								<DashboardFinesPage />
+							</RequireAdminOrLibrarian>
 						}
 					/>
 					<Route

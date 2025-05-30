@@ -1,5 +1,4 @@
 import { AlertCircle, BookOpen, CheckCircle2 } from "lucide-react";
-import React from "react";
 import { Badge } from "~/shared/components/ui/badge";
 import { LoanStatus } from "~/types/entities/Loan";
 

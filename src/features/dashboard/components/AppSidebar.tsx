@@ -8,7 +8,7 @@ import {
 	Library,
 	SettingsIcon,
 	Users,
-    Users2,
+	Users2,
 } from "lucide-react";
 import {
 	Sidebar,
@@ -29,9 +29,7 @@ import {
 	isMemberObject,
 } from "~/features/auth/utils/util";
 import { Link } from "react-router";
-import { title } from "process";
 
-// TODO: Fine & Payment
 const nav = {
 	navMember: [
 		{
@@ -43,6 +41,11 @@ const nav = {
 			title: "My Loans",
 			url: "/dashboard/loans",
 			icon: BookOpen,
+		},
+		{
+			title: "My Fines",
+			url: "/dashboard/loans",
+			icon: FileText,
 		},
 	],
 	navLibrarian: [
@@ -71,20 +74,20 @@ const nav = {
 			url: "/dashboard/reservations",
 			icon: Calendar,
 		},
-		// {
-		// 	title: "Reports",
-		// 	url: "/dashboard/reports",
-		// 	icon: FileText,
-		// },
+		{
+			title: "Fines",
+			url: "/dashboard/fines",
+			icon: FileText,
+		},
 	],
 	navAdmin: {
-    main: [
-      {
-        title: "Librarians",
-        url: "/dashboard/librarians",
-        icon: Users2
-      }
-    ],
+		main: [
+			{
+				title: "Librarians",
+				url: "/dashboard/librarians",
+				icon: Users2,
+			},
+		],
 		secondary: [
 			{
 				title: "Settings",
