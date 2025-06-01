@@ -13,6 +13,7 @@ import DateRangePickerWithPreset, {
 	DateRange,
 } from "~/shared/components/DateRangePickerWithPreset";
 import { Pagination } from "~/shared/components/Pagination";
+import ShowPerPage from "~/shared/components/ShowPerPage";
 import {
 	Card,
 	CardContent,
@@ -25,7 +26,6 @@ import { defaultParams } from "~/shared/utils/functions";
 
 const DashboardFinesPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
-
 	const initialFrom = searchParams.get("created_at_from");
 	const initialTo = searchParams.get("created_at_to");
 	const [dateRange, setDateRange] = useState<DateRange>(() => {
@@ -71,12 +71,12 @@ const DashboardFinesPage = () => {
 		}
 	};
 
-	const handleOffsetChange = useCallback((newOffset: number) => {
+	const handleOffsetChange = (newOffset: number) => {
 		setSearchParams((prev) => {
 			prev.set("offset", String(newOffset));
 			return prev;
 		});
-	}, []);
+	}
 
 	useEffect(() => {
 		if (dateRange?.from) {
@@ -93,6 +93,8 @@ const DashboardFinesPage = () => {
 
 		setSearchParams(searchParams);
 	}, [dateRange, setSearchParams]);
+
+  
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Fines" subtitle="Manage fines" />
@@ -107,11 +109,12 @@ const DashboardFinesPage = () => {
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="w-full flex justify-between">
-						<div>
+						<div className="flex gap-2">
 							<DateRangePickerWithPreset
 								date={dateRange}
 								onDateChange={setDateRange}
 							/>
+              <ShowPerPage />
 						</div>
 					</div>
 

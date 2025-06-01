@@ -12,6 +12,7 @@ import {
 } from "~/features/loan/type/LoanColumnVisibility";
 import DateRangePickerWithPreset, { DateRange } from "~/shared/components/DateRangePickerWithPreset";
 import { Pagination } from "~/shared/components/Pagination";
+import ShowPerPage from "~/shared/components/ShowPerPage";
 import {
 	Card,
 	CardContent,
@@ -80,12 +81,13 @@ const DashboardLoanPage = () => {
 		});
 	};
 
-	const handleOffsetChange = useCallback((newOffset: number) => {
+	const handleOffsetChange = (newOffset: number) => {
 		setSearchParams((prev) => {
 			prev.set("offset", String(newOffset));
 			return prev;
 		});
-	}, []);
+	}
+
 	useEffect(() => {
 		if (dateRange?.from) {
 			searchParams.set("created_at_from", format(dateRange.from, "yyyy-MM-dd"));
@@ -121,11 +123,12 @@ const DashboardLoanPage = () => {
 
 				<CardContent className="space-y-4">
 					<div className="w-full flex justify-between">
-						<div>
+						<div className="flex gap-2">
 							<DateRangePickerWithPreset
 								date={dateRange}
 								onDateChange={setDateRange}
 							/>
+              <ShowPerPage />
 						</div>
 					</div>
 
