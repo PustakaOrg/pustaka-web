@@ -1,4 +1,5 @@
 import { addDays, format, startOfToday, subDays } from "date-fns";
+import { Book, BookOpen, CheckCircle2, Clock } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
@@ -10,7 +11,9 @@ import {
 	defaultLoanColumnVisibility,
 	LoanColumnVisibility,
 } from "~/features/loan/type/LoanColumnVisibility";
-import DateRangePickerWithPreset, { DateRange } from "~/shared/components/DateRangePickerWithPreset";
+import DateRangePickerWithPreset, {
+	DateRange,
+} from "~/shared/components/DateRangePickerWithPreset";
 import { Pagination } from "~/shared/components/Pagination";
 import ShowPerPage from "~/shared/components/ShowPerPage";
 import {
@@ -46,7 +49,7 @@ const DashboardLoanPage = () => {
 			created_at_from: format(dateRange.from, "yyyy-MM-dd"),
 		}),
 		...(dateRange?.to && {
-			created_at_to: format(addDays(dateRange.to,1), "yyyy-MM-dd"),
+			created_at_to: format(addDays(dateRange.to, 1), "yyyy-MM-dd"),
 		}),
 	};
 
@@ -57,6 +60,40 @@ const DashboardLoanPage = () => {
 
 	const { loanList, isPending, isError, error } = useLoanList(
 		defaultParams(loanListParams),
+	);
+
+	const { loanList: allLoanList } = useLoanList({
+		limit: 9999,
+		...(dateRange?.from && {
+			created_at_from: format(dateRange.from, "yyyy-MM-dd"),
+		}),
+		...(dateRange?.to && {
+			created_at_to: format(addDays(dateRange.to, 1), "yyyy-MM-dd"),
+		}),
+	});
+	const summary = allLoanList?.results.reduce(
+		(acc, loan) => {
+			acc.total_loan += 1;
+
+			if (loan.status === "active") {
+				acc.total_active += 1;
+			} else if (loan.status === "overdue") {
+				acc.total_overdue += 1;
+			} else if (loan.status === "returned") {
+				acc.total_returned += 1;
+			} else if (loan.status === "lost") {
+				acc.total_lost += 1;
+			}
+
+			return acc;
+		},
+		{
+			total_active: 0,
+			total_overdue: 0,
+			total_returned: 0,
+			total_loan: 0,
+			total_lost: 0,
+		},
 	);
 
 	const handleSelectLoan = (loanId: string, checked: boolean) => {
@@ -86,7 +123,7 @@ const DashboardLoanPage = () => {
 			prev.set("offset", String(newOffset));
 			return prev;
 		});
-	}
+	};
 
 	useEffect(() => {
 		if (dateRange?.from) {
@@ -101,12 +138,97 @@ const DashboardLoanPage = () => {
 			searchParams.delete("created_at_to");
 		}
 
+		if (allLoanList) {
+			console.log(summary);
+		}
+
 		setSearchParams(searchParams);
-	}, [dateRange, setSearchParams]);
+	}, [dateRange, setSearchParams, allLoanList]);
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Loans" subtitle="Manage book loans and returns." />
+
+			{/* Stats */}
+			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">Active Loans</CardTitle>
+						<BookOpen className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">
+									{summary?.total_active}
+								</div>
+								<p className="text-xs text-muted-foreground">
+									{Math.round(
+										(summary?.total_active / summary?.total_loan) * 100,
+									)}
+									% of total loans
+								</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">Overdue</CardTitle>
+						<Clock className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">
+									{summary.total_overdue}
+								</div>
+								<p className="text-xs text-red-500">
+									{Math.round(
+										(summary.total_overdue / summary.total_loan) * 100,
+									)}
+									% of total loans
+								</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">Returned</CardTitle>
+						<CheckCircle2 className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">
+									{summary.total_returned}
+								</div>
+								<p className="text-xs text-green-500">
+									{Math.round(
+										(summary.total_returned / summary.total_loan) * 100,
+									)}
+									% of total loans
+								</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">Total Loans</CardTitle>
+						<Book className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">{summary.total_loan}</div>
+								<p className="text-xs text-muted-foreground">data</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+			</div>
 
 			<Card>
 				<CardHeader className="flex justify-between">
@@ -128,7 +250,7 @@ const DashboardLoanPage = () => {
 								date={dateRange}
 								onDateChange={setDateRange}
 							/>
-              <ShowPerPage />
+							<ShowPerPage />
 						</div>
 					</div>
 
