@@ -1,4 +1,4 @@
-import { format, startOfToday, subDays } from "date-fns";
+import { addDays, format, startOfToday, subDays } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
@@ -44,7 +44,7 @@ const DashboardFinesPage = () => {
 			created_at_from: format(dateRange.from, "yyyy-MM-dd"),
 		}),
 		...(dateRange?.to && {
-			created_at_to: format(dateRange.to, "yyyy-MM-dd"),
+			created_at_to: format(addDays(dateRange.to,1), "yyyy-MM-dd"),
 		}),
 	};
 
