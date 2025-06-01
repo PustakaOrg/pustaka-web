@@ -1,4 +1,5 @@
 import { addDays, format, startOfToday, subDays } from "date-fns";
+import { AlertCircle, BookOpen, Calendar, Clock } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
@@ -58,6 +59,42 @@ const DashboardReservationPage = () => {
 		defaultParams<ReservationListParams>(reservationListParams),
 	);
 
+	const { reservationList: allReservation } = useReservationList({
+		limit: 999,
+		...(dateRange?.from && {
+			created_at_from: format(dateRange.from, "yyyy-MM-dd"),
+		}),
+		...(dateRange?.to && {
+			created_at_to: format(addDays(dateRange.to, 1), "yyyy-MM-dd"),
+		}),
+	});
+
+	const summary = allReservation?.results.reduce(
+		(acc, reservation) => {
+			acc.total_all += 1;
+			if (reservation.status === "pending") {
+				acc.total_pending += 1;
+			} else if (
+				reservation.status === "expired" ||
+				reservation.status === "canceled"
+			) {
+				acc.total_expired_canceled += 1;
+			} else if (reservation.status === "ready") {
+				acc.total_ready += 1;
+			} else if (reservation.status === "completed") {
+				acc.total_completed += 1;
+			}
+			return acc;
+		},
+		{
+			total_pending: 0,
+			total_ready: 0,
+			total_expired_canceled: 0,
+			total_completed: 0,
+			total_all: 0,
+		},
+	);
+
 	const handleSelectReservation = (loanId: string, checked: boolean) => {
 		if (checked) {
 			setSelectedReservations((prev) => [...prev, loanId]);
@@ -78,7 +115,7 @@ const DashboardReservationPage = () => {
 			prev.set("offset", String(newOffset));
 			return prev;
 		});
-	}
+	};
 	useEffect(() => {
 		if (dateRange?.from) {
 			searchParams.set("created_at_from", format(dateRange.from, "yyyy-MM-dd"));
@@ -102,6 +139,92 @@ const DashboardReservationPage = () => {
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Reservation" subtitle="Manage book reservations." />
+
+			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">Pending</CardTitle>
+						<Clock className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">
+									{summary.total_pending}
+								</div>
+								<p className="text-xs text-muted-foreground">
+									{Math.round(
+										(summary.total_pending / summary.total_all) * 100,
+									)}
+									% of total reservations
+								</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">
+							Ready for Pickup
+						</CardTitle>
+						<BookOpen className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">{summary?.total_ready}</div>
+								<p className="text-xs text-green-500">
+									{Math.round(
+										(summary?.total_ready / summary?.total_all) * 100,
+									)}
+									% of total reservations
+								</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">
+							Expired/Cancelled
+						</CardTitle>
+						<AlertCircle className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">
+									{summary.total_expired_canceled}
+								</div>
+								<p className="text-xs text-red-500">
+									{Math.round(
+										(summary.total_expired_canceled / summary.total_all) * 100,
+									)}
+									% of total reservations
+								</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">
+							Completed 
+						</CardTitle>
+						<Calendar className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">{summary.total_completed}</div>
+								<p className="text-xs text-muted-foreground">
+									 completed
+								</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+			</div>
 
 			<Card>
 				<CardHeader className="flex justify-between">

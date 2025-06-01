@@ -138,12 +138,8 @@ const DashboardLoanPage = () => {
 			searchParams.delete("created_at_to");
 		}
 
-		if (allLoanList) {
-			console.log(summary);
-		}
-
 		setSearchParams(searchParams);
-	}, [dateRange, setSearchParams, allLoanList]);
+	}, [dateRange, setSearchParams]);
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
