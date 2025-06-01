@@ -42,7 +42,7 @@ const PublisherCombobox = ({
 					className="w-full justify-between text-muted-foreground"
 				>
 					{publisher
-						? `${publisherV!.name} - ${publisherV!.city}`
+						? `${publisherV?.name} - ${publisherV?.city}`
 						: "Select publisher..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>

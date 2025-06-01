@@ -36,7 +36,11 @@ const ReservationRowAction = ({
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
-				<DropdownMenuItem onClick={()=>{onAction("view-detail",reservation)}}>
+				<DropdownMenuItem
+					onClick={() => {
+						onAction("view-detail", reservation);
+					}}
+				>
 					<Calendar className="mr-2 h-4 w-4" />
 					View Details
 				</DropdownMenuItem>
@@ -89,11 +93,6 @@ const ReservationRowAction = ({
 						</DropdownMenuItem>
 					</>
 				)}
-				<DropdownMenuSeparator />
-				<DropdownMenuItem className="text-destructive">
-					<Trash2 className="mr-2 h-4 w-4" />
-					Delete Record
-				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

@@ -18,15 +18,20 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 	const [imagePreview, setImagePreview] = useState<string | null>(
 		defaultValues?.img || null,
 	);
-  const [imgChanged, setImageChanged] = useState(false)
+	const [imgChanged, setImageChanged] = useState(false);
 	const [categories, setCategories] = useState<string[]>(
 		defaultValues ? defaultValues.category.map((cat) => cat.id) : [],
 	);
 
-  const [author, setAuthor] = useState<string>(defaultValues ? defaultValues.author!.id : "" )
-  const [publisher, setPublisher] = useState<string>(defaultValues ? defaultValues.publisher!.id : "" )
-  const [shelf, setShelf] = useState<string>(defaultValues ? defaultValues.shelf!.id : "" )
-
+	const [author, setAuthor] = useState<string>(
+		defaultValues ? defaultValues.author!.id : "",
+	);
+	const [publisher, setPublisher] = useState<string>(
+		defaultValues ? defaultValues.publisher!.id : "",
+	);
+	const [shelf, setShelf] = useState<string>(
+		defaultValues ? defaultValues.shelf!.id : "",
+	);
 
 	const [isDragOver, setIsDragOver] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -94,7 +99,7 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 	};
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setImageChanged(true)
+		setImageChanged(true);
 		const file = e.target.files?.[0];
 		if (file) {
 			processImageFile(file);
@@ -218,6 +223,36 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 				/>
 			</div>
 
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+				<div className="space-y-2">
+					<Label htmlFor="Stock" className="text-sm font-medium">
+						Stock *
+					</Label>
+					<Input
+						id="stock"
+						name="stock"
+            type="number"
+						defaultValue={defaultValues?.stock ?? 1}
+						placeholder="Enter Stock"
+						className="w-full"
+						required
+					/>
+				</div>
+				<div className="space-y-2">
+					<Label htmlFor="Stock" className="text-sm font-medium">
+						Available Stock *
+					</Label>
+					<Input
+						id="available_stock"
+						name="available_stock"
+            type="number"
+						defaultValue={defaultValues?.available_stock ?? 1}
+						placeholder="Enter Available Stock Stock"
+						className="w-full"
+					/>
+				</div>
+			</div>
+
 			{/* Pages and Publish Year Row */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<div className="space-y-2">
@@ -258,17 +293,17 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 				<Label htmlFor="author" className="text-sm font-medium">
 					Author *
 				</Label>
-				<AuthorCombobox  author={author} setAuthor={setAuthor}/>
-        <input hidden name="author" value={author}  readOnly/>
+				<AuthorCombobox author={author} setAuthor={setAuthor} />
+				<input hidden name="author" value={author} readOnly />
 			</div>
 
-		{/* Title Field */}
+			{/* Title Field */}
 			<div className="space-y-2">
 				<Label htmlFor="author" className="text-sm font-medium">
 					Publisher *
 				</Label>
-				<PublisherCombobox  publisher={publisher} setPublisher={setPublisher}/>
-        <input hidden name="publisher" value={publisher}  readOnly/>
+				<PublisherCombobox publisher={publisher} setPublisher={setPublisher} />
+				<input hidden name="publisher" value={publisher} readOnly />
 			</div>
 
 			{/* Title Field */}
@@ -276,8 +311,8 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 				<Label htmlFor="author" className="text-sm font-medium">
 					Shelf *
 				</Label>
-				<ShelfCombobox shelf={ shelf} setShelf={setShelf}/>
-        <input hidden name="shelf" value={shelf} readOnly />
+				<ShelfCombobox shelf={shelf} setShelf={setShelf} />
+				<input hidden name="shelf" value={shelf} readOnly />
 			</div>
 
 			{/* Title Field */}
@@ -285,12 +320,13 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 				<Label htmlFor="author" className="text-sm font-medium">
 					Category *
 				</Label>
-				<CategoryCombobox categories={categories} setCategories={setCategories}/>
-        {
-          categories.map(cat => (
-            <input hidden name="category" value={cat} readOnly/>
-          ))
-        }
+				<CategoryCombobox
+					categories={categories}
+					setCategories={setCategories}
+				/>
+				{categories.map((cat) => (
+					<input hidden name="category" value={cat} readOnly />
+				))}
 			</div>
 
 			{/* Submit Button */}
