@@ -6,6 +6,7 @@ import DashboardLayout from "~/features/dashboard/components/SidebarLayout";
 import AboutPage from "~/pages/AboutPage";
 import CatalogPage from "~/pages/CatalogPage";
 import DashboardBookPage from "~/pages/dashboard/books/DashboardBookPage";
+import DashboardCategoryPage from "~/pages/dashboard/category/DashboardCategoryPage";
 import DashboardFinesPage from "~/pages/dashboard/fines/DashboardFinesPage";
 import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
 import DashboardLibrarianPage from "~/pages/dashboard/librarians/DashboardLibrarianPage";
@@ -90,6 +91,14 @@ const Router = () => {
 						element={
 							<RequireAdmin>
 								<DashboardSettingsPage />
+							</RequireAdmin>
+						}
+					/>
+					<Route
+						path="/dashboard/categories"
+						element={
+							<RequireAdmin>
+								<DashboardCategoryPage />
 							</RequireAdmin>
 						}
 					/>

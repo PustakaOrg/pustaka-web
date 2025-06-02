@@ -1,6 +1,7 @@
 import useProfile from "~/features/auth/hooks/useProfile";
-import { isAdminObject, isLibrarianObject } from "~/features/auth/utils/util";
+import { isAdminObject, isLibrarianObject, isMemberObject } from "~/features/auth/utils/util";
 import LibrarianHomeContent from "~/features/dashboard/components/librarian/LibrarianHomeContent";
+import MemberHomeContent from "~/features/dashboard/components/member/MemberHomeContent";
 
 const DashboardHomePage = () => {
 	const { profile, isPending, isError, error } = useProfile();
@@ -10,6 +11,7 @@ const DashboardHomePage = () => {
 				{(isLibrarianObject(profile) || isAdminObject(profile)) && (
 					<LibrarianHomeContent />
 				)}
+				{(isMemberObject(profile) || isError) && (<MemberHomeContent />)}
 		</main>
 	);
 };

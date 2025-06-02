@@ -33,7 +33,7 @@ const AddLibrarianDialog = () => {
 	};
 	return (
 		<Dialog>
-			<DialogTrigger asChild>
+			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />
 					Add Librarian

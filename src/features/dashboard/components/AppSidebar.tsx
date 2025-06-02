@@ -60,6 +60,11 @@ const nav = {
 			icon: Library,
 		},
 		{
+			title: "Categories",
+			url: "/dashboard/categories",
+			icon: GalleryVerticalEnd,
+		},
+		{
 			title: "Members",
 			url: "/dashboard/members",
 			icon: Users,

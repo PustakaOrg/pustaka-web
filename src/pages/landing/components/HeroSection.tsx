@@ -32,7 +32,7 @@ const HeroSection = () => {
                   placeholder="Search for books, authors, or topics..."
                   className="w-full pl-9 pr-24 py-6 text-black rounded-lg border-2 focus-visible:ring-primary"
                 />
-                <Button className="absolute right-2 top-2 h-8">Search</Button>
+                <Button className="cursor-pointer absolute right-2 top-2 h-8">Search</Button>
               </div>
               {/* <div className="flex flex-wrap gap-2 pt-2">
                 <p className="text-sm text-muted-foreground mr-2">

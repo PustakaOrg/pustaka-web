@@ -1,21 +1,16 @@
-import React from "react";
-import { LibrarianColumnVisibility } from "../type/LibrarianColumnVisibility";
-import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
 import { Checkbox } from "~/shared/components/ui/checkbox";
+import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
 
-interface LibrarianTableHeaderProps {
-  columnVisibility: LibrarianColumnVisibility;
+interface CategoryTableHeaderProps {
   isAllSelected: boolean;
   isIndeterminate: boolean;
   onSelectAll: (checked: boolean) => void;
 }
-
-const LibrarianTableHeader = ({
-  columnVisibility,
+const CategoryTableHeader = ({
   isAllSelected,
   isIndeterminate,
   onSelectAll,
-}: LibrarianTableHeaderProps) => {
+}: CategoryTableHeaderProps) => {
   return (
     <TableHeader>
       <TableRow className="bg-secondary hover:bg-secondary">
@@ -27,13 +22,11 @@ const LibrarianTableHeader = ({
             {...(isIndeterminate && { "data-state": "indeterminate" })}
           />
         </TableHead>
-        {columnVisibility.librarian && <TableHead>Librarian</TableHead>}
-        {columnVisibility.nip && <TableHead>NIP</TableHead>}
-        {columnVisibility.phone_number && <TableHead>Phone Number</TableHead>}
+        <TableHead>Category</TableHead>
         <TableHead className="text-right">Actions</TableHead>
       </TableRow>
     </TableHeader>
   );
 };
 
-export default LibrarianTableHeader;
+export default CategoryTableHeader;

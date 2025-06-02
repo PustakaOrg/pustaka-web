@@ -1,4 +1,4 @@
-import { Librarian } from "~/types/entities/Librarian";
+import { Category } from "~/types/entities/Category";
 import {
 	DropdownMenu,
 	DropdownMenuTrigger,
@@ -7,18 +7,15 @@ import {
 	DropdownMenuItem,
 } from "~/shared/components/ui/dropdown-menu";
 import { Button } from "~/shared/components/ui/button";
-import { Edit, MoreHorizontal, Trash2, User } from "lucide-react";
-interface LibrarianRowActionProps {
-	librarian: Librarian;
-	onAction: (action: string, librarian: Librarian) => void;
-}
+import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 
-const LibrarianRowAction = ({
-	librarian,
-	onAction,
-}: LibrarianRowActionProps) => {
-	return (
-		<DropdownMenu>
+interface CategoryRowActionProps {
+    category: Category
+    onAction: (action: string, category: Category) => void
+}
+const CategoryRowAction = ({category, onAction}: CategoryRowActionProps) => {
+  return (
+    <DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
@@ -26,26 +23,17 @@ const LibrarianRowAction = ({
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
-				<DropdownMenuItem
+                <DropdownMenuItem
 					onClick={() => {
-						onAction("view-detail", librarian);
-					}}
-				>
-					<User className="mr-2 h-4 w-4" />
-					View Details
-				</DropdownMenuItem>
-
-				<DropdownMenuItem
-					onClick={() => {
-						onAction("edit", librarian);
+						onAction("edit", category);
 					}}
 				>
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Librarian
+					Edit Category
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
-					onClick={() => onAction("delete", librarian)}
+					onClick={() => onAction("delete", category)}
 					className="text-destructive"
 				>
 					<Trash2 className="mr-2 h-4 w-4" />
@@ -53,7 +41,7 @@ const LibrarianRowAction = ({
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
-	);
-};
+  )
+}
 
-export default LibrarianRowAction;
+export default CategoryRowAction
