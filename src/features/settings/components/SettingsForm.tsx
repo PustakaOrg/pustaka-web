@@ -19,8 +19,9 @@ interface SettingsFormProps {
 		fine_for_lost?: number;
 		member_card_background?: string;
 	};
+  handleSubmit: (data:FormData) => void
 }
-const SettingsForm = ({ defaultValues }: SettingsFormProps) => {
+const SettingsForm = ({ defaultValues,handleSubmit }: SettingsFormProps) => {
 	const [previewImage, setPreviewImage] = useState<string>(
 		defaultValues?.member_card_background ?? "",
 	);
@@ -79,7 +80,7 @@ const SettingsForm = ({ defaultValues }: SettingsFormProps) => {
 		e.preventDefault();
 
 		const formData = new FormData(e.currentTarget);
-		console.log(formData);
+		handleSubmit(formData)
 	};
 
 	return (
