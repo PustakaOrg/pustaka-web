@@ -11,9 +11,9 @@ interface MemberFormProps {
 }
 const MemberForm = ({ handleSubmit }: MemberFormProps) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-4 py-4">
-        <div className="grid grid-cols-4 items-center gap-4">
+        <div className="space-y-2">
           <Label htmlFor="account.email" className="text-right">
             Email
           </Label>
@@ -21,11 +21,12 @@ const MemberForm = ({ handleSubmit }: MemberFormProps) => {
             id="account.email"
             name="account.email"
             type="email"
+            placeholder="Enter member email"
             className="col-span-3"
             required
           />
         </div>
-        <div className="grid grid-cols-4 items-center gap-4">
+        <div className="space-y-2">
           <Label htmlFor="account.password" className="text-right">
             Password
           </Label>
@@ -34,11 +35,12 @@ const MemberForm = ({ handleSubmit }: MemberFormProps) => {
             name="account.password"
             type="password"
             min="1"
+            placeholder="Enter member password"
             className="col-span-3"
             required
           />
         </div>
-        <div className="grid grid-cols-4 items-center gap-4">
+        <div className="space-y-2">
           <Label htmlFor="nis" className="text-right">
             NIS
           </Label>
@@ -47,22 +49,25 @@ const MemberForm = ({ handleSubmit }: MemberFormProps) => {
             name="nis"
             type="text"
             min="1"
+            placeholder="Enter member NIS"
             className="col-span-3"
             required
           />
         </div>
-        <div className="grid grid-cols-4 items-center gap-4">
+        <div className="space-y-2">
           <Label htmlFor="account.fullname" className="text-right">
             Nama Lengkap
           </Label>
           <Input
             id="account.fullname"
             name="account.fullname"
+            type="text"
+            placeholder="Enter member fullname"
             className="col-span-3"
             required
           />
         </div>
-        <div className="grid grid-cols-4 items-center gap-4">
+        <div className="space-y-2">
           <Label htmlFor="profile_picture" className="text-right">
             Foto Profil
           </Label>
@@ -77,7 +82,7 @@ const MemberForm = ({ handleSubmit }: MemberFormProps) => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-4 items-center gap-4">
+        <div className="space-y-2">
           <Label htmlFor="phone_number" className="text-right">
             No Handphone
           </Label>
@@ -86,23 +91,25 @@ const MemberForm = ({ handleSubmit }: MemberFormProps) => {
             name="phone_number"
             type="number"
             min="1"
+            placeholder="Enter member phone number"
             className="col-span-3"
             required
           />
         </div>
-        <div className="grid grid-cols-4 items-center gap-4">
+        <div className="space-y-2">
           <Label htmlFor="_class.name" className="text-right">
             Kelas
           </Label>
           <Input
             id="_class.name"
             name="_class.name"
+            placeholder="Enter member class"
             className="col-span-3"
             required
           />
         </div>
         <Separator />
-        <Button className="w-25 items-right" type="submit">
+        <Button className="cursor-pointer w-full items-right" type="submit">
           Submit
         </Button>
       </div>

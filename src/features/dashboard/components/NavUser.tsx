@@ -40,7 +40,7 @@ const NavUser = ({
 		<SidebarMenu>
 			<SidebarMenuItem>
 				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
+					<DropdownMenuTrigger asChild className="cursor-pointer">
 						<SidebarMenuButton
 							size="lg"
 							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
@@ -79,12 +79,12 @@ const NavUser = ({
 							</div>
 						</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-							<DropdownMenuItem>
+							<DropdownMenuItem className="cursor-pointer">
 								<UserCircleIcon />
 								Account
 							</DropdownMenuItem>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={logout} className="cursor-pointer hover:bg-destructive text-destructive ">
+						<DropdownMenuItem variant="destructive" onClick={logout} className="cursor-pointer hover:bg-destructive text-destructive ">
 							<LogOutIcon className="text-destructive"/>
 							Log out
 						</DropdownMenuItem>

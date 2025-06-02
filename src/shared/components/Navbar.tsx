@@ -21,7 +21,7 @@ const Navbar = () => {
 					>
 						Sign In
 					</Link> */}
-					<Button asChild>
+					<Button asChild className="cursor-pointer">
 						<Link className="text-md font-medium" to={"/login"}>
 							<UserRound className="h-6 w-6" />
 						Login</Link>

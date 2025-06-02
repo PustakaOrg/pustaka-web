@@ -35,7 +35,7 @@ const BookCard = ({ book }: BookCardProps) => {
 				</div>
 			</CardContent>
 			<CardFooter className="p-4 pt-0 flex justify-between">
-				<Button variant="outline" size="sm" className="w-full">
+				<Button variant="outline" size="sm" className="cursor-pointer w-full">
 					{book.available_stock > 0 ? (
 						<>
 							<BookMarked className="mr-2 h-4 w-4" />

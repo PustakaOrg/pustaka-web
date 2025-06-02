@@ -107,7 +107,7 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
 					<SidebarMenuItem>
 						<SidebarMenuButton
 							asChild
-							className="data-[slot=sidebar-menu-button]:!p-1.5"
+							className="cursor-pointer data-[slot=sidebar-menu-button]:!p-1.5"
 						>
 							<Link to="/" className="flex items-center gap-2 font-semibold">
 								<div className="flex h-6 w-6 items-center justify-center rounded-sm bg-primary text-primary-foreground">
