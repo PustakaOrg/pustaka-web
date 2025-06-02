@@ -12,6 +12,7 @@ import DashboardLibrarianPage from "~/pages/dashboard/librarians/DashboardLibrar
 import DashboardLoanPage from "~/pages/dashboard/loans/DashboardLoanPage";
 import DashboardMemberPage from "~/pages/dashboard/members/DashboardMemberPage";
 import DashboardReservationPage from "~/pages/dashboard/reservations/DashboardReservationPage";
+import DashboardSettingsPage from "~/pages/dashboard/settings/DashboardSettingsPage";
 import LandingLayout from "~/pages/landing/LandingLayout";
 import LandingPage from "~/pages/landing/LandingPage";
 import LoginPage from "~/pages/LoginPage";
@@ -82,6 +83,14 @@ const Router = () => {
 							<RequireAdminOrLibrarian>
 								<DashboardReservationPage />
 							</RequireAdminOrLibrarian>
+						}
+					/>
+					<Route
+						path="/dashboard/settings"
+						element={
+							<RequireAdmin>
+								<DashboardSettingsPage />
+							</RequireAdmin>
 						}
 					/>
 				</Route>
