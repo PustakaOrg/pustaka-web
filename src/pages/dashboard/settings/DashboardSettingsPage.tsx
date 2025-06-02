@@ -1,6 +1,6 @@
-import React from "react";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
 import SettingsForm from "~/features/settings/components/SettingsForm";
+import WASettings from "~/features/settings/components/WAStatus";
 import useSettings from "~/features/settings/hooks/useSettings";
 import useUpdateSettings from "~/features/settings/hooks/useUpdateSettings";
 
@@ -13,6 +13,7 @@ const DashboardSettingsPage = () => {
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Settings" subtitle="Configure Settings" />
+			<WASettings />
 			{settings && (
 				<SettingsForm
 					defaultValues={{
