@@ -9,7 +9,7 @@ const useMemberList = () => {
 		error,
 	} = useQuery({
 		queryKey: ["members"],
-		queryFn: getMembers,
+		queryFn: () =>getMembers(),
 	});
 	return { memberList, isPending, isError, error };
 };

@@ -1,4 +1,6 @@
-import { Category } from "~/types/entities/Category";
+import React from "react";
+import { Batch } from "~/types/entities/Batch";
+
 import {
 	DropdownMenu,
 	DropdownMenuTrigger,
@@ -9,11 +11,11 @@ import {
 import { Button } from "~/shared/components/ui/button";
 import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 
-interface CategoryRowActionProps {
-	category: Category;
-	onAction: (action: string, category: Category) => void;
+interface BatchRowActionProps {
+	batch: Batch;
+	onAction: (action: string, batch: Batch) => void;
 }
-const CategoryRowAction = ({ category, onAction }: CategoryRowActionProps) => {
+const BatchRowAction = ({ batch, onAction }: BatchRowActionProps) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -25,24 +27,16 @@ const CategoryRowAction = ({ category, onAction }: CategoryRowActionProps) => {
 			<DropdownMenuContent align="end">
 				<DropdownMenuItem
 					onClick={() => {
-						onAction("edit", category);
+						onAction("edit", batch);
 					}}
 				>
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Category
+					Edit Batch
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem
-					onClick={() => onAction("delete", category)}
-					className="text-destructive"
-				>
-					<Trash2 className="mr-2 h-4 w-4" />
-					Delete
-				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
 };
 
-export default CategoryRowAction;
-
+export default BatchRowAction;

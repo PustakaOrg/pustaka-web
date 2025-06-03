@@ -12,7 +12,7 @@ const useBatchList = (params?: GetBatchListParams) => {
 		queryFn: () => getBatchList(params),
 	});
 	return {
-		data: batchList,
+		batchList,
 		isPending,
 		isError,
 		error,

@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { patchBatch, PatchBatchPayload } from "../api/patchBatch";
+import { PatchBatchPayload } from "../api/patchBatch";
+import { postBatch } from "../api/postBatch";
 
-const useUpdateBatch = () => {
+const useAddBatch = () => {
 	const queryClient = useQueryClient();
 	const {
 		data: newBatch,
 		isPending,
 		isError,
 		error,
-		mutate: updateBatch,
+		mutate: addBatch,
 	} = useMutation({
-		mutationKey: ["update-batch"],
-		mutationFn: ({ id, payload }: { id: string; payload: PatchBatchPayload }) =>
-			patchBatch(id, payload),
+		mutationKey: ["add-batch"],
+		mutationFn: (payload: PatchBatchPayload) => postBatch(payload),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["batches", "batch"] });
 		},
@@ -22,8 +22,8 @@ const useUpdateBatch = () => {
 		isPending,
 		isError,
 		error,
-		updateBatch,
+		addBatch,
 	};
 };
 
-export default useUpdateBatch;
+export default useAddBatch;
