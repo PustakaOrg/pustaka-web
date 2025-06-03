@@ -110,7 +110,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 	return (
 		//
 		<form onSubmit={handleSubmit} className="space-y-4">
-			{/* Cover Image Field */}
+    			{/* Cover Image Field */}
 			<div className="space-y-2">
 				<Label htmlFor="image" className="text-sm font-medium">
 					Cover Image *
