@@ -9,6 +9,8 @@ import {
 } from "~/shared/components/ui/dropdown-menu";
 
 import { CheckCircle, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject } from "~/features/auth/utils/util";
 
 interface FineRowActionProps {
 	fine: Fine;
@@ -16,6 +18,7 @@ interface FineRowActionProps {
 }
 
 const FineRowAction = ({ fine, onAction }: FineRowActionProps) => {
+  const {profile} = useProfile()
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -29,7 +32,7 @@ const FineRowAction = ({ fine, onAction }: FineRowActionProps) => {
 					<Eye className="mr-2 h-4 w-4" />
 					View Details
 				</DropdownMenuItem>
-				{fine.payment.status == "pending" && (
+				{fine.payment.status == "pending" && isLibrarianObject(profile) && (
 					<DropdownMenuItem onClick={() => onAction("mark-done", fine)}>
 						<CheckCircle className="mr-2 h-4 w-4" />
 						Mark as done

@@ -5,6 +5,9 @@ import { Fine } from "~/types/entities/Fine";
 import FineTableRow from "./FineTableRow";
 import FineTableHeader from "./FineTableHeader";
 import FineNotFoundTableRow from "./FineNotFoundTableRow";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject } from "~/features/auth/utils/util";
+import useUpdatePaymentStatus from "../hooks/useUpdatePaymentStatus";
 
 interface FineTableProps {
 	fineList: PaginatedResponse<Fine>;
@@ -22,8 +25,16 @@ const FineTable = ({
 	handleSelectAll,
 	handleSelectFine,
 }: FineTableProps) => {
+	const { profile } = useProfile();
+	const { updatePaymentStatus } = useUpdatePaymentStatus();
 	const handelRowAction = (action: string, fine: Fine) => {
 		if (action == "view-detail") {
+		}
+		if (isLibrarianObject(profile)) {
+			updatePaymentStatus({
+				id: fine.payment.id,
+				payload: { accepted_by: profile.id, status: "done" },
+			});
 		}
 	};
 
