@@ -14,7 +14,7 @@ const useUpdateClass = () => {
 		mutationFn: ({ id, payload }: { id: string; payload: PatchClassPayload }) =>
 			patchClass(id, payload),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["classes", "class"] });
+			queryClient.invalidateQueries({ queryKey: ["classes"] });
 		},
 	});
 	return {

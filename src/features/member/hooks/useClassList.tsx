@@ -13,7 +13,7 @@ const useClassList = (params?: GetClassListParams) => {
 		queryFn: () => getClassList(params),
 	});
 	return {
-		data: classList,
+		classList,
 		isPending,
 		isError,
 		error,

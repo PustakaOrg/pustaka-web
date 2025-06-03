@@ -37,7 +37,7 @@ const BatchTable = ({batchList}: BatchTableProps) => {
 				<TableBody>
 					{batchList && batchList.results.length > 0 ? (
 						batchList.results.map((batch) => (
-							<BatchTableRow batch={batch} onAction={onAction} />
+							<BatchTableRow key={batch.id} batch={batch} onAction={onAction} />
 						))
 					) : (
 						<TableRow>

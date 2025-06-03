@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postMember } from "../api/postMember";
 
 const useAddMember = () => {
+  const queryClient = useQueryClient();
 	const {
 		data: newMember,
 		isPending,
@@ -11,10 +12,12 @@ const useAddMember = () => {
 	} = useMutation({
 		mutationKey: ["add-book"],
 		mutationFn: (data: FormData) => postMember(data),
+      onSuccess: ()=>{
+
+      queryClient.invalidateQueries({ queryKey: ["members"] });
+    }
 	});
 
-	const queryClient = useQueryClient();
-	queryClient.invalidateQueries({ queryKey: ["members"] });
 	return {
 		newMember,
 		isPending,

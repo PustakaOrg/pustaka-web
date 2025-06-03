@@ -23,7 +23,7 @@ const UpdateBatchDialog = ({
 	onOpenChange,
 }: UpdateBatchDialogProps) => {
 	const { updateBatch, isPending , isError, error } = useUpdateBatch();
-	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit =(e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
@@ -31,7 +31,7 @@ const UpdateBatchDialog = ({
 			name,
 		};
 		updateBatch({ id: batch.id, payload });
-	}, []);
+	}
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

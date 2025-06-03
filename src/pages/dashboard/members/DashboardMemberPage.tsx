@@ -15,12 +15,16 @@ import AddMemberDialog from "~/features/member/components/AddMemberDialog";
 import AddBatchDialog from "~/features/member/components/AddBatchDialog";
 import useBatchList from "~/features/member/hooks/useBatchList";
 import BatchTable from "~/features/member/components/BatchTable";
+import useClassList from "~/features/member/hooks/useClassList";
+import AddClassDialog from "~/features/member/components/AddClassDialog";
+import ClassTable from "~/features/member/components/ClassTable";
 
 const DashboardMemberPage = () => {
 	const [searchParams] = useSearchParams();
 
 	const { memberList, isPending } = useMemberList();
   const {batchList} = useBatchList()
+  const { classList } = useClassList()
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
@@ -54,6 +58,23 @@ const DashboardMemberPage = () => {
 				</CardHeader>
 				<CardContent className="">
 					{batchList && <BatchTable batchList={batchList}  />}
+				</CardContent>
+			</Card>
+
+			<Card>
+				<CardHeader className="flex justify-between">
+					<div>
+						<CardTitle>Classes</CardTitle>
+						<CardDescription>
+							{classList?.results.length ?? 0} classes found
+						</CardDescription>
+					</div>
+					<div>
+						<AddClassDialog />
+					</div>
+				</CardHeader>
+				<CardContent className="">
+					{classList && <ClassTable classList={classList}  />}
 				</CardContent>
 			</Card>
 		</main>

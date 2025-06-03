@@ -14,8 +14,11 @@ const useDeleteMember = () => {
     mutationKey: ["remove-member"],
     mutationFn: (id: string) => deleteMember(id),
     onSuccess: () => {},
+    onSettled: ()=>{
+
+      queryClient.invalidateQueries({ queryKey: ["members"] });
+    }
   });
-  queryClient.invalidateQueries({ queryKey: ["members"] });
 
   return {
     deleteMemberById,

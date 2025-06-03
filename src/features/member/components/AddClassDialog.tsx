@@ -7,36 +7,36 @@ import {
 } from "~/shared/components/ui/dialog";
 import { FormEvent, useCallback } from "react";
 import { Plus } from "lucide-react";
-import useAddBatch from "../hooks/useAddBatch";
-import { PostBatchPayload } from "../api/postBatch";
-import BatchForm from "./BatchForm";
+import useAddClass from "../hooks/useAddClass";
+import { PostClassPayload } from "../api/postClass";
+import ClassForm from "./ClassForm";
 
-const AddBatchDialog = () => {
-	const { newBatch, isPending, isError, error, addBatch } = useAddBatch();
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+const AddClassDialog = () => {
+	const { newClass, isPending, isError, error, addClass } = useAddClass();
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
-		const payload: PostBatchPayload = {
+		const payload: PostClassPayload = {
 			name,
 		};
-		addBatch(payload);
-	}
+		addClass(payload);
+	}, []);
 
 	return (
 		<Dialog>
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />
-					Add Batch
+					Add Class
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Add New Batch</DialogTitle>
-				<BatchForm handleSubmit={handleSubmit} error={error} />
+				<DialogTitle>Add New Class</DialogTitle>
+				<ClassForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 		</Dialog>
 	);
 };
 
-export default AddBatchDialog;
+export default AddClassDialog;
