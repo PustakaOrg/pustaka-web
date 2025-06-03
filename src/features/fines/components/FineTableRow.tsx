@@ -7,6 +7,7 @@ import LoanStatusBadge from "~/features/loan/components/LoanStatusBadge";
 import BookListItem from "~/features/catalog/components/BookListItem";
 import FineRowAction from "./FineRowAction";
 import PaymentStatusBadge from "./PaymentStatusBadge";
+import { formatToIDR } from "~/shared/utils/functions";
 
 interface FineTableRowProps {
 	fine: Fine;
@@ -49,7 +50,9 @@ const FineTableRow = ({
 				</TableCell>
 			)}
 
-			{columnVisibility.amount && <TableCell>{fine.amount}</TableCell>}
+			{columnVisibility.amount && (
+				<TableCell>{formatToIDR(Number(fine.amount))}</TableCell>
+			)}
 
 			{columnVisibility.payment_status && (
 				<TableCell>

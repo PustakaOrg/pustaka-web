@@ -23,7 +23,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/shared/components/ui/card";
-import { defaultParams } from "~/shared/utils/functions";
+import { defaultParams, formatToIDR } from "~/shared/utils/functions";
 
 const DashboardFinesPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -192,7 +192,7 @@ const DashboardFinesPage = () => {
 						{summary && (
 							<>
 								<div className="text-2xl font-bold">
-									Rp. {summary.estimated_fine}
+                {formatToIDR(summary.estimated_fine)}
 								</div>
 							</>
 						)}
@@ -208,7 +208,7 @@ const DashboardFinesPage = () => {
 					<CardContent>
 						{summary && (
 							<>
-								<div className="text-2xl font-bold text-green-600">Rp. {summary.completed_fine}</div>
+								<div className="text-2xl font-bold text-green-600">{formatToIDR(summary.completed_fine)}</div>
 							</>
 						)}
 					</CardContent>
