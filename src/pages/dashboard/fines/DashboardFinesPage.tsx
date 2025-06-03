@@ -1,5 +1,6 @@
 import { addDays, format, startOfToday, subDays } from "date-fns";
-import { useCallback, useEffect, useState } from "react";
+import { Clock, Coins, DollarSign, FileWarning } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
 import { FinesListParams } from "~/features/fines/api/getFines";
@@ -44,13 +45,52 @@ const DashboardFinesPage = () => {
 			created_at_from: format(dateRange.from, "yyyy-MM-dd"),
 		}),
 		...(dateRange?.to && {
-			created_at_to: format(addDays(dateRange.to,1), "yyyy-MM-dd"),
+			created_at_to: format(addDays(dateRange.to, 1), "yyyy-MM-dd"),
 		}),
 	};
 
 	const { fineList, isPending, isError, error } = useFineList(
 		defaultParams(fineListParams),
 	);
+
+	const { fineList: allFineList } = useFineList({
+		limit: 999,
+
+		...(dateRange?.from && {
+			created_at_from: format(dateRange.from, "yyyy-MM-dd"),
+		}),
+		...(dateRange?.to && {
+			created_at_to: format(addDays(dateRange.to, 1), "yyyy-MM-dd"),
+		}),
+	});
+
+	const summary = fineList?.results.reduce(
+		(acc, fine) => {
+			acc.estimated_fine += Number(fine.amount);
+			acc.total_all += 1
+			if (fine.loan.status === "overdue") {
+				acc.total_overdue += 1;
+			}
+
+			if (fine.loan.status === "lost") {
+				acc.total_lost += 1;
+			}
+
+			if (fine.payment.status === "done") {
+				acc.completed_fine += Number(fine.amount);
+			}
+
+			return acc;
+		},
+		{
+			total_overdue: 0,
+			total_lost: 0,
+			estimated_fine: 0,
+			completed_fine: 0,
+      total_all: 0
+		},
+	);
+
 	const [selectedFines, setSelectedFines] = useState<string[]>([]);
 	const [columnVisibility, setColumnVisibility] =
 		useState<FineColumnVisibility>(defaultFineColumnVisibility);
@@ -76,7 +116,7 @@ const DashboardFinesPage = () => {
 			prev.set("offset", String(newOffset));
 			return prev;
 		});
-	}
+	};
 
 	useEffect(() => {
 		if (dateRange?.from) {
@@ -94,10 +134,89 @@ const DashboardFinesPage = () => {
 		setSearchParams(searchParams);
 	}, [dateRange, setSearchParams]);
 
-  
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Fines" subtitle="Manage fines" />
+
+<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">Total Overdue</CardTitle>
+						<Clock className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">
+									{summary.total_overdue}
+								</div>
+								<p className="text-xs text-muted-foreground">
+									{Math.round(
+										(summary.total_overdue / summary.total_all) * 100,
+									)}
+									% of total fines
+								</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">
+							Total Lost
+						</CardTitle>
+          <FileWarning className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold text-destructive">{summary?.total_lost}</div>
+								<p className="text-xs text-muted-foreground">
+									{Math.round(
+										(summary?.total_lost / summary?.total_all) * 100,
+									)}
+									% of total fines
+								</p>
+							</>
+						)}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">
+							Estimated Fines
+						</CardTitle>
+						<DollarSign className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold">
+									Rp. {summary.estimated_fine}
+								</div>
+							</>
+						)}
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader className="flex flex-row items-center justify-between pb-2">
+						<CardTitle className="text-sm font-medium">
+							Completed Fines 
+						</CardTitle>
+						<Coins className="h-4 w-4 text-muted-foreground" />
+					</CardHeader>
+					<CardContent>
+						{summary && (
+							<>
+								<div className="text-2xl font-bold text-green-600">Rp. {summary.completed_fine}</div>
+							</>
+						)}
+					</CardContent>
+				</Card>
+			</div>
+
+
+
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
@@ -114,7 +233,7 @@ const DashboardFinesPage = () => {
 								date={dateRange}
 								onDateChange={setDateRange}
 							/>
-              <ShowPerPage />
+							<ShowPerPage />
 						</div>
 					</div>
 
