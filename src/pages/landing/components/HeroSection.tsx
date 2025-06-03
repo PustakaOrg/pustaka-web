@@ -1,9 +1,25 @@
 import { BookMarked, BookOpen, Search } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import { Badge } from "~/shared/components/ui/badge";
 import { Button } from "~/shared/components/ui/button";
 import { Input } from "~/shared/components/ui/input";
 
 const HeroSection = () => {
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && searchText.trim()) {
+      navigate(`/catalog?q=${encodeURIComponent(searchText.trim())}`);
+    }
+  };
+
+  const handleSearchClick = () => {
+    if (searchText.trim()) {
+      navigate(`/catalog?q=${encodeURIComponent(searchText.trim())}`);
+    }
+  };
   return (
     <section
       className="relative w-full py-12 md:py-24 lg:py-32 bg-cover bg-center text-white"
@@ -30,9 +46,14 @@ const HeroSection = () => {
                 <Input
                   type="text"
                   placeholder="Search for books, authors, or topics..."
+                  onChange={(e) => setSearchText(e.target.value)}
+                  onKeyDown={handleKeyDown}
                   className="w-full pl-9 pr-24 py-6 text-black rounded-lg border-2 focus-visible:ring-primary"
                 />
-                <Button className="cursor-pointer absolute right-2 top-2 h-8">Search</Button>
+                <Button className="cursor-pointer absolute right-2 top-2 h-8"
+                onClick={handleSearchClick}>
+                  Search
+                </Button>
               </div>
               {/* <div className="flex flex-wrap gap-2 pt-2">
                 <p className="text-sm text-muted-foreground mr-2">
