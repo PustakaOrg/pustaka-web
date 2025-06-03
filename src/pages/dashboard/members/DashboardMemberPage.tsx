@@ -5,6 +5,7 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "~/shared/components/ui/card";
@@ -18,13 +19,36 @@ import BatchTable from "~/features/member/components/BatchTable";
 import useClassList from "~/features/member/hooks/useClassList";
 import AddClassDialog from "~/features/member/components/AddClassDialog";
 import ClassTable from "~/features/member/components/ClassTable";
+import { Pagination } from "~/shared/components/Pagination";
+import { useState } from "react";
 
 const DashboardMemberPage = () => {
 	const [searchParams] = useSearchParams();
+	const [classLimitOffset, setClassLimitOffset] = useState({
+		limit: 5,
+		offset: 0,
+	});
+
+	const [batchLimitOffset, setBatchLimitOffset] = useState({
+		limit: 5,
+		offset: 0,
+	});
 
 	const { memberList, isPending } = useMemberList();
-  const {batchList} = useBatchList()
-  const { classList } = useClassList()
+	const { batchList } = useBatchList(batchLimitOffset);
+	const { classList } = useClassList(classLimitOffset);
+
+	const handleClassOffsetChange = (newOffset: number) => {
+		setClassLimitOffset((prev) => {
+			return { ...prev, offset: newOffset };
+		});
+	};
+
+	const handleBatchOffsetChange = (newOffset: number) => {
+		setBatchLimitOffset((prev) => {
+			return { ...prev, offset: newOffset };
+		});
+	};
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
@@ -43,40 +67,62 @@ const DashboardMemberPage = () => {
 					{memberList && <MemberTable memberList={memberList} />}
 				</CardContent>
 			</Card>
+			<div className="grid gap-6 lg:grid-cols-2">
+				<Card>
+					<CardHeader className="flex justify-between">
+						<div>
+							<CardTitle>Batches</CardTitle>
+							<CardDescription>
+								{batchList?.results.length ?? 0} batches found
+							</CardDescription>
+						</div>
+						<div>
+							<AddBatchDialog />
+						</div>
+					</CardHeader>
+					<CardContent className="">
+						{batchList && <BatchTable batchList={batchList} />}
+					</CardContent>
+					<CardFooter className="flex items-center justify-center">
+						{batchList && (
+							<Pagination
+								totalCount={batchList.count}
+								limit={batchLimitOffset.limit}
+								offset={batchLimitOffset.offset}
+								onOffsetChange={handleBatchOffsetChange}
+							/>
+						)}
+					</CardFooter>
+				</Card>
 
-			<Card>
-				<CardHeader className="flex justify-between">
-					<div>
-						<CardTitle>Batches</CardTitle>
-						<CardDescription>
-							{batchList?.results.length ?? 0} batches found
-						</CardDescription>
-					</div>
-					<div>
-						<AddBatchDialog />
-					</div>
-				</CardHeader>
-				<CardContent className="">
-					{batchList && <BatchTable batchList={batchList}  />}
-				</CardContent>
-			</Card>
+				<Card>
+					<CardHeader className="flex justify-between">
+						<div>
+							<CardTitle>Classes</CardTitle>
+							<CardDescription>
+								{classList?.results.length ?? 0} classes found
+							</CardDescription>
+						</div>
+						<div>
+							<AddClassDialog />
+						</div>
+					</CardHeader>
+					<CardContent className="">
+						{classList && <ClassTable classList={classList} />}
+					</CardContent>
 
-			<Card>
-				<CardHeader className="flex justify-between">
-					<div>
-						<CardTitle>Classes</CardTitle>
-						<CardDescription>
-							{classList?.results.length ?? 0} classes found
-						</CardDescription>
-					</div>
-					<div>
-						<AddClassDialog />
-					</div>
-				</CardHeader>
-				<CardContent className="">
-					{classList && <ClassTable classList={classList}  />}
-				</CardContent>
-			</Card>
+					<CardFooter className="flex items-center justify-center">
+						{classList && (
+							<Pagination
+								totalCount={classList.count}
+								limit={classLimitOffset.limit}
+								offset={classLimitOffset.offset ?? 0}
+								onOffsetChange={handleClassOffsetChange}
+							/>
+						)}
+					</CardFooter>
+				</Card>
+			</div>
 		</main>
 	);
 };

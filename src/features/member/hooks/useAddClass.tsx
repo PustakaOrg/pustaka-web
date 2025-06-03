@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postClass, PostClassPayload } from "../api/postClass";
 
-const useAddBatch = () => {
+const useAddClass = () => {
 	const queryClient = useQueryClient();
 	const {
 		data: newClass,
@@ -13,7 +13,7 @@ const useAddBatch = () => {
 		mutationKey: ["add-class"],
 		mutationFn: (payload: PostClassPayload) => postClass(payload),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["classes", "class"] });
+			queryClient.invalidateQueries({ queryKey: ["classes"] });
 		},
 	});
 	return {
@@ -25,4 +25,4 @@ const useAddBatch = () => {
 	};
 };
 
-export default useAddBatch;
+export default useAddClass;

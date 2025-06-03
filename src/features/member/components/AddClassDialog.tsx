@@ -13,7 +13,7 @@ import ClassForm from "./ClassForm";
 
 const AddClassDialog = () => {
 	const { newClass, isPending, isError, error, addClass } = useAddClass();
-	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
@@ -21,7 +21,7 @@ const AddClassDialog = () => {
 			name,
 		};
 		addClass(payload);
-	}, []);
+	}
 
 	return (
 		<Dialog>

@@ -6,5 +6,5 @@ export type PostClassPayload = {
 };
 
 export const postClass = (payload: PostClassPayload) => {
-	return api.post<Class>("batches/", payload);
+	return api.post<Class>("classes/", payload);
 };
