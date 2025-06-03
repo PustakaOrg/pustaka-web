@@ -24,7 +24,9 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/shared/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "~/shared/components/ui/tabs";
 import { defaultParams } from "~/shared/utils/functions";
+import { ReservationStatus } from "~/types/entities/Reservation";
 
 const DashboardReservationPage = () => {
 	const [columnVisibility, setColumnVisibility] =
@@ -42,6 +44,7 @@ const DashboardReservationPage = () => {
 		};
 	});
 	const reservationListParams: ReservationListParams = {
+		status: (searchParams.get("status") as ReservationStatus) ?? undefined,
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
 		offset: searchParams.get("offset")
 			? Number(searchParams.get("offset"))
@@ -108,6 +111,12 @@ const DashboardReservationPage = () => {
 		} else {
 			setSelectedReservations([]);
 		}
+	};
+	const handleTabChange = (value: string) => {
+		setSearchParams((prev) => {
+			prev.set("status", value);
+			return prev;
+		});
 	};
 
 	const handleOffsetChange = (newOffset: number) => {
@@ -208,18 +217,16 @@ const DashboardReservationPage = () => {
 				</Card>
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">
-							Completed 
-						</CardTitle>
+						<CardTitle className="text-sm font-medium">Completed</CardTitle>
 						<Calendar className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
 						{summary && (
 							<>
-								<div className="text-2xl font-bold">{summary.total_completed}</div>
-								<p className="text-xs text-muted-foreground">
-									 completed
-								</p>
+								<div className="text-2xl font-bold">
+									{summary.total_completed}
+								</div>
+								<p className="text-xs text-muted-foreground">completed</p>
 							</>
 						)}
 					</CardContent>
@@ -250,6 +257,19 @@ const DashboardReservationPage = () => {
 							</div>
 						</div>
 					</div>
+					<Tabs
+						defaultValue={reservationListParams.status}
+						onValueChange={handleTabChange}
+					>
+						<TabsList className="grid w-full grid-cols-6">
+							<TabsTrigger value="">All Status</TabsTrigger>
+							<TabsTrigger value="pending">Pending</TabsTrigger>
+							<TabsTrigger value="ready">Ready</TabsTrigger>
+							<TabsTrigger value="expired">Expired</TabsTrigger>
+							<TabsTrigger value="canceled">Canceled</TabsTrigger>
+							<TabsTrigger value="completed">Completed</TabsTrigger>
+						</TabsList>
+					</Tabs>
 
 					{reservationList && (
 						<ReservationTable
