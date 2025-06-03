@@ -12,9 +12,10 @@ import PublisherCombobox from "./PublisherCombobox";
 interface BookFormProps {
 	defaultValues?: Book;
 	handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  error?: unknown
 }
 
-const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
+const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 	const [imagePreview, setImagePreview] = useState<string | null>(
 		defaultValues?.img || null,
 	);
@@ -221,6 +222,7 @@ const BookForm = ({ defaultValues, handleSubmit }: BookFormProps) => {
 					className="w-full"
 					required
 				/>
+        {error?.data?.isbn && <p className="text-xs text-destructive">{error.data.isbn[0]}</p>}
 			</div>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">

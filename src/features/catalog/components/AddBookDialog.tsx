@@ -19,6 +19,7 @@ const AddBookDialog = () => {
 		addBook(form);
 	}, []);
 
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -29,7 +30,7 @@ const AddBookDialog = () => {
 			</DialogTrigger>
 			<DialogContent className="min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
       <DialogTitle>Add New Book</DialogTitle>
-				<BookForm handleSubmit={handleSubmit} />
+				<BookForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>
 		</Dialog>

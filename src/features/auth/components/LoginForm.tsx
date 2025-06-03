@@ -5,6 +5,7 @@ import { EyeIcon, EyeOffIcon, LoaderCircleIcon } from "lucide-react";
 import { Button } from "~/shared/components/ui/button";
 import useLogin from "../hooks/useLogin";
 import { useLocation, useNavigate } from "react-router";
+import { ApiError } from "~/shared/libs/apiClient";
 
 const LoginForm = () => {
 	const navigate = useNavigate();
@@ -55,6 +56,7 @@ const LoginForm = () => {
 					</div>
 					<Input className="border-black-800" id="password" type="password" name="password" required />
 				</div>
+        {error && <p className="text-destructive text-xs">{error.data.detail}</p>}
 				<Button type="submit" className="w-full">
 					Login
 				</Button>
