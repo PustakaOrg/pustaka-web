@@ -14,6 +14,7 @@ const useAddClass = () => {
 		mutationFn: (payload: PostClassPayload) => postClass(payload),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["classes"] });
+			queryClient.invalidateQueries({ queryKey: ["search-class"] });
 		},
 	});
 	return {

@@ -15,6 +15,7 @@ const useUpdateClass = () => {
 			patchClass(id, payload),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["classes"] });
+			queryClient.invalidateQueries({ queryKey: ["search-class"] });
 		},
 	});
 	return {

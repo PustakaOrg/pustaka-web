@@ -21,10 +21,12 @@ import AddClassDialog from "~/features/member/components/AddClassDialog";
 import ClassTable from "~/features/member/components/ClassTable";
 import { Pagination } from "~/shared/components/Pagination";
 import { useState } from "react";
+import ClassCombobox from "~/features/member/components/ClassCombobox";
+import BatchCombobox from "~/features/member/components/BatchCombobox";
 
 const DashboardMemberPage = () => {
 	const [searchParams] = useSearchParams();
-	const [classLimitOffset, setClassLimitOffset] = useState({
+	const [classListParams, setClassListParams] = useState({
 		limit: 5,
 		offset: 0,
 	});
@@ -36,10 +38,10 @@ const DashboardMemberPage = () => {
 
 	const { memberList, isPending } = useMemberList();
 	const { batchList } = useBatchList(batchLimitOffset);
-	const { classList } = useClassList(classLimitOffset);
+	const { classList } = useClassList(classListParams);
 
 	const handleClassOffsetChange = (newOffset: number) => {
-		setClassLimitOffset((prev) => {
+		setClassListParams((prev) => {
 			return { ...prev, offset: newOffset };
 		});
 	};
@@ -115,8 +117,8 @@ const DashboardMemberPage = () => {
 						{classList && (
 							<Pagination
 								totalCount={classList.count}
-								limit={classLimitOffset.limit}
-								offset={classLimitOffset.offset ?? 0}
+								limit={classListParams.limit}
+								offset={classListParams.offset ?? 0}
 								onOffsetChange={handleClassOffsetChange}
 							/>
 						)}

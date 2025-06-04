@@ -15,6 +15,7 @@ const useAddBatch = () => {
 		mutationFn: (payload: PatchBatchPayload) => postBatch(payload),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["batches"] });
+			queryClient.invalidateQueries({ queryKey: ["search-batch"] });
 		},
 	});
 	return {

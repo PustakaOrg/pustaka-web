@@ -13,8 +13,8 @@ const useAddMember = () => {
 		mutationKey: ["add-book"],
 		mutationFn: (data: FormData) => postMember(data),
       onSuccess: ()=>{
-
       queryClient.invalidateQueries({ queryKey: ["members"] });
+      queryClient.invalidateQueries({ queryKey: ["search-member"] });
     }
 	});
 
