@@ -2,7 +2,6 @@ import { FormEvent, useState } from "react";
 import { Button } from "~/shared/components/ui/button";
 import { Input } from "~/shared/components/ui/input";
 import { Label } from "~/shared/components/ui/label";
-import { Separator } from "~/shared/components/ui/separator";
 import { Member } from "~/types/entities/Member";
 import ClassCombobox from "./ClassCombobox";
 import BatchCombobox from "./BatchCombobox";

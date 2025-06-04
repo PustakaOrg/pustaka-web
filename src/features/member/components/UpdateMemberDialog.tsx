@@ -44,7 +44,7 @@ const UpdateMemberDialog = ({
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
 				<DialogTitle>Edit Member</DialogTitle>
-				<MemberForm handleSubmit={handleSubmit} defaultValues={member} />
+				<MemberForm handleSubmit={handleSubmit} defaultValues={member} error={error} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>
 		</Dialog>
