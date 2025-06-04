@@ -23,8 +23,12 @@ import { Pagination } from "~/shared/components/Pagination";
 import { useState } from "react";
 import ClassCombobox from "~/features/member/components/ClassCombobox";
 import BatchCombobox from "~/features/member/components/BatchCombobox";
+import { defalultMemberColumnVisibility } from "~/features/member/types/MemberColumnVisibility";
 
 const DashboardMemberPage = () => {
+	const [columnVisibility, setColumnVisibility] = useState(
+		defalultMemberColumnVisibility,
+	);
 	const [searchParams] = useSearchParams();
 	const [classListParams, setClassListParams] = useState({
 		limit: 5,
@@ -40,6 +44,21 @@ const DashboardMemberPage = () => {
 	const { batchList } = useBatchList(batchLimitOffset);
 	const { classList } = useClassList(classListParams);
 
+	const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
+	const handleSelectAll = (checked: boolean) => {
+		if (checked) {
+			setSelectedMembers(memberList?.results.map((book) => book.id) ?? []);
+		} else {
+			setSelectedMembers([]);
+		}
+	};
+	const handleSelectMember = (memberId: string, checked: boolean) => {
+		if (checked) {
+			setSelectedMembers((prev) => [...prev, memberId]);
+		} else {
+			setSelectedMembers((prev) => prev.filter((id) => id !== memberId));
+		}
+	};
 	const handleClassOffsetChange = (newOffset: number) => {
 		setClassListParams((prev) => {
 			return { ...prev, offset: newOffset };
@@ -66,7 +85,15 @@ const DashboardMemberPage = () => {
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="">
-					{memberList && <MemberTable memberList={memberList} />}
+					{memberList && (
+						<MemberTable
+							memberList={memberList}
+							columnVisibility={columnVisibility}
+              handleSelectAll={handleSelectAll}
+              handleSelectMember={handleSelectMember}
+              selectedMembers={selectedMembers}
+						/>
+					)}
 				</CardContent>
 			</Card>
 			<div className="grid gap-6 lg:grid-cols-2">

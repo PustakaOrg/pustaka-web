@@ -14,5 +14,5 @@ export type Member = {
 		group: string;
 	};
   batch : Batch | null
-  expires_at: string
+  expires_date: string
 };
