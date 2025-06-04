@@ -19,13 +19,7 @@ const AddMemberDialog = () => {
     const form = new FormData(e.currentTarget);
     addMember(form);
   }, []);
-
-  useEffect(() => {
-    console.log("Pending", isPending);
-    console.log("isError", isError);
-    console.log("error", error);
-  }, [isPending, isError, error]);
-  return (
+   return (
     <Dialog>
       <DialogTrigger asChild className="cursor-pointer">
         <Button>
@@ -35,7 +29,7 @@ const AddMemberDialog = () => {
       </DialogTrigger>
       <DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
         <DialogTitle>Add New Member</DialogTitle>
-        <MemberForm handleSubmit={handleSubmit} />
+        <MemberForm handleSubmit={handleSubmit} error={error} />
       </DialogContent>
     </Dialog>
   );

@@ -136,7 +136,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 							accept="image/*"
 							onChange={handleImageChange}
 							className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-							required={!defaultValues?.img && !imagePreview}
+							// required={!defaultValues?.img && !imagePreview}
 						/>
 
 						<div className="text-center">

@@ -58,7 +58,7 @@ const MemberCombobox = ({
 						placeholder="Search book or"
 					/>
 					<CommandList>
-						<CommandEmpty>No available book founds</CommandEmpty>
+						<CommandEmpty>No available member founds</CommandEmpty>
 						<CommandGroup>
 							{membersChoice &&
 								membersChoice.results.map((memberc) => (

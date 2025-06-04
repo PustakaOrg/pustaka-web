@@ -18,6 +18,7 @@ import { cn, popoverSameWidth } from "~/shared/libs/ui";
 import { CommandLoading } from "cmdk";
 import useSearchClass from "../hooks/useSearchClass";
 import useClassDetail from "../hooks/useClassDetail";
+import AddClassDialog from "./AddClassDialog";
 
 interface ClassComboboxProps {
 	_class: string;
@@ -30,8 +31,7 @@ const ClassCombobox = ({
 }: ClassComboboxProps) => {
 	const [search, setSearch] = useState("");
 	const { classList, isPending } = useSearchClass(search);
-	const { classDetail, isPending: clasDetailPending } =
-		useClassDetail(_class);
+	const { classDetail, isPending: clasDetailPending } = useClassDetail(_class);
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -57,16 +57,21 @@ const ClassCombobox = ({
 						placeholder="Search book or"
 					/>
 					<CommandList>
-						<CommandEmpty>No available book founds</CommandEmpty>
+						<CommandEmpty>
+							<div className="flex flex-col justify-center items-center gap-4">
+								No available class founds
+								<div className="max-w-md">
+									<AddClassDialog />
+								</div>
+							</div>
+						</CommandEmpty>
 						<CommandGroup>
 							{classList &&
 								classList.results.map((classC) => (
 									<CommandItem
 										key={classC.id}
 										value={classC.id}
-										keywords={[
-											classC.name,
-										]}
+										keywords={[classC.name]}
 										onSelect={(currentValue) => {
 											setClass(currentValue == _class ? "" : currentValue);
 											setOpen(false);
