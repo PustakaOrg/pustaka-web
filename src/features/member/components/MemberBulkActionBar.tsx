@@ -1,4 +1,4 @@
-import { Download } from "lucide-react";
+import { Download, Printer } from "lucide-react";
 import { Button } from "~/shared/components/ui/button";
 
 interface MemberBulkActionBar {
@@ -17,10 +17,20 @@ const MemberBulkActionBar = ({
 				{selectedCount} book{selectedCount > 1 ? "s" : ""} selected
 			</span>
 			<div className="flex gap-2 ml-auto">
-				<Button variant="outline" size="sm" onClick={() => onAction("Export")}>
-					<Download className="h-4 w-4 mr-2" />
-					Export
-				</Button>
+				<div className="flex gap-2">
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={() => onAction("Export")}
+					>
+						<Download className="h-4 w-4 mr-2" />
+						Export
+					</Button>
+					<Button size={"sm"} onClick={()=> onAction("print")}>
+						<Printer />
+						Cetak Kartu Member
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

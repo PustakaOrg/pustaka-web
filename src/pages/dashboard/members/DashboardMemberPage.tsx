@@ -26,6 +26,9 @@ import MemberBulkActionBar from "~/features/member/components/MemberBulkActionBa
 import ShowPerPage from "~/shared/components/ShowPerPage";
 import ClassCombobox from "~/features/member/components/ClassCombobox";
 import BatchCombobox from "~/features/member/components/BatchCombobox";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
+import { Member } from "~/types/entities/Member";
+import MemberCardPrintDialog from "~/features/member/components/MemberCardPrintDialog";
 
 const DashboardMemberPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState(
@@ -56,8 +59,14 @@ const DashboardMemberPage = () => {
 	const { memberList, isPending } = useMemberList(memberListParam);
 	const { batchList } = useBatchList(batchLimitOffset);
 	const { classList } = useClassList(classListParams);
-
 	const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
+	const {
+		data: bulkData,
+		isOpen,
+		openDialog,
+		closeDialog,
+	} = useDialogWithData<Member[]>();
+
 	const handleSelectAll = (checked: boolean) => {
 		if (checked) {
 			setSelectedMembers(memberList?.results.map((book) => book.id) ?? []);
@@ -84,7 +93,14 @@ const DashboardMemberPage = () => {
 		});
 	};
 
-	const handleBulkAction = (action: string) => {};
+	const handleBulkAction = (action: string) => {
+		if (action === "print") {
+			const printMember = memberList?.results.filter((m) =>
+				selectedMembers.includes(m.id),
+			);
+			if (printMember) openDialog(printMember);
+		}
+	};
 
 	const handleOffsetChange = (newOffset: number) => {
 		setSearchParams((prev) => {
@@ -95,6 +111,14 @@ const DashboardMemberPage = () => {
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
+			{bulkData && (
+				<MemberCardPrintDialog
+					isOpen={isOpen}
+					onOpenChange={closeDialog}
+					members={bulkData}
+				/>
+			)}
+
 			<ContentHeader title="Members" subtitle="Manage library members." />
 			<Card>
 				<CardHeader className="flex justify-between">
