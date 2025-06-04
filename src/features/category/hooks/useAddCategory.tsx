@@ -1,6 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import React from 'react'
-import { postBook } from '~/features/catalog/api/postBook';
 import { postCategory } from '../api/postCategory';
 
 const useAddCategory = () => {
