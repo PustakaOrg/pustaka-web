@@ -21,9 +21,8 @@ import AddClassDialog from "~/features/member/components/AddClassDialog";
 import ClassTable from "~/features/member/components/ClassTable";
 import { Pagination } from "~/shared/components/Pagination";
 import { useState } from "react";
-import ClassCombobox from "~/features/member/components/ClassCombobox";
-import BatchCombobox from "~/features/member/components/BatchCombobox";
 import { defalultMemberColumnVisibility } from "~/features/member/types/MemberColumnVisibility";
+import MemberBulkActionBar from "~/features/member/components/MemberBulkActionBar";
 
 const DashboardMemberPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState(
@@ -71,27 +70,38 @@ const DashboardMemberPage = () => {
 		});
 	};
 
+	const handleBulkAction = (action: string) => {};
+
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Members" subtitle="Manage library members." />
 			<Card>
-				<CardHeader className="">
-					<CardTitle className="flex flex-row items-center justify-between">
-						Members
+				<CardHeader className="flex justify-between">
+					<div>
+						<CardTitle className="flex flex-row items-center justify-between">
+							Members
+						</CardTitle>
+
+						<CardDescription>
+							{memberList?.results.length} members found
+						</CardDescription>
+					</div>
+					<div>
 						<AddMemberDialog />
-					</CardTitle>
-					<CardDescription>
-						{memberList?.results.length} members found
-					</CardDescription>
+					</div>
 				</CardHeader>
-				<CardContent className="">
+				<CardContent className="space-y-4">
+					<MemberBulkActionBar
+						selectedCount={selectedMembers.length}
+						onAction={handleBulkAction}
+					/>
 					{memberList && (
 						<MemberTable
 							memberList={memberList}
 							columnVisibility={columnVisibility}
-              handleSelectAll={handleSelectAll}
-              handleSelectMember={handleSelectMember}
-              selectedMembers={selectedMembers}
+							handleSelectAll={handleSelectAll}
+							handleSelectMember={handleSelectMember}
+							selectedMembers={selectedMembers}
 						/>
 					)}
 				</CardContent>
