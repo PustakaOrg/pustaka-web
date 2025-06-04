@@ -18,7 +18,6 @@ import { cn, popoverSameWidth } from "~/shared/libs/ui";
 import { CommandLoading } from "cmdk";
 import useSearchClass from "../hooks/useSearchClass";
 import useClassDetail from "../hooks/useClassDetail";
-import AddClassDialog from "./AddClassDialog";
 
 interface ClassComboboxProps {
 	_class: string;
@@ -60,9 +59,6 @@ const ClassCombobox = ({
 						<CommandEmpty>
 							<div className="flex flex-col justify-center items-center gap-4">
 								No available class founds
-								<div className="max-w-md">
-									<AddClassDialog />
-								</div>
 							</div>
 						</CommandEmpty>
 						<CommandGroup>

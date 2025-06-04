@@ -11,6 +11,8 @@ import { Member } from "~/types/entities/Member";
 import MemberTableRow from "./MemberTableRow";
 import { Users } from "lucide-react";
 import { MemberColumnVisibility } from "../types/MemberColumnVisibility";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
+import UpdateMemberDialog from "./UpdateMemberDialog";
 
 interface MemberTableProps {
 	memberList: PaginatedResponse<Member>;
@@ -27,10 +29,17 @@ const MemberTable = ({
 	handleSelectMember,
 	handleSelectAll,
 }: MemberTableProps) => {
+	const {
+		data: member,
+		isOpen,
+		openDialog,
+		closeDialog,
+	} = useDialogWithData<Member>();
 	const handleRowAction = (action: string, member: Member) => {
 		if (action == "view") {
 		}
 		if (action == "edit") {
+			openDialog(member);
 		}
 	};
 
@@ -41,6 +50,7 @@ const MemberTable = ({
 	// 	selectedMembers.length > 0 &&
 	// 	selectedMembers.length < memberList.results.length;
 	return (
+    <div>
 		<Table>
 			<MemberTableHeader
 				columnVisibility={columnVisibility}
@@ -74,6 +84,10 @@ const MemberTable = ({
 				)}
 			</TableBody>
 		</Table>
+    {member && (
+      <UpdateMemberDialog member={member} isOpen={isOpen} onOpenChange={closeDialog} />
+    )}
+</div>
 	);
 };
 

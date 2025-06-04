@@ -31,6 +31,7 @@ const MemberForm = ({
 					<Input
 						id="account.email"
 						name="account.email"
+            defaultValue={defaultValues?.account.email}
 						type="email"
 						placeholder="Enter member email"
 						className="col-span-3"
@@ -55,7 +56,7 @@ const MemberForm = ({
 						min="1"
 						placeholder="Enter member password"
 						className="col-span-3"
-						required
+						required={!defaultValues}
 					/>
 				</div>
 				<div className="space-y-2">
@@ -69,6 +70,7 @@ const MemberForm = ({
 						min="1"
 						placeholder="Enter member NIS"
 						className="col-span-3"
+            defaultValue={defaultValues?.nis}
 						required
 					/>
 					{/* @ts-ignore */}
@@ -89,6 +91,7 @@ const MemberForm = ({
 						type="text"
 						placeholder="Enter member fullname"
 						className="col-span-3"
+            defaultValue={defaultValues?.account.fullname}
 						required
 					/>
 				</div>
@@ -117,6 +120,7 @@ const MemberForm = ({
 						min="1"
 						placeholder="Enter member phone number"
 						className="col-span-3"
+            defaultValue={defaultValues?.phone_number}
 						required
 					/>
 				</div>

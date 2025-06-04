@@ -6,7 +6,7 @@ export type Member = {
 	profile_picture: string;
 	phone_number: string;
 	nis: string;
-	_class: Class;
+	_class: Class | null;
 	account: {
 		id: string;
 		fullname: string;
