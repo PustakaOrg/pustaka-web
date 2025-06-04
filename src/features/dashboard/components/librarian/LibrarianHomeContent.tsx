@@ -10,6 +10,7 @@ import {
 } from "~/shared/components/ui/card";
 import { Button } from "~/shared/components/ui/button";
 import ContentHeader from "../ContentHeader";
+import BarcodeScannerDrawwer from "~/shared/components/BarcodeScannerDrawwer";
 
 const stats = [
 	{ title: "Total Books", icon: Book },
@@ -46,6 +47,10 @@ const LibrarianHomeContent = () => {
 						);
 					})}
 			</section>
+      {/* <div className="size-[400px]"> */}
+      {/**/}
+      {/* <BarcodeScannerDrawwer /> */}
+      {/* </div> */}
 
 			{/* Quick Actions */}
 			<section>
