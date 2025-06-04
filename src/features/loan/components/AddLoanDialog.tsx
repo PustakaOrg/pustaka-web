@@ -8,16 +8,20 @@ import {
 } from "~/shared/components/ui/dialog";
 import { Plus } from "lucide-react";
 import LoanForm from "./LoanForm";
-import { FormEvent, useState } from "react";
+import { FormEvent, ReactNode, useState } from "react";
 import { formatDateYYYYMMDD } from "~/shared/utils/functions";
 import { PostLoanPayload } from "../api/postLoan";
 import useAddLoan from "../hooks/useAddLoan";
 import useProfile from "~/features/auth/hooks/useProfile";
 import { isLibrarianObject } from "~/features/auth/utils/util";
 
-const AddLoanDialog = () => {
+interface AddLoanDialogProps {
+	trigger: ReactNode;
+}
+
+const AddLoanDialog = ({ trigger }: AddLoanDialogProps) => {
 	const { profile, isPending: profilePending } = useProfile();
-	const { addLoan, isPending } = useAddLoan();
+	const { newLoan,  addLoan, isPending } = useAddLoan();
 	const [open, setOpen] = useState(false);
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -37,19 +41,13 @@ const AddLoanDialog = () => {
 				approved_by: profile.id,
 			};
 			addLoan(payload);
-			setOpen(false);
+      
+			// setOpen(false);
 		}
 	};
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger asChild>
-				{profile && isLibrarianObject(profile) && (
-					<Button>
-						<Plus />
-						Add New Loan
-					</Button>
-				)}
-			</DialogTrigger>
+			<DialogTrigger asChild>{trigger}</DialogTrigger>
 			<DialogContent className="min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
 				<DialogTitle>Add New Loan</DialogTitle>
 				<LoanForm handleSubmit={handleSubmit} />

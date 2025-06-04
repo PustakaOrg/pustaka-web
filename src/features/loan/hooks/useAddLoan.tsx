@@ -19,7 +19,7 @@ const useAddLoan = () => {
 	});
 
 	return {
-		newBook: newLoan,
+		newLoan,
 		isPending,
 		isError,
 		error,

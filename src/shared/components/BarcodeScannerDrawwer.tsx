@@ -9,34 +9,37 @@ import {
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { useIsMobile } from "../hooks/use-mobile";
-import { useState } from "react";
 import {
 	Drawer,
 	DrawerClose,
 	DrawerContent,
-	DrawerDescription,
 	DrawerFooter,
 	DrawerHeader,
 	DrawerTitle,
 	DrawerTrigger,
 } from "./ui/drawer";
+import { Scan } from "lucide-react";
 
 interface BarcodeScannerDrawwerProps {
 	handleCapture: (codes: DetectedBarcode[]) => void;
+	isOpen: boolean;
+	onOpenChange: (isOpen: boolean) => void;
 }
 
-const BarcodeScannerDrawwer = ({}: BarcodeScannerDrawwerProps) => {
-	const handleCapture = (codes: DetectedBarcode[]) => {
-		console.log(codes);
-	};
-	const [open, setOpen] = useState(false);
+const BarcodeScannerDrawwer = ({
+	isOpen,
+	onOpenChange,
+	handleCapture,
+}: BarcodeScannerDrawwerProps) => {
 	const isMobile = useIsMobile();
 
 	if (!isMobile) {
 		return (
-			<Dialog open={open} onOpenChange={setOpen}>
+			<Dialog open={isOpen} onOpenChange={onOpenChange}>
 				<DialogTrigger asChild>
-					<Button variant={"outline"}>Open QR</Button>
+					<Button variant={"outline"} size={"icon"}>
+						<Scan />
+					</Button>
 				</DialogTrigger>
 				<DialogContent className="min-w-[70vw] min-h-[80vh] sm:max-w-[425px]">
 					<DialogHeader>
@@ -62,9 +65,11 @@ const BarcodeScannerDrawwer = ({}: BarcodeScannerDrawwerProps) => {
 		);
 	}
 	return (
-		<Drawer open={open} onOpenChange={setOpen}>
+		<Drawer open={isOpen} onOpenChange={onOpenChange}>
 			<DrawerTrigger asChild>
-				<Button variant="outline">Open QR</Button>
+				<Button variant={"outline"} size={"icon"}>
+					<Scan />
+				</Button>
 			</DrawerTrigger>
 			<DrawerContent>
 				<DrawerHeader className="text-left">

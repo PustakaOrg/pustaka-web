@@ -10,7 +10,9 @@ import {
 } from "~/shared/components/ui/card";
 import { Button } from "~/shared/components/ui/button";
 import ContentHeader from "../ContentHeader";
-import BarcodeScannerDrawwer from "~/shared/components/BarcodeScannerDrawwer";
+import AddLoanDialog from "~/features/loan/components/AddLoanDialog";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject } from "~/features/auth/utils/util";
 
 const stats = [
 	{ title: "Total Books", icon: Book },
@@ -21,6 +23,7 @@ const stats = [
 
 const LibrarianHomeContent = () => {
 	const { data, isPending } = useDashboardHomeLibrarianData();
+	const { profile } = useProfile();
 	return (
 		<>
 			<ContentHeader
@@ -47,10 +50,6 @@ const LibrarianHomeContent = () => {
 						);
 					})}
 			</section>
-      {/* <div className="size-[400px]"> */}
-      {/**/}
-      {/* <BarcodeScannerDrawwer /> */}
-      {/* </div> */}
 
 			{/* Quick Actions */}
 			<section>
@@ -61,10 +60,18 @@ const LibrarianHomeContent = () => {
 					</CardHeader>
 					<CardContent>
 						<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-							<Button className="flex flex-col h-auto py-4 gap-2">
-								<BookOpen className="h-5 w-5" />
-								<span>Loan Book</span>
-							</Button>
+							{profile && isLibrarianObject(profile) && (
+								<div>
+									<AddLoanDialog
+										trigger={
+											<Button className="flex flex-col h-full w-full py-4 gap-2">
+												<BookOpen className="h-5 w-5" />
+												<span>Loan Book</span>
+											</Button>
+										}
+									/>
+								</div>
+							)}
 							<Button className="flex flex-col h-auto py-4 gap-2">
 								<Book className="h-5 w-5" />
 								<span>Return Book</span>
