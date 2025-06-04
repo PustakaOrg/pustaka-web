@@ -23,12 +23,26 @@ import { Pagination } from "~/shared/components/Pagination";
 import { useState } from "react";
 import { defalultMemberColumnVisibility } from "~/features/member/types/MemberColumnVisibility";
 import MemberBulkActionBar from "~/features/member/components/MemberBulkActionBar";
+import ShowPerPage from "~/shared/components/ShowPerPage";
+import ClassCombobox from "~/features/member/components/ClassCombobox";
+import BatchCombobox from "~/features/member/components/BatchCombobox";
 
 const DashboardMemberPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState(
 		defalultMemberColumnVisibility,
 	);
-	const [searchParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [_class, setClass] = useState("");
+	const [batch, setBatch] = useState("");
+	const memberListParam = {
+		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
+		offset: searchParams.get("offset")
+			? Number(searchParams.get("offset"))
+			: undefined,
+		_class: _class,
+		batch: batch,
+	};
+
 	const [classListParams, setClassListParams] = useState({
 		limit: 5,
 		offset: 0,
@@ -39,7 +53,7 @@ const DashboardMemberPage = () => {
 		offset: 0,
 	});
 
-	const { memberList, isPending } = useMemberList();
+	const { memberList, isPending } = useMemberList(memberListParam);
 	const { batchList } = useBatchList(batchLimitOffset);
 	const { classList } = useClassList(classListParams);
 
@@ -72,6 +86,13 @@ const DashboardMemberPage = () => {
 
 	const handleBulkAction = (action: string) => {};
 
+	const handleOffsetChange = (newOffset: number) => {
+		setSearchParams((prev) => {
+			prev.set("offset", String(newOffset));
+			return prev;
+		});
+	};
+
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Members" subtitle="Manage library members." />
@@ -91,6 +112,21 @@ const DashboardMemberPage = () => {
 					</div>
 				</CardHeader>
 				<CardContent className="space-y-4">
+					<div className="w-full flex justify-between">
+						<div className="flex gap-2">
+							<ShowPerPage />
+						</div>
+						<div className="flex  gap-2">
+							<div className="w-[150px]">
+								<ClassCombobox _class={_class} setClass={setClass} />
+							</div>
+
+							<div className="w-[150px]">
+								<BatchCombobox batch={batch} setBatch={setBatch} />
+							</div>
+						</div>
+					</div>
+
 					<MemberBulkActionBar
 						selectedCount={selectedMembers.length}
 						onAction={handleBulkAction}
@@ -103,6 +139,16 @@ const DashboardMemberPage = () => {
 							handleSelectMember={handleSelectMember}
 							selectedMembers={selectedMembers}
 						/>
+					)}
+					{memberList && (
+						<CardFooter className="flex items-center justify-center">
+							<Pagination
+								totalCount={memberList.count}
+								limit={memberListParam.limit}
+								offset={memberListParam.offset ?? 0}
+								onOffsetChange={handleOffsetChange}
+							/>
+						</CardFooter>
 					)}
 				</CardContent>
 			</Card>
