@@ -6,6 +6,7 @@ import { PaginatedResponse } from "~/types/responses";
 
 export type FinesListParams = Partial<{
 	status: PaymentStatus;
+  q: string
 }> & BaseListParams;
 
 export const getFines = (params?: FinesListParams) => {

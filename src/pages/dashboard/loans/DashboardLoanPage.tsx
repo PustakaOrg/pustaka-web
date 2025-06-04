@@ -15,6 +15,7 @@ import DateRangePickerWithPreset, {
 	DateRange,
 } from "~/shared/components/DateRangePickerWithPreset";
 import { Pagination } from "~/shared/components/Pagination";
+import SearchQueryInput from "~/shared/components/SearchQueryInput";
 import ShowPerPage from "~/shared/components/ShowPerPage";
 import {
 	Card,
@@ -24,6 +25,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/shared/components/ui/card";
+import { Input } from "~/shared/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "~/shared/components/ui/tabs";
 import { defaultParams } from "~/shared/utils/functions";
 
@@ -40,6 +42,7 @@ const DashboardLoanPage = () => {
 	});
 	const loanListParams = {
 		status: searchParams.get("status") ?? undefined,
+    q: searchParams.get("q") ?? undefined,
 
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
 		offset: searchParams.get("offset")
@@ -248,6 +251,9 @@ const DashboardLoanPage = () => {
 							/>
 							<ShowPerPage />
 						</div>
+            <div>
+           <SearchQueryInput placeholder="Search Loan" />
+            </div>
 					</div>
 
 					<Tabs

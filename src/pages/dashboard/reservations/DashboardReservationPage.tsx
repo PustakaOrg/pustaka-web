@@ -15,6 +15,7 @@ import DateRangePickerWithPreset, {
 	DateRange,
 } from "~/shared/components/DateRangePickerWithPreset";
 import { Pagination } from "~/shared/components/Pagination";
+import SearchQueryInput from "~/shared/components/SearchQueryInput";
 import ShowPerPage from "~/shared/components/ShowPerPage";
 import {
 	Card,
@@ -45,6 +46,7 @@ const DashboardReservationPage = () => {
 	});
 	const reservationListParams: ReservationListParams = {
 		status: (searchParams.get("status") as ReservationStatus) ?? undefined,
+    q: searchParams.get("q") ?? undefined,
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
 		offset: searchParams.get("offset")
 			? Number(searchParams.get("offset"))
@@ -256,6 +258,9 @@ const DashboardReservationPage = () => {
 								<ShowPerPage />
 							</div>
 						</div>
+            <div>
+            <SearchQueryInput placeholder="Search Reservation" />
+            </div>
 					</div>
 					<Tabs
 						defaultValue={reservationListParams.status}

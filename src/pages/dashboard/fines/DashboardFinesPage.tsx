@@ -14,6 +14,7 @@ import DateRangePickerWithPreset, {
 	DateRange,
 } from "~/shared/components/DateRangePickerWithPreset";
 import { Pagination } from "~/shared/components/Pagination";
+import SearchQueryInput from "~/shared/components/SearchQueryInput";
 import ShowPerPage from "~/shared/components/ShowPerPage";
 import {
 	Card,
@@ -37,6 +38,7 @@ const DashboardFinesPage = () => {
 	});
 
 	const fineListParams: FinesListParams = {
+		q: searchParams.get("q") ?? undefined,
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
 		offset: searchParams.get("offset")
 			? Number(searchParams.get("offset"))
@@ -64,10 +66,10 @@ const DashboardFinesPage = () => {
 		}),
 	});
 
-	const summary = fineList?.results.reduce(
+	const summary = allFineList?.results.reduce(
 		(acc, fine) => {
 			acc.estimated_fine += Number(fine.amount);
-			acc.total_all += 1
+			acc.total_all += 1;
 			if (fine.loan.status === "overdue") {
 				acc.total_overdue += 1;
 			}
@@ -87,7 +89,7 @@ const DashboardFinesPage = () => {
 			total_lost: 0,
 			estimated_fine: 0,
 			completed_fine: 0,
-      total_all: 0
+			total_all: 0,
 		},
 	);
 
@@ -138,7 +140,7 @@ const DashboardFinesPage = () => {
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
 			<ContentHeader title="Fines" subtitle="Manage fines" />
 
-<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
 						<CardTitle className="text-sm font-medium">Total Overdue</CardTitle>
@@ -162,19 +164,17 @@ const DashboardFinesPage = () => {
 				</Card>
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">
-							Total Lost
-						</CardTitle>
-          <FileWarning className="h-4 w-4 text-muted-foreground" />
+						<CardTitle className="text-sm font-medium">Total Lost</CardTitle>
+						<FileWarning className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
 						{summary && (
 							<>
-								<div className="text-2xl font-bold text-destructive">{summary?.total_lost}</div>
+								<div className="text-2xl font-bold text-destructive">
+									{summary?.total_lost}
+								</div>
 								<p className="text-xs text-muted-foreground">
-									{Math.round(
-										(summary?.total_lost / summary?.total_all) * 100,
-									)}
+									{Math.round((summary?.total_lost / summary?.total_all) * 100)}
 									% of total fines
 								</p>
 							</>
@@ -192,7 +192,7 @@ const DashboardFinesPage = () => {
 						{summary && (
 							<>
 								<div className="text-2xl font-bold">
-                {formatToIDR(summary.estimated_fine)}
+									{formatToIDR(summary.estimated_fine)}
 								</div>
 							</>
 						)}
@@ -201,21 +201,21 @@ const DashboardFinesPage = () => {
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
 						<CardTitle className="text-sm font-medium">
-							Completed Fines 
+							Completed Fines
 						</CardTitle>
 						<Coins className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
 						{summary && (
 							<>
-								<div className="text-2xl font-bold text-green-600">{formatToIDR(summary.completed_fine)}</div>
+								<div className="text-2xl font-bold text-green-600">
+									{formatToIDR(summary.completed_fine)}
+								</div>
 							</>
 						)}
 					</CardContent>
 				</Card>
 			</div>
-
-
 
 			<Card>
 				<CardHeader className="flex justify-between">
@@ -234,6 +234,9 @@ const DashboardFinesPage = () => {
 								onDateChange={setDateRange}
 							/>
 							<ShowPerPage />
+						</div>
+						<div>
+							<SearchQueryInput placeholder="Search Fines" />
 						</div>
 					</div>
 

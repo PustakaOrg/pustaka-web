@@ -5,6 +5,7 @@ import { PaginatedResponse } from "~/types/responses";
 
 export type LoanListParams = Partial<{
 	status: string;
+  q: string;
 }> & BaseListParams;
 export const getLoans = (params?: LoanListParams) => {
 	return api.get<PaginatedResponse<Loan>>("loans/", {
