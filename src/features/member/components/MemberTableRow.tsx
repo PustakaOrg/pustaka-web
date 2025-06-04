@@ -41,7 +41,7 @@ const MemberTableRow = ({
 
 			{columnVisibility.nis && <TableCell>{member.nis}</TableCell>}
 			{columnVisibility.phone_number && (
-				<TableCell className="hidden md:table-cell">
+				<TableCell>
 					{member.phone_number}
 				</TableCell>
 			)}
