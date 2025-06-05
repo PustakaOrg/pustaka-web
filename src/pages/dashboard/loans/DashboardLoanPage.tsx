@@ -1,7 +1,9 @@
 import { addDays, format, startOfToday, subDays } from "date-fns";
-import { Book, BookOpen, CheckCircle2, Clock } from "lucide-react";
+import { Book, BookOpen, CheckCircle2, Clock, Plus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject } from "~/features/auth/utils/util";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
 import { LoanListParams } from "~/features/loan/api/getLoans";
 import AddLoanDialog from "~/features/loan/components/AddLoanDialog";
@@ -17,6 +19,7 @@ import DateRangePickerWithPreset, {
 import { Pagination } from "~/shared/components/Pagination";
 import SearchQueryInput from "~/shared/components/SearchQueryInput";
 import ShowPerPage from "~/shared/components/ShowPerPage";
+import { Button } from "~/shared/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -31,6 +34,7 @@ import { defaultParams } from "~/shared/utils/functions";
 
 const DashboardLoanPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
+	const { profile } = useProfile();
 
 	const initialFrom = searchParams.get("created_at_from");
 	const initialTo = searchParams.get("created_at_to");
@@ -42,7 +46,7 @@ const DashboardLoanPage = () => {
 	});
 	const loanListParams = {
 		status: searchParams.get("status") ?? undefined,
-    q: searchParams.get("q") ?? undefined,
+		q: searchParams.get("q") ?? undefined,
 
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
 		offset: searchParams.get("offset")
@@ -238,7 +242,17 @@ const DashboardLoanPage = () => {
 						</CardDescription>
 					</div>
 					<div>
-						<AddLoanDialog />
+						<AddLoanDialog
+							trigger={
+								profile &&
+								isLibrarianObject(profile) && (
+									<Button>
+										<Plus />
+										Add New Loan
+									</Button>
+								)
+							}
+						/>
 					</div>
 				</CardHeader>
 
@@ -251,9 +265,9 @@ const DashboardLoanPage = () => {
 							/>
 							<ShowPerPage />
 						</div>
-            <div>
-           <SearchQueryInput placeholder="Search Loan" />
-            </div>
+						<div>
+							<SearchQueryInput placeholder="Search Loan" />
+						</div>
 					</div>
 
 					<Tabs

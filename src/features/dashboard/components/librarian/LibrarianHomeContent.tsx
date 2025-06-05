@@ -1,4 +1,12 @@
-import { Book, BookOpen, Clock, FileText, User, Users } from "lucide-react";
+import {
+	Book,
+	BookOpen,
+	Clock,
+	FileText,
+	Search,
+	User,
+	Users,
+} from "lucide-react";
 import useDashboardHomeLibrarianData from "~/features/dashboard/hooks/useHomeData";
 import Stat from "./Stat";
 import {
@@ -10,6 +18,12 @@ import {
 } from "~/shared/components/ui/card";
 import { Button } from "~/shared/components/ui/button";
 import ContentHeader from "../ContentHeader";
+import AddLoanDialog from "~/features/loan/components/AddLoanDialog";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject } from "~/features/auth/utils/util";
+import SearchLoanDialog from "./SearchLoanDialog";
+import SearchReservationDialog from "./SearchReservationDialog";
+import SearchFineDialog from "./SearchFineDialog";
 
 const stats = [
 	{ title: "Total Books", icon: Book },
@@ -20,6 +34,7 @@ const stats = [
 
 const LibrarianHomeContent = () => {
 	const { data, isPending } = useDashboardHomeLibrarianData();
+	const { profile } = useProfile();
 	return (
 		<>
 			<ContentHeader
@@ -56,22 +71,48 @@ const LibrarianHomeContent = () => {
 					</CardHeader>
 					<CardContent>
 						<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-							<Button className="flex flex-col h-auto py-4 gap-2">
-								<BookOpen className="h-5 w-5" />
-								<span>Loan Book</span>
-							</Button>
-							<Button className="flex flex-col h-auto py-4 gap-2">
-								<Book className="h-5 w-5" />
-								<span>Return Book</span>
-							</Button>
-							<Button className="flex flex-col h-auto py-4 gap-2">
-								<User className="h-5 w-5" />
-								<span>Add Member</span>
-							</Button>
-							<Button className="flex flex-col h-auto py-4 gap-2">
-								<FileText className="h-5 w-5" />
-								<span>Generate Report</span>
-							</Button>
+							{profile && isLibrarianObject(profile) && (
+								<div>
+									<AddLoanDialog
+										trigger={
+											<Button className="flex flex-col h-full w-full py-4 gap-2">
+												<BookOpen className="h-5 w-5" />
+												<span>Loan Book</span>
+											</Button>
+										}
+									/>
+								</div>
+							)}
+							<div>
+								<SearchLoanDialog
+									trigger={
+										<Button className="flex flex-col h-full w-full py-4 gap-2">
+											<Search className="h-5 w-5" />
+											<span>Search Loan</span>
+										</Button>
+									}
+								/>
+							</div>
+						<div>
+								<SearchReservationDialog
+									trigger={
+										<Button className="flex flex-col h-full w-full py-4 gap-2">
+											<Search className="h-5 w-5" />
+											<span>Search Reservation</span>
+										</Button>
+									}
+								/>
+							</div>
+						<div>
+								<SearchFineDialog
+									trigger={
+										<Button className="flex flex-col h-full w-full py-4 gap-2">
+											<Search className="h-5 w-5" />
+											<span>Search Fine</span>
+										</Button>
+									}
+								/>
+							</div>
 						</div>
 					</CardContent>
 				</Card>
