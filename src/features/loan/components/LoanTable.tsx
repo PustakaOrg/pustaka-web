@@ -39,7 +39,7 @@ const LoanTable = ({
 			if (action == "mark-returned") {
 				updateLoan({
 					loanId: loan.id,
-					payload: { status: "returned", return_proceed_by: profile.id },
+					payload: { status: "returned", return_procced_by: profile.id },
 				});
 			}
 
@@ -47,7 +47,7 @@ const LoanTable = ({
 			if (action == "mark-lost") {
 				updateLoan({
 					loanId: loan.id,
-					payload: { status: "lost", return_proceed_by: profile.id },
+					payload: { status: "lost", return_procced_by: profile.id },
 				});
 			}
 

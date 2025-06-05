@@ -2,7 +2,7 @@ import { api } from "~/shared/utils/api";
 import { Loan, LoanStatus } from "~/types/entities/Loan";
 
 export interface PatchLoanPayload {
-	return_proceed_by: string;
+	return_procced_by: string;
 	status: LoanStatus;
 }
 
