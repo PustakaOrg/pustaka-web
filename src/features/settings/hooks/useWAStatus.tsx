@@ -10,7 +10,7 @@ const useWAStatus = () => {
 	} = useQuery({
 		queryKey: ["wa-status"],
 		queryFn: () => getWAStatus(),
-		// refetchInterval: 2000,
+		refetchInterval: 3000,
 	});
 
 	return { waStatus, isPending, isError, error };

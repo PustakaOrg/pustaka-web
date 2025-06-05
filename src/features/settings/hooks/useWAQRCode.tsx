@@ -10,7 +10,7 @@ const useWAQRCode = () => {
 	} = useQuery({
 		queryKey: ["wa-qr"],
 		queryFn: () => getWAQRCode(),
-		// refetchInterval: 2000,
+		refetchInterval: 3000,
 	});
 	return {
 		waQR,
