@@ -29,6 +29,8 @@ import BatchCombobox from "~/features/member/components/BatchCombobox";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { Member } from "~/types/entities/Member";
 import MemberCardPrintDialog from "~/features/member/components/MemberCardPrintDialog";
+import { MemberCSV, memberToCSV } from "~/features/member/types/MemberExport";
+import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
 
 const DashboardMemberPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState(
@@ -67,6 +69,13 @@ const DashboardMemberPage = () => {
 		closeDialog,
 	} = useDialogWithData<Member[]>();
 
+	const {
+		data: memberCSV,
+		isOpen: csvOpen,
+		openDialog: openCSVDialog,
+		closeDialog: closeCSVDialog,
+	} = useDialogWithData<MemberCSV>();
+
 	const handleSelectAll = (checked: boolean) => {
 		if (checked) {
 			setSelectedMembers(memberList?.results.map((book) => book.id) ?? []);
@@ -94,11 +103,17 @@ const DashboardMemberPage = () => {
 	};
 
 	const handleBulkAction = (action: string) => {
+		const bulkMember = memberList?.results.filter((m) =>
+			selectedMembers.includes(m.id),
+		);
 		if (action === "print") {
-			const printMember = memberList?.results.filter((m) =>
-				selectedMembers.includes(m.id),
-			);
-			if (printMember) openDialog(printMember);
+			if (bulkMember) openDialog(bulkMember);
+		}
+		if (action === "export") {
+			if (bulkMember) {
+				const memberCSV = memberToCSV(bulkMember);
+				openCSVDialog(memberCSV);
+			}
 		}
 	};
 
@@ -111,6 +126,13 @@ const DashboardMemberPage = () => {
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
+			{memberCSV && (
+				<ExportCSVDialog
+					data={memberCSV}
+					isOpen={csvOpen}
+					onOpenChange={closeCSVDialog}
+				/>
+			)}
 			{bulkData && (
 				<MemberCardPrintDialog
 					isOpen={isOpen}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
 	Dialog,
 	DialogContent,
+	DialogDescription,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
@@ -42,6 +43,7 @@ const ExportCSVDialog = <T,>({
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>Export Data</DialogTitle>
+					<DialogDescription>Masukkan nama file</DialogDescription>
 				</DialogHeader>
 				<div className="space-y-4">
 					<Input
