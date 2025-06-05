@@ -50,10 +50,10 @@ const BarcodeScannerDrawwer = ({
 							options={{
 								formats: [
 									"qr_code",
-									"upc_e",
-									"upc_a",
-									"itf",
-									"ean_8",
+									// "upc_e",
+									// "upc_a",
+									// "itf",
+									// "ean_8",
 									"ean_13",
 								],
 							}}
