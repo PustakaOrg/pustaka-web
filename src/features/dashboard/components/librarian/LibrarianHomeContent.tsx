@@ -1,7 +1,9 @@
 import {
 	Book,
+	Bookmark,
 	BookOpen,
 	Clock,
+	DollarSign,
 	FileText,
 	Search,
 	User,
@@ -24,6 +26,7 @@ import { isLibrarianObject } from "~/features/auth/utils/util";
 import SearchLoanDialog from "./SearchLoanDialog";
 import SearchReservationDialog from "./SearchReservationDialog";
 import SearchFineDialog from "./SearchFineDialog";
+import useActivityLogs from "../../hooks/useActivityLogs";
 
 const stats = [
 	{ title: "Total Books", icon: Book },
@@ -34,6 +37,7 @@ const stats = [
 
 const LibrarianHomeContent = () => {
 	const { data, isPending } = useDashboardHomeLibrarianData();
+  const {activityLogs} = useActivityLogs()
 	const { profile } = useProfile();
 	return (
 		<>
@@ -61,6 +65,62 @@ const LibrarianHomeContent = () => {
 						);
 					})}
 			</section>
+
+      <section>
+
+
+<Card className="lg:col-span-4">
+	<CardHeader>
+		<CardTitle>Recent Activity</CardTitle>
+		<CardDescription>
+			Latest transactions in your library
+		</CardDescription>
+	</CardHeader>
+	<CardContent>
+		<div className="space-y-4">
+			{activityLogs &&  activityLogs.results.map((activity) => (
+				<div
+					key={activity.created_at}
+					className="flex border rounded-lg p-2 items-center gap-2"
+				>
+					<div
+						className={`rounded-full p-2 ${
+							activity.action === "borrowed"
+								? "bg-blue-100 text-blue-600"
+								: activity.action === "returned"
+								? "bg-green-100 text-green-600"
+								: activity.action === "reserved"
+								? "bg-purple-100 text-purple-600"
+								: activity.action === "payment_done"
+								? "bg-yellow-100 text-yellow-600"
+								: "bg-gray-100 text-gray-600"
+						}`}
+					>
+						{activity.action === "borrowed" ? (
+							<BookOpen className="h-4 w-4" />
+						) : activity.action === "returned" ? (
+							<Book className="h-4 w-4" />
+						) : activity.action === "reserved" ? (
+							<Bookmark className="h-4 w-4" />
+						) : activity.action === "payment_done" ? (
+							<DollarSign className="h-4 w-4" />
+						) : (
+							<User className="h-4 w-4" />
+						)}
+					</div>
+					<div className="flex-1 min-w-0">
+						<p className="text-sm font-medium">{activity.message}</p>
+					</div>
+					<div className="text-xs text-muted-foreground">
+						{new Date(activity.created_at).toLocaleString()}
+					</div>
+				</div>
+			))}
+		</div>
+	</CardContent>
+
+</Card>
+      </section>
 
 			{/* Quick Actions */}
 			<section>
