@@ -14,9 +14,11 @@ import {
 	defaultLoanColumnVisibility,
 	LoanColumnVisibility,
 } from "~/features/loan/type/LoanColumnVisibility";
+import { LoanCSV, toCsvFormat } from "~/features/loan/type/LoanExport";
 import DateRangePickerWithPreset, {
 	DateRange,
 } from "~/shared/components/DateRangePickerWithPreset";
+import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
 import { Pagination } from "~/shared/components/Pagination";
 import SearchQueryInput from "~/shared/components/SearchQueryInput";
 import ShowPerPage from "~/shared/components/ShowPerPage";
@@ -31,6 +33,7 @@ import {
 } from "~/shared/components/ui/card";
 import { Input } from "~/shared/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "~/shared/components/ui/tabs";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { defaultParams } from "~/shared/utils/functions";
 
 const DashboardLoanPage = () => {
@@ -60,6 +63,13 @@ const DashboardLoanPage = () => {
 			created_at_to: format(addDays(dateRange.to, 1), "yyyy-MM-dd"),
 		}),
 	};
+
+	const {
+		data: loanCsv,
+		isOpen,
+		openDialog,
+		closeDialog,
+	} = useDialogWithData<LoanCSV>();
 
 	const [columnVisibility, setColumnVisibility] =
 		useState<LoanColumnVisibility>(defaultLoanColumnVisibility);
@@ -118,12 +128,17 @@ const DashboardLoanPage = () => {
 			setSelectedLoans([]);
 		}
 	};
-  const handleBulkAction = (action: string) => {
-    if(action === "export"){
 
-    }
-
-  }
+	const handleBulkAction = (action: string) => {
+		if (action === "export") {
+			const loanData = loanList?.results.filter((l) =>
+				selectedLoans.includes(l.id),
+			);
+			if (!loanData) return;
+			const loanCsv = toCsvFormat(loanData);
+			openDialog(loanCsv);
+		}
+	};
 
 	const handleTabChange = (value: string) => {
 		setSearchParams((prev) => {
@@ -157,6 +172,14 @@ const DashboardLoanPage = () => {
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
+			{loanCsv && (
+				<ExportCSVDialog
+					data={loanCsv}
+					isOpen={isOpen}
+					onOpenChange={closeDialog}
+          defaulFileName="Loan"
+				/>
+			)}
 			<ContentHeader title="Loans" subtitle="Manage book loans and returns." />
 
 			{/* Stats */}
@@ -276,10 +299,10 @@ const DashboardLoanPage = () => {
 							<SearchQueryInput placeholder="Search Loan" />
 						</div>
 					</div>
-          <LoanBulkActionBar
-            selectedCount={selectedLoans.length}
-            onAction={handleBulkAction}
-            />
+					<LoanBulkActionBar
+						selectedCount={selectedLoans.length}
+						onAction={handleBulkAction}
+					/>
 
 					<Tabs
 						defaultValue={loanListParams.status}
