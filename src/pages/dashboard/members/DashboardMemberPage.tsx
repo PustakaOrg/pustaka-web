@@ -131,6 +131,7 @@ const DashboardMemberPage = () => {
 					data={memberCSV}
 					isOpen={csvOpen}
 					onOpenChange={closeCSVDialog}
+          defaulFileName="Member"
 				/>
 			)}
 			{bulkData && (

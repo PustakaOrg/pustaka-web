@@ -11,9 +11,11 @@ import {
 	defaultFineColumnVisibility,
 	FineColumnVisibility,
 } from "~/features/fines/types/ColumnVisibility";
+import { FineCSV, fineToCSV } from "~/features/fines/types/FineCSV";
 import DateRangePickerWithPreset, {
 	DateRange,
 } from "~/shared/components/DateRangePickerWithPreset";
+import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
 import { Pagination } from "~/shared/components/Pagination";
 import SearchQueryInput from "~/shared/components/SearchQueryInput";
 import ShowPerPage from "~/shared/components/ShowPerPage";
@@ -26,6 +28,7 @@ import {
 	CardTitle,
 } from "~/shared/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "~/shared/components/ui/tabs";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { defaultParams, formatToIDR } from "~/shared/utils/functions";
 import { PaymentStatus } from "~/types/entities/Payment";
 
@@ -42,7 +45,7 @@ const DashboardFinesPage = () => {
 
 	const fineListParams: FinesListParams = {
 		q: searchParams.get("q") ?? undefined,
-    status: searchParams.get("status") as PaymentStatus ?? undefined,
+		status: (searchParams.get("status") as PaymentStatus) ?? undefined,
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
 		offset: searchParams.get("offset")
 			? Number(searchParams.get("offset"))
@@ -69,6 +72,13 @@ const DashboardFinesPage = () => {
 			created_at_to: format(addDays(dateRange.to, 1), "yyyy-MM-dd"),
 		}),
 	});
+
+	const {
+		data: fineCSV,
+		isOpen,
+		openDialog,
+		closeDialog,
+	} = useDialogWithData<FineCSV>();
 
 	const summary = allFineList?.results.reduce(
 		(acc, fine) => {
@@ -118,7 +128,14 @@ const DashboardFinesPage = () => {
 	};
 
 	const handleBulkAction = (action: string) => {
+		const bulkFine = fineList?.results.filter((f) =>
+			selectedFines.includes(f.id),
+		);
 		if (action === "export") {
+			if (bulkFine) {
+				const fineCSV = fineToCSV(bulkFine);
+				openDialog(fineCSV);
+			}
 		}
 	};
 
@@ -154,6 +171,14 @@ const DashboardFinesPage = () => {
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
+			{fineCSV && (
+				<ExportCSVDialog
+					data={fineCSV}
+					isOpen={isOpen}
+					onOpenChange={closeDialog}
+					defaulFileName="Fines"
+				/>
+			)}
 			<ContentHeader title="Fines" subtitle="Manage fines" />
 
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -259,7 +284,6 @@ const DashboardFinesPage = () => {
 						selectedCount={selectedFines.length}
 						onAction={handleBulkAction}
 					/>
-
 
 					<Tabs
 						defaultValue={fineListParams.status}

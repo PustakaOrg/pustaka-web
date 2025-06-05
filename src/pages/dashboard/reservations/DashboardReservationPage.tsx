@@ -11,10 +11,15 @@ import {
 	defaultColumnVisibility,
 	ReservationColumnVisibility,
 } from "~/features/reservation/type/ReservationColumnVisibility";
+import {
+	ReservationCSV,
+	reservationToCSV,
+} from "~/features/reservation/type/ReservationExport";
 import { ReservationListParams } from "~/features/reservation/type/ReservationListParams";
 import DateRangePickerWithPreset, {
 	DateRange,
 } from "~/shared/components/DateRangePickerWithPreset";
+import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
 import { Pagination } from "~/shared/components/Pagination";
 import SearchQueryInput from "~/shared/components/SearchQueryInput";
 import ShowPerPage from "~/shared/components/ShowPerPage";
@@ -27,6 +32,7 @@ import {
 	CardTitle,
 } from "~/shared/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "~/shared/components/ui/tabs";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { defaultParams } from "~/shared/utils/functions";
 import { ReservationStatus } from "~/types/entities/Reservation";
 
@@ -75,6 +81,13 @@ const DashboardReservationPage = () => {
 		}),
 	});
 
+	const {
+		data: reservCSV,
+		isOpen,
+		openDialog,
+		closeDialog,
+	} = useDialogWithData<ReservationCSV>();
+
 	const summary = allReservation?.results.reduce(
 		(acc, reservation) => {
 			acc.total_all += 1;
@@ -117,7 +130,14 @@ const DashboardReservationPage = () => {
 	};
 
 	const handleBulkAction = (action: string) => {
+		const bulkReserv = reservationList?.results.filter((r) =>
+			selectedReservations.includes(r.id),
+		);
 		if (action === "export") {
+			if (bulkReserv) {
+				const reservCSV = reservationToCSV(bulkReserv);
+				openDialog(reservCSV);
+			}
 		}
 	};
 	const handleTabChange = (value: string) => {
@@ -149,12 +169,16 @@ const DashboardReservationPage = () => {
 		setSearchParams(searchParams);
 	}, [dateRange, setSearchParams]);
 
-	useEffect(() => {
-		console.log(searchParams.get("limit"));
-	}, [searchParams]);
-
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
+			{reservCSV && (
+				<ExportCSVDialog
+					data={reservCSV}
+					isOpen={isOpen}
+					onOpenChange={closeDialog}
+          defaulFileName="Reservasi"
+				/>
+			)}
 			<ContentHeader title="Reservation" subtitle="Manage book reservations." />
 
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

@@ -2,11 +2,11 @@ import { format } from "date-fns";
 import { FormEvent, useState } from "react";
 import BookCombobox from "~/features/catalog/components/BookCombobox";
 import MemberCombobox from "~/features/member/components/MemberCombobox";
+import useSettings from "~/features/settings/hooks/useSettings";
 import DatePickerWithPreset from "~/shared/components/DatePickerWithPreset";
 import { Button } from "~/shared/components/ui/button";
 import { Input } from "~/shared/components/ui/input";
 import { Label } from "~/shared/components/ui/label";
-import { Loan } from "~/types/entities/Loan";
 import { Reservation } from "~/types/entities/Reservation";
 interface ReservationFormProps {
 	defaultValues?: Reservation;
@@ -19,6 +19,7 @@ const ReservationForm = ({
 	const [book, setBook] = useState(defaultValues?.book.id ?? "");
 	const [member, setMember] = useState(defaultValues?.reservant.id ?? "");
 	const [date, setDate] = useState<Date>();
+	const { settings } = useSettings();
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -57,7 +58,13 @@ const ReservationForm = ({
 						<Label htmlFor="day" className="text-sm font-medium">
 							Day For Loan*
 						</Label>
-						<Input type="number" name="day" max={7} placeholder="Day long" />
+						<Input
+							type="number"
+							name="day"
+							max={settings?.max_loan_day}
+							placeholder="Day long"
+							required
+						/>
 					</div>
 				</div>
 
