@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
 import AddReservationDialog from "~/features/reservation/components/AddReservationDialog";
+import ReservationBulkActionBar from "~/features/reservation/components/ReservationBulkActionBar";
 import ReservationTable from "~/features/reservation/components/ReservationTable";
 import useReservationList from "~/features/reservation/hooks/useReservationList";
 import {
@@ -46,7 +47,7 @@ const DashboardReservationPage = () => {
 	});
 	const reservationListParams: ReservationListParams = {
 		status: (searchParams.get("status") as ReservationStatus) ?? undefined,
-    q: searchParams.get("q") ?? undefined,
+		q: searchParams.get("q") ?? undefined,
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
 		offset: searchParams.get("offset")
 			? Number(searchParams.get("offset"))
@@ -112,6 +113,11 @@ const DashboardReservationPage = () => {
 			setSelectedReservations(reservationList!.results.map((loan) => loan.id));
 		} else {
 			setSelectedReservations([]);
+		}
+	};
+
+	const handleBulkAction = (action: string) => {
+		if (action === "export") {
 		}
 	};
 	const handleTabChange = (value: string) => {
@@ -258,10 +264,14 @@ const DashboardReservationPage = () => {
 								<ShowPerPage />
 							</div>
 						</div>
-            <div>
-            <SearchQueryInput placeholder="Search Reservation" />
-            </div>
+						<div>
+							<SearchQueryInput placeholder="Search Reservation" />
+						</div>
 					</div>
+					<ReservationBulkActionBar
+						selectedCount={selectedReservations.length}
+						onAction={handleBulkAction}
+					/>
 					<Tabs
 						defaultValue={reservationListParams.status}
 						onValueChange={handleTabChange}

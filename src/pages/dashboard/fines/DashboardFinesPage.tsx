@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
 import { FinesListParams } from "~/features/fines/api/getFines";
+import FineBulkActionBar from "~/features/fines/components/FineBulkActionBar";
 import FineTable from "~/features/fines/components/FineTable";
 import useFineList from "~/features/fines/hooks/useFineList";
 import {
@@ -24,7 +25,9 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/shared/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "~/shared/components/ui/tabs";
 import { defaultParams, formatToIDR } from "~/shared/utils/functions";
+import { PaymentStatus } from "~/types/entities/Payment";
 
 const DashboardFinesPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -39,6 +42,7 @@ const DashboardFinesPage = () => {
 
 	const fineListParams: FinesListParams = {
 		q: searchParams.get("q") ?? undefined,
+    status: searchParams.get("status") as PaymentStatus ?? undefined,
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
 		offset: searchParams.get("offset")
 			? Number(searchParams.get("offset"))
@@ -113,6 +117,11 @@ const DashboardFinesPage = () => {
 		}
 	};
 
+	const handleBulkAction = (action: string) => {
+		if (action === "export") {
+		}
+	};
+
 	const handleOffsetChange = (newOffset: number) => {
 		setSearchParams((prev) => {
 			prev.set("offset", String(newOffset));
@@ -135,6 +144,13 @@ const DashboardFinesPage = () => {
 
 		setSearchParams(searchParams);
 	}, [dateRange, setSearchParams]);
+
+	const handleTabChange = (value: string) => {
+		setSearchParams((prev) => {
+			prev.set("status", value);
+			return prev;
+		});
+	};
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
@@ -239,6 +255,22 @@ const DashboardFinesPage = () => {
 							<SearchQueryInput placeholder="Search Fines" />
 						</div>
 					</div>
+					<FineBulkActionBar
+						selectedCount={selectedFines.length}
+						onAction={handleBulkAction}
+					/>
+
+
+					<Tabs
+						defaultValue={fineListParams.status}
+						onValueChange={handleTabChange}
+					>
+						<TabsList className="grid w-full  grid-cols-3">
+							<TabsTrigger value="">All Status</TabsTrigger>
+							<TabsTrigger value="pending">Pending</TabsTrigger>
+							<TabsTrigger value="done">Done</TabsTrigger>
+						</TabsList>
+					</Tabs>
 
 					{fineList && (
 						<FineTable

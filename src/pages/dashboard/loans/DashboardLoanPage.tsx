@@ -7,6 +7,7 @@ import { isLibrarianObject } from "~/features/auth/utils/util";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
 import { LoanListParams } from "~/features/loan/api/getLoans";
 import AddLoanDialog from "~/features/loan/components/AddLoanDialog";
+import LoanBulkActionBar from "~/features/loan/components/LoanBulkActionBar";
 import LoanTable from "~/features/loan/components/LoanTable";
 import useLoanList from "~/features/loan/hooks/useLoanList";
 import {
@@ -117,6 +118,12 @@ const DashboardLoanPage = () => {
 			setSelectedLoans([]);
 		}
 	};
+  const handleBulkAction = (action: string) => {
+    if(action === "export"){
+
+    }
+
+  }
 
 	const handleTabChange = (value: string) => {
 		setSearchParams((prev) => {
@@ -269,6 +276,10 @@ const DashboardLoanPage = () => {
 							<SearchQueryInput placeholder="Search Loan" />
 						</div>
 					</div>
+          <LoanBulkActionBar
+            selectedCount={selectedLoans.length}
+            onAction={handleBulkAction}
+            />
 
 					<Tabs
 						defaultValue={loanListParams.status}
