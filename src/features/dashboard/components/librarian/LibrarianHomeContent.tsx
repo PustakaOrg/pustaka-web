@@ -77,7 +77,7 @@ const LibrarianHomeContent = () => {
 		</CardDescription>
 	</CardHeader>
 	<CardContent>
-		<div className="space-y-4">
+		<div className="space-y-4 max-h-[200px] overflow-y-scroll">
 			{activityLogs &&  activityLogs.results.map((activity) => (
 				<div
 					key={activity.created_at}
