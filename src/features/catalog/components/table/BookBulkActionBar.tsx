@@ -14,13 +14,11 @@ import { Button } from "~/shared/components/ui/button";
 
 interface BookBulkActionsBarProps {
 	selectedCount: number;
-	onBulkExport: () => void;
-	onBulkDelete: () => void;
+	onAction: (action: string) => void;
 }
 const BookBulkActionBar = ({
 	selectedCount,
-	onBulkExport,
-	onBulkDelete,
+	onAction,
 }: BookBulkActionsBarProps) => {
 	if (selectedCount === 0) return null;
 
@@ -30,36 +28,36 @@ const BookBulkActionBar = ({
 				{selectedCount} book{selectedCount > 1 ? "s" : ""} selected
 			</span>
 			<div className="flex gap-2 ml-auto">
-				<Button variant="outline" size="sm" onClick={onBulkExport}>
+				<Button variant="outline" size="sm" onClick={() => onAction("export")}>
 					<Download className="h-4 w-4 mr-2" />
 					Export
 				</Button>
-				<AlertDialog>
-					<AlertDialogTrigger asChild>
-						<Button variant="destructive" size="sm">
-							<Trash2 className="h-4 w-4 mr-2" />
-							Delete
-						</Button>
-					</AlertDialogTrigger>
-					<AlertDialogContent>
-						<AlertDialogHeader>
-							<AlertDialogTitle>Are you sure?</AlertDialogTitle>
-							<AlertDialogDescription>
-								This will permanently delete {selectedCount} book
-								{selectedCount > 1 ? "s" : ""}. This action cannot be undone.
-							</AlertDialogDescription>
-						</AlertDialogHeader>
-						<AlertDialogFooter>
-							<AlertDialogCancel>Cancel</AlertDialogCancel>
-							<AlertDialogAction
-								onClick={onBulkDelete}
-								className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-							>
-								Delete
-							</AlertDialogAction>
-						</AlertDialogFooter>
-					</AlertDialogContent>
-				</AlertDialog>
+				{/* <AlertDialog> */}
+				{/* 	<AlertDialogTrigger asChild> */}
+				{/* 		<Button variant="destructive" size="sm"> */}
+				{/* 			<Trash2 className="h-4 w-4 mr-2" /> */}
+				{/* 			Delete */}
+				{/* 		</Button> */}
+				{/* 	</AlertDialogTrigger> */}
+				{/* 	<AlertDialogContent> */}
+				{/* 		<AlertDialogHeader> */}
+				{/* 			<AlertDialogTitle>Are you sure?</AlertDialogTitle> */}
+				{/* 			<AlertDialogDescription> */}
+				{/* 				This will permanently delete {selectedCount} book */}
+				{/* 				{selectedCount > 1 ? "s" : ""}. This action cannot be undone. */}
+				{/* 			</AlertDialogDescription> */}
+				{/* 		</AlertDialogHeader> */}
+				{/* 		<AlertDialogFooter> */}
+				{/* 			<AlertDialogCancel>Cancel</AlertDialogCancel> */}
+				{/* 			<AlertDialogAction */}
+				{/* 				onClick={onBulkDelete} */}
+				{/* 				className="bg-destructive text-destructive-foreground hover:bg-destructive/90" */}
+				{/* 			> */}
+				{/* 				Delete */}
+				{/* 			</AlertDialogAction> */}
+				{/* 		</AlertDialogFooter> */}
+				{/* 	</AlertDialogContent> */}
+				{/* </AlertDialog> */}
 			</div>
 		</div>
 	);

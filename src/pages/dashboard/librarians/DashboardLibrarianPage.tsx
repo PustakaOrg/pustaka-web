@@ -3,12 +3,18 @@ import { useSearchParams } from "react-router";
 import ContentHeader from "~/features/dashboard/components/ContentHeader";
 import { LibrarianListParams } from "~/features/librarian/api/getLibrarians";
 import AddLibrarianDialog from "~/features/librarian/components/AddLibrarianDialog";
+import LibrarianBulkActionBar from "~/features/librarian/components/LibrarianBulkActionBar";
 import LibrarianTable from "~/features/librarian/components/LibrarianTable";
 import useLibrarianList from "~/features/librarian/hooks/useLibrarianList";
 import {
 	defaultColumnVisibility,
 	LibrarianColumnVisibility,
 } from "~/features/librarian/type/LibrarianColumnVisibility";
+import {
+	LibrarianCSV,
+	librarianToCSV,
+} from "~/features/librarian/type/LibrarianCSV";
+import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
 import { Pagination } from "~/shared/components/Pagination";
 import {
 	Card,
@@ -18,6 +24,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/shared/components/ui/card";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { defaultParams } from "~/shared/utils/functions";
 
 const DashboardLibrarianPage = () => {
@@ -37,6 +44,13 @@ const DashboardLibrarianPage = () => {
 	const [columnVisibility, setColumnVisibility] =
 		useState<LibrarianColumnVisibility>(defaultColumnVisibility);
 
+	const {
+		data: librarianCSV,
+		isOpen,
+		openDialog,
+		closeDialog,
+	} = useDialogWithData<LibrarianCSV>();
+
 	const handleSelectAll = (checked: boolean) => {
 		if (checked) {
 			setSelectedLibrarians(
@@ -55,6 +69,18 @@ const DashboardLibrarianPage = () => {
 		}
 	};
 
+	const handleBulkAction = (action: string) => {
+		const bulkLibrarian = librarianList?.results.filter((l) =>
+			selectedLibrarians.includes(l.id),
+		);
+		if (action === "export") {
+			if (bulkLibrarian) {
+				const libraCsv = librarianToCSV(bulkLibrarian);
+				openDialog(libraCsv);
+			}
+		}
+	};
+
 	const handleOffsetChange = useCallback((newOffset: number) => {
 		setSearchParams((prev) => {
 			prev.set("offset", String(newOffset));
@@ -63,7 +89,15 @@ const DashboardLibrarianPage = () => {
 	}, []);
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
+			{librarianCSV && (
+				<ExportCSVDialog
+					data={librarianCSV}
+					isOpen={isOpen}
+					onOpenChange={closeDialog}
+				/>
+			)}
 			<ContentHeader title="Librarians" subtitle="Manage librarians" />
+
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
@@ -72,11 +106,17 @@ const DashboardLibrarianPage = () => {
 							{librarianList?.results.length} books found
 						</CardDescription>
 					</div>
-          <div>
-          <AddLibrarianDialog />
-          </div>
+					<div>
+						<AddLibrarianDialog />
+					</div>
 				</CardHeader>
 				<CardContent className="space-y-2">
+					{selectedLibrarians.length > 0 && (
+						<LibrarianBulkActionBar
+							selectedCount={selectedLibrarians.length}
+							onAction={handleBulkAction}
+						/>
+					)}
 					{librarianList && (
 						<LibrarianTable
 							librarianList={librarianList}

@@ -25,11 +25,13 @@ import { FormEvent, useCallback, useState } from "react";
 import { Pagination } from "~/shared/components/Pagination";
 import { Input } from "~/shared/components/ui/input";
 import { Search } from "lucide-react";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
+import { BookCSV, bookToCSV } from "~/features/catalog/types/BookCSV";
+import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
 
 const DashboardBookPage = () => {
-	const [columnVisibility, setColumnVisibility] = useState<BookColumnVisibility>(
-		defaultColumnVisibility,
-	);
+	const [columnVisibility, setColumnVisibility] =
+		useState<BookColumnVisibility>(defaultColumnVisibility);
 
 	const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -47,6 +49,13 @@ const DashboardBookPage = () => {
 	const { bookList, isPending } = useBookList(
 		defaultParams<BookListParams>(bookListParams),
 	);
+
+	const {
+		data: bookCsv,
+		isOpen,
+		openDialog,
+		closeDialog,
+	} = useDialogWithData<BookCSV>();
 
 	const toggleColumn = (column: keyof BookColumnVisibility) => {
 		setColumnVisibility((prev) => ({
@@ -105,16 +114,21 @@ const DashboardBookPage = () => {
 		}
 	};
 
-	const handleBulkDelete = () => {
-		setSelectedBooks([]);
-	};
-
-	const handleBulkExport = () => {
-		console.log("Bulk export books:", selectedBooks);
+	const handleBulkAction = (action: string) => {
+		const bulkBook = bookList?.results.filter((b) =>
+			selectedBooks.includes(b.id),
+		);
+		if (action === "export") {
+			if (bulkBook) {
+				const bookCsv = bookToCSV(bulkBook);
+				openDialog(bookCsv);
+			}
+		}
 	};
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
+    {bookCsv && <ExportCSVDialog data={bookCsv} isOpen={isOpen} onOpenChange={closeDialog} defaulFileName="Book" />}
 			<ContentHeader
 				title="Books"
 				subtitle="Manage your library's book collection."
@@ -141,7 +155,7 @@ const DashboardBookPage = () => {
 									type="text"
 									placeholder="Search title, or ISBN..."
 									className="w-full pl-9 pr-4"
-                  defaultValue={searchParams.get("?") ?? undefined}
+									defaultValue={searchParams.get("?") ?? undefined}
 									name="q"
 								/>
 								<button hidden type="submit">
@@ -159,8 +173,7 @@ const DashboardBookPage = () => {
 
 					<BookBulkActionBar
 						selectedCount={selectedBooks.length}
-						onBulkExport={handleBulkExport}
-						onBulkDelete={handleBulkDelete}
+						onAction={handleBulkAction}
 					/>
 
 					{bookList && (
