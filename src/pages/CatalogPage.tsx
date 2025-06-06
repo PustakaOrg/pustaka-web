@@ -45,31 +45,27 @@ const CatalogPage = () => {
 		});
 	}, []);
 
-	const handleFilterApply = useCallback((e: FormEvent<HTMLFormElement>) => {
+	const handleFilterApply = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		const formData = new FormData(e.currentTarget);
 		const available = formData.has("available");
-		const published_year = formData.get("published_year[]");
-		formData.delete("available");
-		formData.delete("published_year[]");
-		const categories = formData.keys();
+		const categories = formData.getAll("category");
 
 		setSearchParams((prev) => {
 			if (available) prev.set("available", String(available));
 			else prev.delete("available");
 
-			// prev.set("publish_year", String(published_year));
 			while (prev.has("category")) {
 				prev.delete("category");
 			}
 			for (const category of categories) {
-				prev.append("category", category);
+				prev.append("category", category as string);
 			}
 
 			return prev;
 		});
-	}, []);
+	};
 
 	return (
 		<main className="flex">
@@ -77,7 +73,7 @@ const CatalogPage = () => {
 				<div className="mb-6">
 					<h1 className="text-3xl font-bold tracking-tight">Katalog Buku</h1>
 					<p className="text-muted-foreground">
-          Cari koleksi buku yang ada diperpustakaan.
+						Cari koleksi buku yang ada diperpustakaan.
 					</p>
 				</div>
 				<SearchBar
@@ -85,12 +81,13 @@ const CatalogPage = () => {
 					initialQuery={bookListParams.q ?? ""}
 				/>
 
-				<div className="flex gap-6">
-					<section className="hidden lg:block lg:basis-1/4">
-						<SideFilter onFilterApply={handleFilterApply} />
+				<div className="flex gap-6 relative">
+					<section className="hidden lg:block min-w-[200px] relative">
+						<div className="sticky top-20">
+							<SideFilter onFilterApply={handleFilterApply} />
+						</div>
 					</section>
 
-					{/* Book Grid */}
 					<div className="grow">
 						<section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 							{isPending && <p>Loading...</p>}

@@ -18,7 +18,7 @@ const SideFilter = ({ onFilterApply }: SideFilterProps) => {
       <div >
         <form onSubmit={onFilterApply} className="space-y-6">
           <div>
-            <h3 className="mb-2 text-lg font-semibold">Categories</h3>
+            <h3 className="mb-2 text-lg font-semibold">Kategori</h3>
             <div className="space-y-2 grid-cols-2">
               {categories?.map((category, index) => (
                 <div key={index} className="flex items-center space-x-2">
@@ -35,7 +35,7 @@ const SideFilter = ({ onFilterApply }: SideFilterProps) => {
           </div>
 
           <div>
-            <h3 className="mb-2 text-lg font-semibold">Availability</h3>
+            <h3 className="mb-2 text-lg font-semibold">Tersedia</h3>
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <Checkbox id="available" name="available" />
@@ -43,7 +43,7 @@ const SideFilter = ({ onFilterApply }: SideFilterProps) => {
                   htmlFor="available"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Available Now
+                  Tersedia sekarang
                 </label>
               </div>
             </div>
