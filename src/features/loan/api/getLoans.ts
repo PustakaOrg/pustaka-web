@@ -4,7 +4,7 @@ import { Loan, LoanStatus } from "~/types/entities/Loan";
 import { PaginatedResponse } from "~/types/responses";
 
 export type LoanListParams = Partial<{
-	status: string;
+	status: LoanStatus;
   q: string;
 }> & BaseListParams;
 export const getLoans = (params?: LoanListParams) => {
