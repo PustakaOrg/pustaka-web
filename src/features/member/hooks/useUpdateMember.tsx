@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchMember } from "../api/patchMember";
 
 const useUpdateMember = () => {
-  const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 	const {
 		data: updatedMember,
 		isPending,
@@ -17,6 +17,7 @@ const useUpdateMember = () => {
 			queryClient.refetchQueries({ queryKey: ["members"] });
 			queryClient.refetchQueries({ queryKey: ["member"] });
 			queryClient.refetchQueries({ queryKey: ["search-members"] });
+			queryClient.refetchQueries({ queryKey: ["profile"] });
 		},
 	});
 

@@ -42,21 +42,27 @@ const LoginForm = () => {
 			<div className="grid gap-6">
 				<div className="grid gap-2">
 					<Label htmlFor="email">Email</Label>
-					<Input className="border-black-800" id="email" type="email" name="email" placeholder="m@example.com" required />
+					<Input
+						className="border-black-800"
+						id="email"
+						type="email"
+						name="email"
+						placeholder="m@example.com"
+						required
+					/>
 				</div>
 				<div className="grid gap-2">
-					<div className="flex items-center">
-						<Label htmlFor="password">Password</Label>
-						<a
-							href="#"
-							className="ml-auto text-sm underline-offset-4 hover:underline"
-						>
-							Forgot your password?
-						</a>
-					</div>
-					<Input className="border-black-800" id="password" type="password" name="password" required />
+					<Input
+						className="border-black-800"
+						id="password"
+						type="password"
+						name="password"
+						required
+					/>
 				</div>
-        {error && <p className="text-destructive text-xs">{error.data.detail}</p>}
+				{error && (
+					<p className="text-destructive text-xs">{error.data.detail}</p>
+				)}
 				<Button type="submit" className="w-full">
 					Login
 				</Button>

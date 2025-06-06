@@ -1,8 +1,4 @@
-import {
-	LogOutIcon,
-	MoreVerticalIcon,
-	UserCircleIcon,
-} from "lucide-react";
+import { LogOutIcon, MoreVerticalIcon, UserCircleIcon } from "lucide-react";
 import { useNavigate } from "react-router";
 import useLogout from "~/features/auth/hooks/useLogout";
 import {
@@ -36,7 +32,7 @@ const NavUser = ({
 }) => {
 	const { isMobile } = useSidebar();
 	const logout = useLogout();
-  const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	return (
 		<SidebarMenu>
@@ -80,19 +76,25 @@ const NavUser = ({
 								</div>
 							</div>
 						</DropdownMenuLabel>
+						<DropdownMenuItem
+							className="cursor-pointer"
+							onClick={() => navigate("/dashboard/profile")}
+						>
+							<UserCircleIcon />
+							Account
+						</DropdownMenuItem>
 						<DropdownMenuSeparator />
-							<DropdownMenuItem className="cursor-pointer" onClick={()=>navigate("/dashboard/profile")}>
-								<UserCircleIcon />
-								Account
-							</DropdownMenuItem>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem variant="destructive" onClick={logout} className="cursor-pointer hover:bg-destructive text-destructive ">
-							<LogOutIcon className="text-destructive"/>
+						<DropdownMenuItem
+							variant="destructive"
+							onClick={logout}
+							className="cursor-pointer hover:bg-destructive text-destructive "
+						>
+							<LogOutIcon className="text-destructive" />
 							Log out
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
-			</SidebarMenuItem>	
+			</SidebarMenuItem>
 		</SidebarMenu>
 	);
 };

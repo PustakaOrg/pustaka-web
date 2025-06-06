@@ -1,5 +1,5 @@
 import { Save } from "lucide-react";
-import React, { FormEvent } from "react";
+import { FormEvent } from "react";
 import useProfile from "~/features/auth/hooks/useProfile";
 import {
 	isAdminObject,
@@ -11,8 +11,12 @@ import useUpdateMember from "~/features/member/hooks/useUpdateMember";
 import { Button } from "~/shared/components/ui/button";
 import { Input } from "~/shared/components/ui/input";
 import { Label } from "~/shared/components/ui/label";
-import { Librarian } from "~/types/entities/Librarian";
 import { Member } from "~/types/entities/Member";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+} from "~/shared/components/ui/avatar";
 
 const ProfilePage = () => {
 	const { profile } = useProfile();
@@ -25,7 +29,10 @@ const ProfilePage = () => {
 			<section>
 				{profile ? (
 					isMemberObject(profile) ? (
-						<MemberProfileForm profile={profile} />
+						<>
+
+							<MemberProfileForm profile={profile} />
+						</>
 					) : isLibrarianObject(profile) ? (
 						<p>Librarian</p>
 					) : (
@@ -42,30 +49,49 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 interface MemberProfileFormProps {
-	profile: Librarian;
+	profile: Member;
 }
 
 const MemberProfileForm = ({ profile }: MemberProfileFormProps) => {
-  const {updateMember} = useUpdateMember()
-
-
+	const { updateMember } = useUpdateMember();
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const form = new FormData(e.currentTarget)
+		e.preventDefault();
+		const form = new FormData(e.currentTarget);
+		const profile_pic = form.get("profile_picture") as File | null;
 
+		const password = String(form.get("account.password"));
 
+		if (!profile_pic) {
+			form.delete("profile_picture");
+		}
 
-
-
-
-  };
+		if (password === "") {
+			form.delete("account.password");
+		}
+		updateMember({ memberId: profile.id, data: form });
+	};
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className="flex">
 				<div className="basis-1/6 grow-0 p-6">
-					<div className="size-32 bg-green-50"></div>
+					<Avatar className="size-40 border">
+						<AvatarImage src={profile.profile_picture} alt="Profile" />
+						<AvatarFallback>M</AvatarFallback>
+					</Avatar>
 				</div>
+
 				<div className="flex flex-col grow space-y-4">
+					<div className="space-y-2">
+						<Label htmlFor="name">Ubah Foto</Label>
+						<Input
+							type="file"
+							accept="image/*"
+							name="profile_picture"
+							placeholder="ubah foto"
+						/>
+					</div>
+
 					<div className="space-y-2">
 						<Label htmlFor="name">Nama Lengkap</Label>
 						<Input defaultValue={profile.account.fullname} disabled />
@@ -75,10 +101,17 @@ const MemberProfileForm = ({ profile }: MemberProfileFormProps) => {
 						<Label>Email</Label>
 						<Input defaultValue={profile.account.email} disabled />
 					</div>
+
 					<div className="space-y-2">
 						<Label>No Handphone</Label>
-						<Input name="phone_number" defaultValue={profile.phone_number} />
+						<Input
+							name="phone_number"
+							defaultValue={profile.phone_number}
+							type="number"
+							required
+						/>
 					</div>
+
 					<div className="space-y-2">
 						<Label>Ubah Password</Label>
 						<Input name="account.password" type="password" />
