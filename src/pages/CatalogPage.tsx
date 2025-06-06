@@ -16,9 +16,7 @@ const CatalogPage = () => {
 		q: searchParams.get("q") ?? undefined,
 		available: searchParams.has("available") ? "true" : undefined,
 		category: searchParams.getAll("category"),
-		limit: searchParams.get("limit")
-			? Number(searchParams.get("limit"))
-			: 8,
+		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 8,
 		offset: searchParams.get("offset")
 			? Number(searchParams.get("offset"))
 			: undefined,
@@ -74,47 +72,53 @@ const CatalogPage = () => {
 	}, []);
 
 	return (
-    <main className="flex">
-      <div className="px-4 py-6 md:px-6 grow ">
-        <SearchBar
-          onSearchSubmit={handleSearchSubmit}
-          initialQuery={bookListParams.q ?? ""}
-        />
+		<main className="flex">
+			<div className="px-4 py-6 md:px-6 grow ">
+				<div className="mb-6">
+					<h1 className="text-3xl font-bold tracking-tight">Katalog Buku</h1>
+					<p className="text-muted-foreground">
+          Cari koleksi buku yang ada diperpustakaan.
+					</p>
+				</div>
+				<SearchBar
+					onSearchSubmit={handleSearchSubmit}
+					initialQuery={bookListParams.q ?? ""}
+				/>
 
-        <div className="flex gap-6">
-          <section className="hidden lg:block lg:basis-1/4">
-            <SideFilter onFilterApply={handleFilterApply} />
-          </section>
+				<div className="flex gap-6">
+					<section className="hidden lg:block lg:basis-1/4">
+						<SideFilter onFilterApply={handleFilterApply} />
+					</section>
 
-          {/* Book Grid */}
-          <div className="grow">
-            <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {isPending && <p>Loading...</p>}
-              {bookList && bookList.count === 0 && (
-                <p className="col-span-full text-center">
-                  No Books Found find Another One
-                </p>
-              )}
-              {bookList && !isPending && bookList.results.length > 0 && (
-                <BookCardList books={bookList.results} />
-              )}
-            </section>
+					{/* Book Grid */}
+					<div className="grow">
+						<section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+							{isPending && <p>Loading...</p>}
+							{bookList && bookList.count === 0 && (
+								<p className="col-span-full text-center">
+									No Books Found find Another One
+								</p>
+							)}
+							{bookList && !isPending && bookList.results.length > 0 && (
+								<BookCardList books={bookList.results} />
+							)}
+						</section>
 
-            {bookList && (
-              <section className="mt-8 flex items-center justify-center space-x-2">
-                <Pagination
-                  totalCount={bookList.count}
-                  limit={bookListParams.limit}
-                  offset={bookListParams.offset ?? 0}
-                  onOffsetChange={handleOffsetChange}
-                />
-              </section>
-            )}
-          </div>
-        </div>
-      </div>
-    </main>
-  );
+						{bookList && (
+							<section className="mt-8 flex items-center justify-center space-x-2">
+								<Pagination
+									totalCount={bookList.count}
+									limit={bookListParams.limit}
+									offset={bookListParams.offset ?? 0}
+									onOffsetChange={handleOffsetChange}
+								/>
+							</section>
+						)}
+					</div>
+				</div>
+			</div>
+		</main>
+	);
 };
 
 export default CatalogPage;

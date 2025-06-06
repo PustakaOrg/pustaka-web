@@ -7,15 +7,11 @@ const destinations = [
 	},
 	{
 		to: "/catalog",
-		name: "Catalog",
+		name: "Katalog",
 	},
 	{
 		to: "/about",
 		name: "About",
-	},
-	{
-		to: "/contact",
-		name: "Contact",
 	},
 ];
 

@@ -1,4 +1,6 @@
-import { BookMarked, Clock } from "lucide-react";
+import { BookMarked, CircleX, Clock } from "lucide-react";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isMemberObject } from "~/features/auth/utils/util";
 import { Badge } from "~/shared/components/ui/badge";
 import { Button } from "~/shared/components/ui/button";
 import { Card, CardContent, CardFooter } from "~/shared/components/ui/card";
@@ -8,11 +10,10 @@ interface BookCardProps {
 	book: Book;
 }
 
-// TODO: Bug book author, category
-
 const BookCard = ({ book }: BookCardProps) => {
+	const { profile } = useProfile();
 	return (
-		<Card className="overflow-hidden">
+		<Card className="overflow-hidden w-full h-full">
 			<div className="relative">
 				<img
 					src={book.img || "/placeholder.svg"}
@@ -29,25 +30,36 @@ const BookCard = ({ book }: BookCardProps) => {
 			</div>
 			<CardContent className="p-4">
 				<h3 className="font-semibold line-clamp-1">{book.title}</h3>
-				{/* <p className="text-sm text-muted-foreground">{book.author}</p> */}
-				<div className="mt-2 flex items-center justify-between">
-					{/* <Badge variant="outline">{book.category}</Badge> */}
+				<p className="text-sm text-muted-foreground">{book.author?.fullname}</p>
+				<div className="mt-2 flex gap-0.5 flex-wrap">
+          {book.category?.map(c => (
+            <Badge>{c.name}</Badge>
+
+          ))}
+
 				</div>
 			</CardContent>
 			<CardFooter className="p-4 pt-0 flex justify-between">
-				<Button variant="outline" size="sm" className="cursor-pointer w-full">
-					{book.available_stock > 0 ? (
-						<>
-							<BookMarked className="mr-2 h-4 w-4" />
-							Reserve
-						</>
-					) : (
-						<>
-							<Clock className="mr-2 h-4 w-4" />
-							Join Waitlist
-						</>
-					)}
-				</Button>
+				{profile && isMemberObject(profile) && (
+					<Button
+						variant="outline"
+						size="sm"
+						className="cursor-pointer w-full"
+						disabled={book.available_stock == 0}
+					>
+						{book.available_stock > 0 ? (
+							<>
+								<BookMarked className="mr-2 h-4 w-4" />
+								Reservasi
+							</>
+						) : (
+							<>
+								<CircleX className="mr-2 h-4 w-4" />
+								Stok Habis
+							</>
+						)}
+					</Button>
+				)}
 			</CardFooter>
 		</Card>
 	);

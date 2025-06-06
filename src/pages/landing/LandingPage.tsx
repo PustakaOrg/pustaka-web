@@ -5,10 +5,10 @@ import CollectionsSection from "./components/CollectionsSection";
 
 const LandingPage = () => {
 	return (
-		<main className="flex-1">
+		<main>
 			<HeroSection />
 			<FeaturesSection />
-			<CollectionsSection />
+			{/* <CollectionsSection /> */}
 			{/* <CTASection /> */}
 		</main>
 	);
