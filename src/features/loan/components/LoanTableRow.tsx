@@ -9,6 +9,8 @@ import { LoanColumnVisibility } from "../type/LoanColumnVisibility";
 import { Checkbox } from "~/shared/components/ui/checkbox";
 import MemberListItem from "~/features/member/components/MemberListItem";
 import LoanStatusBadge from "./LoanStatusBadge";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject, isMemberObject } from "~/features/auth/utils/util";
 
 interface LoanTableRowProps {
 	loan: Loan;
@@ -25,8 +27,10 @@ const LoanTableRow = ({
 	isSelected,
 	onSelect,
 }: LoanTableRowProps) => {
+  const {profile} = useProfile()
 	return (
 		<TableRow>
+    {profile && !isMemberObject(profile) &&
 			<TableCell>
 				<Checkbox
 					checked={isSelected}
@@ -34,6 +38,7 @@ const LoanTableRow = ({
 					aria-label={`Select ${loan.id}`}
 				/>
 			</TableCell>
+    }
 			{columnVisibility.borrower && (
 				<TableCell>
 					<MemberListItem member={loan.borrower} />

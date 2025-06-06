@@ -4,8 +4,10 @@ import {
 	MoreHorizontal,
 	RefreshCw,
 	Trash2,
-    XCircle,
+	XCircle,
 } from "lucide-react";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject } from "~/features/auth/utils/util";
 import { Button } from "~/shared/components/ui/button";
 import {
 	DropdownMenu,
@@ -23,6 +25,7 @@ interface LoanRowActionProps {
 }
 
 const LoanRowAction = ({ loan, onAction }: LoanRowActionProps) => {
+	const { profile } = useProfile();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -41,7 +44,7 @@ const LoanRowAction = ({ loan, onAction }: LoanRowActionProps) => {
 					<Book className="mr-2 h-4 w-4" />
 					View Details
 				</DropdownMenuItem>
-				{loan.status === "active" && (
+				{profile && isLibrarianObject(profile) && loan.status === "active" && (
 					<>
 						<DropdownMenuItem
 							onClick={() => {

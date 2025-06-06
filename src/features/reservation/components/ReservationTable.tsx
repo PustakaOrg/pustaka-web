@@ -39,6 +39,13 @@ const ReservationTable = ({
 		if (action == "view-detail") {
 			openDialog(reservation);
 		}
+		if (action == "cancel") {
+			updateReservation({
+				reservationId: reservation.id,
+				payload: { status: "canceled", accepted_by: null },
+			});
+		}
+
 		if (profile && isLibrarianObject(profile)) {
 			if (action == "mark-ready") {
 				updateReservation({

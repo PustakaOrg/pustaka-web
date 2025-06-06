@@ -9,7 +9,7 @@ const useSearchMember = (q: string) => {
 		error,
 	} = useQuery({
 		queryKey: ["search-members", q],
-		queryFn: () => getMembers({ q }),
+		queryFn: () => getMembers({ q, limit: 9999 }),
 	});
 	return { memberList, isPending, isError, error };
 };

@@ -38,15 +38,21 @@ const nav = {
 			icon: LayoutDashboardIcon,
 		},
 		{
-			title: "My Loans",
+			title: "Reservasiku",
+			url: "/dashboard/reservations",
+			icon: Calendar,
+		},
+		{
+			title: "Peminjamanku",
 			url: "/dashboard/loans",
 			icon: BookOpen,
 		},
 		{
-			title: "My Fines",
-			url: "/dashboard/loans",
+			title: "Denda",
+			url: "/dashboard/fines",
 			icon: FileText,
 		},
+
 	],
 	navLibrarian: [
 		{

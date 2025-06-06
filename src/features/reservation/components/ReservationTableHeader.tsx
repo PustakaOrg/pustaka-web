@@ -1,6 +1,8 @@
 import { Checkbox } from "~/shared/components/ui/checkbox";
 import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
 import { ReservationColumnVisibility } from "../type/ReservationColumnVisibility";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isMemberObject } from "~/features/auth/utils/util";
 
 interface ReservationTableHeaderProps {
 	columnVisibility: ReservationColumnVisibility;
@@ -15,17 +17,20 @@ const ReservationTableHeader = ({
 	isIndeterminate,
 	onSelectAll,
 }: ReservationTableHeaderProps) => {
+	const { profile } = useProfile();
 	return (
 		<TableHeader>
 			<TableRow className="bg-secondary hover:bg-secondary">
-				<TableHead className="w-12">
-					<Checkbox
-						checked={isAllSelected}
-						onCheckedChange={onSelectAll}
-						aria-label="Select all books"
-						{...(isIndeterminate && { "data-state": "indeterminate" })}
-					/>
-				</TableHead>
+				{profile && !isMemberObject(profile) && (
+					<TableHead className="w-12">
+						<Checkbox
+							checked={isAllSelected}
+							onCheckedChange={onSelectAll}
+							aria-label="Select all books"
+							{...(isIndeterminate && { "data-state": "indeterminate" })}
+						/>
+					</TableHead>
+				)}
 				{columnVisibility.reservant && <TableHead>Member</TableHead>}
 				{columnVisibility.book && <TableHead>Book</TableHead>}
 				{columnVisibility.reservation_date && (

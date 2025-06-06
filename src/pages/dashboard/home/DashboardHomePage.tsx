@@ -11,7 +11,7 @@ const DashboardHomePage = () => {
 				{(isLibrarianObject(profile) || isAdminObject(profile)) && (
 					<LibrarianHomeContent />
 				)}
-				{(isMemberObject(profile) || isError) && (<MemberHomeContent />)}
+				{(isMemberObject(profile)) && (<MemberHomeContent />)}
 		</main>
 	);
 };

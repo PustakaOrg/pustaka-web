@@ -8,6 +8,8 @@ import {
 	X,
 	XCircle,
 } from "lucide-react";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject } from "~/features/auth/utils/util";
 import { Button } from "~/shared/components/ui/button";
 import {
 	DropdownMenu,
@@ -27,6 +29,7 @@ const ReservationRowAction = ({
 	reservation,
 	onAction,
 }: ReservationRowActionProps) => {
+	const { profile } = useProfile();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -44,45 +47,47 @@ const ReservationRowAction = ({
 					<Calendar className="mr-2 h-4 w-4" />
 					View Details
 				</DropdownMenuItem>
-				{reservation.status === "pending" && (
-					<DropdownMenuItem
-						onClick={() => {
-							onAction("mark-ready", reservation);
-						}}
-					>
-						<CheckCircle2 className="mr-2 h-4 w-4" />
-						Mark as Ready
-					</DropdownMenuItem>
+
+				{profile && isLibrarianObject(profile) && (
+					<>
+						{reservation.status === "pending" && (
+							<DropdownMenuItem
+								onClick={() => {
+									onAction("mark-ready", reservation);
+								}}
+							>
+								<CheckCircle2 className="mr-2 h-4 w-4" />
+								Mark as Ready
+							</DropdownMenuItem>
+						)}
+
+						{reservation.status === "ready" &&
+							reservation.book.available_stock > 0 && (
+								<DropdownMenuItem
+									onClick={() => {
+										onAction("covert-loan", reservation);
+									}}
+								>
+									<BookOpen className="mr-2 h-4 w-4" />
+									Convert to Loan
+								</DropdownMenuItem>
+							)}
+
+						{reservation.status === "ready" &&
+							reservation.book.available_stock == 0 && (
+								<>
+									<DropdownMenuItem disabled>
+										<X className="mr-2 h-4 w-4" />
+										Book is out of stock
+									</DropdownMenuItem>
+								</>
+							)}
+					</>
 				)}
 
-				{reservation.status === "ready" &&
-					reservation.book.available_stock > 0 && (
-						<DropdownMenuItem
-							onClick={() => {
-								onAction("covert-loan", reservation);
-							}}
-						>
-							<BookOpen className="mr-2 h-4 w-4" />
-							Convert to Loan
-						</DropdownMenuItem>
-					)}
-
-				{reservation.status === "ready" &&
-					reservation.book.available_stock == 0 && (
-						<>
-							<DropdownMenuItem disabled>
-								<X className="mr-2 h-4 w-4" />
-								Book is out of stock
-							</DropdownMenuItem>
-						</>
-					)}
 				{(reservation.status === "pending" ||
 					reservation.status === "ready") && (
 					<>
-						<DropdownMenuItem>
-							<Mail className="mr-2 h-4 w-4" />
-							Send Notification
-						</DropdownMenuItem>
 						<DropdownMenuItem
 							onClick={() => {
 								onAction("cancel", reservation);

@@ -14,8 +14,7 @@ import DashboardLoanPage from "~/pages/dashboard/loans/DashboardLoanPage";
 import DashboardMemberPage from "~/pages/dashboard/members/DashboardMemberPage";
 import DashboardReservationPage from "~/pages/dashboard/reservations/DashboardReservationPage";
 import DashboardSettingsPage from "~/pages/dashboard/settings/DashboardSettingsPage";
-import LandingLayout from "~/pages/landing/LandingLayout";
-import LandingPage from "~/pages/landing/LandingPage";
+import LandingLayout from "~/pages/landing/LandingLayout"; import LandingPage from "~/pages/landing/LandingPage";
 import LoginPage from "~/pages/LoginPage";
 
 const Router = () => {
@@ -57,9 +56,9 @@ const Router = () => {
 					<Route
 						path="/dashboard/fines"
 						element={
-							<RequireAdminOrLibrarian>
+							<RequireAuth>
 								<DashboardFinesPage />
-							</RequireAdminOrLibrarian>
+							</RequireAuth>
 						}
 					/>
 					<Route
@@ -73,17 +72,17 @@ const Router = () => {
 					<Route
 						path="/dashboard/loans"
 						element={
-							<RequireAdminOrLibrarian>
+							<RequireAuth>
 								<DashboardLoanPage />
-							</RequireAdminOrLibrarian>
+							</RequireAuth>
 						}
 					/>
 					<Route
 						path="/dashboard/reservations"
 						element={
-							<RequireAdminOrLibrarian>
+							<RequireAuth>
 								<DashboardReservationPage />
-							</RequireAdminOrLibrarian>
+							</RequireAuth>
 						}
 					/>
 					<Route

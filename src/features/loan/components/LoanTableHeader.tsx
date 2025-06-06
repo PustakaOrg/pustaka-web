@@ -1,6 +1,8 @@
 import { TableHead, TableHeader, TableRow } from "~/shared/components/ui/table";
 import { LoanColumnVisibility } from "../type/LoanColumnVisibility";
 import { Checkbox } from "~/shared/components/ui/checkbox";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isLibrarianObject, isMemberObject } from "~/features/auth/utils/util";
 
 interface LoanTableHeaderProps {
 	columnVisibility: LoanColumnVisibility;
@@ -15,17 +17,20 @@ const LoanTableHeader = ({
 	isIndeterminate,
 	onSelectAll,
 }: LoanTableHeaderProps) => {
+	const { profile } = useProfile();
 	return (
 		<TableHeader>
 			<TableRow className="bg-secondary hover:bg-secondary">
-				<TableHead className="w-12">
-					<Checkbox
-						checked={isAllSelected}
-						onCheckedChange={onSelectAll}
-						aria-label="Select all books"
-						{...(isIndeterminate && { "data-state": "indeterminate" })}
-					/>
-				</TableHead>
+				{profile && !isMemberObject(profile) && (
+					<TableHead className="w-12">
+						<Checkbox
+							checked={isAllSelected}
+							onCheckedChange={onSelectAll}
+							aria-label="Select all books"
+							{...(isIndeterminate && { "data-state": "indeterminate" })}
+						/>
+					</TableHead>
+				)}
 
 				{columnVisibility.borrower && <TableHead>Borrower</TableHead>}
 				{columnVisibility.book && <TableHead>Book</TableHead>}

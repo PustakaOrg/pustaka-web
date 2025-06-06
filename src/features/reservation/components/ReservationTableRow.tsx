@@ -11,6 +11,8 @@ import { Badge } from "~/shared/components/ui/badge";
 import { ReservationColumnVisibility } from "../type/ReservationColumnVisibility";
 import { Checkbox } from "~/shared/components/ui/checkbox";
 import ReservationRowAction from "./ReservationRowAction";
+import useProfile from "~/features/auth/hooks/useProfile";
+import { isMemberObject } from "~/features/auth/utils/util";
 
 interface ReservationTableRowProps {
 	reservation: Reservation;
@@ -28,17 +30,20 @@ const ReservationTableRow = ({
 	isSelected,
 	onSelect,
 }: ReservationTableRowProps) => {
+	const { profile } = useProfile();
 	return (
 		<TableRow>
-			<TableCell>
-				<Checkbox
-					checked={isSelected}
-					onCheckedChange={(checked) =>
-						onSelect(reservation.id, checked as boolean)
-					}
-					aria-label={`Select ${reservation.id}`}
-				/>
-			</TableCell>
+			{profile && !isMemberObject(profile) && (
+				<TableCell>
+					<Checkbox
+						checked={isSelected}
+						onCheckedChange={(checked) =>
+							onSelect(reservation.id, checked as boolean)
+						}
+						aria-label={`Select ${reservation.id}`}
+					/>
+				</TableCell>
+			)}
 
 			{columnVisibility.reservant && (
 				<TableCell>
@@ -98,11 +103,8 @@ const ReservationTableRow = ({
 				</TableCell>
 			)}
 
-
 			{columnVisibility.day_to_loan && (
-				<TableCell>
-        {reservation.day_to_loan}
-				</TableCell>
+				<TableCell>{reservation.day_to_loan}</TableCell>
 			)}
 
 			{columnVisibility.status && (
