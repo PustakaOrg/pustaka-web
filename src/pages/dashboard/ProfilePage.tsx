@@ -17,6 +17,10 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "~/shared/components/ui/avatar";
+import { Librarian } from "~/types/entities/Librarian";
+import useUpdateLibrarian from "~/features/librarian/hooks/useUpdateLibrarian";
+import { Admin } from "~/types/entities/Admin";
+import useUpdateAdminPassword from "~/features/auth/hooks/useUpdateAdminPassword";
 
 const ProfilePage = () => {
 	const { profile } = useProfile();
@@ -30,13 +34,12 @@ const ProfilePage = () => {
 				{profile ? (
 					isMemberObject(profile) ? (
 						<>
-
 							<MemberProfileForm profile={profile} />
 						</>
 					) : isLibrarianObject(profile) ? (
-						<p>Librarian</p>
+						<LibrarianProfileForm profile={profile} />
 					) : (
-						isAdminObject(profile) && <p>Admin</p>
+						isAdminObject(profile) && <AdminProfileForm profile={profile} />
 					)
 				) : (
 					<></>
@@ -47,6 +50,100 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+interface AdminProfileFormProps {
+	profile: Admin;
+}
+
+const AdminProfileForm = ({ profile }: AdminProfileFormProps) => {
+	const { updateAdmin } = useUpdateAdminPassword();
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		const form = new FormData(e.currentTarget);
+
+		const password = String(form.get("account.password"));
+
+		if (password !== "") {
+			updateAdmin({ id: profile.id, password });
+		}
+	};
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<div className="space-y-4">
+				<div className="space-y-2">
+					<Label htmlFor="name">Nama</Label>
+					<Input defaultValue={profile.fullname} disabled />
+				</div>
+
+				<div className="space-y-2">
+					<Label>Email</Label>
+					<Input defaultValue={profile.email} disabled />
+				</div>
+				<div className="space-y-2">
+					<Label>Ubah Password</Label>
+					<Input name="account.password" type="password" />
+				</div>
+
+				<div className="flex w-full">
+					<Button className="ml-auto">
+						<Save /> Simpan
+					</Button>
+				</div>
+			</div>
+		</form>
+	);
+};
+
+interface LibrarianProfileFormProps {
+	profile: Librarian;
+}
+
+const LibrarianProfileForm = ({ profile }: LibrarianProfileFormProps) => {
+	const { updateLibrarian } = useUpdateLibrarian();
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		const form = new FormData(e.currentTarget);
+
+		const password = String(form.get("account.password"));
+
+		if (password !== "") {
+			updateLibrarian({ id: profile.id, data: { account: { password } } });
+		}
+	};
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<div className="space-y-4">
+				<div className="space-y-2">
+					<Label>NIP</Label>
+					<Input defaultValue={profile.nip} disabled />
+				</div>
+				<div className="space-y-2">
+					<Label htmlFor="name">Nama Lengkap</Label>
+					<Input defaultValue={profile.account.fullname} disabled />
+				</div>
+
+				<div className="space-y-2">
+					<Label>Email</Label>
+					<Input defaultValue={profile.account.email} disabled />
+				</div>
+				<div className="space-y-2">
+					<Label>Ubah Password</Label>
+					<Input name="account.password" type="password" />
+				</div>
+
+				<div className="flex w-full">
+					<Button className="ml-auto">
+						<Save /> Simpan
+					</Button>
+				</div>
+			</div>
+		</form>
+	);
+};
 
 interface MemberProfileFormProps {
 	profile: Member;
