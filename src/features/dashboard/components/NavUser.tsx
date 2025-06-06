@@ -3,6 +3,7 @@ import {
 	MoreVerticalIcon,
 	UserCircleIcon,
 } from "lucide-react";
+import { useNavigate } from "react-router";
 import useLogout from "~/features/auth/hooks/useLogout";
 import {
 	Avatar,
@@ -35,6 +36,7 @@ const NavUser = ({
 }) => {
 	const { isMobile } = useSidebar();
 	const logout = useLogout();
+  const navigate = useNavigate()
 
 	return (
 		<SidebarMenu>
@@ -79,7 +81,7 @@ const NavUser = ({
 							</div>
 						</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-							<DropdownMenuItem className="cursor-pointer">
+							<DropdownMenuItem className="cursor-pointer" onClick={()=>navigate("/dashboard/profile")}>
 								<UserCircleIcon />
 								Account
 							</DropdownMenuItem>

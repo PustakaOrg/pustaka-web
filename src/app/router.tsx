@@ -12,9 +12,11 @@ import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
 import DashboardLibrarianPage from "~/pages/dashboard/librarians/DashboardLibrarianPage";
 import DashboardLoanPage from "~/pages/dashboard/loans/DashboardLoanPage";
 import DashboardMemberPage from "~/pages/dashboard/members/DashboardMemberPage";
+import ProfilePage from "~/pages/dashboard/ProfilePage";
 import DashboardReservationPage from "~/pages/dashboard/reservations/DashboardReservationPage";
 import DashboardSettingsPage from "~/pages/dashboard/settings/DashboardSettingsPage";
-import LandingLayout from "~/pages/landing/LandingLayout"; import LandingPage from "~/pages/landing/LandingPage";
+import LandingLayout from "~/pages/landing/LandingLayout";
+import LandingPage from "~/pages/landing/LandingPage";
 import LoginPage from "~/pages/LoginPage";
 
 const Router = () => {
@@ -53,14 +55,9 @@ const Router = () => {
 							</RequireAdmin>
 						}
 					/>
-					<Route
-						path="/dashboard/fines"
-						element={
-							<RequireAuth>
-								<DashboardFinesPage />
-							</RequireAuth>
-						}
-					/>
+					<Route path="/dashboard/fines" element={<DashboardFinesPage />} />
+					<Route path="/dashboard/profile" element={<ProfilePage />} />
+
 					<Route
 						path="/dashboard/members"
 						element={
