@@ -1,5 +1,5 @@
 import { format } from "date-fns/format";
-import { BookMarked, CircleX  } from "lucide-react";
+import { BookMarked, CircleX } from "lucide-react";
 import { FormEvent, useState } from "react";
 import useProfile from "~/features/auth/hooks/useProfile";
 import { isMemberObject } from "~/features/auth/utils/util";
@@ -39,7 +39,7 @@ const BookCard = ({ book }: BookCardProps) => {
 				book: book.id,
 			};
 			addReservation(payload);
-      setOpen(false)
+			setOpen(false);
 		}
 	};
 
@@ -70,14 +70,23 @@ const BookCard = ({ book }: BookCardProps) => {
 					</Badge>
 				</div>
 			</div>
-			<CardContent className="p-4">
-				<h3 className="font-semibold line-clamp-1">{book.title}</h3>
-				<p className="text-sm text-muted-foreground">{book.author?.fullname}</p>
-				<div className="mt-2 flex gap-0.5 flex-wrap">
-					{book.category?.map((c) => (
-						<Badge>{c.name}</Badge>
-					))}
+			<CardContent className="p-4 flex justify-between">
+				<div className="grow">
+					<h3 className="font-semibold line-clamp-1">{book.title}</h3>
+					<p className="text-sm text-muted-foreground">
+						{book.author?.fullname}
+					</p>
+					<div className="mt-2 flex gap-0.5 flex-wrap">
+						{book.category?.map((c) => (
+							<Badge>{c.name}</Badge>
+						))}
+					</div>
 				</div>
+				{book.shelf && (
+					<div>
+						<Badge variant={"outline"}>{book.shelf?.code}</Badge>
+					</div>
+				)}
 			</CardContent>
 			<CardFooter className="p-4 pt-0 flex justify-between">
 				{profile && isMemberObject(profile) && (

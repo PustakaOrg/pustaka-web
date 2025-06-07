@@ -24,6 +24,8 @@ const UpdateBookDialog = ({
 	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
+    const isbn = form.get("isbn") as string
+    if(isbn == book.isbn) form.delete("isbn")
 		updateBook({ bookId: book.id, data: form });
 	}, []);
 
@@ -31,7 +33,7 @@ const UpdateBookDialog = ({
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
 				<DialogTitle>Edit Book</DialogTitle>
-				<BookForm handleSubmit={handleSubmit} defaultValues={book} />
+				<BookForm handleSubmit={handleSubmit} defaultValues={book} error={error}/>
 			</DialogContent>
 			<DialogFooter></DialogFooter>
 		</Dialog>
