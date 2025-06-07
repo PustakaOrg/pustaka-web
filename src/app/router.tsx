@@ -13,6 +13,7 @@ import DashboardLibrarianPage from "~/pages/dashboard/librarians/DashboardLibrar
 import DashboardLoanPage from "~/pages/dashboard/loans/DashboardLoanPage";
 import DashboardMemberPage from "~/pages/dashboard/members/DashboardMemberPage";
 import ProfilePage from "~/pages/dashboard/ProfilePage";
+import DashboardReportPage from "~/pages/dashboard/report/DashboardReportPage";
 import DashboardReservationPage from "~/pages/dashboard/reservations/DashboardReservationPage";
 import DashboardSettingsPage from "~/pages/dashboard/settings/DashboardSettingsPage";
 import LandingLayout from "~/pages/landing/LandingLayout";
@@ -43,6 +44,14 @@ const Router = () => {
 						element={
 							<RequireAdminOrLibrarian>
 								<DashboardBookPage />
+							</RequireAdminOrLibrarian>
+						}
+					/>
+					<Route
+						path="/dashboard/report"
+						element={
+							<RequireAdminOrLibrarian>
+								<DashboardReportPage />
 							</RequireAdminOrLibrarian>
 						}
 					/>

@@ -1,6 +1,7 @@
 import {
 	ArrowUpCircleIcon,
 	BookOpen,
+	BookUp,
 	Calendar,
 	FileText,
 	GalleryVerticalEnd,
@@ -90,6 +91,12 @@ const nav = {
 			url: "/dashboard/fines",
 			icon: FileText,
 		},
+    {
+      title: "Report",
+      url: "/dashboard/report"
+      ,icon: BookUp
+    }
+
 	],
 	navAdmin: {
 		main: [
