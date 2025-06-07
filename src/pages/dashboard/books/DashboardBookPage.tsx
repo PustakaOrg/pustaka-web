@@ -34,6 +34,12 @@ import AddAuthorDialog from "~/features/catalog/components/AddAuthorDialog";
 import AuthorTable from "~/features/catalog/components/AuthorTable";
 import AddPublisherDialog from "~/features/catalog/components/AddPublisherDialog";
 import PublisherTable from "~/features/catalog/components/PublisherTable";
+import useShelfList from "~/features/catalog/hooks/useShelfList";
+import AddShelfDialog from "~/features/catalog/components/AddShelfDialog";
+import ShelfTable from "~/features/catalog/components/ShelfTable";
+import useCategoryList from "~/features/catalog/hooks/useCategoryList";
+import AddCategoryDialog from "~/features/catalog/components/AddCategoryDialog";
+import CategoryTable from "~/features/catalog/components/CategoryTable";
 
 const DashboardBookPage = () => {
 	const [columnVisibility, setColumnVisibility] =
@@ -142,6 +148,17 @@ const DashboardBookPage = () => {
 			return { ...prev, offset: newOffset };
 		});
 	};
+	const [categoryListParams, setCategoryListParams] = useState({
+		limit: 5,
+		offset: 0,
+	});
+	const { categoryList } = useCategoryList(categoryListParams);
+	const handleCategoryOffsetChange = (newOffset: number) => {
+		setCategoryListParams((prev) => {
+			return { ...prev, offset: newOffset };
+		});
+	};
+
 
 	const [authorListParams, setAuthorListParams] = useState({
 		limit: 5,
@@ -150,6 +167,17 @@ const DashboardBookPage = () => {
 	const { authorList } = useAuthorList(authorListParams);
 	const handleAuthorOffsetChange = (newOffset: number) => {
 		setAuthorListParams((prev) => {
+			return { ...prev, offset: newOffset };
+		});
+	};
+
+	const [shelfListParams, setShelfListParams] = useState({
+		limit: 5,
+		offset: 0,
+	});
+	const { shelfList } = useShelfList(shelfListParams);
+	const handleShelfOffsetChange = (newOffset: number) => {
+		setShelfListParams((prev) => {
 			return { ...prev, offset: newOffset };
 		});
 	};
@@ -234,6 +262,35 @@ const DashboardBookPage = () => {
 				</CardContent>
 			</Card>
 
+<Card>
+				<CardHeader className="flex justify-between">
+					<div>
+						<CardTitle>Categories</CardTitle>
+						<CardDescription>
+							{categoryList?.results.length ?? 0} categorys found
+						</CardDescription>
+					</div>
+					<div>
+						<AddCategoryDialog />
+					</div>
+				</CardHeader>
+				<CardContent className="">
+					{categoryList && <CategoryTable categoryList={categoryList} />}
+				</CardContent>
+
+				<CardFooter className="flex items-center justify-center">
+					{categoryList && (
+						<Pagination
+							totalCount={categoryList.count}
+							limit={categoryListParams.limit}
+							offset={categoryListParams.offset ?? 0}
+							onOffsetChange={handleCategoryOffsetChange}
+						/>
+					)}
+				</CardFooter>
+			</Card>
+
+
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
@@ -257,6 +314,34 @@ const DashboardBookPage = () => {
 							limit={authorListParams.limit}
 							offset={authorListParams.offset ?? 0}
 							onOffsetChange={handleAuthorOffsetChange}
+						/>
+					)}
+				</CardFooter>
+			</Card>
+
+			<Card>
+				<CardHeader className="flex justify-between">
+					<div>
+						<CardTitle>Shelfs</CardTitle>
+						<CardDescription>
+							{shelfList?.results.length ?? 0} shelfs found
+						</CardDescription>
+					</div>
+					<div>
+						<AddShelfDialog />
+					</div>
+				</CardHeader>
+				<CardContent className="">
+					{shelfList && <ShelfTable shelfList={shelfList} />}
+				</CardContent>
+
+				<CardFooter className="flex items-center justify-center">
+					{shelfList && (
+						<Pagination
+							totalCount={shelfList.count}
+							limit={shelfListParams.limit}
+							offset={shelfListParams.offset ?? 0}
+							onOffsetChange={handleShelfOffsetChange}
 						/>
 					)}
 				</CardFooter>

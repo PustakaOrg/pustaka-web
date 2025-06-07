@@ -1,27 +1,27 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deletPublisher as deletePublisherApi } from "../api/deletePublisher";
+import { deletAuthor as deleteAuthorApi } from "../api/deleteAuthor";
 
-const useDeletePublisher = () => {
+const useDeleteAuthor = () => {
 	const queryClient = useQueryClient();
 	const {
 		isPending,
 		isError,
 		error,
-		mutate: deletePublisher,
+		mutate: deleteAuthor,
 	} = useMutation({
-		mutationKey: ["update-publisher"],
-		mutationFn: (id: string) => deletePublisherApi(id),
+		mutationKey: ["update-author"],
+		mutationFn: (id: string) => deleteAuthorApi(id),
 		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: ["publishers"] });
-			queryClient.invalidateQueries({ queryKey: ["all-publisher"] });
+			queryClient.invalidateQueries({ queryKey: ["authors"] });
+			queryClient.invalidateQueries({ queryKey: ["all-author"] });
 		},
 	});
 	return {
 		isPending,
 		isError,
 		error,
-		deletePublisher,
+		deleteAuthor,
 	};
 };
 
-export default useDeletePublisher;
+export default useDeleteAuthor;

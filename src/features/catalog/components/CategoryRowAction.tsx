@@ -1,5 +1,5 @@
 
-import { Author } from "~/types/entities/Author";
+import { Category } from "~/types/entities/Category";
 
 import {
 	DropdownMenu,
@@ -11,11 +11,11 @@ import {
 import { Button } from "~/shared/components/ui/button";
 import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 
-interface AuthorRowActionProps {
-	author: Author;
-	onAction: (action: string, author: Author) => void;
+interface CategoryRowActionProps {
+	category: Category;
+	onAction: (action: string, category: Category) => void;
 }
-const AuthorRowAction = ({  author, onAction }: AuthorRowActionProps) => {
+const CategoryRowAction = ({  category, onAction }: CategoryRowActionProps) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -27,11 +27,11 @@ const AuthorRowAction = ({  author, onAction }: AuthorRowActionProps) => {
 			<DropdownMenuContent align="end">
 				<DropdownMenuItem
 					onClick={() => {
-						onAction("edit", author);
+						onAction("edit", category);
 					}}
 				>
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Author
+					Edit Category
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 			</DropdownMenuContent>
@@ -39,4 +39,4 @@ const AuthorRowAction = ({  author, onAction }: AuthorRowActionProps) => {
 	);
 };
 
-export default AuthorRowAction;
+export default CategoryRowAction;

@@ -1,5 +1,5 @@
 
-import { Author } from "~/types/entities/Author";
+import { Shelf } from "~/types/entities/Shelf";
 
 import {
 	DropdownMenu,
@@ -11,11 +11,11 @@ import {
 import { Button } from "~/shared/components/ui/button";
 import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 
-interface AuthorRowActionProps {
-	author: Author;
-	onAction: (action: string, author: Author) => void;
+interface ShelfRowActionProps {
+	shelf: Shelf;
+	onAction: (action: string, shelf: Shelf) => void;
 }
-const AuthorRowAction = ({  author, onAction }: AuthorRowActionProps) => {
+const ShelfRowAction = ({  shelf, onAction }: ShelfRowActionProps) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -27,11 +27,11 @@ const AuthorRowAction = ({  author, onAction }: AuthorRowActionProps) => {
 			<DropdownMenuContent align="end">
 				<DropdownMenuItem
 					onClick={() => {
-						onAction("edit", author);
+						onAction("edit", shelf);
 					}}
 				>
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Author
+					Edit Shelf
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 			</DropdownMenuContent>
@@ -39,4 +39,4 @@ const AuthorRowAction = ({  author, onAction }: AuthorRowActionProps) => {
 	);
 };
 
-export default AuthorRowAction;
+export default ShelfRowAction;
