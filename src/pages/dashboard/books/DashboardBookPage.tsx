@@ -28,6 +28,12 @@ import { Search } from "lucide-react";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { BookCSV, bookToCSV } from "~/features/catalog/types/BookCSV";
 import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
+import useAuthorList from "~/features/catalog/hooks/useAuthorList";
+import usePublisherList from "~/features/catalog/hooks/usePublisherList";
+import AddAuthorDialog from "~/features/catalog/components/AddAuthorDialog";
+import AuthorTable from "~/features/catalog/components/AuthorTable";
+import AddPublisherDialog from "~/features/catalog/components/AddPublisherDialog";
+import PublisherTable from "~/features/catalog/components/PublisherTable";
 
 const DashboardBookPage = () => {
 	const [columnVisibility, setColumnVisibility] =
@@ -126,9 +132,38 @@ const DashboardBookPage = () => {
 		}
 	};
 
+	const [publisherListParams, setPublisherListParams] = useState({
+		limit: 5,
+		offset: 0,
+	});
+	const { publisherList } = usePublisherList(publisherListParams);
+	const handlePublisherOffsetChange = (newOffset: number) => {
+		setPublisherListParams((prev) => {
+			return { ...prev, offset: newOffset };
+		});
+	};
+
+	const [authorListParams, setAuthorListParams] = useState({
+		limit: 5,
+		offset: 0,
+	});
+	const { authorList } = useAuthorList(authorListParams);
+	const handleAuthorOffsetChange = (newOffset: number) => {
+		setAuthorListParams((prev) => {
+			return { ...prev, offset: newOffset };
+		});
+	};
+
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
-    {bookCsv && <ExportCSVDialog data={bookCsv} isOpen={isOpen} onOpenChange={closeDialog} defaulFileName="Book" />}
+			{bookCsv && (
+				<ExportCSVDialog
+					data={bookCsv}
+					isOpen={isOpen}
+					onOpenChange={closeDialog}
+					defaulFileName="Book"
+				/>
+			)}
 			<ContentHeader
 				title="Books"
 				subtitle="Manage your library's book collection."
@@ -197,6 +232,62 @@ const DashboardBookPage = () => {
 						)}
 					</CardFooter>
 				</CardContent>
+			</Card>
+
+			<Card>
+				<CardHeader className="flex justify-between">
+					<div>
+						<CardTitle>Authors</CardTitle>
+						<CardDescription>
+							{authorList?.results.length ?? 0} authors found
+						</CardDescription>
+					</div>
+					<div>
+						<AddAuthorDialog />
+					</div>
+				</CardHeader>
+				<CardContent className="">
+					{authorList && <AuthorTable authorList={authorList} />}
+				</CardContent>
+
+				<CardFooter className="flex items-center justify-center">
+					{authorList && (
+						<Pagination
+							totalCount={authorList.count}
+							limit={authorListParams.limit}
+							offset={authorListParams.offset ?? 0}
+							onOffsetChange={handleAuthorOffsetChange}
+						/>
+					)}
+				</CardFooter>
+			</Card>
+
+			<Card>
+				<CardHeader className="flex justify-between">
+					<div>
+						<CardTitle>Publishers</CardTitle>
+						<CardDescription>
+							{publisherList?.results.length ?? 0} publishers found
+						</CardDescription>
+					</div>
+					<div>
+						<AddPublisherDialog />
+					</div>
+				</CardHeader>
+				<CardContent className="">
+					{publisherList && <PublisherTable publisherList={publisherList} />}
+				</CardContent>
+
+				<CardFooter className="flex items-center justify-center">
+					{publisherList && (
+						<Pagination
+							totalCount={publisherList.count}
+							limit={publisherListParams.limit}
+							offset={publisherListParams.offset ?? 0}
+							onOffsetChange={handlePublisherOffsetChange}
+						/>
+					)}
+				</CardFooter>
 			</Card>
 		</main>
 	);
