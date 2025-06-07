@@ -10,8 +10,8 @@ const BookListItem = ({book}: {book: Book}) => {
 				height={48}
 				className="rounded border hidden sm:block"
 			/>
-			<div>
-				<p className="font-medium line-clamp-1">{book.title}</p>
+			<div className="overflow-hidden">
+				<p className="font-medium  truncate">{book.title}</p>
 				<p className="text-xs text-muted-foreground">{book.author?.fullname}</p>
 			</div>
 		</div>

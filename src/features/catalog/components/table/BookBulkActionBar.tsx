@@ -1,4 +1,4 @@
-import { Download, Trash2 } from "lucide-react";
+import { Download, Printer, Trash2 } from "lucide-react";
 import {
 	AlertDialog,
 	AlertDialogTrigger,
@@ -32,6 +32,11 @@ const BookBulkActionBar = ({
 					<Download className="h-4 w-4 mr-2" />
 					Export
 				</Button>
+				<Button size={"sm"} onClick={() => onAction("print")}>
+					<Printer />
+					Cetak Stiker 
+				</Button>
+
 				{/* <AlertDialog> */}
 				{/* 	<AlertDialogTrigger asChild> */}
 				{/* 		<Button variant="destructive" size="sm"> */}

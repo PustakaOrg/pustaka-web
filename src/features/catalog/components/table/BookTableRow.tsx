@@ -29,7 +29,7 @@ const BookTableRow = ({
 				/>
 			</TableCell>
 			{columnVisibility.book && (
-				<TableCell>
+				<TableCell className="max-w-[200px]">
 					<BookListItem book={book} />
 				</TableCell>
 			)}

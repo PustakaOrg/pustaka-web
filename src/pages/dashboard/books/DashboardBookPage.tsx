@@ -40,6 +40,8 @@ import ShelfTable from "~/features/catalog/components/ShelfTable";
 import useCategoryList from "~/features/catalog/hooks/useCategoryList";
 import AddCategoryDialog from "~/features/catalog/components/AddCategoryDialog";
 import CategoryTable from "~/features/catalog/components/CategoryTable";
+import { Book } from "~/types/entities/Book";
+import BookStickerPrintDialog from "~/features/catalog/components/BookStickerPrintDialog";
 
 const DashboardBookPage = () => {
 	const [columnVisibility, setColumnVisibility] =
@@ -68,6 +70,13 @@ const DashboardBookPage = () => {
 		openDialog,
 		closeDialog,
 	} = useDialogWithData<BookCSV>();
+
+	const {
+		data: printBook,
+		isOpen: printOpen,
+		openDialog: openPrintDialog,
+		closeDialog: closePrintDialog,
+	} = useDialogWithData<Book[]>();
 
 	const toggleColumn = (column: keyof BookColumnVisibility) => {
 		setColumnVisibility((prev) => ({
@@ -136,6 +145,11 @@ const DashboardBookPage = () => {
 				openDialog(bookCsv);
 			}
 		}
+		if (action === "print") {
+			if (bulkBook) {
+				openPrintDialog(bulkBook);
+			}
+		}
 	};
 
 	const [publisherListParams, setPublisherListParams] = useState({
@@ -158,7 +172,6 @@ const DashboardBookPage = () => {
 			return { ...prev, offset: newOffset };
 		});
 	};
-
 
 	const [authorListParams, setAuthorListParams] = useState({
 		limit: 5,
@@ -184,6 +197,13 @@ const DashboardBookPage = () => {
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
+			{printBook && (
+				<BookStickerPrintDialog
+					books={printBook}
+					isOpen={printOpen}
+					onOpenChange={closePrintDialog}
+				/>
+			)}
 			{bookCsv && (
 				<ExportCSVDialog
 					data={bookCsv}
@@ -262,7 +282,7 @@ const DashboardBookPage = () => {
 				</CardContent>
 			</Card>
 
-<Card>
+			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
 						<CardTitle>Categories</CardTitle>
@@ -289,7 +309,6 @@ const DashboardBookPage = () => {
 					)}
 				</CardFooter>
 			</Card>
-
 
 			<Card>
 				<CardHeader className="flex justify-between">
