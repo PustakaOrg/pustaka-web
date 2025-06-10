@@ -42,6 +42,7 @@ import AddCategoryDialog from "~/features/catalog/components/AddCategoryDialog";
 import CategoryTable from "~/features/catalog/components/CategoryTable";
 import { Book } from "~/types/entities/Book";
 import BookStickerPrintDialog from "~/features/catalog/components/BookStickerPrintDialog";
+import ShowPerPage from "~/shared/components/ShowPerPage";
 
 const DashboardBookPage = () => {
 	const [columnVisibility, setColumnVisibility] =
@@ -230,28 +231,33 @@ const DashboardBookPage = () => {
 					</div>
 				</CardHeader>
 				<CardContent className="space-y-2">
-					<div className="flex items-center  gap-2 justify-end">
-						<div className="relative">
-							<form onSubmit={handleSearchSubmit}>
-								<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-								<Input
-									type="text"
-									placeholder="Search title, or ISBN..."
-									className="w-full pl-9 pr-4"
-									defaultValue={searchParams.get("?") ?? undefined}
-									name="q"
-								/>
-								<button hidden type="submit">
-									Test
-								</button>
-							</form>
+					<div className="flex items-center  gap-2 justify-between">
+						<div>
+							<ShowPerPage />
 						</div>
-						<BookColumnVisibilityControls
-							columnVisibility={columnVisibility}
-							onToggleColumn={toggleColumn}
-							onResetColumns={resetColumns}
-							onHideAllColumns={hideAllColumns}
-						/>
+						<div className="flex gap-2">
+							<div className="relative ">
+								<form onSubmit={handleSearchSubmit}>
+									<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+									<Input
+										type="text"
+										placeholder="Search title, or ISBN..."
+										className="w-full pl-9 pr-4"
+										defaultValue={searchParams.get("?") ?? undefined}
+										name="q"
+									/>
+									<button hidden type="submit">
+										Test
+									</button>
+								</form>
+							</div>
+							<BookColumnVisibilityControls
+								columnVisibility={columnVisibility}
+								onToggleColumn={toggleColumn}
+								onResetColumns={resetColumns}
+								onHideAllColumns={hideAllColumns}
+							/>
+						</div>
 					</div>
 
 					<BookBulkActionBar

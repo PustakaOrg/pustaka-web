@@ -62,32 +62,32 @@ const nav = {
 			icon: LayoutDashboardIcon,
 		},
 		{
-			title: "Books",
+			title: "Catalog",
 			url: "/dashboard/books",
 			icon: Library,
 		},
+		// {
+		// 	title: "Categories",
+		// 	url: "/dashboard/categories",
+		// 	icon: GalleryVerticalEnd,
+		// },
 		{
-			title: "Categories",
-			url: "/dashboard/categories",
-			icon: GalleryVerticalEnd,
-		},
-		{
-			title: "Members",
+			title: "Member",
 			url: "/dashboard/members",
 			icon: Users,
 		},
 		{
-			title: "Loans",
+			title: "Peminjaman",
 			url: "/dashboard/loans",
 			icon: BookOpen,
 		},
 		{
-			title: "Reservations",
+			title: "Reservasi",
 			url: "/dashboard/reservations",
 			icon: Calendar,
 		},
 		{
-			title: "Fines",
+			title: "Denda",
 			url: "/dashboard/fines",
 			icon: FileText,
 		},
@@ -101,7 +101,7 @@ const nav = {
 	navAdmin: {
 		main: [
 			{
-				title: "Librarians",
+				title: "Librarian",
 				url: "/dashboard/librarians",
 				icon: Users2,
 			},

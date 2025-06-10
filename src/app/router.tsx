@@ -99,14 +99,14 @@ const Router = () => {
 							</RequireAdmin>
 						}
 					/>
-					<Route
-						path="/dashboard/categories"
-						element={
-							<RequireAdmin>
-								<DashboardCategoryPage />
-							</RequireAdmin>
-						}
-					/>
+					{/* <Route */}
+					{/* 	path="/dashboard/categories" */}
+					{/* 	element={ */}
+					{/* 		<RequireAdmin> */}
+					{/* 			<DashboardCategoryPage /> */}
+					{/* 		</RequireAdmin> */}
+					{/* 	} */}
+					{/* /> */}
 				</Route>
 			</Routes>
 		</BrowserRouter>

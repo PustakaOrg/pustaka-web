@@ -8,6 +8,8 @@ import FineNotFoundTableRow from "./FineNotFoundTableRow";
 import useProfile from "~/features/auth/hooks/useProfile";
 import { isLibrarianObject } from "~/features/auth/utils/util";
 import useUpdatePaymentStatus from "../hooks/useUpdatePaymentStatus";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
+import FineDetailDialog from "./FineDetailDialog";
 
 interface FineTableProps {
 	fineList: PaginatedResponse<Fine>;
@@ -27,8 +29,17 @@ const FineTable = ({
 }: FineTableProps) => {
 	const { profile } = useProfile();
 	const { updatePaymentStatus } = useUpdatePaymentStatus();
+
+
+	const {
+		data: fine,
+		isOpen,
+		openDialog,
+		closeDialog,
+	} = useDialogWithData<Fine>();
 	const handelRowAction = (action: string, fine: Fine) => {
-		if (action == "view-detail") {
+		if (action == "view") {
+      openDialog(fine)
 		}
 		if (isLibrarianObject(profile)) {
 			updatePaymentStatus({
@@ -38,6 +49,7 @@ const FineTable = ({
 		}
 	};
 
+
 	const isAllSelected =
 		selectedFines.length === fineList.results.length &&
 		fineList.results.length > 0;
@@ -46,6 +58,7 @@ const FineTable = ({
 
 	return (
 		<div>
+    {fine && <FineDetailDialog fine={fine} open={isOpen} onOpenChange={closeDialog} />}
 			<Table>
 				<FineTableHeader
 					columnVisibility={columnVisibility}
