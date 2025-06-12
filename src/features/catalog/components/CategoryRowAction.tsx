@@ -18,7 +18,7 @@ interface CategoryRowActionProps {
 const CategoryRowAction = ({  category, onAction }: CategoryRowActionProps) => {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
+			<DropdownMenuTrigger asChild className="cursor-pointer">
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
 					<span className="sr-only">Actions</span>
@@ -29,6 +29,7 @@ const CategoryRowAction = ({  category, onAction }: CategoryRowActionProps) => {
 					onClick={() => {
 						onAction("edit", category);
 					}}
+					className="cursor-pointer"
 				>
 					<Edit className="mr-2 h-4 w-4" />
 					Edit Category

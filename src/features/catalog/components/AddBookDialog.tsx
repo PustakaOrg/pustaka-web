@@ -22,10 +22,10 @@ const AddBookDialog = () => {
 
 	return (
 		<Dialog>
-			<DialogTrigger asChild>
+			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />
-					Addbook
+					Book
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">

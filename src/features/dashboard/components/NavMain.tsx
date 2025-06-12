@@ -23,11 +23,12 @@ const NavMain = ({
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
+            <SidebarMenuItem key={item.title} >
               <Link to={item.url}>
                 <SidebarMenuButton
                   isActive={location.pathname == item.url}
                   tooltip={item.title}
+                  className="cursor-pointer"
                 >
                   {item.icon && (
                     <item.icon

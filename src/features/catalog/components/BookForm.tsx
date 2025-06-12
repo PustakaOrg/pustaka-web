@@ -333,7 +333,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 
 			{/* Submit Button */}
 			<div className="pt-4">
-				<Button type="submit" className="w-full" size="lg">
+				<Button type="submit" className="cursor-pointer w-full" size="lg">
 					{defaultValues?.title ? "Update Book" : "Add Book"}
 				</Button>
 			</div>
