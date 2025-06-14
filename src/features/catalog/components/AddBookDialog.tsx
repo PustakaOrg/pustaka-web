@@ -7,21 +7,23 @@ import {
 	DialogTrigger,
 } from "~/shared/components/ui/dialog";
 import BookForm from "./BookForm";
-import { FormEvent, useCallback, useEffect } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import useAddBook from "~/features/catalog/hooks/useAddBook";
 import { Plus } from "lucide-react";
 
 const AddBookDialog = () => {
 	const { isPending, isError, error, addBook } = useAddBook();
+	const [open, setOpen] = useState(false);
 	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		addBook(form);
+		setOpen(false);
 	}, []);
 
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />

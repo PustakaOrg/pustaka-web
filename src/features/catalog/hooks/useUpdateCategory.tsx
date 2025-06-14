@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchCategory, PatchCategoryPayload } from "../api/patchCategory";
+import { toast } from "sonner";
 
 const useUpdateCategory = () => {
 	const queryClient = useQueryClient();
@@ -14,6 +15,7 @@ const useUpdateCategory = () => {
 		mutationFn: ({ id, payload }: { id: string; payload: PatchCategoryPayload }) =>
 			patchCategory(id, payload),
 		onSuccess: () => {
+			toast.success("Category updated successfully!");
 			queryClient.invalidateQueries({ queryKey: ["categories"] });
 			queryClient.invalidateQueries({ queryKey: ["all-category"] });
 		},

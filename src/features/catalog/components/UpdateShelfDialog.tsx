@@ -31,6 +31,7 @@ const UpdateShelfDialog = ({
 			 code,
 		};
 		updateShelf({ id: shelf.id, payload });
+		onOpenChange(false);
 	}
 
 	return (

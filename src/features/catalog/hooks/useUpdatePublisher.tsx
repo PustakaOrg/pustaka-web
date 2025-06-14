@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchPublisher, PatchPublisherPayload } from "../api/patchPublisher";
+import { toast } from "sonner";
 
 const useUpdatePublisher = () => {
 	const queryClient = useQueryClient();
@@ -14,6 +15,7 @@ const useUpdatePublisher = () => {
 		mutationFn: ({ id, payload }: { id: string; payload: PatchPublisherPayload }) =>
 			patchPublisher(id, payload),
 		onSuccess: () => {
+			toast.success("Publisher updated successfully!");
 			queryClient.invalidateQueries({ queryKey: ["publishers"] });
 			queryClient.invalidateQueries({ queryKey: ["all-publisher"] });
 		},

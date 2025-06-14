@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postShelf, PostShelfPayload } from "../api/postShelf";
+import { toast } from "sonner";
 
 const useAddShelf = () => {
 	const queryClient = useQueryClient();
@@ -13,6 +14,7 @@ const useAddShelf = () => {
 		mutationKey: ["add-shelf"],
 		mutationFn: (payload: PostShelfPayload) => postShelf(payload),
 		onSuccess: () => {
+			toast.success("Shelf added successfully!");
 			queryClient.invalidateQueries({ queryKey: ["shelves"] });
 			queryClient.invalidateQueries({ queryKey: ["search-shelf"] });
 			queryClient.invalidateQueries({ queryKey: ["all-shelf"] });

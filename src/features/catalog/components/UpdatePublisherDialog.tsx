@@ -32,6 +32,7 @@ const UpdatePublisherDialog = ({
 			city,
 		};
 		updatePublisher({ id: publisher.id, payload });
+		onOpenChange(false);
 	};
 
 	return (

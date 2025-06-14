@@ -31,6 +31,7 @@ const UpdateAuthorDialog = ({
 			fullname: name,
 		};
 		updateAuthor({ id: author.id, payload });
+		onOpenChange(false);
 	}
 
 	return (

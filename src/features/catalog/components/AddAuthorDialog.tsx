@@ -6,7 +6,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "~/shared/components/ui/dialog";
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { Plus } from "lucide-react";
 import useAddAuthor from "../hooks/useAddAuthor";
 import { PostAuthorPayload } from "../api/postAuthor";
@@ -14,6 +14,7 @@ import AuthorForm from "./AuthorForm";
 
 const AddAuthorDialog = () => {
 	const { newAuthor, isPending, isError, error, addAuthor } = useAddAuthor();
+	const [open, setOpen] = useState(false);
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
@@ -22,10 +23,11 @@ const AddAuthorDialog = () => {
 			fullname: name,
 		};
 		addAuthor(payload);
+		setOpen(false);
 	}
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />

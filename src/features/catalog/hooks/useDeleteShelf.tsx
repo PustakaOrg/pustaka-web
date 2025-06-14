@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteShelf as deleteShelfApi } from "../api/deleteShelf";
+import { toast } from "sonner";
 
 const useDeleteShelf = () => {
 	const queryClient = useQueryClient();
@@ -11,6 +12,9 @@ const useDeleteShelf = () => {
 	} = useMutation({
 		mutationKey: ["update-shelf"],
 		mutationFn: (id: string) => deleteShelfApi(id),
+		onSuccess: () => {
+			toast.success("Shelf deleted successfully!");	
+		},
 		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey: ["shelves"] });
 			queryClient.invalidateQueries({ queryKey: ["all-shelf"] });

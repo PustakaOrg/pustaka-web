@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postBook } from "../api/postBook";
+import { toast } from "sonner";
 
 const useAddBook = () => {
   const queryClient = useQueryClient();
@@ -13,6 +14,7 @@ const useAddBook = () => {
 		mutationKey: ["add-book"],
 		mutationFn: (data: FormData) => postBook(data),
 		onSuccess: () => {
+			toast.success("Book added successfully!");
 			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});

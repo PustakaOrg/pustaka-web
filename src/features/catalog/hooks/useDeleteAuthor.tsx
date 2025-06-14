@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deletAuthor as deleteAuthorApi } from "../api/deleteAuthor";
+import { deleteAuthor as deleteAuthorApi } from "../api/deleteAuthor";
+import { toast } from "sonner";
 
 const useDeleteAuthor = () => {
 	const queryClient = useQueryClient();
@@ -11,6 +12,9 @@ const useDeleteAuthor = () => {
 	} = useMutation({
 		mutationKey: ["update-author"],
 		mutationFn: (id: string) => deleteAuthorApi(id),
+		onSuccess: () => {
+			toast.success("Author deleted successfully!");
+		},
 		onSettled: () => {
 			queryClient.invalidateQueries({ queryKey: ["authors"] });
 			queryClient.invalidateQueries({ queryKey: ["all-author"] });
