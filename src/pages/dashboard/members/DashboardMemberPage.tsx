@@ -31,6 +31,7 @@ import { Member } from "~/types/entities/Member";
 import MemberCardPrintDialog from "~/features/member/components/MemberCardPrintDialog";
 import { MemberCSV, memberToCSV } from "~/features/member/types/MemberExport";
 import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
+import ImportMemberDialog from "~/features/member/components/ImportMemberDialog";
 
 const DashboardMemberPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState(
@@ -131,7 +132,7 @@ const DashboardMemberPage = () => {
 					data={memberCSV}
 					isOpen={csvOpen}
 					onOpenChange={closeCSVDialog}
-          defaulFileName="Member"
+					defaulFileName="Member"
 				/>
 			)}
 			{bulkData && (
@@ -154,7 +155,8 @@ const DashboardMemberPage = () => {
 							{memberList?.results.length} members found
 						</CardDescription>
 					</div>
-					<div>
+					<div className="grid grid-cols-2 gap-2">
+						<ImportMemberDialog />
 						<AddMemberDialog />
 					</div>
 				</CardHeader>

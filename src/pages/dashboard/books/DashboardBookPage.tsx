@@ -43,6 +43,7 @@ import CategoryTable from "~/features/catalog/components/CategoryTable";
 import { Book } from "~/types/entities/Book";
 import BookStickerPrintDialog from "~/features/catalog/components/BookStickerPrintDialog";
 import ShowPerPage from "~/shared/components/ShowPerPage";
+import ImportBookDialog from "~/features/catalog/components/ImportBookDialog";
 
 const DashboardBookPage = () => {
 	const [columnVisibility, setColumnVisibility] =
@@ -226,7 +227,8 @@ const DashboardBookPage = () => {
 							{bookList?.results.length} books found
 						</CardDescription>
 					</div>
-					<div>
+					<div className="grid grid-cols-2 gap-2">
+						<ImportBookDialog />
 						<AddBookDialog />
 					</div>
 				</CardHeader>
