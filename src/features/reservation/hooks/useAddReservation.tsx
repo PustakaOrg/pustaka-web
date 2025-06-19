@@ -3,6 +3,7 @@ import {
 	postReservation,
 	PostReservationPayload,
 } from "../api/postReservation";
+import { toast } from "sonner";
 
 const useAddReservation = () => {
 	const queryClient = useQueryClient();
@@ -19,6 +20,7 @@ const useAddReservation = () => {
 			queryClient.invalidateQueries({ queryKey: ["loans"] });
 			queryClient.invalidateQueries({ queryKey: ["reservations"] });
 			queryClient.invalidateQueries({ queryKey: ["books"] });
+      toast.success("Reservasi berhasil ditambah!")
 		},
 	});
 

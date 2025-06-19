@@ -18,6 +18,7 @@ const useUpdatePublisher = () => {
 			toast.success("Publisher updated successfully!");
 			queryClient.invalidateQueries({ queryKey: ["publishers"] });
 			queryClient.invalidateQueries({ queryKey: ["all-publisher"] });
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 	return {

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postLoan, PostLoanPayload } from "../api/postLoan";
+import { toast } from "sonner";
 
 const useAddLoan = () => {
 	const queryClient = useQueryClient();
@@ -15,6 +16,7 @@ const useAddLoan = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["loans"] });
 			queryClient.invalidateQueries({ queryKey: ["books"] });
+      toast.success("Peminjaman berhasil ditambah!")
 		},
 	});
 

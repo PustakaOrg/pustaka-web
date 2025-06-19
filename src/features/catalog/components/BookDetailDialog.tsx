@@ -44,8 +44,8 @@ export function BookDetailDialog({
 					<div className="flex flex-col md:flex-row gap-6">
 						<div className="flex-shrink-0">
 							<img
-								src={book.img}
-								alt="/placeholder.svg?height=200&width=150"
+								src={book.img || "/placeholder.svg"}
+								alt={book.title}
 								width={150}
 								height={200}
 								className="rounded-lg border shadow-md"

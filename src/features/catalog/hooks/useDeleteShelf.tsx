@@ -13,11 +13,12 @@ const useDeleteShelf = () => {
 		mutationKey: ["update-shelf"],
 		mutationFn: (id: string) => deleteShelfApi(id),
 		onSuccess: () => {
-			toast.success("Shelf deleted successfully!");	
 		},
 		onSettled: () => {
+      toast.success("Shelf deleted successfully!");	
 			queryClient.invalidateQueries({ queryKey: ["shelves"] });
 			queryClient.invalidateQueries({ queryKey: ["all-shelf"] });
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 	return {

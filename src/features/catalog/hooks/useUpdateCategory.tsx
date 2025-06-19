@@ -18,6 +18,7 @@ const useUpdateCategory = () => {
 			toast.success("Category updated successfully!");
 			queryClient.invalidateQueries({ queryKey: ["categories"] });
 			queryClient.invalidateQueries({ queryKey: ["all-category"] });
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 	return {

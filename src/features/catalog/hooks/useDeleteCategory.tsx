@@ -13,11 +13,13 @@ const useDeleteCategory = () => {
 		mutationKey: ["update-category"],
 		mutationFn: (id: string) => deleteCategoryApi(id),
 		onSuccess: () => {
-			toast.success("Category deleted successfully!");
 		},
 		onSettled: () => {
+      toast.success("Category deleted successfully!");
 			queryClient.invalidateQueries({ queryKey: ["categories"] });
 			queryClient.invalidateQueries({ queryKey: ["all-category"] });
+
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 	return {

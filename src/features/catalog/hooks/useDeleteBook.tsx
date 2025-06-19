@@ -13,10 +13,11 @@ const useDeleteBook = () => {
 		mutationKey: ["delete-book"],
 		mutationFn: (bookId: string) => deleteBookApi(bookId),
 		onSuccess: () => {
-			toast.success("Book deleted successfully!");
 		},
 		onSettled() {
+      toast.success("Book deleted successfully!");
 			queryClient.refetchQueries({ queryKey: ["books"] });
+
 		},
 	});
 	return {

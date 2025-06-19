@@ -10,7 +10,7 @@ export const bookToCSV = (books: Book[]) =>
 		"Tahun Terbit": b.publish_year,
 		Stok: b.stock,
 		"Stok Tersedia": b.available_stock,
-		Categori: b.category.join(","),
+		Categori: b.category.map(c=>c.name).join(","),
 		Rak: b.shelf?.code,
 		"Total Halaman": b.pages,
 	}));

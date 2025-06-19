@@ -18,6 +18,7 @@ const useUpdateShelf = () => {
 			toast.success("Shelf updated successfully!");
 			queryClient.invalidateQueries({ queryKey: ["shelves"] });
 			queryClient.invalidateQueries({ queryKey: ["all-shelf"] });
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 	return {

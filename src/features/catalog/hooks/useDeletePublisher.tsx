@@ -13,11 +13,12 @@ const useDeletePublisher = () => {
 		mutationKey: ["update-publisher"],
 		mutationFn: (id: string) => deletePublisherApi(id),
 		onSuccess: () => {
-			toast.success("Publisher deleted successfully!");	
 		},
 		onSettled: () => {
+      toast.success("Publisher deleted successfully!");	
 			queryClient.invalidateQueries({ queryKey: ["publishers"] });
 			queryClient.invalidateQueries({ queryKey: ["all-publisher"] });
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 	return {

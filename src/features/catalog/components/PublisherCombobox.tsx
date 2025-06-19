@@ -42,7 +42,7 @@ const PublisherCombobox = ({
 					className="w-full justify-between text-muted-foreground"
 				>
 					{publisher
-						? `${publisherV?.name} - ${publisherV?.city}`
+						? `${publisherV?.name} - ${publisherV?.city ?? ""}`
 						: "Select publisher..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
@@ -58,7 +58,7 @@ const PublisherCombobox = ({
 									<CommandItem
 										key={publisherc.id}
 										value={publisherc.id}
-										keywords={[publisherc.name, publisherc.city]}
+										keywords={[publisherc.name]}
 										onSelect={(currentValue) => {
 											setPublisher(
 												currentValue == publisher ? "" : currentValue,
@@ -66,7 +66,7 @@ const PublisherCombobox = ({
 											setOpen(false);
 										}}
 									>
-										{publisherc.name} - {publisherc.city}
+										{publisherc.name} - {publisherc?.city}
 										<Check
 											className={cn(
 												"ml-auto",

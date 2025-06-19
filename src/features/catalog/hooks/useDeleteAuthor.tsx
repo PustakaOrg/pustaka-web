@@ -13,11 +13,13 @@ const useDeleteAuthor = () => {
 		mutationKey: ["update-author"],
 		mutationFn: (id: string) => deleteAuthorApi(id),
 		onSuccess: () => {
-			toast.success("Author deleted successfully!");
 		},
 		onSettled: () => {
+      toast.success("Author deleted successfully!");
 			queryClient.invalidateQueries({ queryKey: ["authors"] });
 			queryClient.invalidateQueries({ queryKey: ["all-author"] });
+
+			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});
 	return {
