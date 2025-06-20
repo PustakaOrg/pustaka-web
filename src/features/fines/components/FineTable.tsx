@@ -10,6 +10,8 @@ import { isLibrarianObject } from "~/features/auth/utils/util";
 import useUpdatePaymentStatus from "../hooks/useUpdatePaymentStatus";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import FineDetailDialog from "./FineDetailDialog";
+import useDeleteFine from "../hooks/useDeleteLoan";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
 
 interface FineTableProps {
 	fineList: PaginatedResponse<Fine>;
@@ -29,7 +31,7 @@ const FineTable = ({
 }: FineTableProps) => {
 	const { profile } = useProfile();
 	const { updatePaymentStatus } = useUpdatePaymentStatus();
-
+	const { deleteFine } = useDeleteFine();
 
 	const {
 		data: fine,
@@ -37,18 +39,29 @@ const FineTable = ({
 		openDialog,
 		closeDialog,
 	} = useDialogWithData<Fine>();
+	const {
+		data: deleteFineData,
+		openDialog: openDeleteDialog,
+		isOpen: isDeleteOpen,
+		closeDialog: closeDeleteDialog,
+	} = useDialogWithData<Fine>();
 	const handelRowAction = (action: string, fine: Fine) => {
 		if (action == "view") {
-      openDialog(fine)
+			openDialog(fine);
 		}
+
 		if (isLibrarianObject(profile)) {
-			updatePaymentStatus({
-				id: fine.payment.id,
-				payload: { accepted_by: profile.id, status: "done" },
-			});
+			if (action == "mark-done")
+				updatePaymentStatus({
+					id: fine.payment.id,
+					payload: { accepted_by: profile.id, status: "done" },
+				});
+		}
+
+		if (action === "delete") {
+			openDeleteDialog(fine);
 		}
 	};
-
 
 	const isAllSelected =
 		selectedFines.length === fineList.results.length &&
@@ -58,7 +71,28 @@ const FineTable = ({
 
 	return (
 		<div>
-    {fine && <FineDetailDialog fine={fine} open={isOpen} onOpenChange={closeDialog} />}
+			{fine && (
+				<FineDetailDialog
+					fine={fine}
+					open={isOpen}
+					onOpenChange={closeDialog}
+				/>
+			)}
+			{deleteFineData && (
+				<DeleteEntityAlertDialog
+					entity={deleteFineData}
+					entityName="denda"
+					entityLabel={
+						deleteFineData.loan.borrower.account.fullname +
+						" - " +
+						deleteFineData.loan.book.title
+					}
+					isOpen={isDeleteOpen}
+					onOpenChange={closeDeleteDialog}
+					onConfirm={() => deleteFine(deleteFineData.id)}
+				/>
+			)}
+
 			<Table>
 				<FineTableHeader
 					columnVisibility={columnVisibility}

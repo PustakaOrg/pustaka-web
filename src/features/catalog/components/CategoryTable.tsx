@@ -11,22 +11,34 @@ import { Category } from "~/types/entities/Category";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { PaginatedResponse } from "~/types/responses";
 import UpdateCategoryDialog from "./UpdateCategoryDialog";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
+import useDeleteCategory from "../hooks/useDeleteCategory";
 
 interface CategoryTableProps {
-  categoryList: PaginatedResponse<Category>
+	categoryList: PaginatedResponse<Category>;
 }
 
-const CategoryTable = ({categoryList}: CategoryTableProps) => {
+const CategoryTable = ({ categoryList }: CategoryTableProps) => {
+	const { deleteCategory } = useDeleteCategory();
 	const {
 		data: category,
 		openDialog,
 		isOpen,
 		closeDialog,
 	} = useDialogWithData<Category>();
+	const {
+		data: deleteCategoryData,
+		openDialog: openDeleteDialog,
+		isOpen: isDeleteOpen,
+		closeDialog: closeDeleteDialog,
+	} = useDialogWithData<Category>();
 
-	const onAction = (action: string, batch: Category) => {
+	const onAction = (action: string, category: Category) => {
 		if (action === "edit") {
-			openDialog(batch);
+			openDialog(category);
+		}
+		if (action === "delete") {
+			openDeleteDialog(category);
 		}
 	};
 	return (
@@ -36,7 +48,11 @@ const CategoryTable = ({categoryList}: CategoryTableProps) => {
 				<TableBody>
 					{categoryList && categoryList.results.length > 0 ? (
 						categoryList.results.map((category) => (
-							<CategoryTableRow key={category.id} category={category} onAction={onAction} />
+							<CategoryTableRow
+								key={category.id}
+								category={category}
+								onAction={onAction}
+							/>
 						))
 					) : (
 						<TableRow>
@@ -53,7 +69,23 @@ const CategoryTable = ({categoryList}: CategoryTableProps) => {
 					)}
 				</TableBody>
 			</Table>
-      {category && <UpdateCategoryDialog category={category} onOpenChange={closeDialog} isOpen={isOpen} />}
+			{category && (
+				<UpdateCategoryDialog
+					category={category}
+					onOpenChange={closeDialog}
+					isOpen={isOpen}
+				/>
+			)}
+			{deleteCategoryData && (
+				<DeleteEntityAlertDialog
+					entity={deleteCategoryData}
+					entityName="kategori"
+					entityLabel={deleteCategoryData.name}
+					isOpen={isDeleteOpen}
+					onOpenChange={closeDeleteDialog}
+					onConfirm={() => deleteCategory(deleteCategoryData.id)}
+				/>
+			)}
 		</div>
 	);
 };

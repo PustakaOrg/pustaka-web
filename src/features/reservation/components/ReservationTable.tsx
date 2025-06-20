@@ -13,6 +13,9 @@ import { PostLoanPayload } from "~/features/loan/api/postLoan";
 import { addDays, format } from "date-fns";
 import useReservationDialog from "../hooks/useReservationDialog";
 import ReservationDetailDialog from "./ReservationDetailDialog";
+import useDeleteReservation from "../hooks/useDeleteReservation";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
 
 interface ReservationTableProps {
 	reservationList: PaginatedResponse<Reservation>;
@@ -33,8 +36,15 @@ const ReservationTable = ({
 	const { profile } = useProfile();
 	const { updateReservation } = useUpdateReservationStatus();
 	const { addLoan } = useAddLoan();
+	const { deleteReservation } = useDeleteReservation();
 	const { reservation, isOpen, openDialog, closeDialog } =
 		useReservationDialog();
+	const {
+		data: deleteReservationData,
+		openDialog: openDeleteDialog,
+		isOpen: isDeleteOpen,
+		closeDialog: closeDeleteDialog,
+	} = useDialogWithData<Reservation>();
 	const handelRowAction = (action: string, reservation: Reservation) => {
 		if (action == "view-detail") {
 			openDialog(reservation);
@@ -79,6 +89,9 @@ const ReservationTable = ({
 				addLoan(addLoanPayload);
 			}
 		}
+		if (action === "delete") {
+			openDeleteDialog(reservation);
+		}
 	};
 	const isAllSelected =
 		selectedReservations.length === reservationList.results.length &&
@@ -118,6 +131,20 @@ const ReservationTable = ({
 					reservation={reservation}
 					onOpenChange={closeDialog}
 					open={isOpen}
+				/>
+			)}
+			{deleteReservationData && (
+				<DeleteEntityAlertDialog
+					entity={deleteReservationData}
+					entityName="reservation"
+					entityLabel={
+						deleteReservationData.reservant.account.fullname +
+						" - " +
+						deleteReservationData.book.title
+					}
+					isOpen={isDeleteOpen}
+					onOpenChange={closeDeleteDialog}
+					onConfirm={() => deleteReservation(deleteReservationData.id)}
 				/>
 			)}
 		</div>

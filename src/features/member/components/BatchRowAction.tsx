@@ -34,6 +34,14 @@ const BatchRowAction = ({ batch, onAction }: BatchRowActionProps) => {
 					Edit Batch
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
+				<DropdownMenuItem
+					onClick={() => onAction("delete", batch)}
+					className="cursor-pointer text-destructive"
+					variant="destructive"
+				>
+					<Trash2 className="mr-2 h-4 w-4" />
+					Delete
+				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

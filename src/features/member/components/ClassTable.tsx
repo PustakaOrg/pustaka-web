@@ -11,22 +11,33 @@ import { Class } from "~/types/entities/Class";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { PaginatedResponse } from "~/types/responses";
 import UpdateClassDialog from "./UpdateClassDialog";
+import useDeleteClass from "../hooks/useDeleteClass";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
 
 interface ClassTableProps {
   classList: PaginatedResponse<Class>
 }
 
 const ClassTable = ({classList}: ClassTableProps) => {
+  const {deleteClass} = useDeleteClass()
 	const {
 		data: _class,
 		openDialog,
 		isOpen,
 		closeDialog,
 	} = useDialogWithData<Class>();
-
-	const onAction = (action: string, batch: Class) => {
+	const {
+		data: deleteClassData,
+		openDialog: openDeleteDialog,
+		isOpen: isDeleteOpen,
+		closeDialog: closeDeleteDialog,
+	} = useDialogWithData<Class>();
+	const onAction = (action: string, _class: Class) => {
 		if (action === "edit") {
-			openDialog(batch);
+			openDialog(_class);
+		}
+		if (action === "delete") {
+			openDeleteDialog(_class);
 		}
 	};
 	return (
@@ -54,6 +65,16 @@ const ClassTable = ({classList}: ClassTableProps) => {
 				</TableBody>
 			</Table>
       {_class && <UpdateClassDialog _class={_class} onOpenChange={closeDialog} isOpen={isOpen} />}
+			{deleteClassData && (
+				<DeleteEntityAlertDialog
+					entity={deleteClassData}
+					entityName="class"
+					entityLabel={deleteClassData.name}
+					isOpen={isDeleteOpen}
+					onOpenChange={closeDeleteDialog}
+					onConfirm={() => deleteClass(deleteClassData.id)}
+				/>
+			)}
 		</div>
 	);
 };

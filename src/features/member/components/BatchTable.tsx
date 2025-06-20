@@ -4,7 +4,6 @@ import {
 	TableCell,
 	TableRow,
 } from "~/shared/components/ui/table";
-import useBatchList from "../hooks/useBatchList";
 import { Users } from "lucide-react";
 import BatchTableHeader from "./BatchTableHeader";
 import BatchTableRow from "./BatchTableRow";
@@ -12,22 +11,34 @@ import { Batch } from "~/types/entities/Batch";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { PaginatedResponse } from "~/types/responses";
 import UpdateBatchDialog from "./UpdateBatchDialog";
+import useDeleteBatch from "../hooks/useDeleteBatch";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
 
 interface BatchTableProps {
-  batchList: PaginatedResponse<Batch>
+	batchList: PaginatedResponse<Batch>;
 }
 
-const BatchTable = ({batchList}: BatchTableProps) => {
+const BatchTable = ({ batchList }: BatchTableProps) => {
+	const { deleteBatch } = useDeleteBatch();
 	const {
 		data: batch,
 		openDialog,
 		isOpen,
 		closeDialog,
 	} = useDialogWithData<Batch>();
+	const {
+		data: deleteBatchData,
+		openDialog: openDeleteDialog,
+		isOpen: isDeleteOpen,
+		closeDialog: closeDeleteDialog,
+	} = useDialogWithData<Batch>();
 
 	const onAction = (action: string, batch: Batch) => {
 		if (action === "edit") {
 			openDialog(batch);
+		}
+		if (action === "delete") {
+			openDeleteDialog(batch);
 		}
 	};
 	return (
@@ -54,7 +65,23 @@ const BatchTable = ({batchList}: BatchTableProps) => {
 					)}
 				</TableBody>
 			</Table>
-      {batch && <UpdateBatchDialog batch={batch} onOpenChange={closeDialog} isOpen={isOpen} />}
+			{batch && (
+				<UpdateBatchDialog
+					batch={batch}
+					onOpenChange={closeDialog}
+					isOpen={isOpen}
+				/>
+			)}
+			{deleteBatchData && (
+				<DeleteEntityAlertDialog
+					entity={deleteBatchData}
+					entityName="batch"
+					entityLabel={deleteBatchData.name}
+					isOpen={isDeleteOpen}
+					onOpenChange={closeDeleteDialog}
+					onConfirm={() => deleteBatch(deleteBatchData.id)}
+				/>
+			)}
 		</div>
 	);
 };

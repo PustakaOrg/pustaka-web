@@ -1,4 +1,3 @@
-
 import { Category } from "~/types/entities/Category";
 
 import {
@@ -15,7 +14,7 @@ interface CategoryRowActionProps {
 	category: Category;
 	onAction: (action: string, category: Category) => void;
 }
-const CategoryRowAction = ({  category, onAction }: CategoryRowActionProps) => {
+const CategoryRowAction = ({ category, onAction }: CategoryRowActionProps) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild className="cursor-pointer">
@@ -35,6 +34,14 @@ const CategoryRowAction = ({  category, onAction }: CategoryRowActionProps) => {
 					Edit Category
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
+				<DropdownMenuItem
+					onClick={() => onAction("delete", category)}
+					className="cursor-pointer text-destructive"
+					variant="destructive"
+				>
+					<Trash2 className="mr-2 h-4 w-4" />
+					Delete
+				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

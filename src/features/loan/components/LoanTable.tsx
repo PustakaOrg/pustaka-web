@@ -10,6 +10,9 @@ import { isLibrarianObject } from "~/features/auth/utils/util";
 import useUpdateLoanStatus from "../hooks/useUpdateLoanStatus";
 import useLoanDialog from "../hooks/useLoanDialog";
 import LoanDetailDialog from "./LoanDetailDialog";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
+import useDeleteLoan from "../hooks/useDeleteLoan";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
 
 interface LoanTableProps {
 	loanList: PaginatedResponse<Loan>;
@@ -29,7 +32,14 @@ const LoanTable = ({
 }: LoanTableProps) => {
 	const { profile } = useProfile();
 	const { updateLoan } = useUpdateLoanStatus();
+	const { deleteLoan } = useDeleteLoan();
 	const { loan, isOpen, closeDialog, openDialog } = useLoanDialog();
+	const {
+		data: deleteLoanData,
+		openDialog: openDeleteDialog,
+		isOpen: isDeleteOpen,
+		closeDialog: closeDeleteDialog,
+	} = useDialogWithData<Loan>();
 	const handelRowAction = (action: string, loan: Loan) => {
 		if (action == "view-detail") {
 			openDialog(loan);
@@ -43,14 +53,16 @@ const LoanTable = ({
 				});
 			}
 
-
 			if (action == "mark-lost") {
 				updateLoan({
 					loanId: loan.id,
 					payload: { status: "lost", return_procced_by: profile.id },
 				});
 			}
+		}
 
+		if (action === "delete") {
+			openDeleteDialog(loan);
 		}
 	};
 
@@ -92,6 +104,21 @@ const LoanTable = ({
 					onOpenChange={closeDialog}
 				/>
 			)}
+	{deleteLoanData && (
+				<DeleteEntityAlertDialog
+					entity={deleteLoanData}
+					entityName="peminjaman"
+					entityLabel={
+						deleteLoanData.borrower.account.fullname +
+						" - " +
+						deleteLoanData.book.title
+					}
+					isOpen={isDeleteOpen}
+					onOpenChange={closeDeleteDialog}
+					onConfirm={() => deleteLoan(deleteLoanData.id)}
+				/>
+			)}
+
 		</div>
 	);
 };

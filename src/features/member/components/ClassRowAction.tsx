@@ -33,6 +33,14 @@ const ClassRowAction = ({ _class, onAction }: ClassRowActionProps) => {
 					Edit Class
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
+				<DropdownMenuItem
+					onClick={() => onAction("delete", _class)}
+					className="cursor-pointer text-destructive"
+					variant="destructive"
+				>
+					<Trash2 className="mr-2 h-4 w-4" />
+					Delete
+				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

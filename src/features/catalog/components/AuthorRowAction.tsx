@@ -1,4 +1,3 @@
-
 import { Author } from "~/types/entities/Author";
 
 import {
@@ -15,7 +14,7 @@ interface AuthorRowActionProps {
 	author: Author;
 	onAction: (action: string, author: Author) => void;
 }
-const AuthorRowAction = ({  author, onAction }: AuthorRowActionProps) => {
+const AuthorRowAction = ({ author, onAction }: AuthorRowActionProps) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild className="cursor-pointer">
@@ -35,6 +34,14 @@ const AuthorRowAction = ({  author, onAction }: AuthorRowActionProps) => {
 					Edit Author
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
+				<DropdownMenuItem
+					onClick={() => onAction("delete", author)}
+					className="cursor-pointer text-destructive"
+					variant="destructive"
+				>
+					<Trash2 className="mr-2 h-4 w-4" />
+					Delete
+				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

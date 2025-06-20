@@ -11,22 +11,34 @@ import { Shelf } from "~/types/entities/Shelf";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { PaginatedResponse } from "~/types/responses";
 import UpdateShelfDialog from "./UpdateShelfDialog";
+import useDeleteShelf from "../hooks/useDeleteShelf";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
 
 interface ShelfTableProps {
-  shelfList: PaginatedResponse<Shelf>
+	shelfList: PaginatedResponse<Shelf>;
 }
 
-const ShelfTable = ({shelfList}: ShelfTableProps) => {
+const ShelfTable = ({ shelfList }: ShelfTableProps) => {
+	const { deleteShelf } = useDeleteShelf();
 	const {
 		data: shelf,
 		openDialog,
 		isOpen,
 		closeDialog,
 	} = useDialogWithData<Shelf>();
+	const {
+		data: deleteShelfData,
+		openDialog: openDeleteDialog,
+		isOpen: isDeleteOpen,
+		closeDialog: closeDeleteDialog,
+	} = useDialogWithData<Shelf>();
 
-	const onAction = (action: string, batch: Shelf) => {
+	const onAction = (action: string, shelf: Shelf) => {
 		if (action === "edit") {
-			openDialog(batch);
+			openDialog(shelf);
+		}
+		if (action === "delete") {
+			openDeleteDialog(shelf);
 		}
 	};
 	return (
@@ -53,7 +65,23 @@ const ShelfTable = ({shelfList}: ShelfTableProps) => {
 					)}
 				</TableBody>
 			</Table>
-      {shelf && <UpdateShelfDialog shelf={shelf} onOpenChange={closeDialog} isOpen={isOpen} />}
+			{shelf && (
+				<UpdateShelfDialog
+					shelf={shelf}
+					onOpenChange={closeDialog}
+					isOpen={isOpen}
+				/>
+			)}
+			{deleteShelfData && (
+				<DeleteEntityAlertDialog
+					entity={deleteShelfData}
+					entityName="shelf"
+					entityLabel={deleteShelfData.code}
+					isOpen={isDeleteOpen}
+					onOpenChange={closeDeleteDialog}
+					onConfirm={() => deleteShelf(deleteShelfData.id)}
+				/>
+			)}
 		</div>
 	);
 };

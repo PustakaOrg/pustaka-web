@@ -10,7 +10,8 @@ import {
 
 import { CheckCircle, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 import useProfile from "~/features/auth/hooks/useProfile";
-import { isLibrarianObject } from "~/features/auth/utils/util";
+import { isAdminObject, isLibrarianObject } from "~/features/auth/utils/util";
+import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 
 interface FineRowActionProps {
 	fine: Fine;
@@ -18,7 +19,7 @@ interface FineRowActionProps {
 }
 
 const FineRowAction = ({ fine, onAction }: FineRowActionProps) => {
-  const {profile} = useProfile()
+	const { profile } = useProfile();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -37,6 +38,19 @@ const FineRowAction = ({ fine, onAction }: FineRowActionProps) => {
 						<CheckCircle className="mr-2 h-4 w-4" />
 						Mark as done
 					</DropdownMenuItem>
+				)}
+				{profile && (isLibrarianObject(profile) || isAdminObject(profile)) && (
+					<>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem
+							onClick={() => onAction("delete", fine)}
+							className="cursor-pointer text-destructive"
+							variant="destructive"
+						>
+							<Trash2 className="mr-2 h-4 w-4" />
+							Delete
+						</DropdownMenuItem>
+					</>
 				)}
 			</DropdownMenuContent>
 		</DropdownMenu>

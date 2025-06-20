@@ -11,22 +11,34 @@ import { Publisher } from "~/types/entities/Publisher";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { PaginatedResponse } from "~/types/responses";
 import UpdatePublisherDialog from "./UpdatePublisherDialog";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
+import useDeletePublisher from "../hooks/useDeletePublisher";
 
 interface PublisherTableProps {
-  publisherList: PaginatedResponse<Publisher>
+	publisherList: PaginatedResponse<Publisher>;
 }
 
-const PublisherTable = ({publisherList}: PublisherTableProps) => {
+const PublisherTable = ({ publisherList }: PublisherTableProps) => {
+	const { deletePublisher } = useDeletePublisher();
 	const {
 		data: publisher,
 		openDialog,
 		isOpen,
 		closeDialog,
 	} = useDialogWithData<Publisher>();
+	const {
+		data: deletePublisherData,
+		openDialog: openDeleteDialog,
+		isOpen: isDeleteOpen,
+		closeDialog: closeDeleteDialog,
+	} = useDialogWithData<Publisher>();
 
-	const onAction = (action: string, batch: Publisher) => {
+	const onAction = (action: string, publisher: Publisher) => {
 		if (action === "edit") {
-			openDialog(batch);
+			openDialog(publisher);
+		}
+		if (action === "delete") {
+			openDeleteDialog(publisher);
 		}
 	};
 	return (
@@ -36,7 +48,11 @@ const PublisherTable = ({publisherList}: PublisherTableProps) => {
 				<TableBody>
 					{publisherList && publisherList.results.length > 0 ? (
 						publisherList.results.map((publisher) => (
-							<PublisherTableRow key={publisher.id} publisher={publisher} onAction={onAction} />
+							<PublisherTableRow
+								key={publisher.id}
+								publisher={publisher}
+								onAction={onAction}
+							/>
 						))
 					) : (
 						<TableRow>
@@ -53,7 +69,23 @@ const PublisherTable = ({publisherList}: PublisherTableProps) => {
 					)}
 				</TableBody>
 			</Table>
-      {publisher && <UpdatePublisherDialog publisher={publisher} onOpenChange={closeDialog} isOpen={isOpen} />}
+			{publisher && (
+				<UpdatePublisherDialog
+					publisher={publisher}
+					onOpenChange={closeDialog}
+					isOpen={isOpen}
+				/>
+			)}
+			{deletePublisherData && (
+				<DeleteEntityAlertDialog
+					entity={deletePublisherData}
+					entityName="publisher"
+					entityLabel={deletePublisherData.name}
+					isOpen={isDeleteOpen}
+					onOpenChange={closeDeleteDialog}
+					onConfirm={() => deletePublisher(deletePublisherData.id)}
+				/>
+			)}
 		</div>
 	);
 };

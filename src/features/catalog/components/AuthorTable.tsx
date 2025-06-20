@@ -11,12 +11,16 @@ import { Author } from "~/types/entities/Author";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { PaginatedResponse } from "~/types/responses";
 import UpdateAuthorDialog from "./UpdateAuthorDialog";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
+import useDeleteAuthor from "../hooks/useDeleteAuthor";
 
 interface AuthorTableProps {
-  authorList: PaginatedResponse<Author>
+	authorList: PaginatedResponse<Author>;
 }
 
-const AuthorTable = ({authorList}: AuthorTableProps) => {
+const AuthorTable = ({ authorList }: AuthorTableProps) => {
+	const { deleteAuthor } = useDeleteAuthor();
+
 	const {
 		data: author,
 		openDialog,
@@ -24,9 +28,19 @@ const AuthorTable = ({authorList}: AuthorTableProps) => {
 		closeDialog,
 	} = useDialogWithData<Author>();
 
-	const onAction = (action: string, batch: Author) => {
+	const {
+		data: deleteAuthorData,
+		openDialog: openDeleteDialog,
+		isOpen: isDeleteOpen,
+		closeDialog: closeDeleteDialog,
+	} = useDialogWithData<Author>();
+
+	const onAction = (action: string, author: Author) => {
 		if (action === "edit") {
-			openDialog(batch);
+			openDialog(author);
+		}
+		if (action === "delete") {
+			openDeleteDialog(author);
 		}
 	};
 	return (
@@ -36,7 +50,11 @@ const AuthorTable = ({authorList}: AuthorTableProps) => {
 				<TableBody>
 					{authorList && authorList.results.length > 0 ? (
 						authorList.results.map((author) => (
-							<AuthorTableRow key={author.id} author={author} onAction={onAction} />
+							<AuthorTableRow
+								key={author.id}
+								author={author}
+								onAction={onAction}
+							/>
 						))
 					) : (
 						<TableRow>
@@ -53,7 +71,23 @@ const AuthorTable = ({authorList}: AuthorTableProps) => {
 					)}
 				</TableBody>
 			</Table>
-      {author && <UpdateAuthorDialog author={author} onOpenChange={closeDialog} isOpen={isOpen} />}
+			{author && (
+				<UpdateAuthorDialog
+					author={author}
+					onOpenChange={closeDialog}
+					isOpen={isOpen}
+				/>
+			)}
+			{deleteAuthorData && (
+				<DeleteEntityAlertDialog
+					entity={deleteAuthorData}
+					entityName="author"
+					entityLabel={deleteAuthorData.fullname}
+					isOpen={isDeleteOpen}
+					onOpenChange={closeDeleteDialog}
+					onConfirm={() => deleteAuthor(deleteAuthorData.id)}
+				/>
+			)}
 		</div>
 	);
 };

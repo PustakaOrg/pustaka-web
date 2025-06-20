@@ -9,7 +9,7 @@ import {
 	XCircle,
 } from "lucide-react";
 import useProfile from "~/features/auth/hooks/useProfile";
-import { isLibrarianObject } from "~/features/auth/utils/util";
+import { isAdminObject, isLibrarianObject } from "~/features/auth/utils/util";
 import { Button } from "~/shared/components/ui/button";
 import {
 	DropdownMenu,
@@ -82,6 +82,19 @@ const ReservationRowAction = ({
 									</DropdownMenuItem>
 								</>
 							)}
+					</>
+				)}
+				{profile && (isLibrarianObject(profile) || isAdminObject(profile)) && (
+					<>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem
+							onClick={() => onAction("delete", reservation)}
+							className="cursor-pointer text-destructive"
+							variant="destructive"
+						>
+							<Trash2 className="mr-2 h-4 w-4" />
+							Delete
+						</DropdownMenuItem>
 					</>
 				)}
 

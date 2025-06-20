@@ -35,6 +35,14 @@ const PublisherRowAction = ({  publisher, onAction }: PublisherRowActionProps) =
 					Edit Publisher
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
+				<DropdownMenuItem
+					onClick={() => onAction("delete", publisher)}
+					className="cursor-pointer text-destructive"
+					variant="destructive"
+				>
+					<Trash2 className="mr-2 h-4 w-4" />
+					Delete
+				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
