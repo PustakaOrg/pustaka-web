@@ -32,6 +32,9 @@ import MemberCardPrintDialog from "~/features/member/components/MemberCardPrintD
 import { MemberCSV, memberToCSV } from "~/features/member/types/MemberExport";
 import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
 import ImportMemberDialog from "~/features/member/components/ImportMemberDialog";
+import { useSearchPagination } from "~/shared/hooks/useSearchPagination";
+import { Search } from "lucide-react";
+import { Input } from "~/shared/components/ui/input";
 
 const DashboardMemberPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState(
@@ -49,19 +52,12 @@ const DashboardMemberPage = () => {
 		batch: batch,
 	};
 
-	const [classListParams, setClassListParams] = useState({
-		limit: 5,
-		offset: 0,
-	});
-
-	const [batchLimitOffset, setBatchLimitOffset] = useState({
-		limit: 5,
-		offset: 0,
-	});
+	const _classes = useSearchPagination();
+	const batches = useSearchPagination();
 
 	const { memberList, isPending } = useMemberList(memberListParam);
-	const { batchList } = useBatchList(batchLimitOffset);
-	const { classList } = useClassList(classListParams);
+	const { batchList } = useBatchList(batches.params);
+	const { classList } = useClassList(_classes.params);
 	const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
 	const {
 		data: bulkData,
@@ -90,17 +86,6 @@ const DashboardMemberPage = () => {
 		} else {
 			setSelectedMembers((prev) => prev.filter((id) => id !== memberId));
 		}
-	};
-	const handleClassOffsetChange = (newOffset: number) => {
-		setClassListParams((prev) => {
-			return { ...prev, offset: newOffset };
-		});
-	};
-
-	const handleBatchOffsetChange = (newOffset: number) => {
-		setBatchLimitOffset((prev) => {
-			return { ...prev, offset: newOffset };
-		});
 	};
 
 	const handleBulkAction = (action: string) => {
@@ -143,16 +128,16 @@ const DashboardMemberPage = () => {
 				/>
 			)}
 
-			<ContentHeader title="Members" subtitle="Manage library members." />
+			<ContentHeader title="Member" subtitle="." />
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
 						<CardTitle className="flex flex-row items-center justify-between">
-							Members
+							Member
 						</CardTitle>
 
 						<CardDescription>
-							{memberList?.results.length} members found
+							{memberList?.results.length} member ditemukan.
 						</CardDescription>
 					</div>
 					<div className="grid grid-cols-2 gap-2">
@@ -205,25 +190,50 @@ const DashboardMemberPage = () => {
 				<Card>
 					<CardHeader className="flex justify-between">
 						<div>
-							<CardTitle>Batches</CardTitle>
+							<CardTitle>Angkatan</CardTitle>
 							<CardDescription>
-								{batchList?.results.length ?? 0} batches found
+								{batchList?.results.length ?? 0} Angkatan ditemukan
 							</CardDescription>
 						</div>
 						<div>
 							<AddBatchDialog />
 						</div>
 					</CardHeader>
-					<CardContent className="">
+					<CardContent className="space-y-2">
+						<div className="flex items-center  gap-2 justify-between">
+							<div className="flex gap-2">
+								<div className="relative ">
+									<form
+										onSubmit={(e) => {
+											e.preventDefault();
+											const q = new FormData(e.currentTarget).get(
+												"q",
+											) as string;
+											batches.setQuery(q);
+										}}
+									>
+										<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+										<Input
+											type="text"
+											placeholder="Cari Angkatan"
+											className="w-full pl-9 pr-4"
+											name="q"
+										/>
+										<button hidden type="submit"></button>
+									</form>
+								</div>
+							</div>
+						</div>
+
 						{batchList && <BatchTable batchList={batchList} />}
 					</CardContent>
 					<CardFooter className="flex items-center justify-center">
 						{batchList && (
 							<Pagination
 								totalCount={batchList.count}
-								limit={batchLimitOffset.limit}
-								offset={batchLimitOffset.offset}
-								onOffsetChange={handleBatchOffsetChange}
+								limit={batches.params.limit}
+								offset={batches.params.offset}
+								onOffsetChange={batches.setOffset}
 							/>
 						)}
 					</CardFooter>
@@ -232,16 +242,40 @@ const DashboardMemberPage = () => {
 				<Card>
 					<CardHeader className="flex justify-between">
 						<div>
-							<CardTitle>Classes</CardTitle>
+							<CardTitle>Kelas</CardTitle>
 							<CardDescription>
-								{classList?.results.length ?? 0} classes found
+								{classList?.results.length ?? 0} Kelas ditemukan.
 							</CardDescription>
 						</div>
 						<div>
 							<AddClassDialog />
 						</div>
 					</CardHeader>
-					<CardContent className="">
+					<CardContent className="space-y-2">
+						<div className="flex items-center  gap-2 justify-between">
+							<div className="flex gap-2">
+								<div className="relative ">
+									<form
+										onSubmit={(e) => {
+											e.preventDefault();
+											const q = new FormData(e.currentTarget).get(
+												"q",
+											) as string;
+											_classes.setQuery(q);
+										}}
+									>
+										<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+										<Input
+											type="text"
+											placeholder="Cari Kelas"
+											className="w-full pl-9 pr-4"
+											name="q"
+										/>
+										<button hidden type="submit"></button>
+									</form>
+								</div>
+							</div>
+						</div>
 						{classList && <ClassTable classList={classList} />}
 					</CardContent>
 
@@ -249,9 +283,9 @@ const DashboardMemberPage = () => {
 						{classList && (
 							<Pagination
 								totalCount={classList.count}
-								limit={classListParams.limit}
-								offset={classListParams.offset ?? 0}
-								onOffsetChange={handleClassOffsetChange}
+								limit={_classes.params.limit}
+								offset={_classes.params.offset ?? 0}
+								onOffsetChange={_classes.setOffset}
 							/>
 						)}
 					</CardFooter>

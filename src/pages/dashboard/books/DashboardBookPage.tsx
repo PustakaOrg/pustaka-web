@@ -44,6 +44,7 @@ import { Book } from "~/types/entities/Book";
 import BookStickerPrintDialog from "~/features/catalog/components/BookStickerPrintDialog";
 import ShowPerPage from "~/shared/components/ShowPerPage";
 import ImportBookDialog from "~/features/catalog/components/ImportBookDialog";
+import { useSearchPagination } from "~/shared/hooks/useSearchPagination";
 
 const DashboardBookPage = () => {
 	const [columnVisibility, setColumnVisibility] =
@@ -154,48 +155,18 @@ const DashboardBookPage = () => {
 		}
 	};
 
-	const [publisherListParams, setPublisherListParams] = useState({
-		limit: 5,
-		offset: 0,
-	});
-	const { publisherList } = usePublisherList(publisherListParams);
-	const handlePublisherOffsetChange = (newOffset: number) => {
-		setPublisherListParams((prev) => {
-			return { ...prev, offset: newOffset };
-		});
-	};
-	const [categoryListParams, setCategoryListParams] = useState({
-		limit: 5,
-		offset: 0,
-	});
-	const { categoryList } = useCategoryList(categoryListParams);
-	const handleCategoryOffsetChange = (newOffset: number) => {
-		setCategoryListParams((prev) => {
-			return { ...prev, offset: newOffset };
-		});
-	};
+	const publisher = useSearchPagination();
+	const category = useSearchPagination();
+	const author = useSearchPagination();
+	const shelf = useSearchPagination();
 
-	const [authorListParams, setAuthorListParams] = useState({
-		limit: 5,
-		offset: 0,
-	});
-	const { authorList } = useAuthorList(authorListParams);
-	const handleAuthorOffsetChange = (newOffset: number) => {
-		setAuthorListParams((prev) => {
-			return { ...prev, offset: newOffset };
-		});
-	};
+	const { publisherList } = usePublisherList(publisher.params);
 
-	const [shelfListParams, setShelfListParams] = useState({
-		limit: 5,
-		offset: 0,
-	});
-	const { shelfList } = useShelfList(shelfListParams);
-	const handleShelfOffsetChange = (newOffset: number) => {
-		setShelfListParams((prev) => {
-			return { ...prev, offset: newOffset };
-		});
-	};
+	const { categoryList } = useCategoryList(category.params);
+
+	const { authorList } = useAuthorList(author.params);
+
+	const { shelfList } = useShelfList(shelf.params);
 
 	return (
 		<main className="flex flex-1 flex-col gap-6 p-6 overflow-scroll ">
@@ -293,16 +264,38 @@ const DashboardBookPage = () => {
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Categories</CardTitle>
+						<CardTitle>Kategori</CardTitle>
 						<CardDescription>
-							{categoryList?.results.length ?? 0} categorys found
+							{categoryList?.results.length ?? 0} Kategori ditemukan.
 						</CardDescription>
 					</div>
 					<div>
 						<AddCategoryDialog />
 					</div>
 				</CardHeader>
-				<CardContent className="">
+				<CardContent className="space-y-2">
+					<div className="flex items-center  gap-2 justify-between">
+						<div className="flex gap-2">
+							<div className="relative ">
+								<form
+									onSubmit={(e) => {
+										e.preventDefault();
+										const q = new FormData(e.currentTarget).get("q") as string;
+										category.setQuery(q);
+									}}
+								>
+									<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+									<Input
+										type="text"
+										placeholder="Cari Kategori"
+										className="w-full pl-9 pr-4"
+										name="q"
+									/>
+									<button hidden type="submit"></button>
+								</form>
+							</div>
+						</div>
+					</div>
 					{categoryList && <CategoryTable categoryList={categoryList} />}
 				</CardContent>
 
@@ -310,9 +303,9 @@ const DashboardBookPage = () => {
 					{categoryList && (
 						<Pagination
 							totalCount={categoryList.count}
-							limit={categoryListParams.limit}
-							offset={categoryListParams.offset ?? 0}
-							onOffsetChange={handleCategoryOffsetChange}
+							limit={category.params.limit}
+							offset={category.params.offset ?? 0}
+							onOffsetChange={category.setOffset}
 						/>
 					)}
 				</CardFooter>
@@ -323,14 +316,36 @@ const DashboardBookPage = () => {
 					<div>
 						<CardTitle>Authors</CardTitle>
 						<CardDescription>
-							{authorList?.results.length ?? 0} authors found
+							{authorList?.results.length ?? 0} author ditemukan.
 						</CardDescription>
 					</div>
 					<div>
 						<AddAuthorDialog />
 					</div>
 				</CardHeader>
-				<CardContent className="">
+				<CardContent className="space-y-2">
+					<div className="flex items-center  gap-2 justify-between">
+						<div className="flex gap-2">
+							<div className="relative ">
+								<form
+									onSubmit={(e) => {
+										e.preventDefault();
+										const q = new FormData(e.currentTarget).get("q") as string;
+										author.setQuery(q);
+									}}
+								>
+									<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+									<Input
+										type="text"
+										placeholder="Cari Author"
+										className="w-full pl-9 pr-4"
+										name="q"
+									/>
+									<button hidden type="submit"></button>
+								</form>
+							</div>
+						</div>
+					</div>
 					{authorList && <AuthorTable authorList={authorList} />}
 				</CardContent>
 
@@ -338,9 +353,9 @@ const DashboardBookPage = () => {
 					{authorList && (
 						<Pagination
 							totalCount={authorList.count}
-							limit={authorListParams.limit}
-							offset={authorListParams.offset ?? 0}
-							onOffsetChange={handleAuthorOffsetChange}
+							limit={author.params.limit}
+							offset={author.params.offset ?? 0}
+							onOffsetChange={author.setOffset}
 						/>
 					)}
 				</CardFooter>
@@ -351,14 +366,37 @@ const DashboardBookPage = () => {
 					<div>
 						<CardTitle>Shelfs</CardTitle>
 						<CardDescription>
-							{shelfList?.results.length ?? 0} shelfs found
+							{shelfList?.results.length ?? 0} shelf ditemukan.
 						</CardDescription>
 					</div>
 					<div>
 						<AddShelfDialog />
 					</div>
 				</CardHeader>
-				<CardContent className="">
+				<CardContent className="space-y-2">
+					<div className="flex items-center  gap-2 justify-between">
+						<div className="flex gap-2">
+							<div className="relative ">
+								<form
+									onSubmit={(e) => {
+										e.preventDefault();
+										const q = new FormData(e.currentTarget).get("q") as string;
+										shelf.setQuery(q);
+									}}
+								>
+									<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+									<Input
+										type="text"
+										placeholder="Cari Shelf"
+										className="w-full pl-9 pr-4"
+										name="q"
+									/>
+									<button hidden type="submit"></button>
+								</form>
+							</div>
+						</div>
+					</div>
+
 					{shelfList && <ShelfTable shelfList={shelfList} />}
 				</CardContent>
 
@@ -366,9 +404,9 @@ const DashboardBookPage = () => {
 					{shelfList && (
 						<Pagination
 							totalCount={shelfList.count}
-							limit={shelfListParams.limit}
-							offset={shelfListParams.offset ?? 0}
-							onOffsetChange={handleShelfOffsetChange}
+							limit={shelf.params.limit}
+							offset={shelf.params.offset ?? 0}
+							onOffsetChange={shelf.setOffset}
 						/>
 					)}
 				</CardFooter>
@@ -377,16 +415,38 @@ const DashboardBookPage = () => {
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Publishers</CardTitle>
+						<CardTitle>Publisher</CardTitle>
 						<CardDescription>
-							{publisherList?.results.length ?? 0} publishers found
+							{publisherList?.results.length ?? 0} publisher ditemukan.
 						</CardDescription>
 					</div>
 					<div>
 						<AddPublisherDialog />
 					</div>
 				</CardHeader>
-				<CardContent className="">
+				<CardContent className="space-y-2">
+					<div className="flex items-center  gap-2 justify-between">
+						<div className="flex gap-2">
+							<div className="relative ">
+								<form
+									onSubmit={(e) => {
+										e.preventDefault();
+										const q = new FormData(e.currentTarget).get("q") as string;
+										publisher.setQuery(q);
+									}}
+								>
+									<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+									<Input
+										type="text"
+										placeholder="Cari Publisher"
+										className="w-full pl-9 pr-4"
+										name="q"
+									/>
+									<button hidden type="submit"></button>
+								</form>
+							</div>
+						</div>
+					</div>
 					{publisherList && <PublisherTable publisherList={publisherList} />}
 				</CardContent>
 
@@ -394,9 +454,9 @@ const DashboardBookPage = () => {
 					{publisherList && (
 						<Pagination
 							totalCount={publisherList.count}
-							limit={publisherListParams.limit}
-							offset={publisherListParams.offset ?? 0}
-							onOffsetChange={handlePublisherOffsetChange}
+							limit={publisher.params.limit}
+							offset={publisher.params.offset ?? 0}
+							onOffsetChange={publisher.setOffset}
 						/>
 					)}
 				</CardFooter>
