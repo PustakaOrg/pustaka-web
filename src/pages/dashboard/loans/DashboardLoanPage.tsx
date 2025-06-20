@@ -35,6 +35,7 @@ import { Input } from "~/shared/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "~/shared/components/ui/tabs";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import { defaultParams } from "~/shared/utils/functions";
+import { LoanStatus } from "~/types/entities/Loan";
 
 const DashboardLoanPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -48,8 +49,8 @@ const DashboardLoanPage = () => {
 			to: initialTo ? new Date(initialTo) : startOfToday(),
 		};
 	});
-	const loanListParams = {
-		status: searchParams.get("status") ?? undefined,
+	const loanListParams: LoanListParams = {
+		status: (searchParams.get("status") as LoanStatus) ?? undefined,
 		q: searchParams.get("q") ?? undefined,
 
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
@@ -177,16 +178,19 @@ const DashboardLoanPage = () => {
 					data={loanCsv}
 					isOpen={isOpen}
 					onOpenChange={closeDialog}
-          defaulFileName="Loan"
+					defaulFileName="Loan"
 				/>
 			)}
-			<ContentHeader title="Loans" subtitle="Manage book loans and returns." />
+			<ContentHeader
+				title="Peminjaman"
+				subtitle="Kelola Peminjaman dan Pengembalian."
+			/>
 
 			{/* Stats */}
-			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+			<div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">Active Loans</CardTitle>
+						<CardTitle className="text-sm font-medium">Aktif</CardTitle>
 						<BookOpen className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -199,7 +203,7 @@ const DashboardLoanPage = () => {
 									{Math.round(
 										(summary?.total_active / summary?.total_loan) * 100,
 									)}
-									% of total loans
+									% dari total.
 								</p>
 							</>
 						)}
@@ -207,7 +211,7 @@ const DashboardLoanPage = () => {
 				</Card>
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">Overdue</CardTitle>
+						<CardTitle className="text-sm font-medium">Terlambat</CardTitle>
 						<Clock className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -220,7 +224,7 @@ const DashboardLoanPage = () => {
 									{Math.round(
 										(summary.total_overdue / summary.total_loan) * 100,
 									)}
-									% of total loans
+									% dari total.
 								</p>
 							</>
 						)}
@@ -228,7 +232,7 @@ const DashboardLoanPage = () => {
 				</Card>
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">Returned</CardTitle>
+						<CardTitle className="text-sm font-medium">Dikembalikan</CardTitle>
 						<CheckCircle2 className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -241,7 +245,7 @@ const DashboardLoanPage = () => {
 									{Math.round(
 										(summary.total_returned / summary.total_loan) * 100,
 									)}
-									% of total loans
+									% dari total
 								</p>
 							</>
 						)}
@@ -249,7 +253,9 @@ const DashboardLoanPage = () => {
 				</Card>
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">Total Loans</CardTitle>
+						<CardTitle className="text-sm font-medium">
+							Total Peminjaman
+						</CardTitle>
 						<Book className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -266,9 +272,9 @@ const DashboardLoanPage = () => {
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Loans</CardTitle>
+						<CardTitle>Peminjaman</CardTitle>
 						<CardDescription>
-							{loanList?.results.length ?? 0} loans found
+							{loanList?.results.length ?? 0} ditemukan.
 						</CardDescription>
 					</div>
 					<div>
@@ -278,7 +284,7 @@ const DashboardLoanPage = () => {
 								isLibrarianObject(profile) && (
 									<Button>
 										<Plus />
-										Add New Loan
+										Peminjaman
 									</Button>
 								)
 							}
@@ -287,7 +293,7 @@ const DashboardLoanPage = () => {
 				</CardHeader>
 
 				<CardContent className="space-y-4">
-					<div className="w-full flex justify-between">
+					<div className="w-full flex justify-between flex-wrap gap-2">
 						<div className="flex gap-2">
 							<DateRangePickerWithPreset
 								date={dateRange}
@@ -296,7 +302,7 @@ const DashboardLoanPage = () => {
 							<ShowPerPage />
 						</div>
 						<div>
-							<SearchQueryInput placeholder="Search Loan" />
+							<SearchQueryInput placeholder="Cari Peminjaman" />
 						</div>
 					</div>
 					<LoanBulkActionBar
@@ -309,12 +315,12 @@ const DashboardLoanPage = () => {
 						onValueChange={handleTabChange}
 					>
 						<TabsList className="grid w-full grid-cols-6">
-							<TabsTrigger value="">All Status</TabsTrigger>
-							<TabsTrigger value="active">Active</TabsTrigger>
-							<TabsTrigger value="returned">Returned</TabsTrigger>
-							<TabsTrigger value="lost">Lost</TabsTrigger>
-							<TabsTrigger value="overdue">Overdue</TabsTrigger>
-							<TabsTrigger value="done">Done</TabsTrigger>
+							<TabsTrigger value="">Semua</TabsTrigger>
+							<TabsTrigger value="active">Aktif</TabsTrigger>
+							<TabsTrigger value="returned">Dikembalikan</TabsTrigger>
+							<TabsTrigger value="lost">Hilang</TabsTrigger>
+							<TabsTrigger value="overdue">Terlambat</TabsTrigger>
+							<TabsTrigger value="done">Selesai</TabsTrigger>
 						</TabsList>
 					</Tabs>
 

@@ -176,15 +176,17 @@ const DashboardFinesPage = () => {
 					data={fineCSV}
 					isOpen={isOpen}
 					onOpenChange={closeDialog}
-					defaulFileName="Fines"
+					defaulFileName="Denda"
 				/>
 			)}
-			<ContentHeader title="Fines" subtitle="Manage fines" />
+			<ContentHeader title="Denda" subtitle="Kelola Denda." />
 
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">Total Overdue</CardTitle>
+						<CardTitle className="text-sm font-medium">
+							Total Terlambar
+						</CardTitle>
 						<Clock className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -197,7 +199,7 @@ const DashboardFinesPage = () => {
 									{Math.round(
 										(summary.total_overdue / summary.total_all) * 100,
 									)}
-									% of total fines
+									% dari total.
 								</p>
 							</>
 						)}
@@ -205,7 +207,7 @@ const DashboardFinesPage = () => {
 				</Card>
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">Total Lost</CardTitle>
+						<CardTitle className="text-sm font-medium">Total Hilang</CardTitle>
 						<FileWarning className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -216,7 +218,7 @@ const DashboardFinesPage = () => {
 								</div>
 								<p className="text-xs text-muted-foreground">
 									{Math.round((summary?.total_lost / summary?.total_all) * 100)}
-									% of total fines
+									% dari total.
 								</p>
 							</>
 						)}
@@ -225,7 +227,7 @@ const DashboardFinesPage = () => {
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
 						<CardTitle className="text-sm font-medium">
-							Estimated Fines
+							Perkiraan Denda.
 						</CardTitle>
 						<DollarSign className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
@@ -242,7 +244,7 @@ const DashboardFinesPage = () => {
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
 						<CardTitle className="text-sm font-medium">
-							Completed Fines
+							Total Denda selesai.
 						</CardTitle>
 						<Coins className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
@@ -261,14 +263,14 @@ const DashboardFinesPage = () => {
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Fines</CardTitle>
+						<CardTitle>Denda</CardTitle>
 						<CardDescription>
-							{fineList?.results.length} fines found
+							{fineList?.results.length} ditemukan.
 						</CardDescription>
 					</div>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					<div className="w-full flex justify-between">
+					<div className="w-full flex justify-between flex-wrap gap-2">
 						<div className="flex gap-2">
 							<DateRangePickerWithPreset
 								date={dateRange}
@@ -277,7 +279,7 @@ const DashboardFinesPage = () => {
 							<ShowPerPage />
 						</div>
 						<div>
-							<SearchQueryInput placeholder="Search Fines" />
+							<SearchQueryInput placeholder="Cari Denda" />
 						</div>
 					</div>
 					<FineBulkActionBar
@@ -290,9 +292,9 @@ const DashboardFinesPage = () => {
 						onValueChange={handleTabChange}
 					>
 						<TabsList className="grid w-full  grid-cols-3">
-							<TabsTrigger value="">All Status</TabsTrigger>
-							<TabsTrigger value="pending">Pending</TabsTrigger>
-							<TabsTrigger value="done">Done</TabsTrigger>
+							<TabsTrigger value="">Semua</TabsTrigger>
+							<TabsTrigger value="pending">Menunggu</TabsTrigger>
+							<TabsTrigger value="done">Selesai</TabsTrigger>
 						</TabsList>
 					</Tabs>
 

@@ -176,15 +176,15 @@ const DashboardReservationPage = () => {
 					data={reservCSV}
 					isOpen={isOpen}
 					onOpenChange={closeDialog}
-          defaulFileName="Reservasi"
+					defaulFileName="Reservasi"
 				/>
 			)}
-			<ContentHeader title="Reservation" subtitle="Manage book reservations." />
+			<ContentHeader title="Reservasi" subtitle="Kelola Reservasi buku." />
 
-			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+			<div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">Pending</CardTitle>
+						<CardTitle className="text-sm font-medium">Menunggu</CardTitle>
 						<Clock className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -197,7 +197,7 @@ const DashboardReservationPage = () => {
 									{Math.round(
 										(summary.total_pending / summary.total_all) * 100,
 									)}
-									% of total reservations
+									% dari total.
 								</p>
 							</>
 						)}
@@ -205,9 +205,7 @@ const DashboardReservationPage = () => {
 				</Card>
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">
-							Ready for Pickup
-						</CardTitle>
+						<CardTitle className="text-sm font-medium">Siap diambil</CardTitle>
 						<BookOpen className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -218,7 +216,7 @@ const DashboardReservationPage = () => {
 									{Math.round(
 										(summary?.total_ready / summary?.total_all) * 100,
 									)}
-									% of total reservations
+									% dati total.
 								</p>
 							</>
 						)}
@@ -227,7 +225,7 @@ const DashboardReservationPage = () => {
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
 						<CardTitle className="text-sm font-medium">
-							Expired/Cancelled
+							Expired / Dibatalkan
 						</CardTitle>
 						<AlertCircle className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
@@ -241,7 +239,7 @@ const DashboardReservationPage = () => {
 									{Math.round(
 										(summary.total_expired_canceled / summary.total_all) * 100,
 									)}
-									% of total reservations
+									% total.
 								</p>
 							</>
 						)}
@@ -249,7 +247,7 @@ const DashboardReservationPage = () => {
 				</Card>
 				<Card>
 					<CardHeader className="flex flex-row items-center justify-between pb-2">
-						<CardTitle className="text-sm font-medium">Completed</CardTitle>
+						<CardTitle className="text-sm font-medium">Selesai</CardTitle>
 						<Calendar className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
@@ -258,7 +256,7 @@ const DashboardReservationPage = () => {
 								<div className="text-2xl font-bold">
 									{summary.total_completed}
 								</div>
-								<p className="text-xs text-muted-foreground">completed</p>
+								<p className="text-xs text-muted-foreground">Selesai</p>
 							</>
 						)}
 					</CardContent>
@@ -268,9 +266,9 @@ const DashboardReservationPage = () => {
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Reservations</CardTitle>
+						<CardTitle>Reservasi</CardTitle>
 						<CardDescription>
-							{reservationList?.results.length ?? 0} reservations found
+							{reservationList?.results.length ?? 0} ditemukan.
 						</CardDescription>
 					</div>
 					<div>
@@ -278,7 +276,7 @@ const DashboardReservationPage = () => {
 					</div>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					<div className="w-full flex justify-between">
+					<div className="w-full flex justify-between flex-wrap gap-2">
 						<div className="flex gap-2">
 							<DateRangePickerWithPreset
 								date={dateRange}
@@ -289,7 +287,7 @@ const DashboardReservationPage = () => {
 							</div>
 						</div>
 						<div>
-							<SearchQueryInput placeholder="Search Reservation" />
+							<SearchQueryInput placeholder="Cari Reservasi" />
 						</div>
 					</div>
 					<ReservationBulkActionBar
@@ -301,12 +299,12 @@ const DashboardReservationPage = () => {
 						onValueChange={handleTabChange}
 					>
 						<TabsList className="grid w-full grid-cols-6">
-							<TabsTrigger value="">All Status</TabsTrigger>
-							<TabsTrigger value="pending">Pending</TabsTrigger>
-							<TabsTrigger value="ready">Ready</TabsTrigger>
+							<TabsTrigger value="">Semua</TabsTrigger>
+							<TabsTrigger value="pending">Menunggu</TabsTrigger>
+							<TabsTrigger value="ready">Siap</TabsTrigger>
 							<TabsTrigger value="expired">Expired</TabsTrigger>
-							<TabsTrigger value="canceled">Canceled</TabsTrigger>
-							<TabsTrigger value="completed">Completed</TabsTrigger>
+							<TabsTrigger value="canceled">Dibatalkan</TabsTrigger>
+							<TabsTrigger value="completed">Selesai</TabsTrigger>
 						</TabsList>
 					</Tabs>
 

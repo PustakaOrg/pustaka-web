@@ -35,7 +35,7 @@ const AddReservationDialog = () => {
 				pickup_date: pickUpDate,
 				book: book,
 			};
-      addReservation(payload)
+			addReservation(payload);
 		}
 	};
 	return (
@@ -44,7 +44,7 @@ const AddReservationDialog = () => {
 				{profile && isLibrarianObject(profile) && (
 					<Button>
 						<Plus />
-						Add New Reservation
+						Reservasi
 					</Button>
 				)}
 			</DialogTrigger>
