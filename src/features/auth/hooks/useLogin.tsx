@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { postLogin, LoginData } from "../api/postLogin";
 import Cookies from "js-cookie";
+import { toast } from "sonner";
 
 const useLogin = (onSuccess?: () => void) => {
 	const {
@@ -15,6 +16,7 @@ const useLogin = (onSuccess?: () => void) => {
 			Cookies.set("access", data.access);
 			Cookies.set("refresh", data.refresh);
 			if (onSuccess) onSuccess();
+			toast.success("Login successfully!");
 		},
 	});
 	return { loginData, isPending, isError, error, login };
