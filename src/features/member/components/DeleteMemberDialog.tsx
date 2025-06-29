@@ -31,22 +31,22 @@ const DeleteMemberDialog = ({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogTitle>Apakah anda yakin?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action will delete <b>{member.account.fullname}</b>{" "}
-            permanently.
+            Aksi ini menghapus member <b>{member.account.fullname}</b>{" "}
+            secaara permanen.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="cursor-pointer">
-            Cancel
+            Batal
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isPending}
             className="cursor-pointer bg-destructive text-white hover:bg-destructive/90"
           >
-            {isPending ? "Deleting..." : "Confirm"}
+            {isPending ? "Mengkapus" : "Proses"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

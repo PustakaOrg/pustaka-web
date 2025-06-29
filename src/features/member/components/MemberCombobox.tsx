@@ -45,7 +45,7 @@ const MemberCombobox = ({
 					className="w-full justify-between text-muted-foreground"
 				>
 					{member && memberDetail && <p>{memberDetail.account.fullname}</p>}
-					{!member && "Select Member"}
+					{!member && "Pilih Member"}
 					{member !== "" && memberDetailPending && "Loading..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
@@ -55,7 +55,7 @@ const MemberCombobox = ({
 					<CommandInput
 						value={search}
 						onValueChange={setSearch}
-						placeholder="Search book or"
+						placeholder="Cari Member"
 					/>
 					<CommandList>
 						<CommandEmpty>No available member founds</CommandEmpty>

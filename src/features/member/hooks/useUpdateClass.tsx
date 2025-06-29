@@ -18,7 +18,7 @@ const useUpdateClass = () => {
 			queryClient.invalidateQueries({ queryKey: ["classes"] });
 			queryClient.invalidateQueries({ queryKey: ["search-class"] });
 
-			toast.success("Class updated successfully!!");
+			toast.success("Kelas berhasil diupdate!");
 		},
 	});
 	return {

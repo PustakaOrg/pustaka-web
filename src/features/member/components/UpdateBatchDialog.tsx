@@ -36,7 +36,7 @@ const UpdateBatchDialog = ({
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Edit Batch</DialogTitle>
+				<DialogTitle>Edit Angkatan</DialogTitle>
         <BatchForm handleSubmit={handleSubmit} error={error} defaultValues={batch} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

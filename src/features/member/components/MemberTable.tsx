@@ -74,9 +74,9 @@ const MemberTable = ({
 						<TableCell colSpan={10} className="text-center py-8">
 							<div className="flex flex-col items-center gap-2">
 								<Users className="h-8 w-8 text-muted-foreground" />
-								<p className="text-muted-foreground">No members found</p>
+								<p className="text-muted-foreground">Tidak ditemukan</p>
 								<p className="text-sm text-muted-foreground">
-									Try adjusting your search or filters
+                      Atur ulang pencarian atau filter.
 								</p>
 							</div>
 						</TableCell>

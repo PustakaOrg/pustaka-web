@@ -14,7 +14,7 @@ const MemberBulkActionBar = ({
 	return (
 		<div className="flex items-center gap-2 p-4 bg-muted rounded-lg">
 			<span className="text-sm font-medium">
-				{selectedCount} member {selectedCount > 1 ? "s" : ""} selected
+				{selectedCount} member dipilih.
 			</span>
 			<div className="flex gap-2 ml-auto">
 				<div className="flex gap-2">

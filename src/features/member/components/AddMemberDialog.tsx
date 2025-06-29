@@ -24,11 +24,11 @@ const AddMemberDialog = () => {
       <DialogTrigger asChild className="cursor-pointer">
         <Button>
           <Plus />
-          Add member
+          Member
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-        <DialogTitle>Add New Member</DialogTitle>
+        <DialogTitle>Tambah Member</DialogTitle>
         <MemberForm handleSubmit={handleSubmit} error={error} />
       </DialogContent>
     </Dialog>

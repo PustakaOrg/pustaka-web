@@ -21,7 +21,7 @@ const MemberRowAction = ({ member, onAction }: MemberRowActionProps) => {
 			<DropdownMenuTrigger asChild className="cursor-pointer">
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
-					<span className="sr-only">Actions</span>
+					<span className="sr-only">Aksi</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
@@ -30,7 +30,7 @@ const MemberRowAction = ({ member, onAction }: MemberRowActionProps) => {
 					className="cursor-pointer"
 				>
 					<User className="mr-2 h-4 w-4" />
-					View Profile
+					Lihat profile
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					onClick={() => onAction("edit", member)}

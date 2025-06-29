@@ -28,11 +28,11 @@ const AddClassDialog = () => {
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />
-					Add Class
+					Kelas
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Add New Class</DialogTitle>
+				<DialogTitle>Tambah Kelas</DialogTitle>
 				<ClassForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 		</Dialog>

@@ -21,7 +21,7 @@ const BatchRowAction = ({ batch, onAction }: BatchRowActionProps) => {
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
-					<span className="sr-only">Actions</span>
+					<span className="sr-only">Aksi</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
@@ -31,7 +31,7 @@ const BatchRowAction = ({ batch, onAction }: BatchRowActionProps) => {
 					}}
 				>
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Batch
+					Edit Angkatan
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem

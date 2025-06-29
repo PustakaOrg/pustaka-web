@@ -17,7 +17,7 @@ const useAddClass = () => {
 			queryClient.invalidateQueries({ queryKey: ["classes"] });
 			queryClient.invalidateQueries({ queryKey: ["search-class"] });
 
-			toast.success("Class added successfully!!");
+			toast.success("Kelas Berhasil ditambah!");
 		},
 	});
 	return {

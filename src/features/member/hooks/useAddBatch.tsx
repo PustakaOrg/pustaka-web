@@ -18,7 +18,7 @@ const useAddBatch = () => {
 			queryClient.invalidateQueries({ queryKey: ["batches"] });
 			queryClient.invalidateQueries({ queryKey: ["search-batch"] });
 
-			toast.success("Batch added successfully!!");
+			toast.success("Angkatan Berhasil ditambah!");
 		},
 	});
 	return {

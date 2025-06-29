@@ -20,16 +20,16 @@ const MemberTableHeader = ({
 					<Checkbox
 						checked={isAllSelected}
 						onCheckedChange={onSelectAll}
-						aria-label="Select all books"
+						aria-label="Pilih semua member"
 					/>
 				</TableHead>
 				{columnVisibility.member && <TableHead>Member</TableHead>}
 				{columnVisibility.nis && <TableHead>NIS</TableHead>}
-				{columnVisibility.phone_number && <TableHead>Phone Number</TableHead>}
-				{columnVisibility._class && <TableHead>Class</TableHead>}
-				{columnVisibility.batch && <TableHead>Batch</TableHead>}
-				{columnVisibility.expires_at && <TableHead>Expires at</TableHead>}
-				<TableHead className="text-right">Actions</TableHead>
+				{columnVisibility.phone_number && <TableHead>No. HP</TableHead>}
+				{columnVisibility._class && <TableHead>Kelas</TableHead>}
+				{columnVisibility.batch && <TableHead>Angkatan</TableHead>}
+				{columnVisibility.expires_at && <TableHead>Berlaku sampai</TableHead>}
+				<TableHead className="text-right">Aksi</TableHead>
 			</TableRow>
 		</TableHeader>
 	);

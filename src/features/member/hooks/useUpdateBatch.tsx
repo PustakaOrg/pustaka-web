@@ -19,7 +19,7 @@ const useUpdateBatch = () => {
 
 			queryClient.invalidateQueries({ queryKey: ["search-batch"] });
 
-			toast.success("Batch updated successfully!!");
+			toast.success("Angkatan berhasil diupdate!");
 		},
 	});
 	return {

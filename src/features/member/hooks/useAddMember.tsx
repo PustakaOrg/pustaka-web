@@ -17,7 +17,7 @@ const useAddMember = () => {
       queryClient.invalidateQueries({ queryKey: ["members"] });
       queryClient.invalidateQueries({ queryKey: ["search-member"] });
 
-			toast.success("Member added successfully!!");
+			toast.success("Member Berhasil ditambah!");
     }
 	});
 

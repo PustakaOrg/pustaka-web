@@ -36,7 +36,7 @@ const UpdateClassDialog = ({
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Edit Class</DialogTitle>
+				<DialogTitle>Edit Kelas</DialogTitle>
         <ClassForm handleSubmit={handleSubmit} error={error} defaultValues={_class} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

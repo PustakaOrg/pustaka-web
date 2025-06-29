@@ -20,7 +20,7 @@ const ClassRowAction = ({ _class, onAction }: ClassRowActionProps) => {
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
-					<span className="sr-only">Actions</span>
+					<span className="sr-only">Aksi</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
@@ -30,7 +30,7 @@ const ClassRowAction = ({ _class, onAction }: ClassRowActionProps) => {
 					}}
 				>
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Class
+					Edit Kelas
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem

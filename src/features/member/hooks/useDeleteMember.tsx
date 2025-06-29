@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteMember } from "../api/deleteMember";
+import { toast } from "sonner";
 
 const useDeleteMember = () => {
   const queryClient = useQueryClient();
@@ -16,6 +17,7 @@ const useDeleteMember = () => {
     onSuccess: () => {},
     onSettled: ()=>{
 
+			toast.success("Member Berhasil didelete!");
       queryClient.invalidateQueries({ queryKey: ["members"] });
     }
   });

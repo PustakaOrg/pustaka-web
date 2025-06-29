@@ -28,11 +28,11 @@ const AddBatchDialog = () => {
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />
-					Add Batch
+					Angkatan
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Add New Batch</DialogTitle>
+				<DialogTitle>Tambah Angkatan</DialogTitle>
 				<BatchForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 		</Dialog>

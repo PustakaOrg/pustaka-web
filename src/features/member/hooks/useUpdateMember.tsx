@@ -20,7 +20,7 @@ const useUpdateMember = () => {
 			queryClient.refetchQueries({ queryKey: ["search-members"] });
 			queryClient.refetchQueries({ queryKey: ["profile"] });
 
-			toast.success("Member updated successfully!!");
+			toast.success("Member berhasil diupdate!");
 		},
 	});
 

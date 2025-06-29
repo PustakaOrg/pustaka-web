@@ -14,7 +14,7 @@ const useDeleteClass = () => {
 		mutationFn: (id: string) => deleteClassApi(id),
 		onSuccess: () => {},
 		onSettled: () => {
-			toast.success("Class deleted successfully!");
+			toast.success("Kelas Berhasil didelete!");
 			queryClient.invalidateQueries({ queryKey: ["classes"] });
 			queryClient.invalidateQueries({ queryKey: ["search-class"] });
 

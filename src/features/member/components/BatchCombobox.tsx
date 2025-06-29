@@ -45,7 +45,7 @@ const BatchCombobox = ({
 					className="w-full justify-between text-muted-foreground"
 				>
 					{batch && batchDetail && <p>{batchDetail.name}</p>}
-					{!batch && "Select Batch"}
+					{!batch && "Pilih angkatan"}
 					{batch !== "" && clasDetailPending && "Loading..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
@@ -58,7 +58,7 @@ const BatchCombobox = ({
 						placeholder="Search book or"
 					/>
 					<CommandList>
-						<CommandEmpty>No available Batch founds</CommandEmpty>
+						<CommandEmpty>Tidak ditemukan</CommandEmpty>
 						<CommandGroup>
 							{batchList &&
 								batchList.results.map((batchC) => (

@@ -3,8 +3,8 @@ const BatchTableHeader = () => {
 	return (
 		<TableHeader>
 			<TableRow className="bg-secondary hover:bg-secondary">
-				<TableHead>Batch</TableHead>
-				<TableHead className="text-right">Actions</TableHead>
+				<TableHead>Angkatan</TableHead>
+				<TableHead className="text-right">Aksi</TableHead>
 			</TableRow>
 		</TableHeader>
 	);

@@ -43,7 +43,7 @@ const ClassCombobox = ({
 					className="w-full justify-between text-muted-foreground"
 				>
 					{_class && classDetail && <p>{classDetail.name}</p>}
-					{!_class && "Select Class"}
+					{!_class && "Pilih Kelas"}
 					{_class !== "" && clasDetailPending && "Loading..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
@@ -53,7 +53,7 @@ const ClassCombobox = ({
 					<CommandInput
 						value={search}
 						onValueChange={setSearch}
-						placeholder="Search book or"
+						placeholder="Cari Kelas"
 					/>
 					<CommandList>
 						<CommandEmpty>

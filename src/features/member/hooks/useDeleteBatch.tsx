@@ -14,7 +14,7 @@ const useDeleteBatch = () => {
 		mutationFn: (id: string) => deleteBatchApi(id),
 		onSuccess: () => {},
 		onSettled: () => {
-			toast.success("Batch deleted successfully!");
+			toast.success("Angkatan Berhasil didelete!");
 			queryClient.invalidateQueries({ queryKey: ["batches"] });
 			queryClient.invalidateQueries({ queryKey: ["search-batch"] });
 
