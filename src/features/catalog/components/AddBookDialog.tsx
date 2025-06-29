@@ -21,17 +21,16 @@ const AddBookDialog = () => {
 		setOpen(false);
 	}, []);
 
-
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />
-					Book
+					Buku
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-      <DialogTitle>Add New Book</DialogTitle>
+				<DialogTitle>Add New Book</DialogTitle>
 				<BookForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

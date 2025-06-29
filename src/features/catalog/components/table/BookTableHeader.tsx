@@ -22,25 +22,25 @@ const BookTableHeader = ({
 					<Checkbox
 						checked={isAllSelected}
 						onCheckedChange={onSelectAll}
-						aria-label="Select all books"
+						aria-label="Pilih semua"
 						{...(isIndeterminate && { "data-state": "indeterminate" })}
 					/>
 				</TableHead>
-				{columnVisibility.book && <TableHead>Book</TableHead>}
+				{columnVisibility.book && <TableHead>Buku</TableHead>}
 				{columnVisibility.isbn && <TableHead>ISBN</TableHead>}
-				{columnVisibility.publisher && <TableHead>Publisher</TableHead>}
-				{columnVisibility.categories && <TableHead>Categories</TableHead>}
+				{columnVisibility.publisher && <TableHead>Penerbit</TableHead>}
+				{columnVisibility.categories && <TableHead>Kategori</TableHead>}
 				{columnVisibility.pages && (
-					<TableHead className="text-right">Pages</TableHead>
+					<TableHead className="text-right">Halaman</TableHead>
 				)}
 				{columnVisibility.year && (
-					<TableHead className="text-right">Year</TableHead>
+					<TableHead className="text-right">Tahun</TableHead>
 				)}
 				{columnVisibility.stock && (
-					<TableHead className="text-right">Stock</TableHead>
+					<TableHead className="text-right">Stok</TableHead>
 				)}
-				{columnVisibility.shelf && <TableHead>Shelf</TableHead>}
-				<TableHead className="w-12">Actions</TableHead>
+				{columnVisibility.shelf && <TableHead>Rak</TableHead>}
+				<TableHead className="w-12">Aksi</TableHead>
 			</TableRow>
 		</TableHeader>
 	);

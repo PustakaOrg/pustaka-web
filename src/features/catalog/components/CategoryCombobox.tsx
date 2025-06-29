@@ -55,7 +55,7 @@ const CategoryCombobox = ({
 										{categoriesChoice?.find((cat) => cat.id === val)?.name}
 									</Badge>
 								))
-							: "Select categories..."}
+							: "Pilih kategori..."}
 					</div>
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
@@ -65,7 +65,7 @@ const CategoryCombobox = ({
 				>
 					<CommandInput placeholder="Search category" />
 					<CommandList>
-						<CommandEmpty>No category founds</CommandEmpty>
+						<CommandEmpty>Tidak Ditemukan</CommandEmpty>
 						<CommandGroup>
 							{categoriesChoice &&
 								categoriesChoice.map((category) => (

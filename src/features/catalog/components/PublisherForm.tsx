@@ -26,7 +26,7 @@ const PublisherForm = ({
 						id="name"
 						name="name"
 						type="text"
-						placeholder="Masukkan nama Publisher"
+						placeholder="Masukkan nama penerbit"
 						className="col-span-3"
 						defaultValue={defaultValues?.name}
 						required

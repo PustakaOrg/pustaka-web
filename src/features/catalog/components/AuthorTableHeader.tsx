@@ -6,7 +6,7 @@ const AuthorTableHeader = () => {
 		<TableHeader>
 			<TableRow className="bg-secondary hover:bg-secondary">
 				<TableHead>Author</TableHead>
-				<TableHead className="text-right">Actions</TableHead>
+				<TableHead className="text-right">Aksi</TableHead>
 			</TableRow>
 		</TableHeader>
 	);

@@ -14,7 +14,7 @@ const useAddPublisher = () => {
 		mutationKey: ["add-publisher"],
 		mutationFn: (payload: PostPublisherPayload) => postPublisher(payload),
 		onSuccess: () => {
-			toast.success("Publisher added successfully!");
+			toast.success("Penerbit Berhasil ditambahkan!");
 			queryClient.invalidateQueries({ queryKey: ["publishers"] });
 			queryClient.invalidateQueries({ queryKey: ["search-publisher"] });
 			queryClient.invalidateQueries({ queryKey: ["all-publisher"] });

@@ -41,7 +41,7 @@ const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 					className="w-full justify-between text-muted-foreground"
 				>
 					{book && bookDetail && <p>{bookDetail.title}</p>}
-					{!book && "Select book"}
+					{!book && "Pilih book"}
 					{bookDetailPending && "Loading..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
@@ -51,10 +51,10 @@ const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 					<CommandInput
 						value={search}
 						onValueChange={setSearch}
-						placeholder="Search book or"
+						placeholder="Cari Buku"
 					/>
 					<CommandList>
-						<CommandEmpty>No available book founds</CommandEmpty>
+						<CommandEmpty>Tidak Ditemukan</CommandEmpty>
 						<CommandGroup>
 							{authorsChoice &&
 								authorsChoice.results.map((bookc) => (

@@ -20,7 +20,7 @@ const AuthorRowAction = ({ author, onAction }: AuthorRowActionProps) => {
 			<DropdownMenuTrigger asChild className="cursor-pointer">
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
-					<span className="sr-only">Actions</span>
+					<span className="sr-only">Aksi</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">

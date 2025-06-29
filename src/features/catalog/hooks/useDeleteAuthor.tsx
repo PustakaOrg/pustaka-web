@@ -10,12 +10,12 @@ const useDeleteAuthor = () => {
 		error,
 		mutate: deleteAuthor,
 	} = useMutation({
-		mutationKey: ["update-author"],
+		mutationKey: ["delete-author"],
 		mutationFn: (id: string) => deleteAuthorApi(id),
 		onSuccess: () => {
 		},
 		onSettled: () => {
-      toast.success("Author deleted successfully!");
+      toast.success("Author berhasil dihapus!");
 			queryClient.invalidateQueries({ queryKey: ["authors"] });
 			queryClient.invalidateQueries({ queryKey: ["all-author"] });
 

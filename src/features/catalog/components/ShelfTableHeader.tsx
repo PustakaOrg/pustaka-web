@@ -5,8 +5,8 @@ const ShelfTableHeader = () => {
 	return (
 		<TableHeader>
 			<TableRow className="bg-secondary hover:bg-secondary">
-				<TableHead>Shelf</TableHead>
-				<TableHead className="text-right">Actions</TableHead>
+				<TableHead>Rak</TableHead>
+				<TableHead className="text-right">Aksi</TableHead>
 			</TableRow>
 		</TableHeader>
 	);

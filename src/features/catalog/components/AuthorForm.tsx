@@ -19,7 +19,7 @@ const AuthorForm = ({ handleSubmit, defaultValues, error }: AuthorFormProps) => 
 			<div className="grid gap-4 py-4">
 				<div className="space-y-2">
 					<Label htmlFor="name" className="text-right">
-						Name
+						Nama
 					</Label>
 					<Input
 						id="name"

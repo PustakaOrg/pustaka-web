@@ -38,15 +38,15 @@ const ShelfCombobox = ({setShelf,shelf}:ShelfComboboxProps) => {
 				>
 					{shelf
 						? shelvesChoice?.find((shelfc) => shelfc.id === shelf)?.code
-						: "Select shelf..."}
+						: "Pilih Rak..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-[500px] p-0" style={popoverSameWidth}>
 				<Command>
-					<CommandInput placeholder="Search shelf" />
+					<CommandInput placeholder="Cari Rak" />
 					<CommandList>
-						<CommandEmpty>No author founds</CommandEmpty>
+						<CommandEmpty>Tidak ditemukan</CommandEmpty>
 						<CommandGroup>
 							{shelvesChoice && shelvesChoice.map((shelfc) => (
 								<CommandItem

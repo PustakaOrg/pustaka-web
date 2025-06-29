@@ -11,7 +11,7 @@ const destinations = [
 	},
 	{
 		to: "/about",
-		name: "About",
+		name: "Tentang",
 	},
 ];
 

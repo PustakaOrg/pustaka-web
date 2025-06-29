@@ -14,7 +14,7 @@ const useAddShelf = () => {
 		mutationKey: ["add-shelf"],
 		mutationFn: (payload: PostShelfPayload) => postShelf(payload),
 		onSuccess: () => {
-			toast.success("Shelf added successfully!");
+			toast.success("Rak berhasil ditambahkan!");
 			queryClient.invalidateQueries({ queryKey: ["shelves"] });
 			queryClient.invalidateQueries({ queryKey: ["search-shelf"] });
 			queryClient.invalidateQueries({ queryKey: ["all-shelf"] });

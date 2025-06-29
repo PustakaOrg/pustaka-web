@@ -84,7 +84,6 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 		};
 		reader.readAsDataURL(file);
 
-		// Update the file input
 		if (fileInputRef.current) {
 			const dataTransfer = new DataTransfer();
 			dataTransfer.items.add(file);
@@ -113,7 +112,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
     			{/* Cover Image Field */}
 			<div className="space-y-2">
 				<Label htmlFor="image" className="text-sm font-medium">
-					Cover Image *
+					Cover  *
 				</Label>
 				<div className="space-y-4">
 					{/* Drag & Drop Zone */}
@@ -157,8 +156,8 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 										</button>
 									</div>
 									<div className="text-sm text-muted-foreground">
-										<p className="font-medium">Image uploaded successfully!</p>
-										<p>Click here or drag a new image to replace</p>
+										{/* <p className="font-medium"></p> */}
+										<p>Klik atau drop gambar untuk mengupdate gambar</p>
 									</div>
 								</div>
 							) : (
@@ -181,10 +180,11 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 												: "Upload book cover"}
 										</p>
 										<p className="text-sm text-muted-foreground">
-											Drag and drop an image here, or click to browse
+											Drag and drop gambar kesini, atau klik untuk mencari
+                      
 										</p>
 										<p className="text-xs text-muted-foreground">
-											Supports: JPG, PNG, GIF (Max 10MB)
+											Support: JPG, PNG, GIF (Max 10MB)
 										</p>
 									</div>
 								</div>
@@ -197,13 +197,13 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 			{/* Title Field */}
 			<div className="space-y-2">
 				<Label htmlFor="title" className="text-sm font-medium">
-					Title *
+					Judul *
 				</Label>
 				<Input
 					id="title"
 					name="title"
 					defaultValue={defaultValues?.title}
-					placeholder="Enter book title"
+					placeholder="Masukkan Judul"
 					className="w-full"
 					required
 				/>
@@ -218,7 +218,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 					id="isbn"
 					name="isbn"
 					defaultValue={defaultValues?.isbn}
-					placeholder="Enter ISBN number"
+					placeholder="Masukkan ISBN"
 					className="w-full"
 					required
 				/>
@@ -228,28 +228,28 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<div className="space-y-2">
 					<Label htmlFor="Stock" className="text-sm font-medium">
-						Stock *
+						Stok *
 					</Label>
 					<Input
 						id="stock"
 						name="stock"
             type="number"
 						defaultValue={defaultValues?.stock ?? 1}
-						placeholder="Enter Stock"
+						placeholder="Masukkan Stok"
 						className="w-full"
 						required
 					/>
 				</div>
 				<div className="space-y-2">
 					<Label htmlFor="Stock" className="text-sm font-medium">
-						Available Stock *
+						Stok Tersedia *
 					</Label>
 					<Input
 						id="available_stock"
 						name="available_stock"
             type="number"
 						defaultValue={defaultValues?.available_stock ?? 1}
-						placeholder="Enter Available Stock Stock"
+						placeholder="Masukkan Stok Tersedia"
 						className="w-full"
 					/>
 				</div>
@@ -259,7 +259,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<div className="space-y-2">
 					<Label htmlFor="pages" className="text-sm font-medium">
-						Pages *
+						Halaman *
 					</Label>
 					<Input
 						id="pages"
@@ -267,7 +267,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 						type="number"
 						min="1"
 						defaultValue={defaultValues?.pages}
-						placeholder="Number of pages"
+						placeholder="Jumlah Halaman"
 						className="w-full"
 						required
 					/>
@@ -275,7 +275,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 
 				<div className="space-y-2">
 					<Label htmlFor="publish_year" className="text-sm font-medium">
-						Publish Year *
+					Tahun Terbit *
 					</Label>
 					<Input
 						id="publish_year"
@@ -284,7 +284,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 						min="1000"
 						max={new Date().getFullYear()}
 						defaultValue={defaultValues?.publish_year}
-						placeholder="Publication year"
+						placeholder="Masukkan Tahun Terbit"
 						className="w-full"
 						required
 					/>
@@ -299,19 +299,17 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 				<input hidden name="author" value={author} readOnly />
 			</div>
 
-			{/* Title Field */}
 			<div className="space-y-2">
 				<Label htmlFor="author" className="text-sm font-medium">
-					Publisher *
+					Penerbit *
 				</Label>
 				<PublisherCombobox publisher={publisher} setPublisher={setPublisher} />
 				<input hidden name="publisher" value={publisher} readOnly />
 			</div>
 
-			{/* Title Field */}
 			<div className="space-y-2">
 				<Label htmlFor="author" className="text-sm font-medium">
-					Shelf *
+					Rak *
 				</Label>
 				<ShelfCombobox shelf={shelf} setShelf={setShelf} />
 				<input hidden name="shelf" value={shelf} readOnly />
@@ -320,7 +318,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 			{/* Title Field */}
 			<div className="space-y-2">
 				<Label htmlFor="author" className="text-sm font-medium">
-					Category *
+					Kategori *
 				</Label>
 				<CategoryCombobox
 					categories={categories}
@@ -334,7 +332,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 			{/* Submit Button */}
 			<div className="pt-4">
 				<Button type="submit" className="cursor-pointer w-full" size="lg">
-					{defaultValues?.title ? "Update Book" : "Add Book"}
+					{defaultValues?.title ? "Update Buku" : "Tambah Book"}
 				</Button>
 			</div>
 		</form>

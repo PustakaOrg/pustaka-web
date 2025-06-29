@@ -186,16 +186,16 @@ const DashboardBookPage = () => {
 				/>
 			)}
 			<ContentHeader
-				title="Books"
-				subtitle="Manage your library's book collection."
+				title="Catalog"
+				subtitle="Kelola katalog di perpustakaan ini."
 			/>
 
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Book Catalog</CardTitle>
+						<CardTitle>Buku</CardTitle>
 						<CardDescription>
-							{bookList?.results.length} books found
+							{bookList?.results.length} ditemukan
 						</CardDescription>
 					</div>
 					<div className="grid grid-cols-2 gap-2">
@@ -214,7 +214,7 @@ const DashboardBookPage = () => {
 									<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
 									<Input
 										type="text"
-										placeholder="Search title, or ISBN..."
+										placeholder="Cari judul, atau ISBN..."
 										className="w-full pl-9 pr-4"
 										defaultValue={searchParams.get("?") ?? undefined}
 										name="q"
@@ -314,7 +314,7 @@ const DashboardBookPage = () => {
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Authors</CardTitle>
+						<CardTitle>Author</CardTitle>
 						<CardDescription>
 							{authorList?.results.length ?? 0} author ditemukan.
 						</CardDescription>
@@ -364,9 +364,9 @@ const DashboardBookPage = () => {
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Shelfs</CardTitle>
+						<CardTitle>Rak</CardTitle>
 						<CardDescription>
-							{shelfList?.results.length ?? 0} shelf ditemukan.
+							{shelfList?.results.length ?? 0} rak ditemukan.
 						</CardDescription>
 					</div>
 					<div>
@@ -387,7 +387,7 @@ const DashboardBookPage = () => {
 									<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
 									<Input
 										type="text"
-										placeholder="Cari Shelf"
+										placeholder="Cari Rak"
 										className="w-full pl-9 pr-4"
 										name="q"
 									/>
@@ -415,9 +415,9 @@ const DashboardBookPage = () => {
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Publisher</CardTitle>
+						<CardTitle>Penerbit</CardTitle>
 						<CardDescription>
-							{publisherList?.results.length ?? 0} publisher ditemukan.
+							{publisherList?.results.length ?? 0} penerbit ditemukan.
 						</CardDescription>
 					</div>
 					<div>
@@ -438,7 +438,7 @@ const DashboardBookPage = () => {
 									<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
 									<Input
 										type="text"
-										placeholder="Cari Publisher"
+										placeholder="Cari Penerbit"
 										className="w-full pl-9 pr-4"
 										name="q"
 									/>

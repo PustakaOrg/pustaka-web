@@ -33,11 +33,11 @@ const BookRowActionDropdown = ({
 				<DropdownMenuLabel>Actions</DropdownMenuLabel>
 				<DropdownMenuItem onClick={() => onAction("view", book)} className="cursor-pointer">
 					<Eye className="mr-2 h-4 w-4" />
-					View Details
+					Liat Detail
 				</DropdownMenuItem>
 				<DropdownMenuItem onClick={() => onAction("edit", book)} className="cursor-pointer">
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Book
+					Edit Buku
 				</DropdownMenuItem>
 				{/* <DropdownMenuItem onClick={() => onAction("borrow", bookId)}> */}
 				{/* 	<BookOpen className="mr-2 h-4 w-4" /> */}

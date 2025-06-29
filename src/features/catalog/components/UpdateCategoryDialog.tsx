@@ -37,7 +37,7 @@ const UpdateCategoryDialog = ({
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Edit Category</DialogTitle>
+				<DialogTitle>Edit Kategori</DialogTitle>
         <CategoryForm handleSubmit={handleSubmit} error={error} defaultValues={category} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

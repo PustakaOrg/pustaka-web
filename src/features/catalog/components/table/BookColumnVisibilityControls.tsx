@@ -26,14 +26,14 @@ const BookColumnVisibilityControls = ({
 	onHideAllColumns,
 }: BookColumnVisibilityControlsProps) => {
 	const columns = [
-		{ key: "book" as const, label: "Book" },
+		{ key: "book" as const, label: "Buku" },
 		{ key: "isbn" as const, label: "ISBN" },
-		{ key: "publisher" as const, label: "Publisher" },
-		{ key: "categories" as const, label: "Categories" },
-		{ key: "pages" as const, label: "Pages" },
-		{ key: "year" as const, label: "Year" },
-		{ key: "stock" as const, label: "Stock" },
-		{ key: "shelf" as const, label: "Shelf" },
+		{ key: "publisher" as const, label: "Penerbit" },
+		{ key: "categories" as const, label: "Kategori" },
+		{ key: "pages" as const, label: "Halaman" },
+		{ key: "year" as const, label: "Tahun" },
+		{ key: "stock" as const, label: "Stok" },
+		{ key: "shelf" as const, label: "Rak" },
 	];
 
 	return (

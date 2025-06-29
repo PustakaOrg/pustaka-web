@@ -4,7 +4,7 @@ import {
 	TableCell,
 	TableRow,
 } from "~/shared/components/ui/table";
-import { Users } from "lucide-react";
+import { Tag, Users } from "lucide-react";
 import CategoryTableHeader from "./CategoryTableHeader";
 import CategoryTableRow from "./CategoryTableRow";
 import { Category } from "~/types/entities/Category";
@@ -58,10 +58,10 @@ const CategoryTable = ({ categoryList }: CategoryTableProps) => {
 						<TableRow>
 							<TableCell colSpan={6} className="text-center py-8">
 								<div className="flex flex-col items-center gap-2">
-									<Users className="h-8 w-8 text-muted-foreground" />
-									<p className="text-muted-foreground">No Category found</p>
+									<Tag className="h-8 w-8 text-muted-foreground" />
+									<p className="text-muted-foreground">Tidak ada kategori ditemukan.</p>
 									<p className="text-sm text-muted-foreground">
-										Try adjusting your search or filters
+                      Atur ulang pencarian atau filter.
 									</p>
 								</div>
 							</TableCell>

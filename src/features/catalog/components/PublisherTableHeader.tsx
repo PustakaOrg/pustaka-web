@@ -5,8 +5,8 @@ const PublisherTableHeader = () => {
 	return (
 		<TableHeader>
 			<TableRow className="bg-secondary hover:bg-secondary">
-				<TableHead>Publisher</TableHead>
-				<TableHead className="text-right">Actions</TableHead>
+				<TableHead>Penerbit</TableHead>
+				<TableHead className="text-right">Aksi</TableHead>
 			</TableRow>
 		</TableHeader>
 	);

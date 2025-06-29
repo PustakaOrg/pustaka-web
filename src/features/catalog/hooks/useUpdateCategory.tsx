@@ -15,7 +15,7 @@ const useUpdateCategory = () => {
 		mutationFn: ({ id, payload }: { id: string; payload: PatchCategoryPayload }) =>
 			patchCategory(id, payload),
 		onSuccess: () => {
-			toast.success("Category updated successfully!");
+			toast.success("Kategori berhasil diupdate!");
 			queryClient.invalidateQueries({ queryKey: ["categories"] });
 			queryClient.invalidateQueries({ queryKey: ["all-category"] });
 			queryClient.refetchQueries({ queryKey: ["books"] });

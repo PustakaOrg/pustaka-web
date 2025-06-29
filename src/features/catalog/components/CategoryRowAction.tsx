@@ -20,7 +20,7 @@ const CategoryRowAction = ({ category, onAction }: CategoryRowActionProps) => {
 			<DropdownMenuTrigger asChild className="cursor-pointer">
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
-					<span className="sr-only">Actions</span>
+					<span className="sr-only">Aksi</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
@@ -31,7 +31,7 @@ const CategoryRowAction = ({ category, onAction }: CategoryRowActionProps) => {
 					className="cursor-pointer"
 				>
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Category
+					Edit Kategori
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem

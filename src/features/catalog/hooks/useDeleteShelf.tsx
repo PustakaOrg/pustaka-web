@@ -10,12 +10,12 @@ const useDeleteShelf = () => {
 		error,
 		mutate: deleteShelf,
 	} = useMutation({
-		mutationKey: ["update-shelf"],
+		mutationKey: ["delete-shelf"],
 		mutationFn: (id: string) => deleteShelfApi(id),
 		onSuccess: () => {
 		},
 		onSettled: () => {
-      toast.success("Shelf deleted successfully!");	
+      toast.success("Rak berhasil dihapus!");
 			queryClient.invalidateQueries({ queryKey: ["shelves"] });
 			queryClient.invalidateQueries({ queryKey: ["all-shelf"] });
 			queryClient.refetchQueries({ queryKey: ["books"] });

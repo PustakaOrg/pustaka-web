@@ -15,7 +15,7 @@ const useUpdatePublisher = () => {
 		mutationFn: ({ id, payload }: { id: string; payload: PatchPublisherPayload }) =>
 			patchPublisher(id, payload),
 		onSuccess: () => {
-			toast.success("Publisher updated successfully!");
+			toast.success("Penerbit berhasil diupdate!");
 			queryClient.invalidateQueries({ queryKey: ["publishers"] });
 			queryClient.invalidateQueries({ queryKey: ["all-publisher"] });
 			queryClient.refetchQueries({ queryKey: ["books"] });

@@ -33,7 +33,7 @@ const UpdateBookDialog = ({
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Edit Book</DialogTitle>
+				<DialogTitle>Edit Buku</DialogTitle>
 				<BookForm handleSubmit={handleSubmit} defaultValues={book} error={error}/>
 			</DialogContent>
 			<DialogFooter></DialogFooter>

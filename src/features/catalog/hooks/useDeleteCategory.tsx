@@ -10,12 +10,12 @@ const useDeleteCategory = () => {
 		error,
 		mutate: deleteCategory,
 	} = useMutation({
-		mutationKey: ["update-category"],
+		mutationKey: ["delete-category"],
 		mutationFn: (id: string) => deleteCategoryApi(id),
 		onSuccess: () => {
 		},
 		onSettled: () => {
-      toast.success("Category deleted successfully!");
+      toast.success("Kategori berhasil dihapus!");
 			queryClient.invalidateQueries({ queryKey: ["categories"] });
 			queryClient.invalidateQueries({ queryKey: ["all-category"] });
 

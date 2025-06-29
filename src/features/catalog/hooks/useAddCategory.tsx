@@ -14,7 +14,7 @@ const useAddCategory = () => {
 		mutationKey: ["add-category"],
 		mutationFn: (payload: PostCategoryPayload) => postCategory(payload),
 		onSuccess: () => {
-			toast.success("Category added successfully!");
+			toast.success("Kategori berhasil ditambahkan!");
 			queryClient.invalidateQueries({ queryKey: ["categories"] });
 			queryClient.invalidateQueries({ queryKey: ["search-category"] });
 			queryClient.invalidateQueries({ queryKey: ["all-category"] });

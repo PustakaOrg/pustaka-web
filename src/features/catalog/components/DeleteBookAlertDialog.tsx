@@ -32,15 +32,15 @@ const DeleteBookAlertDialog = ({
 		<AlertDialog open={isOpen} onOpenChange={onOpenChange}>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+					<AlertDialogTitle>Apakah anda yakin?</AlertDialogTitle>
 					<AlertDialogDescription>
-						This action cannot be undone. This will permanently delete <b>{book.title}</b> book.
+						Aksi ini tidak dapat dikembalikan. Ini akan menghapus secara permanen buku <b>{book.title}</b> .
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
+					<AlertDialogCancel>Batal</AlertDialogCancel>
 					<AlertDialogAction className="bg-destructive hover:bg-destructive/90" onClick={handleClick}>
-						Continue
+						Proses
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>

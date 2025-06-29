@@ -31,11 +31,11 @@ const AddCategoryDialog = () => {
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />
-					Category
+					Kategori
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Tambah Category</DialogTitle>
+				<DialogTitle>Tambah Kategori</DialogTitle>
 				<CategoryForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 		</Dialog>

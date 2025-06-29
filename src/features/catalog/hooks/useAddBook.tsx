@@ -14,7 +14,7 @@ const useAddBook = () => {
 		mutationKey: ["add-book"],
 		mutationFn: (data: FormData) => postBook(data),
 		onSuccess: () => {
-			toast.success("Book added successfully!");
+			toast.success("Buku berhasil ditambahkan!");
 			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});

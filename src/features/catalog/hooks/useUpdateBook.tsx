@@ -15,7 +15,7 @@ const useUpdateBook = () => {
 		mutationFn: ({ bookId, data }: { bookId: string; data: FormData }) =>
 			patchBook(bookId, data),
 		onSuccess: () => {
-			toast.success("Book updated successfully!");
+			toast.success("Buku berhasil diupdate!");
 			queryClient.refetchQueries({ queryKey: ["books"] });
 		},
 	});

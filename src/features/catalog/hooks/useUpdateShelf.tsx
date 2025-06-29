@@ -15,7 +15,7 @@ const useUpdateShelf = () => {
 		mutationFn: ({ id, payload }: { id: string; payload: PatchShelfPayload }) =>
 			patchShelf(id, payload),
 		onSuccess: () => {
-			toast.success("Shelf updated successfully!");
+			toast.success("Rak berhasil diupdate!");
 			queryClient.invalidateQueries({ queryKey: ["shelves"] });
 			queryClient.invalidateQueries({ queryKey: ["all-shelf"] });
 			queryClient.refetchQueries({ queryKey: ["books"] });

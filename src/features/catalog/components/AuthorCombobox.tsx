@@ -37,13 +37,13 @@ const AuthorCombobox = ({ author, setAuthor }: AuthorComboboxProps) => {
 				>
 					{author
 						? authorsChoice?.find((authorc) => authorc.id === author)?.fullname
-						: "Select author..."}
+						: "Pilih author..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="p-0" style={popoverSameWidth}>
 				<Command>
-					<CommandInput placeholder="Search author" />
+					<CommandInput placeholder="Cari author" />
 					<CommandList>
 						<CommandEmpty>No author founds</CommandEmpty>
 						<CommandGroup>

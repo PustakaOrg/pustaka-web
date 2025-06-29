@@ -23,7 +23,6 @@ const UpdateLibrarianDialog = ({
 }: UpdateBookDialogProps) => {
 	const { updateLibrarian, error } = useUpdateLibrarian();
 	const handleSubmit = (data: LibrarianFormData) => {
-		console.log(data);
 		const payload: PatchLibrarianPayload = {
 			account: {
 				email: data.email == librarian.account.email ? undefined : data.email,

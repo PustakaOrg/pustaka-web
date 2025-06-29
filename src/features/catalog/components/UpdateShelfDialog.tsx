@@ -37,7 +37,7 @@ const UpdateShelfDialog = ({
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Edit Shelf</DialogTitle>
+				<DialogTitle>Edit Rak</DialogTitle>
         <ShelfForm handleSubmit={handleSubmit} error={error} defaultValues={shelf} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

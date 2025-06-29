@@ -33,11 +33,11 @@ const AddPublisherDialog = () => {
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />
-					Publisher
+					Penerbit
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Tambah Publisher</DialogTitle>
+				<DialogTitle>Tambah Penerbit</DialogTitle>
 				<PublisherForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 		</Dialog>

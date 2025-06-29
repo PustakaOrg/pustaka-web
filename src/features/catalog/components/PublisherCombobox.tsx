@@ -43,15 +43,15 @@ const PublisherCombobox = ({
 				>
 					{publisher
 						? `${publisherV?.name} - ${publisherV?.city ?? ""}`
-						: "Select publisher..."}
+						: "Pilih penerbit..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="p-0" style={popoverSameWidth}>
 				<Command>
-					<CommandInput placeholder="Search author" />
+					<CommandInput placeholder="Cari penerbit" />
 					<CommandList>
-						<CommandEmpty>No Publisher founds</CommandEmpty>
+						<CommandEmpty>Tidak ditemukan</CommandEmpty>
 						<CommandGroup>
 							{publishersChoice &&
 								publishersChoice.map((publisherc) => (

@@ -66,7 +66,7 @@ const BookCard = ({ book }: BookCardProps) => {
 				/>
 				<div className="absolute top-2 right-2">
 					<Badge variant={book.available_stock > 0 ? "default" : "secondary"}>
-						{book.available_stock > 0 ? "Available" : "Checked Out"}
+						{book.available_stock > 0 ? "Tersedia" : "Kosong"}
 					</Badge>
 				</div>
 			</div>

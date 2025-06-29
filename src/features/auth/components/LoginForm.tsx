@@ -32,9 +32,9 @@ const LoginForm = () => {
 	return (
 		<form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
 			<div className="flex flex-col items-center gap-2 text-center">
-				<h1 className="text-2xl font-bold">Login to your account</h1>
+				<h1 className="text-2xl font-bold">Login ke Pustaka</h1>
 				<p className="text-balance text-sm text-muted-foreground">
-					Enter your email below to login to your account
+        Masukkan Email anda untuk masuk ke Pustaka
 				</p>
 			</div>
 			<div className="grid gap-6">
@@ -45,7 +45,7 @@ const LoginForm = () => {
 						id="email"
 						type="email"
 						name="email"
-						placeholder="youremail@example.com"
+						placeholder="email@example.com"
 						required
 					/>
 				</div>

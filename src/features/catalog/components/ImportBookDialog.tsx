@@ -22,7 +22,7 @@ const ImportBookDialog = () => {
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Import />
-					Import Book
+					Import Buku
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">

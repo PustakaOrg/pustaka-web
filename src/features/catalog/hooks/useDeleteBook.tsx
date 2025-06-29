@@ -15,7 +15,7 @@ const useDeleteBook = () => {
 		onSuccess: () => {
 		},
 		onSettled() {
-      toast.success("Book deleted successfully!");
+      toast.success("Buku berhasil dihapus!");
 			queryClient.refetchQueries({ queryKey: ["books"] });
 
 		},

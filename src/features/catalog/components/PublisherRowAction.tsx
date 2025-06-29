@@ -21,7 +21,7 @@ const PublisherRowAction = ({  publisher, onAction }: PublisherRowActionProps) =
 			<DropdownMenuTrigger asChild className="cursor-pointer">
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
-					<span className="sr-only">Actions</span>
+					<span className="sr-only">Aksi</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
@@ -32,7 +32,7 @@ const PublisherRowAction = ({  publisher, onAction }: PublisherRowActionProps) =
 					className="cursor-pointer"
 				>
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Publisher
+					Edit Penerbit
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem

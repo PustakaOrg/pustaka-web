@@ -15,7 +15,7 @@ const useUpdateAuthor = () => {
 		mutationFn: ({ id, payload }: { id: string; payload: PatchAuthorPayload }) =>
 			patchAuthor(id, payload),
 		onSuccess: () => {
-			toast.success("Author updated successfully!");
+			toast.success("Author berhasil diupdate!");
 			queryClient.invalidateQueries({ queryKey: ["authors"] });
 			queryClient.invalidateQueries({ queryKey: ["all-author"] });
 			queryClient.refetchQueries({ queryKey: ["books"] });

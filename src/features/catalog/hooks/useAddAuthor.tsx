@@ -14,7 +14,7 @@ const useAddAuthor = () => {
 		mutationKey: ["add-author"],
 		mutationFn: (payload: PostAuthorPayload) => postAuthor(payload),
 		onSuccess: () => {
-			toast.success("Author added successfully!");
+			toast.success("Author berhasi ditambahkan!");
 			queryClient.invalidateQueries({ queryKey: ["authors"] });
 			queryClient.invalidateQueries({ queryKey: ["search-author"] });
 			queryClient.invalidateQueries({ queryKey: ["all-author"] });

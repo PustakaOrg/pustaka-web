@@ -35,12 +35,11 @@ export function BookDetailDialog({
 				<DialogHeader>
 					<DialogTitle className="text-2xl font-bold flex items-center gap-2">
 						<BookIcon className="w-6 h-6" />
-						Book Information
+						Informasi Buku
 					</DialogTitle>
 				</DialogHeader>
 
 				<div className="space-y-6">
-					{/* Book Cover and Basic Info */}
 					<div className="flex flex-col md:flex-row gap-6">
 						<div className="flex-shrink-0">
 							<img
@@ -59,7 +58,7 @@ export function BookDetailDialog({
 								</h3>
 								<div className="flex items-center gap-2 mt-2 text-gray-600">
 									<User className="w-4 h-4" />
-									<span>by {book.author?.fullname}</span>
+									<span>oleh: {book.author?.fullname}</span>
 								</div>
 							</div>
 
@@ -72,19 +71,19 @@ export function BookDetailDialog({
 
 								<div className="flex items-center gap-2 ">
 									<Calendar className="w-4 h-4 text-gray-500" />
-									<span className="font-medium">Published:</span>
+									<span className="font-medium">Penerbit:</span>
 									<span className="text-gray-600">{book.publish_year}</span>
 								</div>
 
 								<div className="flex items-center gap-2">
 									<FileText className="w-4 h-4 text-gray-500" />
-									<span className="font-medium">Pages:</span>
+									<span className="font-medium">Halaman:</span>
 									<span className="text-gray-600">{book.pages}</span>
 								</div>
 
 								<div className="flex items-center gap-2">
 									<Package className="w-4 h-4 text-gray-500" />
-									<span className="font-medium">Shelf:</span>
+									<span className="font-medium">Rak:</span>
 									<span className="text-gray-600">{book.shelf?.code}</span>
 								</div>
 							</div>
@@ -98,16 +97,14 @@ export function BookDetailDialog({
 						<h4 className="font-semibold text-gray-900">Stock Information</h4>
 						<div className="grid grid-cols-2 gap-4">
 							<div className="bg-blue-50 p-3 rounded-lg">
-								<div className="text-sm text-blue-600 font-medium">
-									Total Stock
-								</div>
+								<div className="text-sm text-blue-600 font-medium">Stok</div>
 								<div className="text-2xl font-bold text-blue-700">
 									{book.stock}
 								</div>
 							</div>
 							<div className="bg-green-50 p-3 rounded-lg">
 								<div className="text-sm text-green-600 font-medium">
-									Available
+									Tersedia
 								</div>
 								<div className="text-2xl font-bold text-green-700">
 									{book.available_stock}
@@ -116,10 +113,10 @@ export function BookDetailDialog({
 						</div>
 						{book.available_stock > 0 ? (
 							<Badge variant="default" className="bg-green-100 text-green-800">
-								In Stock
+								Tersedia
 							</Badge>
 						) : (
-							<Badge variant="destructive">Out of Stock</Badge>
+							<Badge variant="destructive">Kosong</Badge>
 						)}
 					</div>
 
@@ -127,7 +124,7 @@ export function BookDetailDialog({
 
 					{/* Categories */}
 					<div className="space-y-3">
-						<h4 className="font-semibold text-gray-900">Categories</h4>
+						<h4 className="font-semibold text-gray-900">Kategori</h4>
 						<div className="flex flex-wrap gap-2">
 							{book.category.map((cat) => (
 								<Badge key={cat.id} variant="secondary">
@@ -141,18 +138,16 @@ export function BookDetailDialog({
 
 					{/* Publisher Information */}
 					<div className="space-y-3">
-						<h4 className="font-semibold text-gray-900">
-							Publisher Information
-						</h4>
+						<h4 className="font-semibold text-gray-900">Informasi Penerbit</h4>
 						<div className="bg-gray-50 p-4 rounded-lg space-y-2">
 							<div className="flex items-center gap-2">
 								<Building className="w-4 h-4 text-gray-500" />
-								<span className="font-medium">Publisher:</span>
+								<span className="font-medium">Penerbit:</span>
 								<span className="text-gray-700">{book.publisher?.name}</span>
 							</div>
 							<div className="flex items-center gap-2">
 								<MapPin className="w-4 h-4 text-gray-500" />
-								<span className="font-medium">City:</span>
+								<span className="font-medium">Kota:</span>
 								<span className="text-gray-700">{book.publisher?.city}</span>
 							</div>
 						</div>
