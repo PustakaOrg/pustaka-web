@@ -44,16 +44,21 @@ export const getLibrarianFormSchema = (isEditing: boolean) =>
 			path: ["confirm"],
 		});
 
-export type LibrarianFormData = z.infer<ReturnType<typeof getLibrarianFormSchema>>
+export type LibrarianFormData = z.infer<
+	ReturnType<typeof getLibrarianFormSchema>
+>;
 
 interface LibrarianFormProps {
 	librarian?: Librarian;
-	handleSubmit: (
-		data: LibrarianFormData,
-	) => void;
+	handleSubmit: (data: LibrarianFormData) => void;
+	error?: unknown;
 }
 
-const LibrarianForm = ({ librarian, handleSubmit }: LibrarianFormProps) => {
+const LibrarianForm = ({
+	librarian,
+	handleSubmit,
+	error,
+}: LibrarianFormProps) => {
 	const isEditing = Boolean(librarian);
 	const schema = getLibrarianFormSchema(isEditing);
 	const form = useForm<z.infer<typeof schema>>({
@@ -72,11 +77,22 @@ const LibrarianForm = ({ librarian, handleSubmit }: LibrarianFormProps) => {
 			form.setValue("nip", librarian.nip || "");
 			form.setValue("phoneNumber", librarian.phone_number || "");
 		}
-	}, [librarian, form]);
+		// @ts-ignore
+		if (error?.data?.account?.email) {
+			// @ts-ignore
+			form.setError("email",{message: error.data.account.email[0]});
+      
+		}
+
+		// @ts-ignore
+		if (error?.data?.nip) {
+			// @ts-ignore
+			form.setError("nip", {message:error.data.nip[0]});
+		}
+	}, [librarian, form, error]);
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-
 				<FormField
 					control={form.control}
 					name="fullname"
@@ -90,7 +106,6 @@ const LibrarianForm = ({ librarian, handleSubmit }: LibrarianFormProps) => {
 						</FormItem>
 					)}
 				/>
-
 
 				<FormField
 					control={form.control}
@@ -106,7 +121,6 @@ const LibrarianForm = ({ librarian, handleSubmit }: LibrarianFormProps) => {
 					)}
 				/>
 
-
 				<FormField
 					control={form.control}
 					name="nip"
@@ -121,7 +135,6 @@ const LibrarianForm = ({ librarian, handleSubmit }: LibrarianFormProps) => {
 					)}
 				/>
 
-
 				<FormField
 					control={form.control}
 					name="phoneNumber"
@@ -135,7 +148,6 @@ const LibrarianForm = ({ librarian, handleSubmit }: LibrarianFormProps) => {
 						</FormItem>
 					)}
 				/>
-
 
 				<FormField
 					control={form.control}
@@ -168,7 +180,9 @@ const LibrarianForm = ({ librarian, handleSubmit }: LibrarianFormProps) => {
 						</FormItem>
 					)}
 				/>
-        <Button type="submit" className="w-full">Submit</Button>
+				<Button type="submit" className="w-full">
+					Submit
+				</Button>
 			</form>
 		</Form>
 	);

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchClass, PatchClassPayload } from "../api/patchClass";
+import { toast } from "sonner";
 
 const useUpdateClass = () => {
 	const queryClient = useQueryClient();
@@ -16,6 +17,8 @@ const useUpdateClass = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["classes"] });
 			queryClient.invalidateQueries({ queryKey: ["search-class"] });
+
+			toast.success("Class updated successfully!!");
 		},
 	});
 	return {

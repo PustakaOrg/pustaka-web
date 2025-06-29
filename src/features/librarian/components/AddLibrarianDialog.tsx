@@ -13,12 +13,11 @@ import { isAdminObject } from "~/features/auth/utils/util";
 import { PostLibrarianPayload } from "../api/postLibrarian";
 
 const AddLibrarianDialog = () => {
-	const { addLibrarian } = useAddLibrarian();
+	const { newLibrarian, addLibrarian, error } = useAddLibrarian();
 	const { profile } = useProfile();
 
 	const handleSubmit = (data: LibrarianFormData) => {
 		if (isAdminObject(profile)) {
-			console.log(data);
 			const payload: PostLibrarianPayload = {
 				account: {
 					email: data.email,
@@ -41,7 +40,7 @@ const AddLibrarianDialog = () => {
 			</DialogTrigger>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
 				<DialogTitle>Add New Librarian</DialogTitle>
-				<LibrarianForm handleSubmit={handleSubmit} />
+				<LibrarianForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 		</Dialog>
 	);

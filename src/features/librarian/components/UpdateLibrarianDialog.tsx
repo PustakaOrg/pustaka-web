@@ -21,7 +21,7 @@ const UpdateLibrarianDialog = ({
 	isOpen,
 	onOpenChange,
 }: UpdateBookDialogProps) => {
-	const { updateLibrarian } = useUpdateLibrarian();
+	const { updateLibrarian, error } = useUpdateLibrarian();
 	const handleSubmit = (data: LibrarianFormData) => {
 		console.log(data);
 		const payload: PatchLibrarianPayload = {
@@ -29,8 +29,8 @@ const UpdateLibrarianDialog = ({
 				email: data.email == librarian.account.email ? undefined : data.email,
 				fullname: data.fullname,
 			},
-			nip: data.nip,
-			phone_number: data.phoneNumber,
+			nip: data.nip == librarian.nip ? undefined : data.nip,
+      phone_number: data.phoneNumber,
 		};
 		if (data.password) payload.account.password = data.password;
 		updateLibrarian({ id: librarian.id, data: payload });
@@ -39,7 +39,7 @@ const UpdateLibrarianDialog = ({
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
 				<DialogTitle>Edit Book</DialogTitle>
-				<LibrarianForm librarian={librarian} handleSubmit={handleSubmit} />
+				<LibrarianForm librarian={librarian} handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>
 		</Dialog>

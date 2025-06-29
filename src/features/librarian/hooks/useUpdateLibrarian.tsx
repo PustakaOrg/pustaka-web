@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchLibrarian, PatchLibrarianPayload } from "../api/patchLibrarian";
+import { toast } from "sonner";
 
 const useUpdateLibrarian = () => {
 	const queryClient = useQueryClient();
@@ -15,6 +16,8 @@ const useUpdateLibrarian = () => {
 			patchLibrarian(id, data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["librarians"] });
+
+			toast.success("Librarian updated successfully!!");
 		},
 	});
 	return {

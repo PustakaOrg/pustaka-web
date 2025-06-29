@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchBatch, PatchBatchPayload } from "../api/patchBatch";
+import { toast } from "sonner";
 
 const useUpdateBatch = () => {
 	const queryClient = useQueryClient();
@@ -17,6 +18,8 @@ const useUpdateBatch = () => {
 			queryClient.invalidateQueries({ queryKey: ["batches"] });
 
 			queryClient.invalidateQueries({ queryKey: ["search-batch"] });
+
+			toast.success("Batch updated successfully!!");
 		},
 	});
 	return {

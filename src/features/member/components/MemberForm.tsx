@@ -30,7 +30,7 @@ const MemberForm = ({
 					<Input
 						id="account.email"
 						name="account.email"
-            defaultValue={defaultValues?.account.email}
+						defaultValue={defaultValues?.account.email}
 						type="email"
 						placeholder="Enter member email"
 						className="col-span-3"
@@ -69,7 +69,7 @@ const MemberForm = ({
 						min="1"
 						placeholder="Enter member NIS"
 						className="col-span-3"
-            defaultValue={defaultValues?.nis}
+						defaultValue={defaultValues?.nis}
 						required
 					/>
 					{/* @ts-ignore */}
@@ -90,7 +90,7 @@ const MemberForm = ({
 						type="text"
 						placeholder="Enter member fullname"
 						className="col-span-3"
-            defaultValue={defaultValues?.account.fullname}
+						defaultValue={defaultValues?.account.fullname}
 						required
 					/>
 				</div>
@@ -119,7 +119,7 @@ const MemberForm = ({
 						min="1"
 						placeholder="Enter member phone number"
 						className="col-span-3"
-            defaultValue={defaultValues?.phone_number}
+						defaultValue={defaultValues?.phone_number}
 						required
 					/>
 				</div>
@@ -143,10 +143,25 @@ const MemberForm = ({
 					<Label htmlFor="expires_date" className="text-sm font-medium">
 						Expires date
 					</Label>
-          <Input name="expires_date" type="date" placeholder="Enter" />
+					<Input
+						name="expires_date"
+						defaultValue={defaultValues?.expires_date}
+						type="date"
+						placeholder="Enter"
+					/>
+					{/* @ts-ignore */}
+					{error?.data?.expires_date && (
+						<p className="text-xs text-destructive">
+							{/* @ts-ignore */}
+							{error?.data?.expires_date[0]}
+						</p>
+					)}
 				</div>
 
-				<Button className="cursor-pointer w-full items-right mt-8" type="submit">
+				<Button
+					className="cursor-pointer w-full items-right mt-8"
+					type="submit"
+				>
 					Submit
 				</Button>
 			</div>

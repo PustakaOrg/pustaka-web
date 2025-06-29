@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postClass, PostClassPayload } from "../api/postClass";
+import { toast } from "sonner";
 
 const useAddClass = () => {
 	const queryClient = useQueryClient();
@@ -15,6 +16,8 @@ const useAddClass = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["classes"] });
 			queryClient.invalidateQueries({ queryKey: ["search-class"] });
+
+			toast.success("Class added successfully!!");
 		},
 	});
 	return {

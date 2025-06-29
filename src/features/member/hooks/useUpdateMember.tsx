@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchMember } from "../api/patchMember";
+import { toast } from "sonner";
 
 const useUpdateMember = () => {
 	const queryClient = useQueryClient();
@@ -18,6 +19,8 @@ const useUpdateMember = () => {
 			queryClient.refetchQueries({ queryKey: ["member"] });
 			queryClient.refetchQueries({ queryKey: ["search-members"] });
 			queryClient.refetchQueries({ queryKey: ["profile"] });
+
+			toast.success("Member updated successfully!!");
 		},
 	});
 
