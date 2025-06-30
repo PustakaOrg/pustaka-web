@@ -5,7 +5,7 @@ const limitOptions = [
 	{ label: "5", value: "5" },
 	{ label: "10", value: "10" },
 	{ label: "20", value: "20" },
-	{ label: "All", value: "9999" }, 
+	{ label: "Semua", value: "9999" }, 
 ];
 
 
@@ -21,13 +21,13 @@ const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <Select value={currentLimit} onValueChange={handleChange}>
-      <SelectTrigger size="sm" className="bg-muted">
+      <SelectTrigger className="bg-muted">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {limitOptions.map((opt) => (
           <SelectItem key={opt.value} value={opt.value}>
-            {opt.label}
+            {opt.label} data
           </SelectItem>
         ))}
       </SelectContent>

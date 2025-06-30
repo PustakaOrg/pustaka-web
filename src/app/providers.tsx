@@ -7,7 +7,7 @@ import { Toaster } from "~/shared/components/ui/sonner";
 const Providers = ({ children }: React.PropsWithChildren) => {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ThemeProvider defaultTheme="light">{children}</ThemeProvider>
+			<ThemeProvider defaultTheme="system">{children}</ThemeProvider>
 			<Toaster />
 		</QueryClientProvider>
 	);

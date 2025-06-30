@@ -95,7 +95,7 @@ const LibrarianTable = React.memo(
 				{deleteFineData && (
 					<DeleteEntityAlertDialog
 						entity={deleteFineData}
-						entityName="denda"
+						entityName="pustakawan"
 						entityLabel={deleteFineData.account.fullname}
 						isOpen={isDeleteOpen}
 						onOpenChange={closeDeleteDialog}

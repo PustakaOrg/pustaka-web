@@ -28,22 +28,22 @@ export type DateRange = {
 const presetOptions = [
 	{
 		value: "today",
-		label: "Today",
+		label: "Hari ini",
 		range: { from: startOfToday(), to: startOfToday() },
 	},
 	{
 		value: "last7",
-		label: "Last 7 Days",
+		label: "7 hari terakhir",
 		range: { from: subDays(startOfToday(), 6), to: startOfToday() },
 	},
 	{
 		value: "last30",
-		label: "Last 30 Days",
+		label: "30 hari terakhir",
 		range: { from: subDays(startOfToday(), 29), to: startOfToday() },
 	},
 	{
 		value: "thisWeek",
-		label: "This Week",
+		label: "Minggu ini",
 		range: {
 			from: startOfWeek(new Date()), // Monday
 			to: endOfWeek(new Date()), // Sunday
@@ -51,7 +51,7 @@ const presetOptions = [
 	},
 	{
 		value: "thisMonth",
-		label: "This Month",
+		label: "Bulan ini",
 		range: { from: startOfMonth(new Date()), to: endOfMonth(new Date()) },
 	},
 ];
@@ -69,7 +69,6 @@ const DateRangePickerWithPreset = ({
 			<PopoverTrigger asChild>
 				<Button
 					variant={"outline"}
-          size={"sm"}
 					className={cn(
 						"w-full justify-start text-left font-normal",
 						!date && "text-muted-foreground",
@@ -95,7 +94,7 @@ const DateRangePickerWithPreset = ({
 					}}
 				>
 					<SelectTrigger className="w-full">
-						<SelectValue placeholder="Select" />
+						<SelectValue placeholder="Pilih" />
 					</SelectTrigger>
 					<SelectContent position="popper">
 						{presetOptions.map((opt) => (

@@ -16,6 +16,8 @@ import {
 } from "~/features/librarian/type/LibrarianCSV";
 import ExportCSVDialog from "~/shared/components/ExportCSVDialog";
 import { Pagination } from "~/shared/components/Pagination";
+import SearchQueryInput from "~/shared/components/SearchQueryInput";
+import ShowPerPage from "~/shared/components/ShowPerPage";
 import {
 	Card,
 	CardContent,
@@ -35,11 +37,12 @@ const DashboardLibrarianPage = () => {
 		offset: searchParams.get("offset")
 			? Number(searchParams.get("offset"))
 			: undefined,
+
+		q: searchParams.get("q") ?? undefined,
 	};
 
-	const { librarianList, isPending, isError, error } = useLibrarianList(
-		defaultParams<LibrarianListParams>(librarianListParams),
-	);
+	const { librarianList, isPending, isError, error } =
+		useLibrarianList(librarianListParams);
 	const [selectedLibrarians, setSelectedLibrarians] = useState<string[]>([]);
 	const [columnVisibility, setColumnVisibility] =
 		useState<LibrarianColumnVisibility>(defaultColumnVisibility);
@@ -111,6 +114,12 @@ const DashboardLibrarianPage = () => {
 					</div>
 				</CardHeader>
 				<CardContent className="space-y-2">
+					<div className="w-full flex justify-between flex-wrap gap-2">
+						<div className="flex gap-2">
+							<SearchQueryInput placeholder="Cari Pustakawan" />
+							<ShowPerPage />
+						</div>
+					</div>
 					{selectedLibrarians.length > 0 && (
 						<LibrarianBulkActionBar
 							selectedCount={selectedLibrarians.length}

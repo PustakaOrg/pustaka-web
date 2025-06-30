@@ -35,10 +35,11 @@ export default function DeleteEntityAlertDialog<T>({
 		<AlertDialog open={isOpen} onOpenChange={onOpenChange}>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+					<AlertDialogTitle>Apakah anda yakin ?</AlertDialogTitle>
 					<AlertDialogDescription>
-						This action cannot be undone. It will permanently delete{" "}
-						<b>{entityLabel}</b> {entityName}.
+						Aksi tidak dapat dikembalikan. Ini akan menghgapus {entityName} {" "}
+						<b>{entityLabel}</b>  dan data yang berkaitan secara
+						permanen.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 

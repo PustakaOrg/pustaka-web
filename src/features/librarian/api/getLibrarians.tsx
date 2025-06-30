@@ -5,6 +5,7 @@ import { PaginatedResponse } from "~/types/responses";
 export type LibrarianListParams = Partial<{
 	limit: number;
 	offset: number;
+  q: string
 }>;
 
 export const getLibrarian = (params?: LibrarianListParams) => {

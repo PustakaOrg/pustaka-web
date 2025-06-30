@@ -35,6 +35,7 @@ import ImportMemberDialog from "~/features/member/components/ImportMemberDialog"
 import { useSearchPagination } from "~/shared/hooks/useSearchPagination";
 import { Search } from "lucide-react";
 import { Input } from "~/shared/components/ui/input";
+import SearchQueryInput from "~/shared/components/SearchQueryInput";
 
 const DashboardMemberPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState(
@@ -44,6 +45,7 @@ const DashboardMemberPage = () => {
 	const [_class, setClass] = useState("");
 	const [batch, setBatch] = useState("");
 	const memberListParam = {
+		q: searchParams.get("q") ?? undefined,
 		limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : 10,
 		offset: searchParams.get("offset")
 			? Number(searchParams.get("offset"))
@@ -146,8 +148,9 @@ const DashboardMemberPage = () => {
 					</div>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					<div className="w-full flex justify-between">
+					<div className="w-full flex justify-between flex-wrap gap-2">
 						<div className="flex gap-2">
+							<SearchQueryInput placeholder="Cari Member" />
 							<ShowPerPage />
 						</div>
 						<div className="flex  gap-2">

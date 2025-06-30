@@ -36,7 +36,7 @@ const DatePickerWithPreset = ({date,onDateChange}: DatePickerWithPresetProps) =>
 					)}
 				>
 					<CalendarIcon />
-					{date ? format(date, "PPP") : <span>Pick a date</span>}
+					{date ? format(date, "PPP") : <span>Pilih tanggal</span>}
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent
@@ -52,10 +52,10 @@ const DatePickerWithPreset = ({date,onDateChange}: DatePickerWithPresetProps) =>
 						<SelectValue placeholder="Select" />
 					</SelectTrigger>
 					<SelectContent position="popper">
-						<SelectItem value="0">Today</SelectItem>
-						<SelectItem value="1">Tomorrow</SelectItem>
-						<SelectItem value="3">In 3 days</SelectItem>
-						<SelectItem value="7">In a week</SelectItem>
+						<SelectItem value="0">Hari ini</SelectItem>
+						<SelectItem value="1">Besok</SelectItem>
+						<SelectItem value="3">3 Hari</SelectItem>
+						<SelectItem value="7">7 Hari</SelectItem>
 					</SelectContent>
 				</Select>
 				<div className="grid place-items-center">

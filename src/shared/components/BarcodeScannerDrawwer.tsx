@@ -43,7 +43,7 @@ const BarcodeScannerDrawwer = ({
 				</DialogTrigger>
 				<DialogContent className="min-w-[70vw] min-h-[80vh] sm:max-w-[425px]">
 					<DialogHeader>
-						<DialogTitle>Scan QR or Barcode</DialogTitle>
+						<DialogTitle>Scan QR atauBarcode</DialogTitle>
 					</DialogHeader>
 					<div>
 						<BarcodeScanner
@@ -73,7 +73,7 @@ const BarcodeScannerDrawwer = ({
 			</DrawerTrigger>
 			<DrawerContent>
 				<DrawerHeader className="text-left">
-					<DrawerTitle>Scan QR or Barcode</DrawerTitle>
+					<DrawerTitle>Scan QR atau Barcode</DrawerTitle>
 				</DrawerHeader>
 				<div>
 					<BarcodeScanner
@@ -85,7 +85,7 @@ const BarcodeScannerDrawwer = ({
 				</div>
 				<DrawerFooter className="pt-2">
 					<DrawerClose asChild>
-						<Button variant="outline">Cancel</Button>
+						<Button variant="outline">Batal</Button>
 					</DrawerClose>
 				</DrawerFooter>
 			</DrawerContent>
