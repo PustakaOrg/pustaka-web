@@ -42,7 +42,7 @@ const DashboardLibrarianPage = () => {
 	};
 
 	const { librarianList, isPending, isError, error } =
-		useLibrarianList(librarianListParams);
+		useLibrarianList(defaultParams<LibrarianListParams>(librarianListParams));
 	const [selectedLibrarians, setSelectedLibrarians] = useState<string[]>([]);
 	const [columnVisibility, setColumnVisibility] =
 		useState<LibrarianColumnVisibility>(defaultColumnVisibility);

@@ -36,6 +36,8 @@ import { useSearchPagination } from "~/shared/hooks/useSearchPagination";
 import { Search } from "lucide-react";
 import { Input } from "~/shared/components/ui/input";
 import SearchQueryInput from "~/shared/components/SearchQueryInput";
+import { defaultParams } from "~/shared/utils/functions";
+import { MemberListParams } from "~/features/member/api/getMembers";
 
 const DashboardMemberPage = () => {
 	const [columnVisibility, setColumnVisibility] = useState(
@@ -57,7 +59,7 @@ const DashboardMemberPage = () => {
 	const _classes = useSearchPagination();
 	const batches = useSearchPagination();
 
-	const { memberList, isPending } = useMemberList(memberListParam);
+	const { memberList, isPending } = useMemberList(defaultParams<MemberListParams>(memberListParam));
 	const { batchList } = useBatchList(batches.params);
 	const { classList } = useClassList(_classes.params);
 	const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
