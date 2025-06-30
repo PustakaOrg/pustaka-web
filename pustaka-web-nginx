@@ -1,0 +1,10 @@
+server {
+    listen 5173;
+    server_name 103.59.160.101;
+
+    location / {
+      root /root/pustaka-web/dist;
+      index index.html;
+      try_files $uri $uri/ /index.html =404;
+    }
+}
