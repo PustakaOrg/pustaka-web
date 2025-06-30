@@ -11,6 +11,7 @@ import { Link } from "react-router";
 import { Button } from "./ui/button";
 import useProfile from "~/features/auth/hooks/useProfile";
 import { useState } from "react";
+import { ModeToggle } from "./ModeToggle";
 
 const Navbar = () => {
 	const { profile } = useProfile();
@@ -58,6 +59,7 @@ const Navbar = () => {
 							</Link>
 						</Button>
 					)}
+          <ModeToggle />
 				</div>
 			</div>
 			{isMenuOpen && (

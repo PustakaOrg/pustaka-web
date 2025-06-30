@@ -2,7 +2,7 @@ import { Facebook, Instagram, Youtube, Twitter } from "lucide-react";
 
 const Footer = () => {
 	return (
-		<footer className="w-full border-t py-6 md:py-0 bg-sky-600 text-white">
+		<footer className="w-full border-t py-6 md:py-0 bg-primary text-primary-foreground">
 			<div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between">
 				{/* Copyright */}
 				<p className="text-sm">

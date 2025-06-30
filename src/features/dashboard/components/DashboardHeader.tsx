@@ -1,3 +1,4 @@
+import { ModeToggle } from "~/shared/components/ModeToggle";
 import { Separator } from "~/shared/components/ui/separator";
 import { SidebarTrigger } from "~/shared/components/ui/sidebar";
 
@@ -10,6 +11,10 @@ const DashboardHeader = () => {
 					orientation="vertical"
 					className="mx-2 data-[orientation=vertical]:h-4"
 				/>
+
+        <div className="ml-auto">
+        <ModeToggle  />
+        </div>
 			</div>
 		</header>
 	);

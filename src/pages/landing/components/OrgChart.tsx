@@ -2,7 +2,7 @@ import { OrgCard } from "./OrgCard";
 
 const OrgChart = () => {
   return (
-    <div className="bg-white py-10 px-4">
+    <div className="bg-background py-10 px-4">
       <h2 className="text-3xl font-bold text-center mb-8 tracking-tighter md:text-4xl/tight">Struktur Organisasi Perpustakaan</h2>
 
       {/* Kepala */}
