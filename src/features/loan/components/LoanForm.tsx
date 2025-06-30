@@ -16,41 +16,7 @@ interface LoanFormProps {
 const LoanForm = ({ handleSubmit }: LoanFormProps) => {
 	const [book, setBook] = useState("");
 	const [member, setMember] = useState("");
-	const [bookScanOpen, setBookScanOpen] = useState(false);
-	const [memberScanOpen, setMemberScanOpen] = useState(false);
 	const { settings } = useSettings();
-	const [q, setQ] = useState("");
-
-	const handleBookScanCapture = (codes: DetectedBarcode[]) => {
-		const code = codes
-			.filter((c) => c.format === "qr_code")
-			.map((c) => c.rawValue)
-			.at(0);
-
-		const isbn = codes
-			.filter((c) => c.format === "ean_13")
-			.map((c) => c.rawValue)
-			.at(0);
-		if (isbn) {
-			setQ(isbn);
-			setBookScanOpen(false);
-		}
-		if (code) {
-			setBook(code);
-			setBookScanOpen(false);
-		}
-	};
-
-	const handleMemberScanCapture = (codes: DetectedBarcode[]) => {
-		const code = codes
-			.filter((c) => c.format === "qr_code")
-			.map((c) => c.rawValue)
-			.at(0);
-		if (code) {
-			setMember(code);
-			setMemberScanOpen(false);
-		}
-	};
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -61,13 +27,8 @@ const LoanForm = ({ handleSubmit }: LoanFormProps) => {
 					</Label>
 					<div className="flex gap-2">
 						<div className="grow">
-							<BookCombobox book={book} query={q} setBook={setBook} />
+							<BookCombobox book={book}  setBook={setBook} />
 						</div>
-						<BarcodeScannerDrawwer
-							isOpen={bookScanOpen}
-							onOpenChange={setBookScanOpen}
-							handleCapture={handleBookScanCapture}
-						/>
 					</div>
 					{book && <input hidden name="book" value={book} readOnly />}
 				</div>
@@ -79,11 +40,6 @@ const LoanForm = ({ handleSubmit }: LoanFormProps) => {
 						<div className="grow">
 							<MemberCombobox member={member} setMember={setMember} />
 						</div>
-						<BarcodeScannerDrawwer
-							isOpen={memberScanOpen}
-							onOpenChange={setMemberScanOpen}
-							handleCapture={handleMemberScanCapture}
-						/>
 					</div>
 					{member && <input hidden name="borrower" value={member} readOnly />}
 				</div>

@@ -71,7 +71,7 @@ export function BookDetailDialog({
 
 								<div className="flex items-center gap-2 ">
 									<Calendar className="w-4 h-4 " />
-									<span className="font-medium">Penerbit:</span>
+									<span className="font-medium">Tahun Terbit:</span>
 									<span className="">{book.publish_year}</span>
 								</div>
 

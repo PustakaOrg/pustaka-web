@@ -19,17 +19,43 @@ import useSearchAvailableBook from "../hooks/useSearchBook";
 import useBookDetail from "../hooks/useBookDetail";
 import { CommandLoading } from "cmdk";
 import BookListItem from "./BookListItem";
+import BarcodeScannerDrawwer from "~/shared/components/BarcodeScannerDrawwer";
+import { DetectedBarcode } from "react-barcode-scanner";
 
 interface BookComboboxProps {
+	query?: string;
 	book: string;
 	setBook: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
+const BookCombobox = ({ book, setBook, query }: BookComboboxProps) => {
 	const [search, setSearch] = useState("");
 	const { bookList: authorsChoice, isPending } = useSearchAvailableBook(search);
 	const { bookDetail, isPending: bookDetailPending } = useBookDetail(book);
 	const [open, setOpen] = useState(false);
+	const [bookScanOpen, setBookScanOpen] = useState(false);
+
+	const handleBookScanCapture = (codes: DetectedBarcode[]) => {
+		const code = codes
+			.filter((c) => c.format === "qr_code")
+			.map((c) => c.rawValue)
+			.at(0);
+
+		const isbn = codes
+			.filter((c) => c.format === "ean_13")
+			.map((c) => c.rawValue)
+			.at(0);
+
+		if (isbn) {
+      setSearch(isbn)
+			setBookScanOpen(false);
+		}
+		if (code) {
+			setBook(code);
+			setBookScanOpen(false);
+		}
+	};
+
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -41,18 +67,26 @@ const BookCombobox = ({ book, setBook }: BookComboboxProps) => {
 					className="w-full justify-between text-muted-foreground"
 				>
 					{book && bookDetail && <p>{bookDetail.title}</p>}
-					{!book && "Pilih book"}
+					{!book && "Pilih buku"}
 					{bookDetailPending && "Loading..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="p-0" style={popoverSameWidth}>
 				<Command>
-					<CommandInput
-						value={search}
-						onValueChange={setSearch}
-						placeholder="Cari Buku"
-					/>
+					<div className="flex w-full gap-2 p-2">
+						<CommandInput
+							value={search}
+							onValueChange={setSearch}
+							placeholder="Cari Buku"
+              className=""
+						/>
+						<BarcodeScannerDrawwer
+							isOpen={bookScanOpen}
+							onOpenChange={setBookScanOpen}
+							handleCapture={handleBookScanCapture}
+						/>
+					</div>
 					<CommandList>
 						<CommandEmpty>Tidak Ditemukan</CommandEmpty>
 						<CommandGroup>
