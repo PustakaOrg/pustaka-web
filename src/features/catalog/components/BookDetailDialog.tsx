@@ -53,10 +53,10 @@ export function BookDetailDialog({
 
 						<div className="flex-1 space-y-4">
 							<div>
-								<h3 className="text-xl font-semibold text-gray-900">
+								<h3 className="text-xl font-semibold ">
 									{book.title}
 								</h3>
-								<div className="flex items-center gap-2 mt-2 text-gray-600">
+								<div className="flex items-center gap-2 mt-2 ">
 									<User className="w-4 h-4" />
 									<span>oleh: {book.author?.fullname}</span>
 								</div>
@@ -64,27 +64,27 @@ export function BookDetailDialog({
 
 							<div className="grid grid-cols-2 gap-4 text-sm">
 								<div className="flex items-center gap-2">
-									<Hash className="w-4 h-4 text-gray-500" />
+									<Hash className="w-4 h-4 " />
 									<span className="font-medium">ISBN:</span>
-									<span className="text-gray-600">{book.isbn}</span>
+									<span className="">{book.isbn}</span>
 								</div>
 
 								<div className="flex items-center gap-2 ">
-									<Calendar className="w-4 h-4 text-gray-500" />
+									<Calendar className="w-4 h-4 " />
 									<span className="font-medium">Penerbit:</span>
-									<span className="text-gray-600">{book.publish_year}</span>
+									<span className="">{book.publish_year}</span>
 								</div>
 
 								<div className="flex items-center gap-2">
-									<FileText className="w-4 h-4 text-gray-500" />
+									<FileText className="w-4 h-4 " />
 									<span className="font-medium">Halaman:</span>
-									<span className="text-gray-600">{book.pages}</span>
+									<span className="">{book.pages}</span>
 								</div>
 
 								<div className="flex items-center gap-2">
-									<Package className="w-4 h-4 text-gray-500" />
+									<Package className="w-4 h-4 " />
 									<span className="font-medium">Rak:</span>
-									<span className="text-gray-600">{book.shelf?.code}</span>
+									<span className="">{book.shelf?.code}</span>
 								</div>
 							</div>
 						</div>
@@ -94,11 +94,11 @@ export function BookDetailDialog({
 
 					{/* Stock Information */}
 					<div className="space-y-3">
-						<h4 className="font-semibold text-gray-900">Stock Information</h4>
+						<h4 className="font-semibold ">Stock Information</h4>
 						<div className="grid grid-cols-2 gap-4">
-							<div className="bg-blue-50 p-3 rounded-lg">
-								<div className="text-sm text-blue-600 font-medium">Stok</div>
-								<div className="text-2xl font-bold text-blue-700">
+							<div className="bg-accent p-3 rounded-lg">
+								<div className="text-sm font-medium">Stok</div>
+								<div className="text-2xl font-bold text-muted-foreground">
 									{book.stock}
 								</div>
 							</div>
@@ -124,7 +124,7 @@ export function BookDetailDialog({
 
 					{/* Categories */}
 					<div className="space-y-3">
-						<h4 className="font-semibold text-gray-900">Kategori</h4>
+						<h4 className="font-semibold ">Kategori</h4>
 						<div className="flex flex-wrap gap-2">
 							{book.category.map((cat) => (
 								<Badge key={cat.id} variant="secondary">
@@ -138,17 +138,17 @@ export function BookDetailDialog({
 
 					{/* Publisher Information */}
 					<div className="space-y-3">
-						<h4 className="font-semibold text-gray-900">Informasi Penerbit</h4>
-						<div className="bg-gray-50 p-4 rounded-lg space-y-2">
+						<h4 className="font-semibold ">Informasi Penerbit</h4>
+						<div className="bg-accent p-4 rounded-lg space-y-2">
 							<div className="flex items-center gap-2">
-								<Building className="w-4 h-4 text-gray-500" />
+								<Building className="w-4 h-4 " />
 								<span className="font-medium">Penerbit:</span>
-								<span className="text-gray-700">{book.publisher?.name}</span>
+								<span className="">{book.publisher?.name}</span>
 							</div>
 							<div className="flex items-center gap-2">
-								<MapPin className="w-4 h-4 text-gray-500" />
+								<MapPin className="w-4 h-4 " />
 								<span className="font-medium">Kota:</span>
-								<span className="text-gray-700">{book.publisher?.city}</span>
+								<span className="">{book.publisher?.city}</span>
 							</div>
 						</div>
 					</div>

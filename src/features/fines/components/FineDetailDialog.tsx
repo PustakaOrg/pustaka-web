@@ -53,8 +53,8 @@ const FineDetailDialog = ({
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="max-w-md border-0 shadow-2xl rounded-2xl p-0 overflow-hidden">
-				<div className="bg-white">
-					<div className="bg-gray-50 p-6 text-center border-b space-y-4">
+				<div className="bg-background">
+					<div className="bg-accent p-6 text-center border-b space-y-4">
 						<DialogTitle>Detail Denda</DialogTitle>
 						{qrCodeUrl && (
 							<div className="inline-block bg-white p-3 rounded-xl shadow-sm mb-3">
@@ -67,7 +67,7 @@ const FineDetailDialog = ({
 								/>
 							</div>
 						)}
-						<p className="text-xs text-gray-500 font-mono">{fine.id}</p>
+						<p className="text-xs  font-mono">{fine.id}</p>
 
 						<PaymentStatusBadge status={fine.payment.status} />
 					</div>
@@ -81,7 +81,7 @@ const FineDetailDialog = ({
 									src={fine.loan.borrower.profile_picture || "/placeholder.svg"}
 									alt={fine.loan.borrower.account.fullname}
 								/>
-								<AvatarFallback className="bg-gray-100 text-gray-600">
+								<AvatarFallback className="">
 									{fine.loan.borrower.account.fullname
 										.split(" ")
 										.map((n) => n[0])
@@ -89,10 +89,10 @@ const FineDetailDialog = ({
 								</AvatarFallback>
 							</Avatar>
 							<div>
-								<h3 className="font-semibold text-gray-900">
+								<h3 className="font-semibold ">
 									{fine.loan.borrower.account.fullname}
 								</h3>
-								<p className="text-sm text-gray-500">Member</p>
+								<p className="text-sm">Member</p>
 							</div>
 						</div>
 						{/* Book */}
@@ -106,33 +106,33 @@ const FineDetailDialog = ({
 								className="rounded-lg shadow-sm object-cover flex-shrink-0"
 							/>
 							<div className="flex-1 min-w-0">
-								<h4 className="font-semibold text-gray-900 leading-tight">
+								<h4 className="font-semibold  leading-tight">
 									{fine.loan.book.title}
 								</h4>
-								<p className="text-sm text-gray-500 mt-1">
+								<p className="text-sm  mt-1">
 									{fine.loan.book.author?.fullname}
 								</p>
 							</div>
 						</div>
-						<div className="bg-gray-50 rounded-xl p-4">
+						<div className="bg-accent rounded-xl p-4">
 							<div className="flex justify-between items-center">
 								<div className="text-center">
-									<p className="text-xs text-gray-500 uppercase tracking-wide">
+									<p className="text-xs  uppercase tracking-wide">
 										Total terlambat
 									</p>
-									<p className="font-semibold text-gray-900">
+									<p className="font-semibold ">
 										{differenceInDays(
 											new Date(fine.loan.return_date),
 											new Date(),
 										)}
 									</p>
 								</div>
-								<div className="w-8 h-px bg-gray-300"></div>
+								<div className="w-8 h-px bg-accent-foreground"></div>
 								<div className="text-center">
-									<p className="text-xs text-gray-500 uppercase tracking-wide">
+									<p className="text-xs  uppercase tracking-wide">
 										Total Denda
 									</p>
-									<p className="font-semibold text-gray-900">
+									<p className="font-semibold ">
 										{formatToIDR(Number(fine.amount))}
 									</p>
 								</div>

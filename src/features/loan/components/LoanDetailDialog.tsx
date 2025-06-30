@@ -59,8 +59,8 @@ const LoanDetailDialog = ({
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="max-w-md border-0 shadow-2xl rounded-2xl p-0 overflow-hidden">
-				<div className="bg-white">
-					<div className="bg-gray-50 p-6 text-center border-b space-y-4">
+				<div className="">
+					<div className="bg-accent p-6 text-center border-b space-y-4">
 						<DialogTitle>Detail Peminjaman</DialogTitle>
 						{qrCodeUrl && (
 							<div className="inline-block bg-white p-3 rounded-xl shadow-sm mb-3">
@@ -73,7 +73,7 @@ const LoanDetailDialog = ({
 								/>
 							</div>
 						)}
-						<p className="text-xs text-gray-500 font-mono">{loan.id}</p>
+						<p className="text-xs  font-mono">{loan.id}</p>
 
 						<LoanStatusBadge status={loan.status} />
 					</div>
@@ -89,7 +89,7 @@ const LoanDetailDialog = ({
 									}
 									alt={loan.borrower.account.fullname}
 								/>
-								<AvatarFallback className="bg-gray-100 text-gray-600">
+								<AvatarFallback className="">
 									{loan.borrower.account.fullname
 										.split(" ")
 										.map((n) => n[0])
@@ -97,10 +97,10 @@ const LoanDetailDialog = ({
 								</AvatarFallback>
 							</Avatar>
 							<div>
-								<h3 className="font-semibold text-gray-900">
+								<h3 className="font-semibold ">
 									{loan.borrower.account.fullname}
 								</h3>
-								<p className="text-sm text-gray-500">Member</p>
+								<p className="text-sm text-muted-foreground">Member</p>
 							</div>
 						</div>
 
@@ -115,31 +115,31 @@ const LoanDetailDialog = ({
 								className="rounded-lg shadow-sm object-cover flex-shrink-0"
 							/>
 							<div className="flex-1 min-w-0">
-								<h4 className="font-semibold text-gray-900 leading-tight">
+								<h4 className="font-semibold  leading-tight">
 									{loan.book.title}
 								</h4>
-								<p className="text-sm text-gray-500 mt-1">
+								<p className="text-sm mt-1">
 									{loan.book.author?.fullname}
 								</p>
 							</div>
 						</div>
 						{/* Dates */}
-						<div className="bg-gray-50 rounded-xl p-4">
+						<div className="bg-accent text-accent-foreground rounded-xl p-4">
 							<div className="flex justify-between items-center">
 								<div className="text-center">
-									<p className="text-xs text-gray-500 uppercase tracking-wide">
+									<p className="text-xs uppercase tracking-wide">
 										Dipinjam pada
 									</p>
-									<p className="font-semibold text-gray-900">
+									<p className="font-semibold ">
 										{formatDate(loan.loan_date)}
 									</p>
 								</div>
-								<div className="w-8 h-px bg-gray-300"></div>
+								<div className="w-8 h-px bg-accent-foreground"></div>
 								<div className="text-center">
-									<p className="text-xs text-gray-500 uppercase tracking-wide">
+									<p className="text-xs uppercase tracking-wide">
 										Dikembalikan pada
 									</p>
-									<p className="font-semibold text-gray-900">
+									<p className="font-semibold ">
 										{formatDate(loan.return_date)}
 									</p>
 								</div>

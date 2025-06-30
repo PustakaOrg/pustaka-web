@@ -54,8 +54,8 @@ const ReservationDetailDialog = ({
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="max-w-md border-0 shadow-2xl rounded-2xl p-0 overflow-hidden">
-				<div className="bg-white">
-					<div className="bg-gray-50 p-6 text-center border-b space-y-4">
+				<div className="">
+					<div className="bg-accent p-6 text-center border-b space-y-4">
           <DialogTitle>Detail Reservasi</DialogTitle>
 						{qrCodeUrl && (
 							<div className="inline-block bg-white p-3 rounded-xl shadow-sm mb-3">
@@ -68,7 +68,7 @@ const ReservationDetailDialog = ({
 								/>
 							</div>
 						)}
-						<p className="text-xs text-gray-500 font-mono">{reservation.id}</p>
+						<p className="text-xs  font-mono">{reservation.id}</p>
 
 						<ReservationStatusBadge status={reservation.status} />
 					</div>
@@ -84,7 +84,7 @@ const ReservationDetailDialog = ({
 									}
 									alt={reservation.reservant.account.fullname}
 								/>
-								<AvatarFallback className="bg-gray-100 text-gray-600">
+								<AvatarFallback >
 									{reservation.reservant.account.fullname
 										.split(" ")
 										.map((n) => n[0])
@@ -92,10 +92,10 @@ const ReservationDetailDialog = ({
 								</AvatarFallback>
 							</Avatar>
 							<div>
-								<h3 className="font-semibold text-gray-900">
+								<h3 className="font-semibold ">
 									{reservation.reservant.account.fullname}
 								</h3>
-								<p className="text-sm text-gray-500">Member</p>
+								<p className="text-sm ">Member</p>
 							</div>
 						</div>
 
@@ -110,31 +110,31 @@ const ReservationDetailDialog = ({
 								className="rounded-lg shadow-sm object-cover flex-shrink-0"
 							/>
 							<div className="flex-1 min-w-0">
-								<h4 className="font-semibold text-gray-900 leading-tight">
+								<h4 className="font-semibold  leading-tight">
 									{reservation.book.title}
 								</h4>
-								<p className="text-sm text-gray-500 mt-1">
+								<p className="text-sm  mt-1">
 									{reservation.book.author?.fullname}
 								</p>
 							</div>
 						</div>
 						{/* Dates */}
-						<div className="bg-gray-50 rounded-xl p-4">
+						<div className="bg-accent rounded-xl p-4">
 							<div className="flex justify-between items-center">
 								<div className="text-center">
-									<p className="text-xs text-gray-500 uppercase tracking-wide">
+									<p className="text-xs uppercase tracking-wide">
 										Tanggal Reservasi
 									</p>
-									<p className="font-semibold text-gray-900">
+									<p className="font-semibold ">
 										{formatDate(reservation.reservation_date)}
 									</p>
 								</div>
-								<div className="w-8 h-px bg-gray-300"></div>
+								<div className="w-8 h-px "></div>
 								<div className="text-center">
-									<p className="text-xs text-gray-500 uppercase tracking-wide">
+									<p className="text-xs  uppercase tracking-wide">
 										Tanggal Pengambilan
 									</p>
-									<p className="font-semibold text-gray-900">
+									<p className="font-semibold ">
 										{formatDate(reservation.pickup_date)}
 									</p>
 								</div>
