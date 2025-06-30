@@ -204,11 +204,8 @@ const DashboardBookPage = () => {
 					</div>
 				</CardHeader>
 				<CardContent className="space-y-2">
-					<div className="flex items-center  gap-2 justify-between">
-						<div>
-							<ShowPerPage />
-						</div>
-						<div className="flex gap-2">
+					<div className="flex items-center gap-2 justify-between ">
+						<div className="flex gap-2 flex-wrap">
 							<div className="relative ">
 								<form onSubmit={handleSearchSubmit}>
 									<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -224,12 +221,17 @@ const DashboardBookPage = () => {
 									</button>
 								</form>
 							</div>
-							<BookColumnVisibilityControls
-								columnVisibility={columnVisibility}
-								onToggleColumn={toggleColumn}
-								onResetColumns={resetColumns}
-								onHideAllColumns={hideAllColumns}
-							/>
+							<div>
+								<ShowPerPage />
+							</div>
+							<div>
+								<BookColumnVisibilityControls
+									columnVisibility={columnVisibility}
+									onToggleColumn={toggleColumn}
+									onResetColumns={resetColumns}
+									onHideAllColumns={hideAllColumns}
+								/>
+							</div>
 						</div>
 					</div>
 

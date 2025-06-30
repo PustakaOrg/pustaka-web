@@ -271,15 +271,15 @@ const DashboardFinesPage = () => {
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="w-full flex justify-between flex-wrap gap-2">
-						<div className="flex gap-2">
+						<div>
 							<DateRangePickerWithPreset
 								date={dateRange}
 								onDateChange={setDateRange}
 							/>
-							<ShowPerPage />
 						</div>
-						<div>
+						<div className="flex gap-2">
 							<SearchQueryInput placeholder="Cari Denda" />
+							<ShowPerPage />
 						</div>
 					</div>
 					<FineBulkActionBar

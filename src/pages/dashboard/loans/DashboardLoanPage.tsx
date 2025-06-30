@@ -299,10 +299,10 @@ const DashboardLoanPage = () => {
 								date={dateRange}
 								onDateChange={setDateRange}
 							/>
-							<ShowPerPage />
 						</div>
-						<div>
+						<div className="flex gap-2">
 							<SearchQueryInput placeholder="Cari Peminjaman" />
+              <ShowPerPage />
 						</div>
 					</div>
 					<LoanBulkActionBar
@@ -314,7 +314,7 @@ const DashboardLoanPage = () => {
 						defaultValue={loanListParams.status}
 						onValueChange={handleTabChange}
 					>
-						<TabsList className="grid w-full grid-cols-6">
+						<TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 mb-12 lg:mb-0">
 							<TabsTrigger value="">Semua</TabsTrigger>
 							<TabsTrigger value="active">Aktif</TabsTrigger>
 							<TabsTrigger value="returned">Dikembalikan</TabsTrigger>

@@ -277,17 +277,15 @@ const DashboardReservationPage = () => {
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<div className="w-full flex justify-between flex-wrap gap-2">
-						<div className="flex gap-2">
+						<div>
 							<DateRangePickerWithPreset
 								date={dateRange}
 								onDateChange={setDateRange}
 							/>
-							<div>
-								<ShowPerPage />
-							</div>
 						</div>
-						<div>
+						<div className="flex gap-2">
 							<SearchQueryInput placeholder="Cari Reservasi" />
+							<ShowPerPage />
 						</div>
 					</div>
 					<ReservationBulkActionBar
@@ -298,7 +296,7 @@ const DashboardReservationPage = () => {
 						defaultValue={reservationListParams.status}
 						onValueChange={handleTabChange}
 					>
-						<TabsList className="grid w-full grid-cols-6">
+						<TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 mb-12 lg:mb-0">
 							<TabsTrigger value="">Semua</TabsTrigger>
 							<TabsTrigger value="pending">Menunggu</TabsTrigger>
 							<TabsTrigger value="ready">Siap</TabsTrigger>
