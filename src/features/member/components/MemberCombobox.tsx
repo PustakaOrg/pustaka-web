@@ -45,9 +45,10 @@ const MemberCombobox = ({
 			.at(0);
 
 		if (code) {
-			setMember(code);
+			setSearch(code);
 			setBookScanOpen(false);
 		}
+    
 	};
 
 	return (

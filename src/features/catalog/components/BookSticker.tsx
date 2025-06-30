@@ -24,6 +24,7 @@ const BookSticker = React.forwardRef<HTMLDivElement, BookCardProps>(
 			>
 				<table
 					style={{
+            color: "black",
 						width: "100%",
 						height: "100%",
 						margin: "4px",
@@ -212,7 +213,12 @@ const BookSticker = React.forwardRef<HTMLDivElement, BookCardProps>(
 								}}
 							>
 								<div className="flex justify-center">
-									<Barcode value={book.isbn} fontSize={12} height={50} />
+									<Barcode
+										format="EAN13"
+										value={book.isbn}
+										fontSize={12}
+										height={50}
+									/>
 								</div>
 							</td>
 						</tr>

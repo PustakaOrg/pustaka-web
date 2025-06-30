@@ -8,14 +8,16 @@ import AuthorCombobox from "./AuthorCombobox";
 import ShelfCombobox from "./ShelfCombobox";
 import CategoryCombobox from "./CategoryCombobox";
 import PublisherCombobox from "./PublisherCombobox";
+import BarcodeScannerDrawwer from "~/shared/components/BarcodeScannerDrawwer";
+import { DetectedBarcode } from "react-barcode-scanner";
 
 interface BookFormProps {
 	defaultValues?: Book;
 	handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  error?: unknown
+	error?: unknown;
 }
 
-const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
+const BookForm = ({ defaultValues, handleSubmit, error }: BookFormProps) => {
 	const [imagePreview, setImagePreview] = useState<string | null>(
 		defaultValues?.img || null,
 	);
@@ -34,8 +36,23 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 		defaultValues ? defaultValues.shelf!.id : "",
 	);
 
+	const [isbn, setIsbn] = useState(defaultValues ? defaultValues.isbn : "");
+
 	const [isDragOver, setIsDragOver] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [bookScanOpen, setBookScanOpen] = useState(false);
+
+	const handleBookScanCapture = (codes: DetectedBarcode[]) => {
+		const isbn = codes
+			.filter((c) => c.format === "ean_13")
+			.map((c) => c.rawValue)
+			.at(0);
+
+		if (isbn) {
+			setIsbn(isbn);
+			setBookScanOpen(false);
+		}
+	};
 
 	const handleDragOver = (e: React.DragEvent) => {
 		e.preventDefault();
@@ -109,10 +126,10 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 	return (
 		//
 		<form onSubmit={handleSubmit} className="space-y-4">
-    			{/* Cover Image Field */}
+			{/* Cover Image Field */}
 			<div className="space-y-2">
 				<Label htmlFor="image" className="text-sm font-medium">
-					Cover  *
+					Cover *
 				</Label>
 				<div className="space-y-4">
 					{/* Drag & Drop Zone */}
@@ -181,7 +198,6 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 										</p>
 										<p className="text-sm text-muted-foreground">
 											Drag and drop gambar kesini, atau klik untuk mencari
-                      
 										</p>
 										<p className="text-xs text-muted-foreground">
 											Support: JPG, PNG, GIF (Max 10MB)
@@ -214,15 +230,27 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 				<Label htmlFor="isbn" className="text-sm font-medium">
 					ISBN *
 				</Label>
-				<Input
-					id="isbn"
-					name="isbn"
-					defaultValue={defaultValues?.isbn}
-					placeholder="Masukkan ISBN"
-					className="w-full"
-					required
-				/>
-        {error?.data?.isbn && <p className="text-xs text-destructive">{error.data.isbn[0]}</p>}
+
+				<div className="flex gap-2">
+					<Input
+						id="isbn"
+						name="isbn"
+						defaultValue={defaultValues?.isbn}
+						placeholder="Masukkan ISBN"
+						className="w-full"
+						value={isbn}
+						onChange={(e) => setIsbn(e.target.value)}
+						required
+					/>
+					<BarcodeScannerDrawwer
+						isOpen={bookScanOpen}
+						onOpenChange={setBookScanOpen}
+						handleCapture={handleBookScanCapture}
+					/>
+				</div>
+				{error?.data?.isbn && (
+					<p className="text-xs text-destructive">{error.data.isbn[0]}</p>
+				)}
 			</div>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -233,7 +261,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 					<Input
 						id="stock"
 						name="stock"
-            type="number"
+						type="number"
 						defaultValue={defaultValues?.stock ?? 1}
 						placeholder="Masukkan Stok"
 						className="w-full"
@@ -247,7 +275,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 					<Input
 						id="available_stock"
 						name="available_stock"
-            type="number"
+						type="number"
 						defaultValue={defaultValues?.available_stock ?? 1}
 						placeholder="Masukkan Stok Tersedia"
 						className="w-full"
@@ -275,7 +303,7 @@ const BookForm = ({ defaultValues, handleSubmit , error}: BookFormProps) => {
 
 				<div className="space-y-2">
 					<Label htmlFor="publish_year" className="text-sm font-medium">
-					Tahun Terbit *
+						Tahun Terbit *
 					</Label>
 					<Input
 						id="publish_year"

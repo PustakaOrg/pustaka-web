@@ -36,11 +36,6 @@ const BookCombobox = ({ book, setBook, query }: BookComboboxProps) => {
 	const [bookScanOpen, setBookScanOpen] = useState(false);
 
 	const handleBookScanCapture = (codes: DetectedBarcode[]) => {
-		const code = codes
-			.filter((c) => c.format === "qr_code")
-			.map((c) => c.rawValue)
-			.at(0);
-
 		const isbn = codes
 			.filter((c) => c.format === "ean_13")
 			.map((c) => c.rawValue)
@@ -50,10 +45,7 @@ const BookCombobox = ({ book, setBook, query }: BookComboboxProps) => {
       setSearch(isbn)
 			setBookScanOpen(false);
 		}
-		if (code) {
-			setBook(code);
-			setBookScanOpen(false);
-		}
+
 	};
 
 

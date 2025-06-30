@@ -43,19 +43,12 @@ const BarcodeScannerDrawwer = ({
 				</DialogTrigger>
 				<DialogContent className="min-w-[70vw] min-h-[80vh] sm:max-w-[425px]">
 					<DialogHeader>
-						<DialogTitle>Scan QR atauBarcode</DialogTitle>
+						<DialogTitle>Scan QR atau Barcode</DialogTitle>
 					</DialogHeader>
 					<div>
 						<BarcodeScanner
 							options={{
-								formats: [
-									"qr_code",
-									// "upc_e",
-									// "upc_a",
-									// "itf",
-									// "ean_8",
-									"ean_13",
-								],
+								formats: ["qr_code", "ean_13"],
 							}}
 							onCapture={handleCapture}
 						/>
