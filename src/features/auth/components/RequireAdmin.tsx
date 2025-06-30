@@ -3,6 +3,7 @@ import useProfile from "../hooks/useProfile";
 import { Navigate, useLocation } from "react-router";
 import LoadingPage from "~/pages/LoadingPage";
 import { isAdminObject, isLibrarianObject } from "../utils/util";
+import ForbiddenPage from "./ForbiddenPage";
 
 const RequireAdmin = ({ children }: { children: ReactNode }) => {
 	const { profile, isPending, isError } = useProfile();
@@ -15,7 +16,9 @@ const RequireAdmin = ({ children }: { children: ReactNode }) => {
 		return children;
 	}
 
-	// TODO: Forbidden Page
+	if (!isPending && !isError && !isAdminObject(profile)) {
+		return <Navigate to={"/forbidden"} replace state={{ path: location.pathname }} />;
+	}
 
 	return <Navigate to={"/login"} replace state={{ path: location.pathname }} />;
 };

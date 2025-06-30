@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import useProfile from "../hooks/useProfile";
 import { Navigate, useLocation } from "react-router";
 import LoadingPage from "~/pages/LoadingPage";
-import {  isMemberObject } from "../utils/util";
+import { isMemberObject } from "../utils/util";
 
 const RequireMember = ({ children }: { children: ReactNode }) => {
 	const { profile, isPending, isError } = useProfile();
@@ -15,12 +15,11 @@ const RequireMember = ({ children }: { children: ReactNode }) => {
 		return children;
 	}
 
-
 	if (!isPending && !isError && !isMemberObject(profile)) {
-		return children;
+		return (
+			<Navigate to={"/forbidden"} replace state={{ path: location.pathname }} />
+		);
 	}
-
-	// TODO: Forbidden Page
 
 	return <Navigate to={"/login"} replace state={{ path: location.pathname }} />;
 };

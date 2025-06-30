@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import ForbiddenPage from "~/features/auth/components/ForbiddenPage";
+import NotFoundPage from "~/features/auth/components/NotFoundPage";
 import RequireAdmin from "~/features/auth/components/RequireAdmin";
 import RequireAdminOrLibrarian from "~/features/auth/components/RequireAdminOrLibrarian";
 import { RequireAuth } from "~/features/auth/components/RequireAuth";
@@ -6,7 +8,6 @@ import DashboardLayout from "~/features/dashboard/components/SidebarLayout";
 import AboutPage from "~/pages/AboutPage";
 import CatalogPage from "~/pages/CatalogPage";
 import DashboardBookPage from "~/pages/dashboard/books/DashboardBookPage";
-import DashboardCategoryPage from "~/pages/dashboard/category/DashboardCategoryPage";
 import DashboardFinesPage from "~/pages/dashboard/fines/DashboardFinesPage";
 import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
 import DashboardLibrarianPage from "~/pages/dashboard/librarians/DashboardLibrarianPage";
@@ -99,15 +100,9 @@ const Router = () => {
 							</RequireAdmin>
 						}
 					/>
-					{/* <Route */}
-					{/* 	path="/dashboard/categories" */}
-					{/* 	element={ */}
-					{/* 		<RequireAdmin> */}
-					{/* 			<DashboardCategoryPage /> */}
-					{/* 		</RequireAdmin> */}
-					{/* 	} */}
-					{/* /> */}
 				</Route>
+				<Route path="/forbidden" element={<ForbiddenPage />} />
+				<Route path="*" element={<NotFoundPage />} />
 			</Routes>
 		</BrowserRouter>
 	);

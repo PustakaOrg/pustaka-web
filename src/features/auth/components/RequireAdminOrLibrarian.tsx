@@ -15,7 +15,11 @@ const RequireAdminOrLibrarian = ({ children }: { children: ReactNode }) => {
 		return children;
 	}
 
-  // TODO: Forbidden Page
+  	if (!isPending && !isError && !(isAdminObject(profile) || isLibrarianObject(profile) )) {
+		return <Navigate to={"/forbidden"} replace state={{ path: location.pathname }} />;
+	}
+
+
 
 	return <Navigate to={"/login"} replace state={{ path: location.pathname }} />;
 };
