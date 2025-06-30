@@ -27,7 +27,7 @@ const SearchQueryInput = ({ placeholder }: SearchQueryInputProps) => {
 					type="text"
 					placeholder={placeholder}
 					className="w-full pl-9 pr-4"
-					defaultValue={searchParams.get("?") ?? undefined}
+					defaultValue={searchParams.get("q") ?? undefined}
 					name="q"
 				/>
 				<button hidden type="submit">
