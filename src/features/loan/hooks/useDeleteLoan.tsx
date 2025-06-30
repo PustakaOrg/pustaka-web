@@ -14,7 +14,7 @@ const useDeleteLoan = () => {
 		mutationFn: (id: string) => deleteLoanApi(id),
 		onSuccess: () => {},
 		onSettled: () => {
-			toast.success("Loan deleted successfully!");
+			toast.success("Peminjaman behasil dihapus!");
 			queryClient.invalidateQueries({ queryKey: ["loans"] });
 
 		},

@@ -22,16 +22,16 @@ const WAStatus = () => {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Whatsapp Connection</CardTitle>
-				<CardDescription>Connect to whatsapp</CardDescription>
+				<CardTitle>Koneksi WhatsApp</CardTitle>
+				<CardDescription>Hubungkan sistem ke whatsapp</CardDescription>
 			</CardHeader>
 
 			<CardContent className="space-y-6">
 				<Alert className="text-amber-500">
 					<AlertCircleIcon />
-					<AlertTitle>Unofficial Whatsapp Connection.</AlertTitle>
+					<AlertTitle>Koneksi tidak resmi.</AlertTitle>
 					<AlertDescription>
-						<p>Please don't use your personal account.</p>
+						<p>Jangan gunakan akun pribadi anda.</p>
 					</AlertDescription>
 				</Alert>
 
@@ -45,10 +45,10 @@ const WAStatus = () => {
 							</div>
 							<div className="flex-1 text-center lg:text-left">
 								<h3 className="text-xl font-semibold">
-									Initializing Connection
+                Menyiapkan
 								</h3>
 								<p className="mb-4">
-									Setting up your WhatsApp connection, please wait...
+									Sedang menyiapkan koneksi Whatsapp...
 								</p>
 							</div>
 						</div>
@@ -66,12 +66,12 @@ const WAStatus = () => {
 							</div>
 						</div>
 						<div className="flex-1 text-center lg:text-left">
-							<h3 className="text-xl font-bold ">Successfully Connected!</h3>
+							<h3 className="text-xl font-bold ">Berhasil Terhubung!</h3>
 							<p className=" mb-4">
-								Your WhatsApp is now connected and ready to use.
+								Notifikasi dengan whatsapp siap digunakan.
 							</p>
 							<div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-								<Badge className="bg-green-200">Active Connection</Badge>
+								<Badge className="bg-green-200">Koneksi aktif</Badge>
 							</div>
 						</div>
 					</div>

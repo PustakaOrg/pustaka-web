@@ -25,13 +25,13 @@ const MemberRowAction = ({ member, onAction }: MemberRowActionProps) => {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
-				<DropdownMenuItem
-					onClick={() => onAction("view", member)}
-					className="cursor-pointer"
-				>
-					<User className="mr-2 h-4 w-4" />
-					Lihat profile
-				</DropdownMenuItem>
+				{/* <DropdownMenuItem */}
+				{/* 	onClick={() => onAction("view", member)} */}
+				{/* 	className="cursor-pointer" */}
+				{/* > */}
+				{/* 	<User className="mr-2 h-4 w-4" /> */}
+				{/* 	Lihat profile */}
+				{/* </DropdownMenuItem> */}
 				<DropdownMenuItem
 					onClick={() => onAction("edit", member)}
 					className="cursor-pointer"

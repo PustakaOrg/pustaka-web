@@ -55,7 +55,7 @@ const FineDetailDialog = ({
 			<DialogContent className="max-w-md border-0 shadow-2xl rounded-2xl p-0 overflow-hidden">
 				<div className="bg-white">
 					<div className="bg-gray-50 p-6 text-center border-b space-y-4">
-						<DialogTitle>Loan Detail</DialogTitle>
+						<DialogTitle>Detail Denda</DialogTitle>
 						{qrCodeUrl && (
 							<div className="inline-block bg-white p-3 rounded-xl shadow-sm mb-3">
 								<img
@@ -114,7 +114,6 @@ const FineDetailDialog = ({
 								</p>
 							</div>
 						</div>
-						Dates
 						<div className="bg-gray-50 rounded-xl p-4">
 							<div className="flex justify-between items-center">
 								<div className="text-center">

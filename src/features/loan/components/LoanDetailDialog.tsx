@@ -61,7 +61,7 @@ const LoanDetailDialog = ({
 			<DialogContent className="max-w-md border-0 shadow-2xl rounded-2xl p-0 overflow-hidden">
 				<div className="bg-white">
 					<div className="bg-gray-50 p-6 text-center border-b space-y-4">
-						<DialogTitle>Loan Detail</DialogTitle>
+						<DialogTitle>Detail Peminjaman</DialogTitle>
 						{qrCodeUrl && (
 							<div className="inline-block bg-white p-3 rounded-xl shadow-sm mb-3">
 								<img
@@ -128,7 +128,7 @@ const LoanDetailDialog = ({
 							<div className="flex justify-between items-center">
 								<div className="text-center">
 									<p className="text-xs text-gray-500 uppercase tracking-wide">
-										Loaned at
+										Dipinjam pada
 									</p>
 									<p className="font-semibold text-gray-900">
 										{formatDate(loan.loan_date)}
@@ -137,7 +137,7 @@ const LoanDetailDialog = ({
 								<div className="w-8 h-px bg-gray-300"></div>
 								<div className="text-center">
 									<p className="text-xs text-gray-500 uppercase tracking-wide">
-										Returned by
+										Dikembalikan pada
 									</p>
 									<p className="font-semibold text-gray-900">
 										{formatDate(loan.return_date)}

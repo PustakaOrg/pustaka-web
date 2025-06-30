@@ -96,14 +96,14 @@ const DashboardLibrarianPage = () => {
 					onOpenChange={closeDialog}
 				/>
 			)}
-			<ContentHeader title="Librarians" subtitle="Manage librarians" />
+			<ContentHeader title="Pustakawan" subtitle="Kelola Pustakawan" />
 
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>
-						<CardTitle>Librarians</CardTitle>
+						<CardTitle>Pustakawan</CardTitle>
 						<CardDescription>
-							{librarianList?.results.length} books found
+							{librarianList?.results.length} pustakawan ditemukan.
 						</CardDescription>
 					</div>
 					<div>

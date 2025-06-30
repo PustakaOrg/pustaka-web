@@ -56,7 +56,7 @@ const ReservationDetailDialog = ({
 			<DialogContent className="max-w-md border-0 shadow-2xl rounded-2xl p-0 overflow-hidden">
 				<div className="bg-white">
 					<div className="bg-gray-50 p-6 text-center border-b space-y-4">
-          <DialogTitle>Reservation Detail</DialogTitle>
+          <DialogTitle>Detail Reservasi</DialogTitle>
 						{qrCodeUrl && (
 							<div className="inline-block bg-white p-3 rounded-xl shadow-sm mb-3">
 								<img
@@ -123,7 +123,7 @@ const ReservationDetailDialog = ({
 							<div className="flex justify-between items-center">
 								<div className="text-center">
 									<p className="text-xs text-gray-500 uppercase tracking-wide">
-										Reserved at
+										Tanggal Reservasi
 									</p>
 									<p className="font-semibold text-gray-900">
 										{formatDate(reservation.reservation_date)}
@@ -132,7 +132,7 @@ const ReservationDetailDialog = ({
 								<div className="w-8 h-px bg-gray-300"></div>
 								<div className="text-center">
 									<p className="text-xs text-gray-500 uppercase tracking-wide">
-										Pick up by
+										Tanggal Pengambilan
 									</p>
 									<p className="font-semibold text-gray-900">
 										{formatDate(reservation.pickup_date)}

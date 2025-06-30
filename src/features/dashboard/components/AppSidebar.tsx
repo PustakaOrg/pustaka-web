@@ -62,7 +62,7 @@ const nav = {
 			icon: LayoutDashboardIcon,
 		},
 		{
-			title: "Catalog",
+			title: "Katalog",
 			url: "/dashboard/books",
 			icon: Library,
 		},
@@ -101,14 +101,14 @@ const nav = {
 	navAdmin: {
 		main: [
 			{
-				title: "Librarian",
+				title: "Pustakawan",
 				url: "/dashboard/librarians",
 				icon: Users2,
 			},
 		],
 		secondary: [
 			{
-				title: "Settings",
+				title: "Pengaturan",
 				url: "/dashboard/settings",
 				icon: SettingsIcon,
 			},

@@ -87,21 +87,21 @@ const SettingsForm = ({ defaultValues,handleSubmit }: SettingsFormProps) => {
 		<form className="space-y-8" onSubmit={onSubmit}>
 			<Card>
 				<CardHeader>
-					<CardTitle>Loan Settings</CardTitle>
+					<CardTitle>Peminjaman</CardTitle>
 					<CardDescription>
-						Configure loan duration and fine amounts
+            Atur lama peminjaman dan denda harian.
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
 					<div className="space-y-2">
 						<Label htmlFor="max_loan_day" className="text-sm font-medium">
-							Max Loan Day
+							Maksimal lama pinjam
 						</Label>
 						<Input
 							id="max_loan_day"
 							name="max_loan_day"
 							type="number"
-							placeholder="7"
+							placeholder="Maksimal hari peminjaman, default: 7"
 							min={1}
 							max={365}
 							defaultValue={Number(defaultValues?.max_loan_day)}
@@ -109,13 +109,13 @@ const SettingsForm = ({ defaultValues,handleSubmit }: SettingsFormProps) => {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="fine_per_lateday" className="text-sm font-medium">
-							Fine Amount per Late Day
+							Denda harian
 						</Label>
 						<Input
 							id="fine_per_lateday"
 							name="fine_per_lateday"
 							type="number"
-							placeholder="1500.00"
+							placeholder="Denda perhari ketika terlambat, default: 1500.00"
 							defaultValue={Number(defaultValues?.fine_per_lateday)}
 							min={1_000}
 							max={99_999}
@@ -123,13 +123,13 @@ const SettingsForm = ({ defaultValues,handleSubmit }: SettingsFormProps) => {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="fine_for_lost" className="text-sm font-medium">
-							Fine Amount per Book Lost
-						</Label>
+            Denda kehilangan buku.
+													</Label>
 						<Input
 							id="fine_for_lost"
 							name="fine_for_lost"
 							type="number"
-							placeholder="50000.00"
+							placeholder="default: 50000.00"
 							defaultValue={defaultValues?.fine_for_lost}
 							min={1_000}
 							max={999_999}
@@ -140,15 +140,15 @@ const SettingsForm = ({ defaultValues,handleSubmit }: SettingsFormProps) => {
 
 			<Card>
 				<CardHeader>
-					<CardTitle>Member Card Settings</CardTitle>
+					<CardTitle>Pengaturan Kartu Member</CardTitle>
 					<CardDescription>
-						Upload and configure member card background
-					</CardDescription>
+          Upload desain Background untuk kartu member 
+											</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<div className="space-y-2">
 						<Label htmlFor="image" className="text-sm font-medium">
-            Member Card Background
+            Desain kartu member
 						</Label>
 						<div className="space-y-4">
 							{/* Drag & Drop Zone */}
@@ -237,7 +237,7 @@ const SettingsForm = ({ defaultValues,handleSubmit }: SettingsFormProps) => {
 				</CardContent>
 			</Card>
 			<div className="flex justify-end space-x-4 pt-6">
-				<Button type="submit">Save Settings</Button>
+				<Button type="submit">Simpan</Button>
 			</div>
 		</form>
 	);

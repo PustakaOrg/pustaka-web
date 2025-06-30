@@ -27,10 +27,10 @@ const LibrarianTableHeader = ({
             {...(isIndeterminate && { "data-state": "indeterminate" })}
           />
         </TableHead>
-        {columnVisibility.librarian && <TableHead>Librarian</TableHead>}
+        {columnVisibility.librarian && <TableHead>Pustakawan</TableHead>}
         {columnVisibility.nip && <TableHead>NIP</TableHead>}
-        {columnVisibility.phone_number && <TableHead>Phone Number</TableHead>}
-        <TableHead className="text-right">Actions</TableHead>
+        {columnVisibility.phone_number && <TableHead>No HP</TableHead>}
+        <TableHead className="text-right">Aksi</TableHead>
       </TableRow>
     </TableHeader>
   );

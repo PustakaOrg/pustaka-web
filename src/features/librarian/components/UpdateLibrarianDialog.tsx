@@ -37,7 +37,7 @@ const UpdateLibrarianDialog = ({
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Edit Book</DialogTitle>
+				<DialogTitle>Edit Pustakawan</DialogTitle>
 				<LibrarianForm librarian={librarian} handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

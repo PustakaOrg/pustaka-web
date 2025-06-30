@@ -22,18 +22,18 @@ const LibrarianRowAction = ({
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
-					<span className="sr-only">Actions</span>
+					<span className="sr-only">Aksi</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
-				<DropdownMenuItem
-					onClick={() => {
-						onAction("view-detail", librarian);
-					}}
-				>
-					<User className="mr-2 h-4 w-4" />
-					View Details
-				</DropdownMenuItem>
+				{/* <DropdownMenuItem */}
+				{/* 	onClick={() => { */}
+				{/* 		onAction("view-detail", librarian); */}
+				{/* 	}} */}
+				{/* > */}
+				{/* 	<User className="mr-2 h-4 w-4" /> */}
+				{/* 	Lihat detail */}
+				{/* </DropdownMenuItem> */}
 
 				<DropdownMenuItem
 					onClick={() => {
@@ -41,7 +41,7 @@ const LibrarianRowAction = ({
 					}}
 				>
 					<Edit className="mr-2 h-4 w-4" />
-					Edit Librarian
+					Edit Pustakawan
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem

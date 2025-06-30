@@ -10,7 +10,7 @@ import { isLibrarianObject } from "~/features/auth/utils/util";
 import useUpdatePaymentStatus from "../hooks/useUpdatePaymentStatus";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import FineDetailDialog from "./FineDetailDialog";
-import useDeleteFine from "../hooks/useDeleteLoan";
+import useDeleteFine from "../hooks/useDeleteFine";
 import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
 
 interface FineTableProps {

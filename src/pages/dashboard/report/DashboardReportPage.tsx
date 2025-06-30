@@ -33,8 +33,6 @@ import {
 	XAxis,
 	YAxis,
 	CartesianGrid,
-	Tooltip,
-	ResponsiveContainer,
 } from "recharts";
 import {
 	ChartContainer,
@@ -44,94 +42,6 @@ import {
 import { PopularLoanListParams } from "~/features/report/api/getLoans";
 import usePopularLoanList from "~/features/report/type/usePopularLoanList";
 
-const data = [
-	{
-		id: "70bff29f-e7bc-4107-a62b-6c309f3e1787",
-		img: "http://127.0.0.1:8000/media/books/WA.png",
-		title: "Learning Opportunity",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 2,
-	},
-	{
-		id: "9ae5a575-fa88-4be3-9247-76f5e0556c7e",
-		img: "http://127.0.0.1:8000/media/books/WA_nshnULl.png",
-		title: "Learn And Grow",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 1,
-	},
-	{
-		id: "2e65bc58-38e5-40d7-9100-9dc98b2b73e9",
-		img: "http://127.0.0.1:8000/media/books/WA_5gOTq4w.png",
-		title: "Menjadi orang hebat",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 1,
-	},
-	{
-		id: "70bff29f-e7bc-4107-a62b-6c309f3e1787",
-		img: "http://127.0.0.1:8000/media/books/WA.png",
-		title: "Learning Opportunity",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 2,
-	},
-	{
-		id: "9ae5a575-fa88-4be3-9247-76f5e0556c7e",
-		img: "http://127.0.0.1:8000/media/books/WA_nshnULl.png",
-		title: "Learn And Grow",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 1,
-	},
-	{
-		id: "2e65bc58-38e5-40d7-9100-9dc98b2b73e9",
-		img: "http://127.0.0.1:8000/media/books/WA_5gOTq4w.png",
-		title: "Menjadi orang hebat",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 1,
-	},
-
-	{
-		id: "70bff29f-e7bc-4107-a62b-6c309f3e1787",
-		img: "http://127.0.0.1:8000/media/books/WA.png",
-		title: "Learning Opportunity",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 2,
-	},
-	{
-		id: "9ae5a575-fa88-4be3-9247-76f5e0556c7e",
-		img: "http://127.0.0.1:8000/media/books/WA_nshnULl.png",
-		title: "Learn And Grow",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 1,
-	},
-	{
-		id: "2e65bc58-38e5-40d7-9100-9dc98b2b73e9",
-		img: "http://127.0.0.1:8000/media/books/WA_5gOTq4w.png",
-		title: "Menjadi orang hebat",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 1,
-	},
-
-	{
-		id: "70bff29f-e7bc-4107-a62b-6c309f3e1787",
-		img: "http://127.0.0.1:8000/media/books/WA.png",
-		title: "Learning Opportunity",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 2,
-	},
-	{
-		id: "9ae5a575-fa88-4be3-9247-76f5e0556c7e",
-		img: "http://127.0.0.1:8000/media/books/WA_nshnULl.png",
-		title: "Learn And Grow",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 1,
-	},
-	{
-		id: "2e65bc58-38e5-40d7-9100-9dc98b2b73e9",
-		img: "http://127.0.0.1:8000/media/books/WA_5gOTq4w.png",
-		title: "Menjadi orang hebat",
-		author: "9e006a92-dfda-42bd-bbea-c19edadc0ffe",
-		loan_count: 1,
-	},
-];
 
 const DashboardReportPage = () => {
 	const [reportType, setReportType] = useState("popular");
@@ -167,7 +77,7 @@ const DashboardReportPage = () => {
 				<CardContent>
 					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
 						<div className="space-y-2 w-full">
-							<label className="text-sm font-bold">Report Type</label>
+							<label className="text-sm font-bold">Tipe Report</label>
 							<Select value={reportType} onValueChange={setReportType}>
 								<SelectTrigger className="w-full">
 									<SelectValue placeholder="Select report type" />
@@ -182,7 +92,7 @@ const DashboardReportPage = () => {
 						</div>
 
 						<div className="space-y-2">
-							<label className="text-sm font-bold">Date Range</label>
+							<label className="text-sm font-bold">Range Tanggal</label>
 							<DateRangePickerWithPreset
 								date={dateRange}
 								onDateChange={setDateRange}
@@ -196,7 +106,7 @@ const DashboardReportPage = () => {
 					{reportType === "popular" && popularLoanList && (
 						<div>
 							<div className="mb-6">
-								<h3 className="text-lg font-medium mb-2">Most Popular Books</h3>
+								<h3 className="text-lg font-medium mb-2">Buku Populer</h3>
 								<ChartContainer
 									config={{
 										loan_count: {
@@ -248,9 +158,9 @@ const DashboardReportPage = () => {
 								<TableHeader>
 									<TableRow className="bg-secondary hover:bg-secondary">
 										<TableHead>Rank</TableHead>
-										<TableHead>Title</TableHead>
+										<TableHead>Judul</TableHead>
 										<TableHead>ISBN</TableHead>
-										<TableHead className="text-right">Total</TableHead>
+										<TableHead className="text-right">Total Peminjaman</TableHead>
 									</TableRow>
 								</TableHeader>
 								<TableBody>

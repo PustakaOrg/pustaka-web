@@ -2,6 +2,14 @@ import { AlertCircle, BookOpen, CheckCircle2 } from "lucide-react";
 import { Badge } from "~/shared/components/ui/badge";
 import { LoanStatus } from "~/types/entities/Loan";
 
+const statusLabel: Record<LoanStatus, string> = {
+	active: "Aktif",
+	overdue: "Terlambat",
+	done: "Selesai",
+	lost: "Hilang",
+	returned: "Dikembalikan",
+};
+
 const LoanStatusBadge = ({ status }: { status: LoanStatus }) => {
 	return (
 		<Badge
@@ -21,7 +29,7 @@ const LoanStatusBadge = ({ status }: { status: LoanStatus }) => {
 				) : (
 					<CheckCircle2 className="h-3 w-3" />
 				)}
-				<span className="capitalize">{status}</span>
+				<span className="capitalize">{statusLabel[status]}</span>
 			</div>
 		</Badge>
 	);

@@ -67,13 +67,13 @@ const ReservationForm = ({
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="day" className="text-sm font-medium">
-							Day For Loan*
+							Jumlah Hari*
 						</Label>
 						<Input
 							type="number"
 							name="day"
 							max={settings?.max_loan_day}
-							placeholder="Day long"
+							placeholder="Lama hari peminjaman"
 							required
 						/>
 					</div>

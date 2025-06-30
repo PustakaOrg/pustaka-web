@@ -15,7 +15,7 @@ const useAddLibrarian = () => {
 		mutationFn: (data: PostLibrarianPayload) => postLibrarian(data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["librarians"] });
-			toast.success("Librarian added successfully!!");
+			toast.success("Pustakawan Berhasil ditamabah!!");
 		},
 	});
 	return {

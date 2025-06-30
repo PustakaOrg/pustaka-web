@@ -49,7 +49,7 @@ const AddLoanDialog = ({ trigger }: AddLoanDialogProps) => {
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>{trigger}</DialogTrigger>
 			<DialogContent className="min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Add New Loan</DialogTitle>
+				<DialogTitle>Peminjaman</DialogTitle>
 				<LoanForm handleSubmit={handleSubmit} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

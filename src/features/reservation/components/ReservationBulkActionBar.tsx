@@ -11,8 +11,7 @@ const ReservationBulkActionBar = ({ selectedCount, onAction }: ReservationBulkAc
 	return (
 		<div className="flex items-center gap-2 p-4 bg-muted rounded-lg">
 			<span className="text-sm font-medium">
-				{selectedCount} reservation{selectedCount > 1 ? "s" : ""} selected
-			</span>
+				{selectedCount} reservasi dipilih.			</span>
 			<div className="flex gap-2 ml-auto">
 				<div className="flex gap-2">
 					<Button

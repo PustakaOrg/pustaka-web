@@ -186,7 +186,7 @@ const DashboardBookPage = () => {
 				/>
 			)}
 			<ContentHeader
-				title="Catalog"
+				title="Katalog"
 				subtitle="Kelola katalog di perpustakaan ini."
 			/>
 

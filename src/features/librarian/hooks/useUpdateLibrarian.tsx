@@ -17,7 +17,7 @@ const useUpdateLibrarian = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["librarians"] });
 
-			toast.success("Librarian updated successfully!!");
+			toast.success("Pustakawan Berhasil diupdate!!");
 		},
 	});
 	return {

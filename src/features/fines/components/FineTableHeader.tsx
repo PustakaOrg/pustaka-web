@@ -27,16 +27,16 @@ const FineTableHeader = ({
 					/>
 				</TableHead>
 
-				{columnVisibility.book && <TableHead>Book</TableHead>}
-				{columnVisibility.borrower && <TableHead>Borrower</TableHead>}
+				{columnVisibility.book && <TableHead>Buku</TableHead>}
+				{columnVisibility.borrower && <TableHead>Member</TableHead>}
 
-				{columnVisibility.loan_status && <TableHead>Loan Status</TableHead>}
-				{columnVisibility.amount && <TableHead>Amount</TableHead>}
+				{columnVisibility.loan_status && <TableHead>Status Peminjaman</TableHead>}
+				{columnVisibility.amount && <TableHead>Total</TableHead>}
 				{columnVisibility.payment_status && (
-					<TableHead>Payment Status</TableHead>
+					<TableHead>Status Pembayaran</TableHead>
 				)}
 
-				<TableHead className="text-right">Actions</TableHead>
+				<TableHead className="text-right">Aksi</TableHead>
 			</TableRow>
 		</TableHeader>
 	);

@@ -14,7 +14,7 @@ const useDeleteFine = () => {
 		mutationFn: (id: string) => deleteFineApi(id),
 		onSuccess: () => {},
 		onSettled: () => {
-			toast.success("Fine deleted successfully!");
+			toast.success("Denda Berhasil didelete!");
 			queryClient.invalidateQueries({ queryKey: ["fines"] });
 
 		},

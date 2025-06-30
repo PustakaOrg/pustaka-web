@@ -69,8 +69,8 @@ const LibrarianHomeContent = () => {
 			<section>
 				<Card className="lg:col-span-4">
 					<CardHeader>
-						<CardTitle>Aktifitas Anggorta</CardTitle>
-						<CardDescription>Aktitifitas Anggota pada sistem</CardDescription>
+						<CardTitle>Aktifitas Member</CardTitle>
+						<CardDescription>Aktitifitas Member pada sistem</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<div className="space-y-4 max-h-[200px] overflow-y-scroll">
@@ -164,7 +164,7 @@ const LibrarianHomeContent = () => {
 									trigger={
 										<Button className="flex flex-col h-full w-full py-4 gap-2">
 											<Search className="h-5 w-5" />
-											<span>Search Denda</span>
+											<span>Cari Denda</span>
 										</Button>
 									}
 								/>

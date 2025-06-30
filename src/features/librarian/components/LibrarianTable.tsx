@@ -8,6 +8,9 @@ import LibrarianNotFoundTableRow from "./LibrarianNotFoundTableRow";
 import LibrarianTableRow from "./LibrarianTableRow";
 import useLibrarianDialog from "../hooks/useLibrarianDialog";
 import UpdateLibrarianDialog from "./UpdateLibrarianDialog";
+import useDialogWithData from "~/shared/hooks/useDialogWithData";
+import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
+import useDeleteLibrarian from "../hooks/useDeleteFine";
 
 interface LibrarianTableProps {
 	librarianList: PaginatedResponse<Librarian>;
@@ -27,15 +30,25 @@ const LibrarianTable = React.memo(
 		handleSelectLibrarian,
 	}: LibrarianTableProps) => {
 		const { librarian, isOpen, closeDialog, openDialog } = useLibrarianDialog();
+    const {deleteLibrarian} = useDeleteLibrarian()
+
+		const {
+			data: deleteFineData,
+			openDialog: openDeleteDialog,
+			isOpen: isDeleteOpen,
+			closeDialog: closeDeleteDialog,
+		} = useDialogWithData<Librarian>();
+
 		const handleRowAction = (action: string, librarian: Librarian) => {
 			if (action === "view-detail") {
 			}
 
 			if (action === "edit") {
-        openDialog(librarian);
+				openDialog(librarian);
 			}
 
 			if (action === "delete") {
+        openDeleteDialog(librarian)
 			}
 		};
 
@@ -72,13 +85,23 @@ const LibrarianTable = React.memo(
 						)}
 					</TableBody>
 				</Table>
-        {librarian && (
-          <UpdateLibrarianDialog
-          isOpen={isOpen}
-          librarian={librarian}
-          onOpenChange={closeDialog}
-          />
-        )}
+				{librarian && (
+					<UpdateLibrarianDialog
+						isOpen={isOpen}
+						librarian={librarian}
+						onOpenChange={closeDialog}
+					/>
+				)}
+				{deleteFineData && (
+					<DeleteEntityAlertDialog
+						entity={deleteFineData}
+						entityName="denda"
+						entityLabel={deleteFineData.account.fullname}
+						isOpen={isDeleteOpen}
+						onOpenChange={closeDeleteDialog}
+						onConfirm={() => deleteLibrarian(deleteFineData.id)}
+					/>
+				)}
 			</div>
 		);
 	},

@@ -35,11 +35,11 @@ const AddLibrarianDialog = () => {
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />
-					Add Librarian
+					Pustakawan
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Add New Librarian</DialogTitle>
+				<DialogTitle>Tambah Pustakawan</DialogTitle>
 				<LibrarianForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 		</Dialog>

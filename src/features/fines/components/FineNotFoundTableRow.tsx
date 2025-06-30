@@ -9,7 +9,7 @@ const FineNotFoundTableRow = () => {
 					<FileText className="h-8 w-8 text-muted-foreground" />
 					<p className="text-muted-foreground">Tidak ada Denda</p>
 					<p className="text-sm text-muted-foreground">
-						Atau coba atur pencarian anda
+						Atur ulang pencarian atau filter.
 					</p>
 				</div>
 			</TableCell>

@@ -14,7 +14,7 @@ const useDeleteReservation = () => {
 		mutationFn: (id: string) => deleteReservationApi(id),
 		onSuccess: () => {},
 		onSettled: () => {
-			toast.success("Reservation deleted successfully!");
+			toast.success("Reservasi berhasil didelete!");
 			queryClient.invalidateQueries({ queryKey: ["reservations"] });
 
 		},

@@ -35,7 +35,7 @@ const ReservationRowAction = ({
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
-					<span className="sr-only">Actions</span>
+					<span className="sr-only">Aksi</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
@@ -45,7 +45,7 @@ const ReservationRowAction = ({
 					}}
 				>
 					<Calendar className="mr-2 h-4 w-4" />
-					View Details
+					Lihat detail
 				</DropdownMenuItem>
 
 				{profile && isLibrarianObject(profile) && (
@@ -57,7 +57,7 @@ const ReservationRowAction = ({
 								}}
 							>
 								<CheckCircle2 className="mr-2 h-4 w-4" />
-								Mark as Ready
+								Tandai siap ambil
 							</DropdownMenuItem>
 						)}
 
@@ -69,7 +69,7 @@ const ReservationRowAction = ({
 									}}
 								>
 									<BookOpen className="mr-2 h-4 w-4" />
-									Convert to Loan
+									Ubah ke Peminjaman
 								</DropdownMenuItem>
 							)}
 
@@ -78,7 +78,7 @@ const ReservationRowAction = ({
 								<>
 									<DropdownMenuItem disabled>
 										<X className="mr-2 h-4 w-4" />
-										Book is out of stock
+										Buku tidak tersedia{" "}
 									</DropdownMenuItem>
 								</>
 							)}
@@ -107,7 +107,7 @@ const ReservationRowAction = ({
 							}}
 						>
 							<XCircle className="mr-2 h-4 w-4" />
-							Cancel Reservation
+							Batalkan
 						</DropdownMenuItem>
 					</>
 				)}

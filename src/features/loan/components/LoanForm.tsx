@@ -46,7 +46,7 @@ const LoanForm = ({ handleSubmit }: LoanFormProps) => {
 			<div className="space-y-4">
 				<div className="space-y-2">
 					<Label htmlFor="book" className="text-sm font-medium">
-						Book *
+						Buku *
 					</Label>
 					<div className="flex gap-2">
 						<div className="grow">
@@ -78,14 +78,14 @@ const LoanForm = ({ handleSubmit }: LoanFormProps) => {
 				</div>
 				<div className="space-y-2">
 					<Label htmlFor="day" className="text-sm font-medium">
-						Day *
+						Jumlah Hari *
 					</Label>
 					<Input
 						type="number"
 						name="day"
 						max={settings?.max_loan_day}
-						placeholder="Day long"
-            required
+						placeholder="Lama peminjamana"
+						required
 					/>
 				</div>
 				<Button type="submit" className="w-full" disabled={!book || !member}>

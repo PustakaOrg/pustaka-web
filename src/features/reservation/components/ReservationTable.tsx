@@ -136,7 +136,7 @@ const ReservationTable = ({
 			{deleteReservationData && (
 				<DeleteEntityAlertDialog
 					entity={deleteReservationData}
-					entityName="reservation"
+					entityName="reservasi"
 					entityLabel={
 						deleteReservationData.reservant.account.fullname +
 						" - " +

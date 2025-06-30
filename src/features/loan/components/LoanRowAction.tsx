@@ -31,18 +31,18 @@ const LoanRowAction = ({ loan, onAction }: LoanRowActionProps) => {
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" size="icon">
 					<MoreHorizontal className="h-4 w-4" />
-					<span className="sr-only">Actions</span>
+					<span className="sr-only">Aksi</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
-				<DropdownMenuLabel>Actions</DropdownMenuLabel>
+				<DropdownMenuLabel>Aksi</DropdownMenuLabel>
 				<DropdownMenuItem
 					onClick={() => {
 						onAction("view-detail", loan);
 					}}
 				>
 					<Book className="mr-2 h-4 w-4" />
-					View Details
+					Lihat detail
 				</DropdownMenuItem>
 				{profile && isLibrarianObject(profile) && loan.status === "active" && (
 					<>
@@ -52,7 +52,7 @@ const LoanRowAction = ({ loan, onAction }: LoanRowActionProps) => {
 							}}
 						>
 							<CheckCircle2 className="mr-2 h-4 w-4" />
-							Mark as Returned
+							Tandai sudah dikembalikan
 						</DropdownMenuItem>
 
 						<DropdownMenuItem
@@ -61,7 +61,7 @@ const LoanRowAction = ({ loan, onAction }: LoanRowActionProps) => {
 							}}
 						>
 							<XCircle className="mr-2 h-4 w-4" />
-							Mark as Lost
+							Tandai Hilang
 						</DropdownMenuItem>
 					</>
 				)}

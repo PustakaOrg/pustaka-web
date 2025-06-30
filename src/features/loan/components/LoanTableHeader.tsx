@@ -32,17 +32,17 @@ const LoanTableHeader = ({
 					</TableHead>
 				)}
 
-				{columnVisibility.borrower && <TableHead>Borrower</TableHead>}
-				{columnVisibility.book && <TableHead>Book</TableHead>}
-				{columnVisibility.loan_date && <TableHead>Loan Date</TableHead>}
-				{columnVisibility.return_date && <TableHead>Return Date</TableHead>}
+				{columnVisibility.borrower && <TableHead>Peminjam</TableHead>}
+				{columnVisibility.book && <TableHead>Buku</TableHead>}
+				{columnVisibility.loan_date && <TableHead>Tanggal Pinjam</TableHead>}
+				{columnVisibility.return_date && <TableHead>Tangal Kembali</TableHead>}
 				{columnVisibility.status && <TableHead>Status</TableHead>}
-				{columnVisibility.approved_by && <TableHead>Approved By</TableHead>}
+				{columnVisibility.approved_by && <TableHead>Disetujui oleh</TableHead>}
 				{columnVisibility.return_procced_by && (
-					<TableHead>Return Proceed By</TableHead>
+					<TableHead>Diterima oleh</TableHead>
 				)}
 
-				<TableHead className="text-right">Actions</TableHead>
+				<TableHead className="text-right">Aksi</TableHead>
 			</TableRow>
 		</TableHeader>
 	);

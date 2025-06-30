@@ -128,7 +128,7 @@ const DashboardMemberPage = () => {
 				/>
 			)}
 
-			<ContentHeader title="Member" subtitle="." />
+			<ContentHeader title="Member" subtitle="Kelola member." />
 			<Card>
 				<CardHeader className="flex justify-between">
 					<div>

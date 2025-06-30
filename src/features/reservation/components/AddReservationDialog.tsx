@@ -49,7 +49,7 @@ const AddReservationDialog = () => {
 				)}
 			</DialogTrigger>
 			<DialogContent className="min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
-				<DialogTitle>Add New Reservation</DialogTitle>
+				<DialogTitle>Tambah Reservasi</DialogTitle>
 				<ReservationForm handleSubmit={handleSubmit} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>

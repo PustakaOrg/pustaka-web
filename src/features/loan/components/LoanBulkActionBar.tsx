@@ -11,7 +11,7 @@ const LoanBulkActionBar = ({ selectedCount, onAction }: LoanBulkActionBar) => {
 	return (
 		<div className="flex items-center gap-2 p-4 bg-muted rounded-lg">
 			<span className="text-sm font-medium">
-				{selectedCount} loan{selectedCount > 1 ? "s" : ""} selected
+				{selectedCount} peminjaman dipilih.{" "}
 			</span>
 			<div className="flex gap-2 ml-auto">
 				<div className="flex gap-2">

@@ -31,12 +31,12 @@ const FineRowAction = ({ fine, onAction }: FineRowActionProps) => {
 			<DropdownMenuContent align="end">
 				<DropdownMenuItem onClick={() => onAction("view", fine)}>
 					<Eye className="mr-2 h-4 w-4" />
-					View Details
+					Lihat detail
 				</DropdownMenuItem>
 				{fine.payment.status == "pending" && isLibrarianObject(profile) && (
 					<DropdownMenuItem onClick={() => onAction("mark-done", fine)}>
 						<CheckCircle className="mr-2 h-4 w-4" />
-						Mark as done
+						Tandai selesai
 					</DropdownMenuItem>
 				)}
 				{profile && (isLibrarianObject(profile) || isAdminObject(profile)) && (

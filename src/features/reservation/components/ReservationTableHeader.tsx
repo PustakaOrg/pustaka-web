@@ -32,15 +32,15 @@ const ReservationTableHeader = ({
 					</TableHead>
 				)}
 				{columnVisibility.reservant && <TableHead>Member</TableHead>}
-				{columnVisibility.book && <TableHead>Book</TableHead>}
+				{columnVisibility.book && <TableHead>Buku</TableHead>}
 				{columnVisibility.reservation_date && (
-					<TableHead className="hidden md:table-cell">Reserved On</TableHead>
+					<TableHead className="hidden md:table-cell">Tanggal Reservasi</TableHead>
 				)}
-				{columnVisibility.pickup_date && <TableHead>Pickup By</TableHead>}
-				{columnVisibility.day_to_loan && <TableHead>Day to Loan</TableHead>}
+				{columnVisibility.pickup_date && <TableHead>Tanggal ambil</TableHead>}
+				{columnVisibility.day_to_loan && <TableHead>Jumlah Hari</TableHead>}
 				{columnVisibility.status && <TableHead>Status</TableHead>}
-				{columnVisibility.accepted_by && <TableHead>Accepted By</TableHead>}
-				<TableHead className="text-right">Actions</TableHead>
+				{columnVisibility.accepted_by && <TableHead>Diterima oleh</TableHead>}
+				<TableHead className="text-right">Aksi</TableHead>
 			</TableRow>
 		</TableHeader>
 	);
