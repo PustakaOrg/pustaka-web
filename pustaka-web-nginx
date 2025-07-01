@@ -8,3 +8,15 @@ server {
       try_files $uri $uri/ /index.html =404;
     }
 }
+
+
+server {
+    listen 80;
+    server_name pustakaan.my.id www.pustakaan.my.id;
+
+    location / {
+        root /root/pustaka-web/dist;
+        index index.html;
+        try_files $uri $uri/ /index.html =404;
+    }
+}
