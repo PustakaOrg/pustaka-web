@@ -6,9 +6,10 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "~/shared/components/ui/dropdown-menu";
-import { Edit, MoreHorizontal, User } from "lucide-react";
+import { Edit, MoreHorizontal, Trash2, User } from "lucide-react";
 
 interface MemberRowActionProps {
 	member: Member;
@@ -39,10 +40,15 @@ const MemberRowAction = ({ member, onAction }: MemberRowActionProps) => {
 					<Edit className="mr-2 h-4 w-4" />
 					Edit Member
 				</DropdownMenuItem>
-				{/* <DropdownMenuItem className="cursor-pointer"> */}
-				{/* 	<BookOpen className="mr-2 h-4 w-4" /> */}
-				{/* 	View Loans */}
-				{/* </DropdownMenuItem> */}
+				<DropdownMenuSeparator />
+				<DropdownMenuItem
+					onClick={() => onAction("delete", member)}
+					className="cursor-pointer text-destructive"
+					variant="destructive"
+				>
+					<Trash2 className="mr-2 h-4 w-4" />
+					Delete
+				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
