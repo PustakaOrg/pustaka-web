@@ -13,6 +13,7 @@ import { Checkbox } from "~/shared/components/ui/checkbox";
 import ReservationRowAction from "./ReservationRowAction";
 import useProfile from "~/features/auth/hooks/useProfile";
 import { isMemberObject } from "~/features/auth/utils/util";
+import ReservationStatusBadge from "./ReservationStatusBadge";
 
 interface ReservationTableRowProps {
 	reservation: Reservation;
@@ -109,30 +110,31 @@ const ReservationTableRow = ({
 
 			{columnVisibility.status && (
 				<TableCell>
-					<Badge
-						variant={
-							reservation.status === "pending"
-								? "outline"
-								: reservation.status === "ready"
-									? "default"
-									: reservation.status === "completed"
-										? "secondary"
-										: "destructive"
-						}
-					>
-						<div className="flex items-center gap-1">
-							{reservation.status === "pending" ? (
-								<Clock className="h-3 w-3" />
-							) : reservation.status === "ready" ? (
-								<CheckCircle2 className="h-3 w-3" />
-							) : reservation.status === "completed" ? (
-								<BookOpen className="h-3 w-3" />
-							) : (
-								<XCircle className="h-3 w-3" />
-							)}
-							<span className="capitalize">{reservation.status}</span>
-						</div>
-					</Badge>
+					{/* <Badge */}
+					{/* 	variant={ */}
+					{/* 		reservation.status === "pending" */}
+					{/* 			? "outline" */}
+					{/* 			: reservation.status === "ready" */}
+					{/* 				? "default" */}
+					{/* 				: reservation.status === "completed" */}
+					{/* 					? "secondary" */}
+					{/* 					: "destructive" */}
+					{/* 	} */}
+					{/* > */}
+					{/* 	<div className="flex items-center gap-1"> */}
+					{/* 		{reservation.status === "pending" ? ( */}
+					{/* 			<Clock className="h-3 w-3" /> */}
+					{/* 		) : reservation.status === "ready" ? ( */}
+					{/* 			<CheckCircle2 className="h-3 w-3" /> */}
+					{/* 		) : reservation.status === "completed" ? ( */}
+					{/* 			<BookOpen className="h-3 w-3" /> */}
+					{/* 		) : ( */}
+					{/* 			<XCircle className="h-3 w-3" /> */}
+					{/* 		)} */}
+					{/* 		<span className="capitalize">{reservation.status}</span> */}
+					{/* 	</div> */}
+					{/* </Badge> */}
+					<ReservationStatusBadge status={reservation.status} />
 				</TableCell>
 			)}
 

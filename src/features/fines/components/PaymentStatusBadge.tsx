@@ -9,7 +9,7 @@ const statusLabel: Record<PaymentStatus, string> = {
 
 const PaymentStatusBadge = ({ status }: { status: PaymentStatus }) => {
 	return (
-		<Badge variant={status === "pending" ? "default" : "secondary"}>
+		<Badge variant={status === "pending" ? "outline" : "success"}>
 			<div className="flex items-center gap-1">
 				{status === "pending" ? (
 					<Clock className="h-3 w-3" />

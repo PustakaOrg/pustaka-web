@@ -3,7 +3,7 @@ import { Badge } from "~/shared/components/ui/badge";
 import { LoanStatus } from "~/types/entities/Loan";
 
 const statusLabel: Record<LoanStatus, string> = {
-	active: "Aktif",
+	active: "Dipinjam",
 	overdue: "Terlambat",
 	done: "Selesai",
 	lost: "Hilang",
@@ -16,9 +16,11 @@ const LoanStatusBadge = ({ status }: { status: LoanStatus }) => {
 			variant={
 				status === "active"
 					? "default"
-					: status === "overdue"
+					: (status === "overdue" || status === "lost")
 						? "destructive"
-						: "secondary"
+						: status === "done"
+							? "success"
+							: "success"
 			}
 		>
 			<div className="flex items-center gap-1">

@@ -316,7 +316,7 @@ const DashboardLoanPage = () => {
 					>
 						<TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 mb-12 lg:mb-0">
 							<TabsTrigger value="">Semua</TabsTrigger>
-							<TabsTrigger value="active">Aktif</TabsTrigger>
+							<TabsTrigger value="active">Dipinjam</TabsTrigger>
 							<TabsTrigger value="returned">Dikembalikan</TabsTrigger>
 							<TabsTrigger value="lost">Hilang</TabsTrigger>
 							<TabsTrigger value="overdue">Terlambat</TabsTrigger>

@@ -51,9 +51,13 @@ const LoanForm = ({ handleSubmit }: LoanFormProps) => {
 						type="number"
 						name="day"
 						max={settings?.max_loan_day}
+            min={1}
 						placeholder="Lama peminjamana"
 						required
 					/>
+						<p className="text-xs text-muted-foreground">
+							Maksimal penjaman adalah {settings?.max_loan_day} hari
+						</p>
 				</div>
 				<Button type="submit" className="w-full" disabled={!book || !member}>
 					Submit

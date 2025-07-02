@@ -73,9 +73,13 @@ const ReservationForm = ({
 							type="number"
 							name="day"
 							max={settings?.max_loan_day}
+							min={1}
 							placeholder="Lama hari peminjaman"
 							required
 						/>
+						<p className="text-xs text-muted-foreground">
+							Maksimal penjaman adalah {settings?.max_loan_day} hari
+						</p>
 					</div>
 				</div>
 

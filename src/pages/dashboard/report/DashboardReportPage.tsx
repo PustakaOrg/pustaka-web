@@ -27,13 +27,7 @@ import {
 	TableRow,
 } from "~/shared/components/ui/table";
 
-import {
-	BarChart,
-	Bar,
-	XAxis,
-	YAxis,
-	CartesianGrid,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
 import {
 	ChartContainer,
 	ChartTooltip,
@@ -41,7 +35,6 @@ import {
 } from "~/shared/components/ui/chart";
 import { PopularLoanListParams } from "~/features/report/api/getLoans";
 import usePopularLoanList from "~/features/report/type/usePopularLoanList";
-
 
 const DashboardReportPage = () => {
 	const [reportType, setReportType] = useState("popular");
@@ -111,7 +104,6 @@ const DashboardReportPage = () => {
 									config={{
 										loan_count: {
 											label: "Total",
-											color: "hsl(var(--chart-1))",
 										},
 									}}
 									className="h-[400px] w-full"
@@ -160,7 +152,9 @@ const DashboardReportPage = () => {
 										<TableHead>Rank</TableHead>
 										<TableHead>Judul</TableHead>
 										<TableHead>ISBN</TableHead>
-										<TableHead className="text-right">Total Peminjaman</TableHead>
+										<TableHead className="text-right">
+											Total Peminjaman
+										</TableHead>
 									</TableRow>
 								</TableHeader>
 								<TableBody>

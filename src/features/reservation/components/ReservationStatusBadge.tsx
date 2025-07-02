@@ -19,7 +19,7 @@ const ReservationStatusBadge = ({ status }: { status: ReservationStatus }) => {
 					: status === "ready"
 						? "default"
 						: status === "completed"
-							? "secondary"
+							? "success"
 							: "destructive"
 			}
 		>

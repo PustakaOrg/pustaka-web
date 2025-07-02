@@ -115,12 +115,10 @@ const MemberForm = ({
 					<Input
 						id="phone_number"
 						name="phone_number"
-						type="number"
-						min="1"
-						placeholder="Enter member phone number"
+						type="text"
+						placeholder="contoh: 62851XXXX"
 						className="col-span-3"
 						defaultValue={defaultValues?.phone_number}
-						required
 					/>
 				</div>
 				<div className="space-y-2">
