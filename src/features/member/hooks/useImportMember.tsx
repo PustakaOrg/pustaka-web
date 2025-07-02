@@ -18,6 +18,10 @@ const useImportMember = () => {
 			);
 			queryClient.invalidateQueries({ queryKey: ["members"] });
 			queryClient.invalidateQueries({ queryKey: ["search-member"] });
+			queryClient.invalidateQueries({ queryKey: ["search-batch"] });
+			queryClient.invalidateQueries({ queryKey: ["search-class"] });
+			queryClient.invalidateQueries({ queryKey: ["classes"] });
+			queryClient.invalidateQueries({ queryKey: ["batches"] });
 		},
 	});
 	return {

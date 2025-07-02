@@ -20,7 +20,7 @@ const useImportBook = () => {
 			queryClient.refetchQueries({ queryKey: ["books"] });
 			queryClient.invalidateQueries({ queryKey: ["categories"] });
 			queryClient.invalidateQueries({ queryKey: ["search-category"] });
-			queryClient.invalidateQueries({ queryKey: ["all-category"] });
+			queryClient.invalidateQueries({ queryKey: ["all-categories"] });
 			queryClient.invalidateQueries({ queryKey: ["publishers"] });
 			queryClient.invalidateQueries({ queryKey: ["search-publisher"] });
 			queryClient.invalidateQueries({ queryKey: ["all-publisher"] });
