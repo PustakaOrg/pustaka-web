@@ -274,7 +274,7 @@ const BookForm = ({ defaultValues, handleSubmit, error }: BookFormProps) => {
 						
 					/>
 					{error?.data?.stock && (
-					<p className="text-xs text-destructive">{error.data.stock[0]}</p>
+					<p className="text-xs text-destructive">{error.data.stock[0]}</p>)}
 				</div>
 				<div className="space-y-2">
 					<Label htmlFor="Stock" className="text-sm font-medium">
