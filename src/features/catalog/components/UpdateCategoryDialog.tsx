@@ -31,7 +31,7 @@ const UpdateCategoryDialog = ({
 			name,
 		};
 		updateCategory({ id: category.id, payload });
-		onOpenChange(false);
+
 	}
 
 	return (

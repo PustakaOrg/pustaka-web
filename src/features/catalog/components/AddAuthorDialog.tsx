@@ -23,7 +23,6 @@ const AddAuthorDialog = () => {
 			fullname: name,
 		};
 		addAuthor(payload);
-		setOpen(false);
 	}
 
 	return (

@@ -27,7 +27,7 @@ const UpdateBookDialog = ({
     const isbn = form.get("isbn") as string
     if(isbn == book.isbn) form.delete("isbn")
 		updateBook({ bookId: book.id, data: form });
-		onOpenChange(false);
+		
 	}, []);
 
 	return (

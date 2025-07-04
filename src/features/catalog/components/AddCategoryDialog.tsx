@@ -23,7 +23,6 @@ const AddCategoryDialog = () => {
 		name,
 		};
 		addCategory(payload);
-		setOpen(false);
 	}
 
 	return (

@@ -23,7 +23,7 @@ const AddShelfDialog = () => {
 			code,
 		};
 		addShelf(payload);
-		setOpen(false);
+	
 	}
 
 	return (

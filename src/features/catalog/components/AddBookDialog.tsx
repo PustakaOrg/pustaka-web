@@ -18,7 +18,6 @@ const AddBookDialog = () => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		addBook(form);
-		setOpen(false);
 	}, []);
 
 	return (

@@ -25,7 +25,6 @@ const AddPublisherDialog = () => {
        city
 		};
 		addPublisher(payload);
-		setOpen(false);
 	}
 
 	return (
