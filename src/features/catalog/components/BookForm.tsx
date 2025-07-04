@@ -223,6 +223,9 @@ const BookForm = ({ defaultValues, handleSubmit, error }: BookFormProps) => {
 					className="w-full"
 					required
 				/>
+					{error?.data?.title && (
+					<p className="text-xs text-destructive">{error.data.title[0]}</p>
+				)}
 			</div>
 
 			{/* ISBN Field */}
@@ -262,11 +265,16 @@ const BookForm = ({ defaultValues, handleSubmit, error }: BookFormProps) => {
 						id="stock"
 						name="stock"
 						type="number"
+						min={1}
+						max={1000}
 						defaultValue={defaultValues?.stock ?? 1}
 						placeholder="Masukkan Stok"
 						className="w-full"
 						required
+						
 					/>
+					{error?.data?.stock && (
+					<p className="text-xs text-destructive">{error.data.stock[0]}</p>
 				</div>
 				<div className="space-y-2">
 					<Label htmlFor="Stock" className="text-sm font-medium">
@@ -276,10 +284,15 @@ const BookForm = ({ defaultValues, handleSubmit, error }: BookFormProps) => {
 						id="available_stock"
 						name="available_stock"
 						type="number"
+						min={1}
+						max={1000}
 						defaultValue={defaultValues?.available_stock ?? 1}
 						placeholder="Masukkan Stok Tersedia"
 						className="w-full"
 					/>
+					{error?.data?.available_stock && (
+					<p className="text-xs text-destructive">{error.data.available_stock[0]}</p>
+					)}
 				</div>
 			</div>
 
@@ -299,6 +312,9 @@ const BookForm = ({ defaultValues, handleSubmit, error }: BookFormProps) => {
 						className="w-full"
 						required
 					/>
+					{error?.data?.pages && (
+					<p className="text-xs text-destructive">{error.data.pages[0]}</p>
+					)}
 				</div>
 
 				<div className="space-y-2">
@@ -316,6 +332,9 @@ const BookForm = ({ defaultValues, handleSubmit, error }: BookFormProps) => {
 						className="w-full"
 						required
 					/>
+					{error?.data?.publish_year && (
+					<p className="text-xs text-destructive">{error.data.publish_year[0]}</p>
+					)}
 				</div>
 			</div>
 			{/* Title Field */}
