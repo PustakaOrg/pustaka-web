@@ -6,7 +6,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "~/shared/components/ui/dialog";
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, use, useCallback, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import useAddPublisher from "../hooks/useAddPublisher";
 import { PostPublisherPayload } from "../api/postPublisher";
@@ -15,7 +15,7 @@ import PublisherForm from "./PublisherForm";
 const AddPublisherDialog = () => {
 	const { newPublisher, isPending, isError, error, addPublisher } = useAddPublisher();
 	const [open, setOpen] = useState(false);
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
@@ -25,7 +25,13 @@ const AddPublisherDialog = () => {
        city
 		};
 		addPublisher(payload);
-	}
+	}, [addPublisher]);
+
+	useEffect(() => {
+		if (!isPending && !isError) {
+			setOpen(false);
+		}
+	}, [isPending, isError]);
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>

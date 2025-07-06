@@ -23,7 +23,7 @@ const UpdateClassDialog = ({
 	onOpenChange,
 }: UpdateClassDialogProps) => {
 	const { updateClass, isPending , isError, error } = useUpdateClass();
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
@@ -31,7 +31,13 @@ const UpdateClassDialog = ({
 			name,
 		};
 		updateClass({ id: _class.id, payload });
-	}
+	}, [updateClass, _class]);
+
+	useCallback(() => {
+		if (!isPending && !isError) {
+			onOpenChange(false);
+		}
+	}, [isPending, isError]);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

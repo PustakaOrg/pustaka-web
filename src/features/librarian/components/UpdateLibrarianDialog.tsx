@@ -9,6 +9,7 @@ import {
 import LibrarianForm, { LibrarianFormData } from "./LibrarianForm";
 import useUpdateLibrarian from "../hooks/useUpdateLibrarian";
 import { PatchLibrarianPayload } from "../api/patchLibrarian";
+import { useEffect } from "react";
 
 interface UpdateBookDialogProps {
 	librarian: Librarian;
@@ -22,6 +23,7 @@ const UpdateLibrarianDialog = ({
 	onOpenChange,
 }: UpdateBookDialogProps) => {
 	const { updateLibrarian, error } = useUpdateLibrarian();
+	
 	const handleSubmit = (data: LibrarianFormData) => {
 		const payload: PatchLibrarianPayload = {
 			account: {
@@ -34,6 +36,7 @@ const UpdateLibrarianDialog = ({
 		if (data.password) payload.account.password = data.password;
 		updateLibrarian({ id: librarian.id, data: payload });
 	};
+
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">

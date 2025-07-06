@@ -9,16 +9,24 @@ import {
 } from "~/shared/components/ui/dialog";
 import MemberForm from "./MemberForm";
 import useAddMember from "../hooks/useAddMember";
-import { FormEvent, useCallback, useEffect } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 
 const AddMemberDialog = () => {
   const { isPending, isError, error, addMember } = useAddMember();
+  const [open, setOpen] = useState(false);
   const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    addMember(form);
-  }, []);
+    addMember(form); 
+    }, [addMember]);
+
+  useEffect(() => {
+    if (!isPending && !isError) {
+      setOpen(false);
+    }
+  }, [isPending, isError]);
+
    return (
     <Dialog>
       <DialogTrigger asChild className="cursor-pointer">

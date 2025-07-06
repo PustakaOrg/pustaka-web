@@ -4,7 +4,7 @@ import {
 	DialogFooter,
 	DialogTitle,
 } from "~/shared/components/ui/dialog";
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useEffect } from "react";
 import { Publisher } from "~/types/entities/Publisher";
 import useUpdatePublisher from "../hooks/useUpdatePublisher";
 import { PatchPublisherPayload } from "../api/patchPublisher";
@@ -22,7 +22,7 @@ const UpdatePublisherDialog = ({
 	onOpenChange,
 }: UpdatePublisherDialogProps) => {
 	const { updatePublisher, isPending, isError, error } = useUpdatePublisher();
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
@@ -32,8 +32,13 @@ const UpdatePublisherDialog = ({
 			city,
 		};
 		updatePublisher({ id: publisher.id, payload });
-		
-	};
+	}, [updatePublisher, publisher]);
+
+	useEffect(() => {
+		if (!isPending && !isError) {
+			onOpenChange(false);
+		}
+	}, [isPending, isError]);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

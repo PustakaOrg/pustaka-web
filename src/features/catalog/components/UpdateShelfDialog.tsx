@@ -4,7 +4,7 @@ import {
 	DialogFooter,
 	DialogTitle,
 } from "~/shared/components/ui/dialog";
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useEffect } from "react";
 import { Shelf } from "~/types/entities/Shelf";
 import useUpdateShelf from "../hooks/useUpdateShelf";
 import { PatchShelfPayload } from "../api/patchShelf";
@@ -23,7 +23,7 @@ const UpdateShelfDialog = ({
 	onOpenChange,
 }: UpdateShelfDialogProps) => {
 	const { updateShelf, isPending , isError, error } = useUpdateShelf();
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const code = String(form.get("code"));
@@ -31,8 +31,13 @@ const UpdateShelfDialog = ({
 			 code,
 		};
 		updateShelf({ id: shelf.id, payload });
-	
-	}
+	}, [updateShelf, shelf]);
+
+	useEffect(() => {
+		if (!isPending && !isError) {
+			onOpenChange(false);
+		}
+	}, [isPending, isError]);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

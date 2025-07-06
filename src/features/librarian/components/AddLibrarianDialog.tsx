@@ -11,12 +11,14 @@ import useAddLibrarian from "../hooks/useAddLibrarian";
 import useProfile from "~/features/auth/hooks/useProfile";
 import { isAdminObject } from "~/features/auth/utils/util";
 import { PostLibrarianPayload } from "../api/postLibrarian";
+import { useCallback, useEffect, useState } from "react";
 
 const AddLibrarianDialog = () => {
-	const { newLibrarian, addLibrarian, error } = useAddLibrarian();
+	const { newLibrarian, isPending, isError, addLibrarian, error } = useAddLibrarian();
 	const { profile } = useProfile();
+	const [open, setOpen] = useState(false);
 
-	const handleSubmit = (data: LibrarianFormData) => {
+	const handleSubmit = useCallback((data: LibrarianFormData) => {
 		if (isAdminObject(profile)) {
 			const payload: PostLibrarianPayload = {
 				account: {
@@ -29,9 +31,16 @@ const AddLibrarianDialog = () => {
 			};
 			addLibrarian(payload);
 		}
-	};
+	}, [addLibrarian]);
+
+	useEffect(() => {
+		if (!isPending && !isError) {
+			setOpen(false);
+		}
+	}, [isPending, isError]);
+
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />

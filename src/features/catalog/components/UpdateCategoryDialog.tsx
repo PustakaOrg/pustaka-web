@@ -4,7 +4,7 @@ import {
 	DialogFooter,
 	DialogTitle,
 } from "~/shared/components/ui/dialog";
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useEffect } from "react";
 import { Category } from "~/types/entities/Category";
 import useUpdateCategory from "../hooks/useUpdateCategory";
 import { PatchCategoryPayload } from "../api/patchCategory";
@@ -23,7 +23,7 @@ const UpdateCategoryDialog = ({
 	onOpenChange,
 }: UpdateCategoryDialogProps) => {
 	const { updateCategory, isPending , isError, error } = useUpdateCategory();
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
@@ -31,8 +31,13 @@ const UpdateCategoryDialog = ({
 			name,
 		};
 		updateCategory({ id: category.id, payload });
+	}, [updateCategory]);
 
-	}
+	useEffect(() => {
+		if (!isPending && !isError) {
+			onOpenChange(false);
+		}
+	}, [isPending, isError]);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

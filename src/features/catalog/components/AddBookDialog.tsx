@@ -20,6 +20,12 @@ const AddBookDialog = () => {
 		addBook(form);
 	}, []);
 
+	useEffect(() => {
+		if (!isPending && !isError) {
+			setOpen(false);
+		}
+	}, [isPending, isError]);
+
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild className="cursor-pointer">

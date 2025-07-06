@@ -4,7 +4,7 @@ import {
 	DialogFooter,
 	DialogTitle,
 } from "~/shared/components/ui/dialog";
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useEffect } from "react";
 import { Author } from "~/types/entities/Author";
 import useUpdateAuthor from "../hooks/useUpdateAuthor";
 import { PatchAuthorPayload } from "../api/patchAuthor";
@@ -23,7 +23,7 @@ const UpdateAuthorDialog = ({
 	onOpenChange,
 }: UpdateAuthorDialogProps) => {
 	const { updateAuthor, isPending , isError, error } = useUpdateAuthor();
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
@@ -31,8 +31,13 @@ const UpdateAuthorDialog = ({
 			fullname: name,
 		};
 		updateAuthor({ id: author.id, payload });
-		
-	}
+	}, [updateAuthor]);
+
+	useEffect(() => {
+		if (!isPending && !isError) {
+			onOpenChange(false);
+		}
+	}, [isPending, isError]);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

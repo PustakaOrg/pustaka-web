@@ -6,7 +6,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "~/shared/components/ui/dialog";
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import useAddShelf from "../hooks/useAddShelf";
 import { PostShelfPayload } from "../api/postShelf";
@@ -15,7 +15,7 @@ import ShelfForm from "./ShelfForm";
 const AddShelfDialog = () => {
 	const { newShelf, isPending, isError, error, addShelf } = useAddShelf();
 	const [open, setOpen] = useState(false);
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const code = String(form.get("code"));
@@ -23,8 +23,13 @@ const AddShelfDialog = () => {
 			code,
 		};
 		addShelf(payload);
-	
-	}
+	}, [addShelf]);
+
+	useEffect(() => {
+		if (!isPending && !isError) {
+			setOpen(false);
+		}
+	}, [isPending, isError]);
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>

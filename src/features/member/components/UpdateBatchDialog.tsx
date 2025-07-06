@@ -4,7 +4,7 @@ import {
 	DialogFooter,
 	DialogTitle,
 } from "~/shared/components/ui/dialog";
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useEffect } from "react";
 import { Batch } from "~/types/entities/Batch";
 import useUpdateBatch from "../hooks/useUpdateBatch";
 import { PatchBatchPayload } from "../api/patchBatch";
@@ -23,7 +23,7 @@ const UpdateBatchDialog = ({
 	onOpenChange,
 }: UpdateBatchDialogProps) => {
 	const { updateBatch, isPending , isError, error } = useUpdateBatch();
-	const handleSubmit =(e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit =useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
@@ -31,7 +31,13 @@ const UpdateBatchDialog = ({
 			name,
 		};
 		updateBatch({ id: batch.id, payload });
-	}
+	}, [updateBatch]);
+
+	useEffect(() => {
+		if (!isPending && !isError) {
+			onOpenChange(false);
+		}
+	}, [isPending, isError]);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

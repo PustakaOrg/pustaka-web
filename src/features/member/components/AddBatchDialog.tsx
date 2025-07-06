@@ -5,7 +5,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "~/shared/components/ui/dialog";
-import { FormEvent, useCallback } from "react";
+import { FormEvent, use, useCallback, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import useAddBatch from "../hooks/useAddBatch";
 import { PostBatchPayload } from "../api/postBatch";
@@ -13,7 +13,8 @@ import BatchForm from "./BatchForm";
 
 const AddBatchDialog = () => {
 	const { newBatch, isPending, isError, error, addBatch } = useAddBatch();
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const [open, setOpen] = useState(false);
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const name = String(form.get("name"));
@@ -21,10 +22,16 @@ const AddBatchDialog = () => {
 			name,
 		};
 		addBatch(payload);
-	}
+	}, [addBatch]);
+
+	useEffect(() => {
+		if (!isPending && !isError) {
+			setOpen(false);
+		}
+	}, [isPending, isError]);
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild className="cursor-pointer">
 				<Button>
 					<Plus />

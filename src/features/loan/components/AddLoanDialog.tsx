@@ -8,7 +8,7 @@ import {
 } from "~/shared/components/ui/dialog";
 import { Plus } from "lucide-react";
 import LoanForm from "./LoanForm";
-import { FormEvent, ReactNode, useState } from "react";
+import { FormEvent, ReactNode, useCallback, useEffect, useState } from "react";
 import { formatDateYYYYMMDD } from "~/shared/utils/functions";
 import { PostLoanPayload } from "../api/postLoan";
 import useAddLoan from "../hooks/useAddLoan";
@@ -21,9 +21,9 @@ interface AddLoanDialogProps {
 
 const AddLoanDialog = ({ trigger }: AddLoanDialogProps) => {
 	const { profile, isPending: profilePending } = useProfile();
-	const { newLoan,  addLoan, isPending } = useAddLoan();
+	const { newLoan,  addLoan, isPending, isError } = useAddLoan();
 	const [open, setOpen] = useState(false);
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit =  useCallback((e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget);
 		const book = String(form.get("book"));
@@ -41,10 +41,15 @@ const AddLoanDialog = ({ trigger }: AddLoanDialogProps) => {
 				approved_by: profile.id,
 			};
 			addLoan(payload);
-      
-			// setOpen(false);
 		}
-	};
+	}, [addLoan, profile]);
+
+	useEffect(() => {
+		if (!isPending && !isError && open && newLoan) {
+			setOpen(false);
+		}
+	}, [isPending, isError, open, newLoan]);
+
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>{trigger}</DialogTrigger>

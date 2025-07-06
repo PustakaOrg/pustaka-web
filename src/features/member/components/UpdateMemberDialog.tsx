@@ -5,7 +5,7 @@ import {
 	DialogTitle,
 } from "~/shared/components/ui/dialog";
 import MemberForm from "./MemberForm";
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useEffect } from "react";
 import { Member } from "~/types/entities/Member";
 import useUpdateMember from "../hooks/useUpdateMember";
 
@@ -38,7 +38,13 @@ const UpdateMemberDialog = ({
 			form.delete("account.password");
 		}
 		updateMember({ memberId: member.id, data: form });
-	}, []);
+	}, [updateMember]);
+	
+	useEffect(() => {
+		if (!isPending && !isError) {
+			onOpenChange(false);
+		}
+	}, [isPending, isError]);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
