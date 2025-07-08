@@ -33,11 +33,6 @@ const UpdateBatchDialog = ({
 		updateBatch({ id: batch.id, payload });
 	}, [updateBatch]);
 
-	useEffect(() => {
-		if (!isPending && !isError) {
-			onOpenChange(false);
-		}
-	}, [isPending, isError]);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

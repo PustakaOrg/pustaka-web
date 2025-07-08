@@ -33,11 +33,7 @@ const UpdateClassDialog = ({
 		updateClass({ id: _class.id, payload });
 	}, [updateClass, _class]);
 
-	useCallback(() => {
-		if (!isPending && !isError) {
-			onOpenChange(false);
-		}
-	}, [isPending, isError]);
+
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

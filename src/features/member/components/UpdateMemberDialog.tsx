@@ -21,36 +21,38 @@ const UpdateMemberDialog = ({
 	onOpenChange,
 }: UpdateMemberDialogProps) => {
 	const { isPending, isError, error, updateMember } = useUpdateMember();
-	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const form = new FormData(e.currentTarget);
-		const email = String(form.get("account.email"));
-		const password = String(form.get("account.password"));
-		const nis = String(form.get("nis"));
-		if (email === member.account.email) {
-			form.delete("account.email");
-		}
+	const handleSubmit = useCallback(
+		(e: FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
+			const form = new FormData(e.currentTarget);
+			console.log(form);
+			const email = String(form.get("account.email"));
+			const password = String(form.get("account.password"));
+			const nis = String(form.get("nis"));
+			if (email === member.account.email) {
+				form.delete("account.email");
+			}
 
-		if (nis === member.nis) {
-			form.delete("nis");
-		}
-		if (!password) {
-			form.delete("account.password");
-		}
-		updateMember({ memberId: member.id, data: form });
-	}, [updateMember]);
-	
-	useEffect(() => {
-		if (!isPending && !isError) {
-			onOpenChange(false);
-		}
-	}, [isPending, isError]);
+			if (nis === member.nis) {
+				form.delete("nis");
+			}
+			if (!password) {
+				form.delete("account.password");
+			}
+			updateMember({ memberId: member.id, data: form });
+		},
+		[updateMember],
+	);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
 				<DialogTitle>Edit Member</DialogTitle>
-				<MemberForm handleSubmit={handleSubmit} defaultValues={member} error={error} />
+				<MemberForm
+					handleSubmit={handleSubmit}
+					defaultValues={member}
+					error={error}
+				/>
 			</DialogContent>
 			<DialogFooter></DialogFooter>
 		</Dialog>
