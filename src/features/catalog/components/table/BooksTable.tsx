@@ -60,6 +60,7 @@ const BooksTable = React.memo(
 
 			if (action === "edit") {
 				openEditDialog(book);
+        console.log("EDIT")
 			}
 
 			if (action === "delete") {

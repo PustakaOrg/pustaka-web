@@ -21,28 +21,31 @@ interface AddLoanDialogProps {
 
 const AddLoanDialog = ({ trigger }: AddLoanDialogProps) => {
 	const { profile, isPending: profilePending } = useProfile();
-	const { newLoan,  addLoan, isPending, isError } = useAddLoan();
+	const { newLoan, addLoan, isPending, isError, error } = useAddLoan();
 	const [open, setOpen] = useState(false);
-	const handleSubmit =  useCallback((e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const form = new FormData(e.currentTarget);
-		const book = String(form.get("book"));
-		const borrower = String(form.get("borrower"));
-		const day = Number(form.get("day"));
-		const today = new Date();
-		const returnDate = new Date(today);
-		returnDate.setDate(today.getDate() + day);
-		if (profile && isLibrarianObject(profile)) {
-			const payload: PostLoanPayload = {
-				book,
-				borrower,
-				loan_date: formatDateYYYYMMDD(today),
-				return_date: formatDateYYYYMMDD(returnDate),
-				approved_by: profile.id,
-			};
-			addLoan(payload);
-		}
-	}, [addLoan, profile]);
+	const handleSubmit = useCallback(
+		(e: FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
+			const form = new FormData(e.currentTarget);
+			const book = String(form.get("book"));
+			const borrower = String(form.get("borrower"));
+			const day = Number(form.get("day"));
+			const today = new Date();
+			const returnDate = new Date(today);
+			returnDate.setDate(today.getDate() + day);
+			if (profile && isLibrarianObject(profile)) {
+				const payload: PostLoanPayload = {
+					book,
+					borrower,
+					loan_date: formatDateYYYYMMDD(today),
+					return_date: formatDateYYYYMMDD(returnDate),
+					approved_by: profile.id,
+				};
+				addLoan(payload);
+			}
+		},
+		[addLoan, profile],
+	);
 
 	useEffect(() => {
 		if (!isPending && !isError && open && newLoan) {
@@ -55,7 +58,7 @@ const AddLoanDialog = ({ trigger }: AddLoanDialogProps) => {
 			<DialogTrigger asChild>{trigger}</DialogTrigger>
 			<DialogContent className="min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
 				<DialogTitle>Peminjaman</DialogTitle>
-				<LoanForm handleSubmit={handleSubmit} />
+				<LoanForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>
 		</Dialog>

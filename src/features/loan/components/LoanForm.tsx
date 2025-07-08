@@ -12,8 +12,9 @@ import { Loan } from "~/types/entities/Loan";
 interface LoanFormProps {
 	defaultValues?: Loan;
 	handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+	error?: unknown;
 }
-const LoanForm = ({ handleSubmit }: LoanFormProps) => {
+const LoanForm = ({ handleSubmit, error }: LoanFormProps) => {
 	const [book, setBook] = useState("");
 	const [member, setMember] = useState("");
 	const { settings } = useSettings();
@@ -27,7 +28,7 @@ const LoanForm = ({ handleSubmit }: LoanFormProps) => {
 					</Label>
 					<div className="flex gap-2">
 						<div className="grow">
-							<BookCombobox book={book}  setBook={setBook} />
+							<BookCombobox book={book} setBook={setBook} />
 						</div>
 					</div>
 					{book && <input hidden name="book" value={book} readOnly />}
@@ -51,14 +52,17 @@ const LoanForm = ({ handleSubmit }: LoanFormProps) => {
 						type="number"
 						name="day"
 						max={settings?.max_loan_day}
-            min={1}
+						min={1}
 						placeholder="Lama peminjamana"
 						required
 					/>
-						<p className="text-xs text-muted-foreground">
-							Maksimal penjaman adalah {settings?.max_loan_day} hari
-						</p>
+					<p className="text-xs text-muted-foreground">
+						Maksimal penjaman adalah {settings?.max_loan_day} hari
+					</p>
 				</div>
+				{error?.data?.detail && (
+					<p className="text-xs text-destructive">{error.data.detail}</p>
+				)}
 				<Button type="submit" className="w-full" disabled={!book || !member}>
 					Submit
 				</Button>

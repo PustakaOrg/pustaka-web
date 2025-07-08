@@ -34,11 +34,6 @@ const UpdateBookDialog = ({
 		updateBook({ bookId: book.id, data: form });
 	}, [book.isbn, book.id, updateBook]); 
 
-	useEffect(() => {
-		if (!isPending && !isError && isOpen) {
-			onOpenChange(false);
-		}
-	}, [isPending, isError, isOpen, onOpenChange]);
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

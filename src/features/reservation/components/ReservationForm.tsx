@@ -13,10 +13,12 @@ import { Reservation } from "~/types/entities/Reservation";
 interface ReservationFormProps {
 	defaultValues?: Partial<Reservation>;
 	handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+	error?: unknown;
 }
 const ReservationForm = ({
 	defaultValues,
 	handleSubmit,
+	error,
 }: ReservationFormProps) => {
 	const [book, setBook] = useState(defaultValues?.book?.id ?? "");
 	const [member, setMember] = useState(defaultValues?.reservant?.id ?? "");
@@ -82,6 +84,9 @@ const ReservationForm = ({
 						</p>
 					</div>
 				</div>
+				{error?.data?.detail && (
+					<p className="text-xs text-destructive">{error.data.detail}</p>
+				)}
 
 				<Button type="submit" className="w-full" disabled={!date}>
 					Submit

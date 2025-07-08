@@ -16,6 +16,7 @@ import ReservationDetailDialog from "./ReservationDetailDialog";
 import useDeleteReservation from "../hooks/useDeleteReservation";
 import useDialogWithData from "~/shared/hooks/useDialogWithData";
 import DeleteEntityAlertDialog from "~/shared/components/DeleteEntityDialog";
+import useConvertReservation from "../hooks/useConvertReservation";
 
 interface ReservationTableProps {
 	reservationList: PaginatedResponse<Reservation>;
@@ -37,6 +38,7 @@ const ReservationTable = ({
 	const { updateReservation } = useUpdateReservationStatus();
 	const { addLoan } = useAddLoan();
 	const { deleteReservation } = useDeleteReservation();
+	const { convertReservation } = useConvertReservation();
 	const { reservation, isOpen, openDialog, closeDialog } =
 		useReservationDialog();
 	const {
@@ -70,23 +72,7 @@ const ReservationTable = ({
 				});
 			}
 			if (action == "covert-loan") {
-				updateReservation({
-					reservationId: reservation.id,
-					payload: { status: "completed" },
-				});
-				const today = new Date();
-				const addLoanPayload: PostLoanPayload = {
-					book: reservation.book.id,
-					borrower: reservation.reservant.id,
-					approved_by: profile.id,
-					loan_date: format(today, "yyyy-MM-dd"),
-					return_date: format(
-						addDays(today, reservation.day_to_loan),
-						"yyyy-MM-dd",
-					),
-					status: "active",
-				};
-				addLoan(addLoanPayload);
+				convertReservation({ reservationId: reservation.id });
 			}
 		}
 		if (action === "delete") {

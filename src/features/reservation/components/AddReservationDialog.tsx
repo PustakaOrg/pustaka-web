@@ -18,7 +18,7 @@ import { format } from "date-fns";
 
 const AddReservationDialog = () => {
 	const { profile, isPending: profilePending } = useProfile();
-	const { addReservation } = useAddReservation();
+	const { addReservation, error } = useAddReservation();
 	const [open, setOpen] = useState(false);
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -50,7 +50,7 @@ const AddReservationDialog = () => {
 			</DialogTrigger>
 			<DialogContent className="min-w-[90vw] lg:min-w-[70vw] max-h-[98vh] overflow-y-auto">
 				<DialogTitle>Tambah Reservasi</DialogTitle>
-				<ReservationForm handleSubmit={handleSubmit} />
+				<ReservationForm handleSubmit={handleSubmit} error={error} />
 			</DialogContent>
 			<DialogFooter></DialogFooter>
 		</Dialog>

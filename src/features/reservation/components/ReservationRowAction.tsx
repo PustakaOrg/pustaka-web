@@ -61,27 +61,16 @@ const ReservationRowAction = ({
 							</DropdownMenuItem>
 						)}
 
-						{reservation.status === "ready" &&
-							reservation.book.available_stock > 0 && (
-								<DropdownMenuItem
-									onClick={() => {
-										onAction("covert-loan", reservation);
-									}}
-								>
-									<BookOpen className="mr-2 h-4 w-4" />
-									Ubah ke Peminjaman
-								</DropdownMenuItem>
-							)}
-
-						{reservation.status === "ready" &&
-							reservation.book.available_stock == 0 && (
-								<>
-									<DropdownMenuItem disabled>
-										<X className="mr-2 h-4 w-4" />
-										Buku tidak tersedia{" "}
-									</DropdownMenuItem>
-								</>
-							)}
+						{reservation.status === "ready" && (
+							<DropdownMenuItem
+								onClick={() => {
+									onAction("covert-loan", reservation);
+								}}
+							>
+								<BookOpen className="mr-2 h-4 w-4" />
+								Ubah ke Peminjaman
+							</DropdownMenuItem>
+						)}
 					</>
 				)}
 				{profile && (isLibrarianObject(profile) || isAdminObject(profile)) && (
