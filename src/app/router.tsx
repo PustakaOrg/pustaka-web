@@ -5,8 +5,9 @@ import RequireAdmin from "~/features/auth/components/RequireAdmin";
 import RequireAdminOrLibrarian from "~/features/auth/components/RequireAdminOrLibrarian";
 import { RequireAuth } from "~/features/auth/components/RequireAuth";
 import DashboardLayout from "~/features/dashboard/components/SidebarLayout";
-import AboutPage from "~/pages/AboutPage";
+import  AboutPageHome from "~/pages/AboutPage";
 import CatalogPage from "~/pages/CatalogPage";
+import AboutPage from "~/pages/dashboard/AboutPage";
 import DashboardBookPage from "~/pages/dashboard/books/DashboardBookPage";
 import DashboardFinesPage from "~/pages/dashboard/fines/DashboardFinesPage";
 import DashboardHomePage from "~/pages/dashboard/home/DashboardHomePage";
@@ -28,7 +29,7 @@ const Router = () => {
 				<Route path="/" element={<LandingLayout />}>
 					<Route index element={<LandingPage />} />
 					<Route path="/catalog" element={<CatalogPage />} />
-					<Route path="/about" element={<AboutPage />} />
+					<Route path="/about" element={<AboutPageHome />} />
 				</Route>
 				<Route path="/login" element={<LoginPage />} />
 				<Route
@@ -39,6 +40,13 @@ const Router = () => {
 						</RequireAuth>
 					}
 				>
+        <Route
+          path="/dashboard/about"
+          element={
+            <AboutPage />
+          }
+          />
+          
 					<Route index element={<DashboardHomePage />} />
 					<Route
 						path="/dashboard/books"

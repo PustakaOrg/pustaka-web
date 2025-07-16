@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { getAuthorList, GetAuthorListParams } from "../api/getAuthorList";
 
 const useAuthorList = (params?: GetAuthorListParams) => {
