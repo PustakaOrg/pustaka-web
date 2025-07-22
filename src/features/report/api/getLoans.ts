@@ -1,6 +1,5 @@
 import { api } from "~/shared/utils/api";
 import { BaseListParams } from "~/types/BaseListParams";
-import { Loan, LoanStatus } from "~/types/entities/Loan";
 import { PaginatedResponse } from "~/types/responses";
 import { PopularLoan } from "../type/PopularLoan";
 
