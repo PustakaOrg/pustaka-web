@@ -35,9 +35,58 @@ import {
 } from "~/shared/components/ui/chart";
 import { PopularLoanListParams } from "~/features/report/api/getLoans";
 import usePopularLoanList from "~/features/report/type/usePopularLoanList";
+import { getReportPdf, ReportParams } from "~/features/report/api/getReportPdf";
+import { Button } from "~/shared/components/ui/button";
+
+const base = import.meta.env.VITE_API_BASE_URL;
 
 const DashboardReportPage = () => {
 	const [reportType, setReportType] = useState("popular");
+
+	const months = [
+		{ value: "1", label: "Januari" },
+		{ value: "2", label: "Februari" },
+		{ value: "3", label: "Maret" },
+		{ value: "4", label: "April" },
+		{ value: "5", label: "Mei" },
+		{ value: "6", label: "Juni" },
+		{ value: "7", label: "Juli" },
+		{ value: "8", label: "Agustus" },
+		{ value: "9", label: "September" },
+		{ value: "10", label: "Oktober" },
+		{ value: "11", label: "November" },
+		{ value: "12", label: "Desember" },
+	];
+
+	const currentYear = new Date().getFullYear();
+	const years = Array.from({ length: 5 }, (_, index) =>
+		String(currentYear - index),
+	); // Last 5 years
+
+	const [reportParam, setReportParam] = useState<ReportParams>(() => {
+		const currentDate = new Date();
+		return {
+			month: String(currentDate.getMonth() + 1),
+			year: String(currentDate.getFullYear()),
+		};
+	});
+
+	const handleDownload = async () => {
+		const url = `${base}reports/`;
+		const params = new URLSearchParams(
+			reportParam as unknown as Record<string, string>,
+		).toString(); // Convert report parameters to query string
+		const reportUrl = `${url}?${params}`; // Construct the full URL with parameters
+		window.open(reportUrl, "_blank"); // Open the URL in a new tab	};
+	};
+
+	const handleMonthChange = (value: string) => {
+		setReportParam((prev) => ({ ...prev, month: value }));
+	};
+
+	const handleYearChange = (value: string) => {
+		setReportParam((prev) => ({ ...prev, year: value }));
+	};
 
 	const [dateRange, setDateRange] = useState<DateRange>({
 		from: subDays(startOfToday(), 29),
@@ -61,6 +110,54 @@ const DashboardReportPage = () => {
 				title="Report"
 				subtitle="Buat dan lihat data perpustakaan"
 			/>
+
+			<Card>
+				<CardHeader>
+					<CardTitle>Download Laporan</CardTitle>
+					<CardDescription>Generate laporan dalam bentuk pdf.</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<div className="grid gap-6 grid-cols-2 ">
+						<div className="space-y-2 w-full">
+							<label className="text-sm font-bold">Bulan</label>
+							<Select
+								value={reportParam.month}
+								onValueChange={handleMonthChange}
+							>
+								<SelectTrigger className="w-full">
+									<SelectValue placeholder="Select month" />
+								</SelectTrigger>
+								<SelectContent>
+									{months.map((month) => (
+										<SelectItem key={month.value} value={month.value}>
+											{month.label}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+						</div>
+						<div className="space-y-2 w-full">
+							<label className="text-sm font-bold">Tahun</label>
+							<Select value={reportParam.year} onValueChange={handleYearChange}>
+								<SelectTrigger className="w-full">
+									<SelectValue placeholder="Select year" />
+								</SelectTrigger>
+								<SelectContent>
+									{years.map((year) => (
+										<SelectItem key={year} value={year}>
+											{year}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+						</div>
+
+						<div className="space-y-2 w-full place-items-center">
+							<Button onClick={handleDownload}>Download Laporan</Button>
+						</div>
+					</div>
+				</CardContent>
+			</Card>
 
 			<Card>
 				<CardHeader>
